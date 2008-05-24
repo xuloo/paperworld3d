@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute"
+				xmlns:pw="com.paperworld.controls.flex.*"
+				xmlns:jdi="jedai.controls.flex.data.*" 
+				creationComplete="initialise()">
+					
+	<mx:Script>
+	<![CDATA[
+		import com.paperworld.rpc.timer.events.IntegrationEvent;
+		import com.paperworld.rpc.timer.GameTimer;
+		import jedai.net.rpc.Red5Connection;
+		import jedai.Red5BootStrapper;
+		import jedai.events.Red5Event;
+		import examples.SimpleAvatar;
+		import com.paperworld.rpc.player.RemotePlayer;
+		import org.papervision3d.objects.primitives.Plane;
+		import com.paperworld.PaperWorld;
+		import com.blitzagency.xray.logger.XrayLog;
+		
+		private var logger:XrayLog = new XrayLog();
+		
+		private var _player:RemotePlayer;
+		
+		public function initialise():void
+		{
+			Red5BootStrapper.getInstance().addEventListener(Red5Event.CONNECTED, onConnected);
+		}
+		
+		public function onConnected(event : Red5Event) : void 
+		{
+			login.visible = false;
+			
+			PaperWorld.getInstance().initialise(stage);
+			
+			_player = new RemotePlayer();
+			_player.avatar = new SimpleAvatar();
+			
+			_player.client = Red5BootStrapper.getInstance().client;
+			
+			remoteCanvas.connect();
+			remoteCanvas.addPlayer(_player);	
+			
+			remoteCanvas.startRendering();		
+
+			//_player.client = Red5BootStrapper.getInstance().client;
+			//Red5BootStrapper.getInstance().connection.call( "paperworld.connectToZone", new Responder( connectionHandler ), _player.username, "spacezone" );
+
+		}
+		
+		public function connectionHandler(object:*):void 
+		{
+			_player.avatar.name = _player.username;
+			_player.connection = Red5BootStrapper.getInstance().connection;
+			logger.info("player.connection: " + _player.connection  + " red5 connection:@ " + Red5BootStrapper.getInstance().connection);
+			remoteCanvas.addChild3D(_player.avatar);
+			remoteCanvas.startRendering();
+			
+			GameTimer.getInstance().addEventListener(IntegrationEvent.INTEGRATION_EVENT, _player.avatar.update);
+			GameTimer.getInstance().addEventListener(IntegrationEvent.INTEGRATION_EVENT, _player.handleInput);
+			GameTimer.getInstance().start();
+		}
+	]]>
+	</mx:Script>
+	
+	<jdi:Login id="login" horizontalCenter="-43" verticalCenter="2"/>
+	<pw:RemoteCanvas id="remoteCanvas" zone="spacezone" x="250" y="81" width="300" height="300"/>
+	
+</mx:Application>

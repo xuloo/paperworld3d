@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="WEB-INF/src"/>
+	<classpathentry kind="src" path="src/core"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Users/Trevor/workspace/red5_server/red5.jar"/>
+	<classpathentry kind="lib" path="D:/projects/jedai/server/jedai/WEB-INF/lib/jedai.jar"/>
+	<classpathentry kind="lib" path="D:/projects/jedai/server/jedai/WEB-INF/lib/slf4j-api-1.4.3.jar"/>
+	<classpathentry kind="output" path="WEB-INF/classes"/>
+</classpath>

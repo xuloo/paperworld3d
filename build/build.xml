@@ -1,0 +1,125 @@
+<project name="build-paperworld" default="build" basedir=".">
+
+	<property file="build.properties"/>
+	
+	<taskdef resource="flexTasks.tasks" classpath="flexTasks.jar" />
+	<taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask" classpath="lib/xmltask-v1.15.1.jar"/>
+	<taskdef classpath="lib/ant-contrib-1.0b3.jar" resource="net/sf/antcontrib/antlib.xml"/>
+
+
+	<target name="build">
+		
+	</target>
+	
+	<target name="build-external-libraries">
+		
+		<for list="${external.libraries}" param="library">
+			<sequential>			
+				
+				<echo>Building Module => @{library}</echo>
+				
+				<antcall target="build-external-library">
+					<param name="name" value="@{library}"/>
+					<param name="src.dir" value="${@{library}.src.dir}"/>
+				</antcall>
+				
+			</sequential>
+		</for>
+		
+	</target>
+
+	<target name="build-external-library">
+		<echo>building ${name} library </echo>
+		
+		<antcall target="create-config-file">
+			<param name="src.dir" value="${src.dir}" />
+			<!--param name="deploy.dir" value="${deploy.dir}"/>
+			<param name="requires" value="${requires}" /-->
+		</antcall>
+		
+		<!-- build the list of actionscript classes in the source path -->
+		<path id="original.path">
+			<fileset dir="${src.dir}">
+				<include name="**/*.as"/>
+			</fileset>
+		</path>
+		
+		<!-- edit the path names to make sure they start with 'com' -->
+		<path id="base.path" path="${src.dir}/"/>
+		<pathconvert refid="base.path" property="base.path.prop"/>
+		
+		<!-- convert the directory seperators from os-specific to the '.' seperator -->
+		<pathconvert refid="original.path" property="converted.path" dirsep="." pathsep=" ">
+			<mapper type="glob" from="${base.path.prop}\*.as" to="*"/>
+		</pathconvert>
+			
+		<!--echo>Source directory => ${src.dir}</echo-->
+		<echo>Converted path => ${converted.path}</echo>
+		
+		<!-- call the compiler -->
+		<antcall target="compile-compc">
+			<param name="classes" value="${converted.path}"/>
+			<param name="output" value="../client/lib/${name}.swc"/>
+		</antcall>
+		
+	</target>
+	
+	<!-- Creates the config file for the compiler to read when building. All the source paths for all modules are added to
+		 this config file. -->
+	<target name="create-config-file" description="creates the config file that contains all source paths so allows all modules to build from same configuration">
+		
+		<echo>Creating config file: ${src.dir} => ${requires}</echo>
+		
+		<!-- copy the template file over and filter to include the playerglobal.swc component -->
+		<copy file="${template.dir}/${config.template.file}" todir=".">
+			<filterset>
+				<filter token="PLAYERGLOBAL" value="${playerglobal}"/>
+				<filter token="FRAMEWORK" value="${framework}"/>
+				<filter token="FLEX_HOME" value="${FLEX_HOME}"/>
+			</filterset>
+		</copy>
+		
+		<!-- rename the file -->
+		<move file="${config.template.file}" tofile="${config.file}"/>
+		
+		<antcall target="-add-config-path">
+			<param name="module" value="${src.dir}" />
+			<param name="path.attribute" value="/${flex.config.tag}/${compiler.tag}/${source.path.tag}"/>
+		</antcall>
+	
+		<!--for list="${requires}" param="required.library">
+			<sequential>			
+					
+				<antcall target="-add-config-path">
+					<param name="module" value="${basedir}/${@{required.library}.deploy.dir}/lib/library.swc" />
+					<param name="path.attribute" value="/${flex.config.tag}/${compiler.tag}/${external.library.tag}"/>
+				</antcall>
+				
+			</sequential>
+		</for-->
+
+	</target>
+	
+	<!-- Adds a path to the flex-config file for a module (either a source-path or external-library-path element -->
+	<target name="-add-config-path" description="adds a path-element to the flex config file for a module">
+		<echo>adding path: ${module}</echo>
+		<xmltask source="${config.file}" 
+				dest="${config.file}"
+				outputter="simple:3"
+		>
+			<insert path="${path.attribute}" xml="${open.path.element}${module}${close.path.element}"/>
+		</xmltask>
+	</target>
+	
+	<target name="compile-compc" >
+		<compc  
+           output="${output}"
+		   include-classes="${classes}"
+		   optimize="${optimize}"
+		   debug="${debug}"
+		>
+			<load-config filename="${config.file}"/>
+		</compc>
+	</target>
+	
+</project>

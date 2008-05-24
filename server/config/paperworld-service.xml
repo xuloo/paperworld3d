@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	
+	<bean id="paperworld.service" class="com.paperworld.core.PaperworldService" init-method="init">
+		<property name="application">
+			<ref bean="web.handler"/>
+		</property> 
+		<property name="scenes">
+			<map>
+				<entry key="spacezone"><ref bean="defaultZone"/></entry>
+				<entry key="bubblechatzone"><ref bean="bubbleChatZone"/></entry>
+			</map>
+		</property>
+	</bean>
+	
+	<bean id="defaultZone" class="com.paperworld.scenes.RemoteScene">
+		<property name="name" value="spacezone"/>
+		<property name="persistent" value="false"/>
+		<property name="service">
+			<ref bean="paperworld.service"/>
+		</property>
+		<property name="behaviour">
+			<ref bean="behaviour2D"/>
+		</property>
+	</bean>
+
+	<bean id="bubbleChatZone" class="com.paperworld.scenes.RemoteScene">
+		<property name="name" value="bubblechatzone"/>
+		<property name="persistent" value="false"/>
+		<property name="service">
+			<ref bean="paperworld.service"/>
+		</property>
+	</bean>
+	
+	<bean id="player" 
+		class="com.paperworld.core.player.Player" 
+		singleton="false">
+		<property name="avatar">
+			<ref bean="avatar"/>
+		</property>
+	</bean>
+	
+	<bean id="avatar" 
+		class="com.paperworld.core.avatar.Avatar"
+		singleton="false">
+		<property name="modelKey" value="examples.SimpleAvatar"/>
+	</bean>
+	
+	<bean id="behaviour2D" 
+		class="com.paperworld.core.avatar.behaviour.KinematicBehaviour2D"
+		singleton="false" />
+	
+</beans>
