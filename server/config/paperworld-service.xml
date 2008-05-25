@@ -9,7 +9,6 @@
 		<property name="scenes">
 			<map>
 				<entry key="spacezone"><ref bean="defaultZone"/></entry>
-				<entry key="bubblechatzone"><ref bean="bubbleChatZone"/></entry>
 			</map>
 		</property>
 	</bean>
@@ -22,14 +21,6 @@
 		</property>
 		<property name="behaviour">
 			<ref bean="behaviour2D"/>
-		</property>
-	</bean>
-
-	<bean id="bubbleChatZone" class="com.paperworld.scenes.RemoteScene">
-		<property name="name" value="bubblechatzone"/>
-		<property name="persistent" value="false"/>
-		<property name="service">
-			<ref bean="paperworld.service"/>
 		</property>
 	</bean>
 	
