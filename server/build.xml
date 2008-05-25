@@ -3,7 +3,7 @@
     xmlns:ivy="antlib:org.apache.ivy.ant">
 
     <description>
-      VideoJuggler Java class
+      PaperWorld3D build and deployment.
     </description>
      <!-- set global properties for this build -->
      <property name="app.name" value="${ant.project.name}"/>
@@ -15,8 +15,9 @@
 	 
 	 
      <property name="red5.dir" location="C:/Users/Trevor/workspace/red5_server"/>
-     <property name="dist.dir" location="${red5.dir}/webapps/jedai"/>
-     <property name="red5.app.dir" location="${red5.dir}/webapps/${app.name}"/>
+     
+     <property name="dist.dir" location="${red5.dir}/webapps/${app.name}"/>
+     <!-- property name="red5.app.dir" location="${red5.dir}/webapps/${app.name}"/ -->
      <property name="ivy.lib.dir" value="${build.dir}/lib"/>
      <property name="ivy.version" value="ivy-2.0.0-beta1" />
 	 
@@ -26,8 +27,8 @@
 
      <path id="classpath">
        <pathelement location="${red5.dir}/red5.jar"/>
-       <pathelement location="${red5.dir}/lib/*.jar"/>
-	   <pathelement location="${dist.dir}/WEB-INF/lib/jedai.jar"/>
+       <pathelement location="lib/jedai.jar"/>
+	   <!-- pathelement location="${dist.dir}/WEB-INF/lib/jedai.jar"/ -->
      </path>
 
      <target name="init">
@@ -67,26 +68,18 @@
      </target>
 	
      <target name="dist" description="generate the distribution" >
-       <!-- Copy over any native libraries -->
-       <!--copy todir="${dist.dir}/WEB-INF/lib">
-         <fileset dir="${build.dir}">
-           <include name="**/*.so"/>
-           <include name="**/*.a"/>
-           <include name="**/*.dll"/>
-           <include name="**/*.lib"/>
-         </fileset>
-       </copy-->
+ 
        <!-- Copy over all the Jar files we need -->
-       <copy todir="${dist.dir}/WEB-INF/lib" overwrite="true">
+       <copy todir="dist/WEB-INF/lib" overwrite="true">
          <fileset dir="lib">
            <include name="**/*.jar"/>
          </fileset>
-		 <fileset dir="${jedai.dir}/server/jedai/WEB-INF/lib">
+		 <!-- fileset dir="${jedai.dir}/server/jedai/WEB-INF/lib">
 			 <include name="jedai.jar"/>
-		 </fileset>
+		 </fileset-->
        </copy>
        <!-- Copy everything in the config directory to the top level dir -->
-       <copy todir="${dist.dir}/WEB-INF" overwrite="true">
+       <copy todir="dist/WEB-INF" overwrite="true">
          <fileset dir="config">
           <include name="**/*"/>
          </fileset>
@@ -102,7 +95,14 @@
            <include name="metadata/*"/>
          </fileset>
         </copy-->
+        
+        <!-- Now copy it from the local WEB-INF to the distribution/deployment directory -->
 		
+		<copy todir="${dist.dir}/WEB-INF" overwrite="true">
+			<fileset dir="dist/WEB-INF">
+				<include name="**/*"/>
+			</fileset>
+		</copy>
      </target>
 
      <target name="build-server" depends="compile, dist"

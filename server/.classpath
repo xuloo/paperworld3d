@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/core"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Users/Trevor/workspace/red5_server/red5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Trevor/Desktop/paperworld0_2/server/lib/asm.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Trevor/Desktop/paperworld0_2/server/lib/asm-attrs.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Trevor/Desktop/paperworld0_2/server/lib/c3p0-0.9.1.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Trevor/Desktop/paperworld0_2/server/lib/cglib-2.1.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Trevor/Desktop/paperworld0_2/server/lib/commons-collections-3.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Trevor/Desktop/paperworld0_2/server/lib/commons-dbcp-1.2.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Trevor/Desktop/paperworld0_2/server/lib/commons-fileupload.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Trevor/Desktop/paperworld0_2/server/lib/commons-io.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Trevor/Desktop/paperworld0_2/server/lib/commons-pool-1.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Trevor/Desktop/paperworld0_2/server/lib/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Trevor/Desktop/paperworld0_2/server/lib/ejb3-persistence.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Trevor/Desktop/paperworld0_2/server/lib/hibernate3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Trevor/Desktop/paperworld0_2/server/lib/hibernate-annotations.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Trevor/Desktop/paperworld0_2/server/lib/hibernate-commons-annotations.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Trevor/Desktop/paperworld0_2/server/lib/ivy-2.0.0-beta1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Trevor/Desktop/paperworld0_2/server/lib/jacksum.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Trevor/Desktop/paperworld0_2/server/lib/jcl104-over-slf4j-1.4.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Trevor/Desktop/paperworld0_2/server/lib/jedai.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Trevor/Desktop/paperworld0_2/server/lib/log4j-over-slf4j-1.4.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Trevor/Desktop/paperworld0_2/server/lib/logback-classic-0.9.8.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Trevor/Desktop/paperworld0_2/server/lib/logback-core-0.9.8.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Trevor/Desktop/paperworld0_2/server/lib/mysql-connector-java-5.0.8-bin.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Trevor/Desktop/paperworld0_2/server/lib/mysql-connector-java-5.1.3-rc-bin.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Trevor/Desktop/paperworld0_2/server/lib/slf4j-api-1.4.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Trevor/Desktop/paperworld0_2/server/lib/spring-hibernate3-2.0.7.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Trevor/Desktop/paperworld0_2/server/lib/spring-jdbc-2.0.7.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
