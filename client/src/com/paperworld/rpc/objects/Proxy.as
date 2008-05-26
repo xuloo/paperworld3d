@@ -58,7 +58,6 @@ package com.paperworld.rpc.objects
 
 			this.input = input.copy( );			
 			this.state = state.copy();
-			displayObject.transform.copy( state.transform );
 		}
 
 		override public function update(t : int, behaviour : IAvatarBehaviour) : void

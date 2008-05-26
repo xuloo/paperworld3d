@@ -281,7 +281,7 @@ package com.paperworld.rpc.scenes
 		 */
 		public function onSync(event : SyncEvent) : void 
 		{				
-			logger.info("Syncing " + _zone);
+			//logger.info("Syncing " + _zone);
 			
 			var length : int = event.changeList.length;
 			
@@ -295,7 +295,7 @@ package com.paperworld.rpc.scenes
 					var name : String = item["name"];
 					var obj : Avatar;
 					
-					logger.info("code :: " + item["code"]);
+					//logger.info("code :: " + item["code"]);
 					
 					switch (item["code"])
 					{
