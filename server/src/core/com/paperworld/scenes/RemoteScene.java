@@ -90,6 +90,7 @@ public class RemoteScene implements IScheduledJob {
 				
 				for (Player player : players) {
 					Avatar avatar = player.avatar;
+					System.out.println("updating "  + player);
 					so.setAttribute(avatar.id, avatar.getAvatarData());
 				}
 

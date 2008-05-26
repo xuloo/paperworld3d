@@ -21,8 +21,6 @@
      <property name="ivy.lib.dir" value="${build.dir}/lib"/>
      <property name="ivy.version" value="ivy-2.0.0-beta1" />
 	 
-	 <property name="jedai.dir" value="D:/projects/jedai"/>
-	 
 	 <taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask" classpath="buildlib/xmltask-v1.15.1.jar"/>
 
      <path id="classpath">

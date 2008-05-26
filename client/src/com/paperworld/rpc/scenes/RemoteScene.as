@@ -123,9 +123,11 @@ package com.paperworld.rpc.scenes
 							  addPlayerResponder, 
 							  player.username, 
 							  _zone );
-			
+			thisPlayer = player.username;
 			_players[player.username] = player;
 		}
+		
+		private var thisPlayer:String;
 		
 		public function addPlayerResponse(response:Object):void 
 		{
@@ -158,17 +160,8 @@ package com.paperworld.rpc.scenes
 			var _bootStrapper:Red5BootStrapper = Red5BootStrapper.getInstance();
 			_connection = _bootStrapper.connection;
 			
-			createRoomSO();
-			addQueuedObjectsToScene();
-			
-			/*if (_bootStrapper)
-			{
-				_bootStrapper.connect();
-			}
-			else
-			{
-				createConnection();
-			}*/
+			_so = new RemoteSharedObject(_zone, false, false, _connection);
+			_so.addEventListener(SyncEvent.SYNC, onSync);
 		}
 
 		/**
@@ -259,8 +252,7 @@ package com.paperworld.rpc.scenes
 		{
 			logger.info("Connecting to zone: " + _zone);
 			
-			_so = new RemoteSharedObject(_zone, false, false, _connection);
-			_so.addEventListener(SyncEvent.SYNC, onSync);	
+				
 		}
 
 		/**
@@ -314,12 +306,16 @@ package com.paperworld.rpc.scenes
 	
 						case "change":
 								
+							logger.info(thisPlayer + " updating " + name);	
+								
 							if (_players[name] != null)
 							{
+								//logger.info(name + " => " + _players[name]);
 								(_players[name] as RemotePlayer).avatar.synchronise( so.data[name] );
 							}
 							else
 							{
+								//logger.info("creating a new player for " + name);
 								var player:RemotePlayer = new RemotePlayer();
 								player.avatar = createPaperworldObject( so.data[name]["modelKey"], name );
 								_players[name] = player;
@@ -329,13 +325,8 @@ package com.paperworld.rpc.scenes
 							
 						case "delete":
 						
-							obj = getChildByName( name ) as Avatar;
-							
-							if (obj != null)
-							{
-								obj.destroy();
-								removeChild(obj);
-							}
+							var p:RemotePlayer = _players[name] as RemotePlayer;
+							removeChild(p.avatar);
 							break;
 						default:
 							break;
@@ -394,7 +385,7 @@ package com.paperworld.rpc.scenes
 				{
 					var object : Avatar = objectQueue[i] as Avatar;
 					//object.registered = true;
-					addChild( object, object.name );
+					//addChild( object, object.name );
 				}
 			}
 		}	
