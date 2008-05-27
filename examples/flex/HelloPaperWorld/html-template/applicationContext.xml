@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<objects>
+	
+	<object id="client" class="jedai.net.ClientManager">
+		<property name="username" value="user"/>
+		<property name="password" value="pass"/>
+	</object>
+	
+	<object id="connection" class="jedai.net.rpc.Red5Connection">
+		<constructor-arg value="default"/>
+		<constructor-arg value="true"/>
+		<property name="rtmpURI" value="rtmp://localhost/paperworld3d"/>
+		<property name="connectionArgs">
+	      <array>
+	        <ref>client</ref>
+	      </array>
+    	</property>
+	</object>
+	
+	<!--object id="avatar" class="examples.SimpleAvatar">
+		
+	</object-->
+
+</objects>
