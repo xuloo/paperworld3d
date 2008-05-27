@@ -210,7 +210,7 @@ package com.paperworld.rpc.objects
 
 		public function synchronise(data : Object) : void 
 		{	
-			//logger.info("Synchronsing " + this.name);
+			logger.info("Synchronsing " + this.name);
 			
 			if (data["input"] != null)
 			{

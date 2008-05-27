@@ -16,6 +16,7 @@
 	<bean id="defaultZone" class="com.paperworld.scenes.RemoteScene">
 		<property name="name" value="spacezone"/>
 		<property name="persistent" value="false"/>
+		<property name="updateRate" value="2"/>
 		<property name="service">
 			<ref bean="paperworld.service"/>
 		</property>

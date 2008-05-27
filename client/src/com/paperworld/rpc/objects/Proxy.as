@@ -57,7 +57,9 @@ package com.paperworld.rpc.objects
 			updating = true;
 
 			this.input = input.copy( );			
-			this.state = state.copy();
+			//this.state = state.copy();
+			
+			logger.info("Proxy syncing");
 		}
 
 		override public function update(t : int, behaviour : IAvatarBehaviour) : void

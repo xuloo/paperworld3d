@@ -38,16 +38,16 @@ public class RemoteScene implements IScheduledJob {
 	protected PaperworldService service;
 
 	protected AbstractSteeringBehaviour behaviour;
+	
+	private int updateRate;
 
 	public RemoteScene() {
 		
 	}
 
 	public void init(ISchedulingService scheduler) {
-		//application.addScheduledJob(1000 / 25, players);
-		//scheduler.addScheduledJob(1000 / 25, this);
-		//scheduler.addScheduledJob(1000 / 25, new PlayerUpdateJob(players));
-		scheduler.addScheduledJob(1000 / 200, new SharedObjectUpdateJob(this));
+		System.out.println("initialising shared object updater");
+		scheduler.addScheduledJob(1000 / updateRate, new SharedObjectUpdateJob(this));
 	}
 
 	public void addPlayer(Player player) {
@@ -125,5 +125,10 @@ public class RemoteScene implements IScheduledJob {
 	
 	public ISharedObject getSO() {
 		return so;
+	}
+	
+	public void setUpdateRate(int updateRate) {
+		System.out.println("setting update rate to " + updateRate);
+		this.updateRate = updateRate;
 	}
 }

@@ -117,14 +117,25 @@ package com.paperworld.rpc.scenes
 			addPlayerResponder = new Responder( addPlayerResponse );
 		}
 		
-		public function addPlayer(player:RemotePlayer):void 
+		public function addPlayer(player:RemotePlayer, isRemote:Boolean = true):void 
 		{		
-			_connection.call( PAPERWORLD_SERVICE_NAME + "." + CONNECT_TO_ZONE_METHOD, 
-							  addPlayerResponder, 
-							  player.username, 
-							  _zone );
-			thisPlayer = player.username;
 			_players[player.username] = player;
+			player.avatar.name = player.username;
+			
+			if (isRemote)
+			{
+				_connection.call( PAPERWORLD_SERVICE_NAME + "." + CONNECT_TO_ZONE_METHOD, 
+								  addPlayerResponder, 
+								  player.username, 
+								  _zone );
+				thisPlayer = player.username;
+			}
+			else
+			{
+				GameTimer.getInstance().addEventListener(IntegrationEvent.INTEGRATION_EVENT, player.avatar.update);
+				
+				addChild(player.avatar, player.username);
+			}
 		}
 		
 		private var thisPlayer:String;
@@ -273,7 +284,7 @@ package com.paperworld.rpc.scenes
 		 */
 		public function onSync(event : SyncEvent) : void 
 		{				
-			//logger.info("Syncing " + _zone);
+			//logger.info(thisPlayer + " Syncing");
 			
 			var length : int = event.changeList.length;
 			
@@ -287,6 +298,11 @@ package com.paperworld.rpc.scenes
 					var name : String = item["name"];
 					var obj : Avatar;
 					
+					for (var z : String in item)
+					{
+						//logger.info(z + " => " + item[z]);
+					}
+					
 					//logger.info("code :: " + item["code"]);
 					
 					switch (item["code"])
@@ -295,11 +311,12 @@ package com.paperworld.rpc.scenes
 /*
 								for (var i:String in so.data)
 								{
-									logger.info("Creating new player: " + so.data[i]["name"]);
+									logger.info("creating a new player for " + i);
 									var player:RemotePlayer = new RemotePlayer();
+									player.username = name;
 									player.avatar = createPaperworldObject( so.data[i]["modelKey"], i );
-									_players[so.data[i]["name"]] = player;
-									//createPaperworldObject( so.data[i]["modelKey"], i );
+									//_players[name] = player;
+									addPlayer(player, false);
 								}
 							*/
 							break;
@@ -310,15 +327,19 @@ package com.paperworld.rpc.scenes
 								
 							if (_players[name] != null)
 							{
-								//logger.info(name + " => " + _players[name]);
+								logger.info(name + " => " + (_players[name] as RemotePlayer).avatar);
 								(_players[name] as RemotePlayer).avatar.synchronise( so.data[name] );
 							}
 							else
 							{
 								//logger.info("creating a new player for " + name);
 								var player:RemotePlayer = new RemotePlayer();
+								player.username = name;
 								player.avatar = createPaperworldObject( so.data[name]["modelKey"], name );
-								_players[name] = player;
+								//_players[name] = player;
+								addPlayer(player, false);
+								//_players[name] = player;
+								//player.avatar.name = name;
 							}
 							
 							break;
@@ -337,7 +358,7 @@ package com.paperworld.rpc.scenes
 
 		private function createPaperworldObject(key : String, name : String) : Avatar 
 		{						
-			logger.info("trying to create: " + key);
+			logger.info("trying to create: " + key + ", " + name);
 			
 			var ObjectClass : Class = getDefinitionByName( key ) as Class;
 			var object : Avatar = new ObjectClass( ) as Avatar;
@@ -345,8 +366,8 @@ package com.paperworld.rpc.scenes
 			
 			object.setState(_so._so.data[name]);
 			
-			_avatars.push(object);
-			super.addChild( object, name );	
+			//_avatars.push(object);
+			addChild( object, name );	
 			
 			return object;
 		}

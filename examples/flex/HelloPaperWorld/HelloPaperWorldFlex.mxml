@@ -52,7 +52,7 @@
 			_player.avatar.name = _player.username;
 			_player.connection = Red5BootStrapper.getInstance().connection;
 			logger.info("player.connection: " + _player.connection  + " red5 connection:@ " + Red5BootStrapper.getInstance().connection);
-			remoteCanvas.addChild3D(_player.avatar);
+			//remoteCanvas.addChild3D(_player.avatar);
 			remoteCanvas.startRendering();
 			
 			GameTimer.getInstance().addEventListener(IntegrationEvent.INTEGRATION_EVENT, _player.avatar.update);
