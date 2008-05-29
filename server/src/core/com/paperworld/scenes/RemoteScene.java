@@ -1,7 +1,6 @@
 package com.paperworld.scenes;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 import org.red5.server.api.IScope;
 import org.red5.server.api.Red5;
@@ -10,16 +9,15 @@ import org.red5.server.api.scheduling.IScheduledJob;
 import org.red5.server.api.scheduling.ISchedulingService;
 import org.red5.server.api.so.ISharedObject;
 import org.red5.server.api.so.ISharedObjectService;
-import org.red5.server.framework.Application;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.paperworld.core.PaperworldService;
 import com.paperworld.core.avatar.Avatar;
 import com.paperworld.core.avatar.behaviour.AbstractSteeringBehaviour;
-import com.paperworld.core.jobs.PlayerUpdateJob;
 import com.paperworld.core.jobs.SharedObjectUpdateJob;
 import com.paperworld.core.player.Player;
+import com.paperworld.lobby.LobbyData;
 
 public class RemoteScene implements IScheduledJob {
 
@@ -40,9 +38,11 @@ public class RemoteScene implements IScheduledJob {
 	protected AbstractSteeringBehaviour behaviour;
 	
 	private int updateRate;
+	
+	protected LobbyData lobbyData;
 
 	public RemoteScene() {
-		
+		lobbyData = new LobbyData();
 	}
 
 	public void init(ISchedulingService scheduler) {
@@ -52,6 +52,7 @@ public class RemoteScene implements IScheduledJob {
 
 	public void addPlayer(Player player) {
 		so = getSharedObject(Red5.getConnectionLocal().getScope());
+		System.out.println("Scene adding " + player.avatar);
 		players.add(player);
 	}
 	
@@ -90,7 +91,7 @@ public class RemoteScene implements IScheduledJob {
 				
 				for (Player player : players) {
 					Avatar avatar = player.avatar;
-					System.out.println("updating "  + player);
+					System.out.println("updating " + player + " == " + avatar);
 					so.setAttribute(avatar.id, avatar.getAvatarData());
 				}
 
@@ -130,5 +131,13 @@ public class RemoteScene implements IScheduledJob {
 	public void setUpdateRate(int updateRate) {
 		System.out.println("setting update rate to " + updateRate);
 		this.updateRate = updateRate;
+	}
+	
+	public SceneData getSceneData() {
+		return new SceneData(name);
+	}
+	
+	public LobbyData getLobbyData() {
+		return lobbyData;
 	}
 }

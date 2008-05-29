@@ -43,6 +43,7 @@ package examples
 			var material:ColorMaterial = new ColorMaterial(0x00ff00);
 			material.doubleSided = true;
 			character = new RemoteObject( new Plane(material, 300, 300));
+			//character = new RemoteObject( new DisplayObject3D() );
 			addChild(character.displayObject);
 			
 			character.smoother = new Smoother2D();
@@ -54,6 +55,7 @@ package examples
 			var material:ColorMaterial = new ColorMaterial(0xff0000);
 			material.doubleSided = true;
 			proxy = new Proxy( new Plane(material, 300, 300));
+			//proxy = new Proxy( new DisplayObject3D() );
 			addChild(proxy.displayObject);
 		}
 	}

@@ -175,37 +175,26 @@ package com.paperworld.rpc.objects
 
 		public function update(event : IntegrationEvent) : void 
 		{						
-			//logger.info("updating");
-						
 			var move : Move = new Move( );
 			move.time = time;
 			move.state = proxy.current.copy( );
 			move.input = character.input.copy( );
 			
-			history.add( move );	
+			//history.add( move );	
 			
 			character.update( event.time, behaviour );
 			proxy.update( event.time, behaviour );
 			
-			//character.displayObject.transform.copy(character.current.transform);
-
 			time++;
-			
-			//[[avatar, character], [character, proxy]]
-			
-			//if (time % 2 == 0)
-			//{
+		
 			character.smooth( proxy, character.tightness );
-			//}
-			//else
-			//{
+			
+			if (name == "bbb")
+				logger.info("\ncharacter\n" + character.current + "\nproxy\n" + proxy.current);
+
 			avatar.smooth( character, avatar.tightness );
-			//}
 
 			avatar.displayObject.transform.copy(avatar.current.transform);
-			
-			//logger.info("AVATAR:\n" + avatar.displayObject.x + "\n" + avatar.displayObject.y + "\n" + avatar.displayObject.z);
-			//logger.info("PROXY:\n" + proxy.displayObject.x + "\n" + proxy.displayObject.y + "\n" + proxy.displayObject.z);
 		}
 
 		public function synchronise(data : Object) : void 

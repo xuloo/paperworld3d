@@ -55,26 +55,13 @@ package com.paperworld.rpc.scenes
 	{
 		public static const PAPERWORLD_SERVICE_NAME:String = "paperworld";
 		public static const CONNECT_TO_ZONE_METHOD:String = "connectToZone";
-		//private static var ID_LIST : Array = new Array( );
 		
 		private var _connection:Red5Connection;
 		
 		private var _bootStrapper:Red5BootStrapper;
 
-		//public var playerRegistered : Boolean = false;
-
-		//private var $roomId : String;
-
-		public var objectQueue : Array;
-		
-		private var _avatars:Array;
-
 		public var _so : RemoteSharedObject;
-		
-		//public var _so:SharedObject;
-
-		//public var inScene : Boolean = false;
-		
+				
 		private var _players:Array;
 		
 		private var addPlayerResponder:Responder;
@@ -92,7 +79,6 @@ package com.paperworld.rpc.scenes
 		public function set zone(value:String):void 
 		{			
 			_zone = value;
-			logger.info("SEtting zone in scene: " + value + ", " + _zone);
 		}
 		
 		private var logger:XrayLog = new XrayLog();
@@ -109,10 +95,7 @@ package com.paperworld.rpc.scenes
 			super( );
 
 			_zone = zone;
-			
-			objectQueue = new Array( );
 			_players = new Array();
-			_avatars = new Array();
 			
 			addPlayerResponder = new Responder( addPlayerResponse );
 		}
@@ -128,7 +111,6 @@ package com.paperworld.rpc.scenes
 								  addPlayerResponder, 
 								  player.username, 
 								  _zone );
-				thisPlayer = player.username;
 			}
 			else
 			{
@@ -137,9 +119,7 @@ package com.paperworld.rpc.scenes
 				addChild(player.avatar, player.username);
 			}
 		}
-		
-		private var thisPlayer:String;
-		
+				
 		public function addPlayerResponse(response:Object):void 
 		{
 			var array:Array = response as Array;
@@ -150,7 +130,7 @@ package com.paperworld.rpc.scenes
 			{
 				logger.info("Successfully added player " + username);
 				
-				var player:RemotePlayer = _players[username] as RemotePlayer;
+				var player:RemotePlayer = getPlayerByName(username);
 				
 				player.connection = Red5BootStrapper.getInstance().connection;
 				
@@ -173,97 +153,6 @@ package com.paperworld.rpc.scenes
 			
 			_so = new RemoteSharedObject(_zone, false, false, _connection);
 			_so.addEventListener(SyncEvent.SYNC, onSync);
-		}
-
-		/**
-		 * No connector was passed to the constructor so we need to create one.
-		 * If no id was passed to the constructor we need to find the next available one.
-		 * The constructor we create (if one isn't already available for the room id) is
-		 * placed in that slot so that room can't be connected to again by accident.
-		 */
-		public function createConnection() : void
-		{
-			logger.info("Creating Connection");
-			
-			_bootStrapper = Red5BootStrapper.getInstance();
-			_bootStrapper.addEventListener("bootStrapComplete", onBootstrapComplete);
-			_bootStrapper.addEventListener(Red5Event.CONNECTED, onConnected);
-		}
-		
-		public function onBootstrapComplete(event:Event):void 
-		{
-			logger.info("bootstrap complete... connecting " + _bootStrapper.connection);
-			
-			_connection = _bootStrapper.connection;		
-			
-			_bootStrapper.connect();
-			
-			dispatchEvent(event.clone());
-		}
-
-		/**
-		 * <p>This callback method is called when this <i>local</i> <code>RemoteScene</code> has successfully connected to
-		 * it's <i>remote</i> counterpart on the server.</p>
-		 * 
-		 * <p>A <code>PlayerManager</code> instance is created to handle the list of players connected to the same scene.</p>
-		 * 
-		 * <p>Both the <code>PlayerManager</code> and the <code>RemoteScene</code> instances are connected to the Remote Shared Objects 
-		 * on the server.</p>
-		 */
-		private function connectionHandler(obj : Object) : void 
-		{
-			//createRoomSO( $connector );		
-			
-			//inScene = true;
-			//registerObjects();
-			addQueuedObjectsToScene( );
-		}
-
-		/**
-		 * <p>Handles connecting to the <code>RemoteScene</code>'s <i>remote</i> counterpart on the server.</p>
-		 * 
-		 * <p>If no <code>roomId</p> has been set then we connect to the next available number to make sure there's no collision
-		 * with other <code>roomId</code> for other <code>RemoteScene</code> instances that may be available.</p>
-		 */
-		public function onConnected(event : Red5Event) : void 
-		{					
-			createRoomSO();
-			
-			dispatchEvent(event);			
-			//_player.client = _bootStrapper.client;	
-
-			//_connection.call( "paperworld.connectToZone", new Responder( connectionHandler ), _player.username, "spacezone" );		
-		}
-
-		/**
-		 * Check if this scene contains a <code>PaperworldObject</code> with the name supplied.
-		 */
-		public function containsObject(id : String) : Boolean
-		{
-			for (var i : int = 0; i < objects.length ; i++)
-			{
-				if (objects[i] is Avatar)
-				{
-					var	object : Avatar = objects[i] as Avatar;
-					
-					if (object.name == id)
-					{
-						return true;
-					}
-				}
-			}
-			
-			return false;
-		}
-
-		/**
-		 * Connects to the Remote Shared Object on the server that contains the data about this scene.
-		 */
-		public function createRoomSO() : void 
-		{
-			logger.info("Connecting to zone: " + _zone);
-			
-				
 		}
 
 		/**
@@ -298,57 +187,33 @@ package com.paperworld.rpc.scenes
 					var name : String = item["name"];
 					var obj : Avatar;
 					
-					for (var z : String in item)
-					{
-						//logger.info(z + " => " + item[z]);
-					}
-					
-					//logger.info("code :: " + item["code"]);
-					
 					switch (item["code"])
 					{
 						case "clear":
-/*
-								for (var i:String in so.data)
-								{
-									logger.info("creating a new player for " + i);
-									var player:RemotePlayer = new RemotePlayer();
-									player.username = name;
-									player.avatar = createPaperworldObject( so.data[i]["modelKey"], i );
-									//_players[name] = player;
-									addPlayer(player, false);
-								}
-							*/
 							break;
 	
 						case "change":
-								
-							logger.info(thisPlayer + " updating " + name);	
-								
+																
 							if (_players[name] != null)
 							{
-								logger.info(name + " => " + (_players[name] as RemotePlayer).avatar);
-								(_players[name] as RemotePlayer).avatar.synchronise( so.data[name] );
+								getPlayerByName(name).avatar.synchronise( so.data[name] );
 							}
 							else
 							{
-								//logger.info("creating a new player for " + name);
 								var player:RemotePlayer = new RemotePlayer();
 								player.username = name;
 								player.avatar = createPaperworldObject( so.data[name]["modelKey"], name );
-								//_players[name] = player;
 								addPlayer(player, false);
-								//_players[name] = player;
-								//player.avatar.name = name;
 							}
 							
 							break;
 							
 						case "delete":
 						
-							var p:RemotePlayer = _players[name] as RemotePlayer;
-							removeChild(p.avatar);
+							removeChild(getPlayerByName(name).avatar);
+							_players[name] = null;
 							break;
+							
 						default:
 							break;
 					}
@@ -366,92 +231,14 @@ package com.paperworld.rpc.scenes
 			
 			object.setState(_so._so.data[name]);
 			
-			//_avatars.push(object);
 			addChild( object, name );	
 			
 			return object;
-		}
-/*
-		public override function addChild( child : DisplayObject3D, name : String = null ) : DisplayObject3D
-		{						
-			logger.info("Adding Child");
-			
-			if (child is Avatar)
-			{
-				logger.info("Child is an avatar");
-				if (_connection.connected)
-				{
-					_avatars.push(child);
-				}
-				else
-				{
-					logger.info("putting into queue");
-					objectQueue.push( child );
-				}
-			}
-			
-			return super.addChild( child, name );
-		}*/
-
-		/**
-		 * If a <code>PaperworldObject</code> is added to this scene before it's connected to its <i>remote</i> counterpart then 
-		 * it's added to the <code>objectQueue</code>. When a successful connection is established, this queue of objects are then added
-		 * to the scene.
-		 */
-		private function addQueuedObjectsToScene() : void 
-		{
-			if (objectQueue.length > 0)
-			{
-				for (var i : int = 0; i < objectQueue.length ; i++)
-				{
-					var object : Avatar = objectQueue[i] as Avatar;
-					//object.registered = true;
-					//addChild( object, object.name );
-				}
-			}
-		}	
-		/*
-		private function registerObjects():void 
-		{
-			for (var i:int = 0; i < objects.length; i++)
-			{
-				if (objects[i] is Avatar)
-				{
-					(objects[i] as Avatar).registered = true;
-				}	
-			}
-		}*/
-
-		public function addingObjectHandler(obj : Object) : void 
-		{
 		}
 		
 		public function getPlayerByName(name:String):RemotePlayer 
 		{
 			return _players[name] as RemotePlayer;
 		}
-/*
-		public function addRemoteObject(key : String, id : String) : void 
-		{
-			logger.info( "Adding remote object\n" + key + "\n" + id + " == " + GamePlayer.getInstance( ).uid );
-			
-			if (!containsObject( id ))
-			{
-				var remoteObject : PaperworldObject = new PaperworldObject( );
-				remoteObject.name = id;
-				
-				//remoteObject.setSharedObject($connection.connection);
-
-				addChild( remoteObject, id );
-			}
-		}
-
-		public function removeRemoteObject(uid : String) : void 
-		{
-			logger.info( "Removing " + uid );
-			
-			var remoteObject : PaperworldObject = getChildByName( uid ) as PaperworldObject;
-			removeChild( remoteObject );
-		}*/
 	}
 }

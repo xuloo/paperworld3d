@@ -15,7 +15,9 @@ import org.slf4j.LoggerFactory;
 
 import com.paperworld.core.avatar.AvatarInput;
 import com.paperworld.core.player.Player;
+import com.paperworld.lobby.LobbyData;
 import com.paperworld.scenes.RemoteScene;
+import com.paperworld.scenes.SceneData;
 import com.paperworld.scenes.SceneManager;
 
 /**
@@ -43,7 +45,7 @@ public class PaperworldService implements IApplication, IConnectionListener {
 	 * connected Players. It also manages connecting and disconnecting players
 	 * from scenes and registering and unregistering player from scenes.
 	 */
-	private SceneManager sceneManager = new SceneManager();
+	protected SceneManager sceneManager = new SceneManager();
 
 	/**
 	 * We hold on to a reference to the main ApplicationAdaptor (this is set in
@@ -92,7 +94,7 @@ public class PaperworldService implements IApplication, IConnectionListener {
 			Boolean rollPositive, Double mouseX, Double mouseY, Boolean firing) {
 
 		Player player = sceneManager.getPlayer(username);
-
+		System.out.println("getting player " + player.avatar);
 		AvatarInput input = new AvatarInput();
 
 		input.left = left;
@@ -122,6 +124,36 @@ public class PaperworldService implements IApplication, IConnectionListener {
 		}
 
 	}
+	
+	public SceneData[] getScenesList() {
+		
+		Map<String, RemoteScene> scenes = sceneManager.getScenes();
+		SceneData[] scenesList = new SceneData[scenes.size()];
+		
+		int i = 0;
+		
+		for (String key : scenes.keySet()) {
+			RemoteScene zone = scenes.get(key);
+			SceneData theatre = zone.getSceneData();
+			
+			String name = zone.getName();
+			theatre.setName(name);
+			
+			scenesList[i] = theatre;
+			i++;
+		}
+		System.out.println("returning " + scenesList.length + " theatres");
+		return scenesList;
+	}
+	
+	public LobbyData getLobbyData(String username) {
+		System.out.println("getting lobby data");
+		Player player = sceneManager.getPlayers().get(username);
+		System.out.println("player: " + player);
+		RemoteScene zone = player.getScene();
+		System.out.println("zone: " + zone);
+		return zone.getLobbyData();
+	}
 
 	public boolean appConnect(IConnection conn, Object[] params) {
 		String username = params[0].toString();
@@ -133,6 +165,8 @@ public class PaperworldService implements IApplication, IConnectionListener {
 
 		sceneManager.addPlayer(player);
 
+		System.out.println("player created: " + player + " with avatar " + player.avatar);
+		
 		return true;
 	}
 

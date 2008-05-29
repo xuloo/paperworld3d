@@ -27,12 +27,13 @@ public class SceneManager {
 	}
 
 	public void addPlayerToScene(String playerKey, String sceneKey) {
+		System.out.println("players " + players.toString());
 		addPlayerToScene(players.get(playerKey), sceneKey);
 	}
 
 	public void addPlayerToScene(Player player, String sceneKey) {
 		removePlayerFromScene(player);
-		
+		System.out.println("adding " + player.avatar );
 		RemoteScene scene = scenes.get(sceneKey);
 		scene.addPlayer(player);
 		player.setScene(scene);
@@ -54,6 +55,10 @@ public class SceneManager {
 	public boolean sceneExists(String key) {
 		return scenes.containsKey(key);
 	}
+	
+	public RemoteScene getScene(String key) {
+		return scenes.get(key);
+	}
 
 	public Map<String, RemoteScene> getScenes() {
 		return scenes;
@@ -69,6 +74,7 @@ public class SceneManager {
 	}
 	
 	public Player getPlayer(String key) {
+		System.out.println("SM getting player " + players.get(key) + " == " + players.get(key).avatar);
 		return players.get(key);
 	}
 	

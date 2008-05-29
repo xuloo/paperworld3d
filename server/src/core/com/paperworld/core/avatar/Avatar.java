@@ -66,7 +66,8 @@ public class Avatar {
 	 * position and orientation of the displayObject.
 	 */
 	public void update() {
-		behaviour.run();
+		System.out.println("updating avatar " + this + ", " + behaviour);
+		//behaviour.run();
 	}
 
 	/**
@@ -171,6 +172,10 @@ public class Avatar {
 	public void setBehaviour(AbstractSteeringBehaviour b) {
 		behaviour = b;
 		behaviour.setCharacter(this);
+	}
+	
+	public AbstractSteeringBehaviour getBehaviour() {
+		return behaviour;
 	}
 
 	public void setModelKey(String m) {

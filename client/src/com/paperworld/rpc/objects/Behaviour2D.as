@@ -39,13 +39,10 @@ package com.paperworld.rpc.objects
 		
 			displayObject.moveForward( state.speed );
 			
-			displayObject.yaw( input.mouseX );
-			
-			
+			displayObject.yaw( input.mouseX );			
 			
 			state.transform.copy( displayObject.transform );
 			state.orientation = Quaternion.createFromMatrix( state.transform );
-			//state.rotation = Math.acos(state.orientation.w) * 2 * radians;
 		}
 	}
 }

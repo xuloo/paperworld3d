@@ -213,11 +213,11 @@ public class Player {
 
 	public void setScene(RemoteScene scene) {
 		this.scene = scene;
-
+		System.out.println("Adding Scene " + scene.getBehaviour());
 		if (scene != null) {
 			avatar.setBehaviour(scene.getBehaviour());
 		}
-
+System.out.println("avatar behaviour " + avatar.getBehaviour());
 		// avatar.zone = zone;
 	}
 
@@ -228,10 +228,4 @@ public class Player {
 	public IConnection getConnection() {
 		return connection;
 	}
-
-	/*
-	 * public void setClient(Client client) { this.client = client; }
-	 * 
-	 * public Client getClient() { return client; }
-	 */
 }
