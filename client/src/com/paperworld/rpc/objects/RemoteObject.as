@@ -27,12 +27,11 @@ package com.paperworld.rpc.objects
 	import com.paperworld.rpc.data.AvatarInput;
 	import com.paperworld.rpc.data.AvatarState;
 	import com.paperworld.rpc.smoothers.AbstractSmoother;
-	import com.paperworld.rpc.smoothers.ISmoother;
 	
 	import flash.events.EventDispatcher;
 	
-	import jedai.Red5BootStrapper;
-	
+	import org.papervision3d.core.math.Matrix3D;
+	import org.papervision3d.core.math.Quaternion;
 	import org.papervision3d.objects.DisplayObject3D;	
 
 	/**
@@ -42,9 +41,9 @@ package com.paperworld.rpc.objects
 	 */
 	public class RemoteObject extends EventDispatcher
 	{
-		protected const defaultTightness : Number = 0.1;
+		protected const defaultTightness : Number = 0.5;
 
-		protected const smoothTightness : Number = 0.1;
+		protected const smoothTightness : Number = 0.5;
 
 		public var input : AvatarInput;
 
@@ -131,13 +130,13 @@ package com.paperworld.rpc.objects
 
 		public function smooth(to : RemoteObject, tightness : Number) : void 
 		{
-			_smoother.smooth(current, to.current, tightness);
+			//_smoother.smooth(current, to.current, tightness);
 			
 			
 			
-			/*var previous : AvatarState = current.copy( );
+			var previous : AvatarState = current.copy( );
 						
-			current.orientation = Quaternion.slerp( previous.orientation, to.current.orientation, tightness );
+			current.orientation = Quaternion.slerp( current.orientation, to.current.orientation, tightness );
         	
 			var matrix : Matrix3D = Matrix3D.quaternion2matrix( current.orientation.x, current.orientation.y, current.orientation.z, current.orientation.w );
         	
@@ -146,7 +145,7 @@ package com.paperworld.rpc.objects
 			matrix.n34 = previous.transform.n34 + (to.current.transform.n34 - previous.transform.n34) * tightness;
         	
 			current.transform = matrix;
-			displayObject.transform.copy( matrix );*/
+			displayObject.transform.copy( matrix );
 		}
 	}
 }

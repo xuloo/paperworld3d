@@ -23,18 +23,17 @@
  */
 package com.paperworld.rpc.objects
 {
-	import org.papervision3d.events.InteractiveScene3DEvent;	
-	
-	import flash.net.NetConnection;
-	
-	import org.papervision3d.objects.primitives.Plane;
-	
 	import com.paperworld.rpc.timer.GameTimer;
 	import com.paperworld.rpc.timer.events.IntegrationEvent;
 	import com.paperworld.rpc.weapons.ITargetedWeapon;
 	import com.paperworld.rpc.weapons.IWeapon;
 	
-	import de.polygonal.ds.HashMap;	
+	import de.polygonal.ds.HashMap;
+	
+	import flash.net.NetConnection;
+	
+	import org.papervision3d.events.InteractiveScene3DEvent;
+	import org.papervision3d.objects.primitives.Plane;	
 	public class Vehicle extends Avatar
 	{
 		public var connection : NetConnection;
@@ -69,10 +68,10 @@ package com.paperworld.rpc.objects
 
 		public function Vehicle()
 		{
-			super( );	
+			super( new Object() );	
 			
 			weapons = new HashMap( );
-			initialise( );
+			//initialise( );
 			
 			start();
 		}

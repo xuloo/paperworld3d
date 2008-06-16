@@ -26,14 +26,18 @@ package com.paperworld.rpc.objects
 	import com.blitzagency.xray.logger.XrayLog;
 	import com.paperworld.rpc.data.AvatarInput;
 	import com.paperworld.rpc.data.AvatarState;
+	import com.paperworld.rpc.data.PaperWorldConstants;
 	import com.paperworld.rpc.input.Move;
 	import com.paperworld.rpc.timer.events.IntegrationEvent;
 	import com.paperworld.rpc.util.History;
 	
+	import flash.events.Event;
+	
 	import org.papervision3d.core.math.Matrix3D;
 	import org.papervision3d.core.math.Number3D;
 	import org.papervision3d.core.math.Quaternion;
-	import org.papervision3d.objects.DisplayObject3D;	
+	import org.papervision3d.objects.DisplayObject3D;
+	import org.papervision3d.objects.parsers.DAE;	
 	/**
 	 * <p><code>Avatar</code> handles syncing an object on a client with it's duplicate on the server.</p>
 	 * 
@@ -109,22 +113,54 @@ package com.paperworld.rpc.objects
 		
 		private var logger:XrayLog = new XrayLog();
 
-		public function Avatar()
+		public function Avatar(data:Object)
 		{
 			super( );
 			
-			initialise();
+			initialise(data);
 		}
 		
-		protected function initialise():void 
+		protected function initialise(data:Object):void 
+		{
+			createAvatar(data);			
+			createCharacter();
+			createProxy();	
+			
+			initialiseData();		
+		}
+		
+		protected function initialiseData():void 
 		{
 			state = new AvatarState( );
 			input = new AvatarInput( );
-			
-			createCharacter();
-			createProxy();			
-			
 			history = new History( );
+		}
+		
+		protected function createBehaviour():void 
+		{
+			behaviour = new Behaviour2D();
+		}
+		
+		protected function createAvatar(data:Object):void 
+		{
+			if (data is String)
+			{
+				var model:DAE = new DAE();
+				model.load(data);
+				avatar = new RemoteObject(model);
+			}
+			else if (data is DisplayObject3D)
+			{
+				avatar = new RemoteObject(data as DisplayObject3D);
+				avatarReady();
+			}
+			else if (data is RemoteObject)
+			{
+				avatar = data as RemoteObject;
+				avatarReady();
+			}
+			
+			addChild(avatar.displayObject);
 		}
 		
 		protected function createCharacter():void 
@@ -135,6 +171,11 @@ package com.paperworld.rpc.objects
 		protected function createProxy():void 
 		{
 			proxy = new Proxy( new DisplayObject3D() );
+		}
+		
+		protected function avatarReady(event:Event = null):void 
+		{
+			dispatchEvent(new Event(PaperWorldConstants.AVATAR_READY));
 		}
 
 		public function destroy() : void 
@@ -175,6 +216,8 @@ package com.paperworld.rpc.objects
 
 		public function update(event : IntegrationEvent) : void 
 		{						
+			//logger.info("updating " + name);
+			
 			var move : Move = new Move( );
 			move.time = time;
 			move.state = proxy.current.copy( );
@@ -186,20 +229,14 @@ package com.paperworld.rpc.objects
 			proxy.update( event.time, behaviour );
 			
 			time++;
-		
-			character.smooth( proxy, character.tightness );
 			
-			if (name == "bbb")
-				logger.info("\ncharacter\n" + character.current + "\nproxy\n" + proxy.current);
-
+			character.smooth( proxy, character.tightness );
 			avatar.smooth( character, avatar.tightness );
-
-			avatar.displayObject.transform.copy(avatar.current.transform);
 		}
 
 		public function synchronise(data : Object) : void 
 		{	
-			logger.info("Synchronsing " + this.name);
+			//logger.info("Synchronsing " + this.name);
 			
 			if (data["input"] != null)
 			{
@@ -261,7 +298,7 @@ package com.paperworld.rpc.objects
 				var t : int = data["time"];
 
 				proxy.synchronise( t, state, input );
-				character.synchronise( t, state, input );
+				//character.synchronise( t, state, input );
 			}
 		}
 

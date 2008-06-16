@@ -48,7 +48,7 @@ package com.paperworld.rpc.player
 		
 		private var syncCount:int = 0;
 		
-		private var $logger:XrayLog = new XrayLog();
+		private var logger:XrayLog = new XrayLog();
 		
 		private var _client:ClientManager;
 		
@@ -82,6 +82,7 @@ package com.paperworld.rpc.player
 		public function set avatar(value:Avatar):void 
 		{
 			_avatar = value;
+			GameTimer.getInstance().addEventListener(IntegrationEvent.INTEGRATION_EVENT, _avatar.update);
 		}
 		
 		public function get avatar():Avatar
@@ -162,7 +163,7 @@ package com.paperworld.rpc.player
 		{					
 			var userInput : IUserInput = event.input;
 						
-			if (userInput.hasChanged)
+			if (userInput.hasChanged && _avatar)
 			{			
 				_avatar.character.input.left = userInput.A;
 				_avatar.character.input.right = userInput.D;

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml" width="380" height="150" 
+	verticalAlign="middle" verticalGap="0" verticalScrollPolicy="off"
+	cornerRadius="20">
+	<mx:Image id="img" height="100" width="80" source="{data.thumbNail}"/>
+    
+    <mx:VBox width="80%" paddingTop="0" horizontalGap="4">
+    
+        <!--mx:Text width="90%" text="{data.name}" fontWeight="bold" textAlign="left"/-->
+        
+        <mx:Label text="{data.username}" fontWeight="bold"/>
+        
+    </mx:VBox>
+
+</mx:HBox>

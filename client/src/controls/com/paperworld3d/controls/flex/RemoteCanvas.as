@@ -1,4 +1,4 @@
-package com.paperworld.controls.flex
+package com.paperworld3d.controls.flex
 {
 	import com.blitzagency.xray.logger.XrayLog;
 	import com.paperworld.cameras.FollowCamera3D;
@@ -66,6 +66,7 @@ package com.paperworld.controls.flex
 			return _zone;
 		}
 		
+		[Inspectable]
 		public function set zone(value:String):void 
 		{
 			logger.info("Setting zone");
@@ -186,6 +187,23 @@ package com.paperworld.controls.flex
 		public function get connection():Red5Connection
 		{
 			return _remoteView.connection;
+		}
+		
+		public static const DEFAULT_HEIGHT:Number = 500;
+		public static const DEFAULT_WIDTH:Number = 500;
+		
+		override protected function measure():void {
+			super.measure();
+			
+			measuredHeight = measuredMinHeight = DEFAULT_HEIGHT;
+			measuredWidth = measuredMinWidth = DEFAULT_WIDTH;
+		}
+		
+		override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void {
+			super.updateDisplayList(unscaledWidth, unscaledHeight);
+			
+			unscaledWidth = DEFAULT_WIDTH;
+			unscaledHeight = DEFAULT_HEIGHT;
 		}
 	}
 }

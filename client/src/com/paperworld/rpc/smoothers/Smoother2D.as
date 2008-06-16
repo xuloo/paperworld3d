@@ -36,12 +36,13 @@ package com.paperworld.rpc.smoothers
         	
         	//logger.info("\nangle: " + from.rotation);
 			var matrix : Matrix3D = Matrix3D.quaternion2matrix( from.orientation.x, from.orientation.y, from.orientation.z, from.orientation.w );
-        	
+        	//logger.info(" before x: " + from.transform.n14);
 			matrix.n14 = from.transform.n14 + (to.transform.n14 - from.transform.n14) * tightness;
 			matrix.n24 = from.transform.n24 + (to.transform.n24 - from.transform.n24) * tightness;
 			matrix.n34 = from.transform.n34 + (to.transform.n34 - from.transform.n34) * tightness;
         	
 			from.transform = matrix;
+			//logger.info(" after x: " + from.transform.n14);
 			//from.rotation = angle;
 			//from.transform.copy(to.transform);
 			

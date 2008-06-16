@@ -24,8 +24,10 @@
 package com.paperworld.rpc.scenes 
 {
 	import com.blitzagency.xray.logger.XrayLog;
+	import com.paperworld.rpc.data.PaperWorldConstants;
 	import com.paperworld.rpc.objects.Avatar;
 	import com.paperworld.rpc.player.RemotePlayer;
+	import com.paperworld.rpc.scenes.events.RemoteSceneEvent;
 	import com.paperworld.rpc.timer.GameTimer;
 	import com.paperworld.rpc.timer.events.IntegrationEvent;
 	
@@ -33,14 +35,13 @@ package com.paperworld.rpc.scenes
 	import flash.events.SyncEvent;
 	import flash.net.Responder;
 	import flash.net.SharedObject;
-	import flash.utils.getDefinitionByName;
 	
 	import jedai.Red5BootStrapper;
-	import jedai.events.Red5Event;
 	import jedai.net.rpc.Red5Connection;
 	import jedai.net.rpc.RemoteSharedObject;
 	
-	import org.papervision3d.scenes.Scene3D;	
+	import org.papervision3d.scenes.Scene3D;
+	import org.pranaframework.context.support.XMLApplicationContext;	
 
 	/**
 	 * <p>Handles synchronisation of a <i>local</i> and a <i>remote</i> scene.</p> 
@@ -54,7 +55,7 @@ package com.paperworld.rpc.scenes
 	public class RemoteScene extends Scene3D
 	{
 		public static const PAPERWORLD_SERVICE_NAME:String = "paperworld";
-		public static const CONNECT_TO_ZONE_METHOD:String = "connectToZone";
+		public static const CONNECT_TO_ZONE_METHOD:String = "connectToScene";
 		
 		private var _connection:Red5Connection;
 		
@@ -65,6 +66,16 @@ package com.paperworld.rpc.scenes
 		private var _players:Array;
 		
 		private var addPlayerResponder:Responder;
+		
+		private var _appContext:XMLApplicationContext;
+		
+		/**
+		 * If players are added to the scene before the scene has connected to the server
+		 * then they're held in this array - and added once the connection is established.
+		 */
+		private var _waitingPlayers:Array;
+		
+		private var _autoConnect:Boolean;
 		
 		/**
 		 * The Zone on the server that this Scene will be a representation of.
@@ -89,39 +100,78 @@ package com.paperworld.rpc.scenes
 		{
 			return _connection;
 		}
+		
+		public function set connection(value:Red5Connection):void 
+		{
+			_connection = value;
+		}
 
-		public function RemoteScene(zone:String = null)
+		public function RemoteScene(zone:String = null, autoConnect:Boolean = true)
 		{
 			super( );
 
+			logger.info("RemoteScene created");
+
 			_zone = zone;
+			_autoConnect = autoConnect;
+			
 			_players = new Array();
+			_waitingPlayers = new Array();
+			
+			_appContext = new XMLApplicationContext("paperworldContext.xml");
+			//_appContext.addEventListener(Event.COMPLETE, onAppContextComplete);
+			_appContext.load();
 			
 			addPlayerResponder = new Responder( addPlayerResponse );
 		}
 		
+		/*private function onAppContextComplete(event:Event):void 
+		{
+			logger.info("RemoteScene ApplicationContext " + _autoConnect);
+			logger.info("connecting: " + _autoConnect);
+			dispatchEvent(new Event(PaperWorldConstants.REMOTE_SCENE_READY));
+			
+			if (_autoConnect)
+			{
+				logger.info("Connecting");
+				connect();
+			}
+		}*/
+		
 		public function addPlayer(player:RemotePlayer, isRemote:Boolean = true):void 
 		{		
-			_players[player.username] = player;
-			player.avatar.name = player.username;
-			
-			if (isRemote)
-			{
-				_connection.call( PAPERWORLD_SERVICE_NAME + "." + CONNECT_TO_ZONE_METHOD, 
-								  addPlayerResponder, 
-								  player.username, 
-								  _zone );
+			logger.info("connected? " + _connection);
+						
+			if (_connection.connected)
+			{			
+				logger.info("RemoteScene connected, adding player");
+				_players[player.username] = player;
+	
+				if (isRemote)
+				{
+					_connection.call( PAPERWORLD_SERVICE_NAME + "." + CONNECT_TO_ZONE_METHOD, 
+									  addPlayerResponder, 
+									  player.username, 
+									  _zone );
+				}
+				else
+				{
+					GameTimer.getInstance().addEventListener(IntegrationEvent.INTEGRATION_EVENT, player.avatar.update);
+					
+					addChild(player.avatar, player.username);
+				}
 			}
 			else
 			{
-				GameTimer.getInstance().addEventListener(IntegrationEvent.INTEGRATION_EVENT, player.avatar.update);
-				
-				addChild(player.avatar, player.username);
+				logger.info("RemoteScene not connected, player must wait");
+				_waitingPlayers.push(player);
 			}
 		}
 				
 		public function addPlayerResponse(response:Object):void 
 		{
+			logger.info("Player response received " + (response as Array)[0]);
+			
 			var array:Array = response as Array;
 			var success:Boolean = array[0] as Boolean;
 			var username:String = array[1] as String;
@@ -134,12 +184,9 @@ package com.paperworld.rpc.scenes
 				
 				player.connection = Red5BootStrapper.getInstance().connection;
 				
-				GameTimer.getInstance().addEventListener(IntegrationEvent.INTEGRATION_EVENT, player.avatar.update);
-				GameTimer.getInstance().addEventListener(IntegrationEvent.INTEGRATION_EVENT, player.handleInput);
-			
-				super.addChild(player.avatar, username);
+				dispatchEvent(new RemoteSceneEvent(RemoteSceneEvent.ADD_PLAYER_SUCCESS));
 			}
-			else
+			else 
 			{
 				logger.info("Adding player unsuccesful... removing");
 				_players[username] = null;
@@ -148,11 +195,23 @@ package com.paperworld.rpc.scenes
 		
 		public function connect():void 
 		{
+			logger.info("RemoteScene connecting to " + _zone + " | " + _connection);
+			
 			var _bootStrapper:Red5BootStrapper = Red5BootStrapper.getInstance();
 			_connection = _bootStrapper.connection;
 			
 			_so = new RemoteSharedObject(_zone, false, false, _connection);
 			_so.addEventListener(SyncEvent.SYNC, onSync);
+			
+			addWaitingPlayers();
+		}
+		
+		private function addWaitingPlayers():void 
+		{
+			for each (var player:RemotePlayer in _waitingPlayers)
+			{
+				addPlayer(player);
+			}
 		}
 
 		/**
@@ -172,8 +231,8 @@ package com.paperworld.rpc.scenes
 		 * but it's always nice to have the option!)</p>
 		 */
 		public function onSync(event : SyncEvent) : void 
-		{				
-			//logger.info(thisPlayer + " Syncing");
+		{							
+			//logger.info("syncing");
 			
 			var length : int = event.changeList.length;
 			
@@ -196,7 +255,15 @@ package com.paperworld.rpc.scenes
 																
 							if (_players[name] != null)
 							{
+								var p:RemotePlayer = getPlayerByName(name);
+								if (p.avatar == null)
+								{
+									p.avatar = createPaperworldObject( so.data[name]["modelKey"], name);
+									super.addChild(p.avatar, name);
+								}
+								
 								getPlayerByName(name).avatar.synchronise( so.data[name] );
+
 							}
 							else
 							{
@@ -209,9 +276,8 @@ package com.paperworld.rpc.scenes
 							break;
 							
 						case "delete":
-						
-							removeChild(getPlayerByName(name).avatar);
-							_players[name] = null;
+							logger.info("Deleting: " + name);
+							removePlayer(name);
 							break;
 							
 						default:
@@ -220,13 +286,25 @@ package com.paperworld.rpc.scenes
 				}
 			}
 		}
+		
+		private function removePlayer(username:String):void 
+		{
+			logger.info("removing: " + username);
+			var player:RemotePlayer = getPlayerByName(username);
+			var avatar:Avatar = player.avatar;
+						
+			removeChildByName(username);
+			_players[username] = null;
+		}
 
 		private function createPaperworldObject(key : String, name : String) : Avatar 
 		{						
-			logger.info("trying to create: " + key + ", " + name);
+			logger.info("trying to create: " + key + ", " + name + ", " + _so._so.data[name]);
 			
-			var ObjectClass : Class = getDefinitionByName( key ) as Class;
-			var object : Avatar = new ObjectClass( ) as Avatar;
+			var object:Avatar = _appContext.getObject(key) as Avatar;
+			
+			/*var ObjectClass : Class = getDefinitionByName( key ) as Class;
+			var object : Avatar = new ObjectClass( _so._so.data[name] ) as Avatar;*/
 			object.name = name;
 			
 			object.setState(_so._so.data[name]);

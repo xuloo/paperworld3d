@@ -15,4 +15,11 @@
 		<nature>com.adobe.flexbuilder.project.flexlibnature</nature>
 		<nature>com.adobe.flexbuilder.project.actionscriptnature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>[source path] tweener</name>
+			<type>2</type>
+			<location>D:/projects/tweener</location>
+		</link>
+	</linkedResources>
 </projectDescription>

@@ -48,6 +48,8 @@ package com.paperworld.rpc.input
 		 * screen space to calculate the mouseX/mouseY values.
 		 */
 		public var stage : DisplayObject;		
+		
+		//private var logger:XrayLog = new XrayLog();
 
 		/**
 		 * Constructor.
@@ -57,9 +59,13 @@ package com.paperworld.rpc.input
 			super( time );
 			
 			stage = PaperWorld.getInstance( ).stage;
+			logger.info("has listener; " + stage);
 			stage.addEventListener( KeyboardEvent.KEY_DOWN, onKeyDown );
 			stage.addEventListener( KeyboardEvent.KEY_UP, onKeyUp );	        
 			stage.addEventListener( MouseEvent.MOUSE_MOVE, onMouseMove );
+			stage.addEventListener( MouseEvent.MOUSE_DOWN, onMouseDown);
+			stage.addEventListener( MouseEvent.MOUSE_UP, onMouseUp);
+			
 		}
 
 		/**
@@ -67,6 +73,8 @@ package com.paperworld.rpc.input
 		 */
 		private function onKeyDown( event : KeyboardEvent ) : void 
 		{
+			logger.info("key down: " + event.keyCode);
+			
 			switch ( event.keyCode )
 			{
 				case KeyDefinitions.LEFT_ARROW:
@@ -186,6 +194,8 @@ package com.paperworld.rpc.input
 		 */
 		private function onKeyUp( event : KeyboardEvent ) : void 
 		{
+			logger.info("key up: " + event.keyCode);
+						
 			switch ( event.keyCode )
 			{
 				case KeyDefinitions.LEFT_ARROW:
@@ -297,6 +307,24 @@ package com.paperworld.rpc.input
 					break;
 			}
 	        
+			$hasChanged = true;
+		}
+		
+		private function onMouseDown(event:MouseEvent):void 
+		{
+			logger.info("Mouse Down");
+			
+			current.W = true;
+			
+			$hasChanged = true;
+		}
+		
+		private function onMouseUp(event:MouseEvent):void 
+		{
+			logger.info("Mouse Up");
+			
+			current.W = false;
+			
 			$hasChanged = true;
 		}
 
