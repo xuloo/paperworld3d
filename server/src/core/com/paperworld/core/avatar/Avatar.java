@@ -24,7 +24,8 @@
 package com.paperworld.core.avatar;
 
 
-import com.paperworld.core.avatar.behaviour.AbstractSteeringBehaviour;
+import com.paperworld.core.avatar.behaviour.AbstractSteeringAction;
+import com.paperworld.core.avatar.behaviour.IAvatarBehaviour;
 import com.paperworld.core.util.DisplayObject3D;
 import com.paperworld.core.util.math.Matrix3D;
 import com.paperworld.core.util.math.Quaternion;
@@ -42,9 +43,13 @@ public class Avatar {
 
 	protected AvatarInput input = new AvatarInput();
 
-	protected AbstractSteeringBehaviour behaviour;
+	protected IAvatarBehaviour behaviour;
 
 	protected String modelKey = "";
+	
+	protected String skinKey = "";
+	
+	protected String thumbNail = "";
 
 	public String id;
 
@@ -66,8 +71,13 @@ public class Avatar {
 	 * position and orientation of the displayObject.
 	 */
 	public void update() {
-		System.out.println("updating avatar " + this + ", " + behaviour);
-		//behaviour.run();
+		try {
+			behaviour.update(this);
+		} catch (Exception e) {
+			
+		}
+		
+		/**/
 	}
 
 	/**
@@ -123,7 +133,7 @@ public class Avatar {
 	}
 
 	public AvatarData getAvatarData() {
-		AvatarData avatarData = new AvatarData(modelKey, time, input, state);
+		AvatarData avatarData = new AvatarData(modelKey, skinKey, time, input, state);
 
 		return avatarData;
 	}
@@ -169,17 +179,30 @@ public class Avatar {
 		input = i;
 	}
 
-	public void setBehaviour(AbstractSteeringBehaviour b) {
+	public void setBehaviour(IAvatarBehaviour b) {
 		behaviour = b;
-		behaviour.setCharacter(this);
+		AbstractSteeringAction sa = (AbstractSteeringAction) behaviour;
+		sa.setCharacter(this);
 	}
 	
-	public AbstractSteeringBehaviour getBehaviour() {
+	public IAvatarBehaviour getBehaviour() {
 		return behaviour;
 	}
 
 	public void setModelKey(String m) {
 		modelKey = m;
+	}
+	
+	public void setSkinKey(String skinKey) {
+		this.skinKey = skinKey;
+	}
+	
+	public void setThumbNail(String thumbNail) {
+		this.thumbNail = thumbNail;
+	}
+	
+	public String getThumbNail() {
+		return thumbNail;
 	}
 
 	public Quaternion getOrientation() {

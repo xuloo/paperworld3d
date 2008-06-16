@@ -15,10 +15,6 @@ public class SceneData implements IExternalizable {
 	public SceneData() {
 
 	}
-	
-	public SceneData(String name) {
-		this.name = name;
-	}
 
 	public void readExternal(IDataInput input) {
 		name = input.readUTF();

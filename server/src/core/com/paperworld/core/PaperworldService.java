@@ -3,12 +3,15 @@ package com.paperworld.core;
 import java.util.Map;
 
 import org.red5.server.adapter.IApplication;
+import org.red5.server.api.IBandwidthConfigure;
 import org.red5.server.api.IBasicScope;
 import org.red5.server.api.IClient;
 import org.red5.server.api.IConnection;
 import org.red5.server.api.IScope;
 import org.red5.server.api.Red5;
 import org.red5.server.api.listeners.IConnectionListener;
+import org.red5.server.api.stream.IStreamCapableConnection;
+import org.red5.server.api.stream.support.SimpleConnectionBWConfig;
 import org.red5.server.framework.Application;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,24 +59,28 @@ public class PaperworldService implements IApplication, IConnectionListener {
 	 */
 	private Application application;
 
+	private IScope scope;
+	
+	private static PaperworldService instance;
+	
 	/**
 	 * Empty Constructor.
 	 */
 	public PaperworldService() {
 	}
-
 	
 	public void init() {
-		System.out.println("Initialising paperworldservice");
+		System.out.println("Initialising paperworldservice " + scope);
 		Map<String, RemoteScene> scenes = sceneManager.getScenes();
 
 		for (String key : scenes.keySet()) {
 			RemoteScene scene = (RemoteScene) scenes.get(key);
-			scene.init(application);
+			//scene.init(application);
 		}
 	}
 
-	public Object[] connectToZone(String username, String zoneId) {
+	public Object[] connectToScene(String username, String zoneId) {
+		System.out.println(username + " connecting to " + zoneId + ", " + sceneManager.sceneExists(zoneId));
 		if (!sceneManager.sceneExists(zoneId)) {
 			return new Object[] { false, username };
 		}
@@ -94,7 +101,7 @@ public class PaperworldService implements IApplication, IConnectionListener {
 			Boolean rollPositive, Double mouseX, Double mouseY, Boolean firing) {
 
 		Player player = sceneManager.getPlayer(username);
-		System.out.println("getting player " + player.avatar);
+	
 		AvatarInput input = new AvatarInput();
 
 		input.left = left;
@@ -146,16 +153,22 @@ public class PaperworldService implements IApplication, IConnectionListener {
 		return scenesList;
 	}
 	
-	public LobbyData getLobbyData(String username) {
-		System.out.println("getting lobby data");
+	public SceneData getSceneData(String username) {
 		Player player = sceneManager.getPlayers().get(username);
-		System.out.println("player: " + player);
-		RemoteScene zone = player.getScene();
-		System.out.println("zone: " + zone);
-		return zone.getLobbyData();
+		RemoteScene scene = player.getScene();
+		return scene.getSceneData();
+	}
+	
+	public SceneData getLobbyData(String username) {
+		Player player = sceneManager.getPlayers().get(username);
+		RemoteScene scene = player.getScene();
+		RemoteScene lobby = sceneManager.getScene(scene.getName() + "Lobby");
+		System.out.println("scene " + scene + " lobby name: " + (scene.getName() + "Lobby") + " lobby: " + lobby);
+		return lobby.getSceneData();
 	}
 
 	public boolean appConnect(IConnection conn, Object[] params) {
+		
 		String username = params[0].toString();
 
 		Player player = (Player) Red5.getConnectionLocal().getScope()
@@ -165,7 +178,7 @@ public class PaperworldService implements IApplication, IConnectionListener {
 
 		sceneManager.addPlayer(player);
 
-		System.out.println("player created: " + player + " with avatar " + player.avatar);
+		System.out.println(params[0] + ", " + params[1] + " player created: " + player + " with avatar " + player.avatar);
 		
 		return true;
 	}
@@ -184,14 +197,17 @@ public class PaperworldService implements IApplication, IConnectionListener {
 	}
 
 	public void appLeave(IClient arg0, IScope arg1) {
+		System.out.println("app leaving");
 	}
 
 	public boolean appStart(IScope scope) {
-		return false;
+		System.out.println("paperworld service started - scope being registered");
+		this.scope = scope;
+		return true;
 	}
 
 	public void appStop(IScope arg0) {
-
+		System.out.println("app stopping");
 	}
 
 	public boolean roomConnect(IConnection arg0, Object[] arg1) {
@@ -199,7 +215,7 @@ public class PaperworldService implements IApplication, IConnectionListener {
 	}
 
 	public void roomDisconnect(IConnection arg0) {
-
+		System.out.println("room disconnecting");
 	}
 
 	public boolean roomJoin(IClient arg0, IScope arg1) {
@@ -207,10 +223,11 @@ public class PaperworldService implements IApplication, IConnectionListener {
 	}
 
 	public void roomLeave(IClient arg0, IScope arg1) {
-
+		System.out.println("leaving room");
 	}
 
 	public boolean roomStart(IScope arg0) {
+		System.out.print("Room STarting");
 		return false;
 	}
 
@@ -229,6 +246,7 @@ public class PaperworldService implements IApplication, IConnectionListener {
 	public void setApplication(Application a) {
 		application = a;
 		application.addListener(this);
+		scope = application.getScope();
 	}
 
 	public Application getApplication() {
@@ -241,5 +259,9 @@ public class PaperworldService implements IApplication, IConnectionListener {
 
 	public boolean addChildScope(IBasicScope arg0) {
 		return false;
+	}
+	
+	public IScope getScope() {
+		return scope;
 	}
 }

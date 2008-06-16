@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.red5.server.api.IConnection;
+import org.red5.server.api.IScope;
 
 import com.paperworld.core.player.Player;
 
@@ -23,20 +24,24 @@ public class SceneManager {
 	}
 	
 	public void addPlayer(Player player) {
+		System.out.println("adding a player to the manager " + player + " | " + player.getUsername());
 		players.put(player.getUsername(), player);
+		System.out.println("player after " + players.get(player.getUsername()));
 	}
 
 	public void addPlayerToScene(String playerKey, String sceneKey) {
-		System.out.println("players " + players.toString());
+		for (String key : players.keySet()) {
+			System.out.println("key " + key);
+		}
+		System.out.println(playerKey + " players " + players.get(playerKey));
 		addPlayerToScene(players.get(playerKey), sceneKey);
 	}
 
 	public void addPlayerToScene(Player player, String sceneKey) {
-		removePlayerFromScene(player);
-		System.out.println("adding " + player.avatar );
+		System.out.println("adding player to scene " + player);
 		RemoteScene scene = scenes.get(sceneKey);
 		scene.addPlayer(player);
-		player.setScene(scene);
+		//player.setScene(scene);
 	}
 	
 	public void removePlayerFromScene(Player player) {
@@ -74,7 +79,6 @@ public class SceneManager {
 	}
 	
 	public Player getPlayer(String key) {
-		System.out.println("SM getting player " + players.get(key) + " == " + players.get(key).avatar);
 		return players.get(key);
 	}
 	

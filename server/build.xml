@@ -10,14 +10,15 @@
      <property environment="env"/>
 	 
      <property name="paperworld.src.dir" location="src/core"/>
-	 
      <property name="build.dir" location="bin"/>
 	 
 	 
      <property name="red5.dir" location="C:/Users/Trevor/workspace/red5_server"/>
+     <!-- property name="red5.dir" location="C:/Users/Trevor/Red5"/-->
      
-     <property name="dist.dir" location="${red5.dir}/webapps/${app.name}"/>
+     <property name="dist.dir" location="${red5.dir}/webapps/paperworld3d"/>
      <!-- property name="red5.app.dir" location="${red5.dir}/webapps/${app.name}"/ -->
+     
      <property name="ivy.lib.dir" value="${build.dir}/lib"/>
      <property name="ivy.version" value="ivy-2.0.0-beta1" />
 	 

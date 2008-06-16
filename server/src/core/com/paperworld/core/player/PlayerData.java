@@ -23,16 +23,27 @@
  */
 package com.paperworld.core.player;
 
-public class PlayerData {
+import org.red5.io.amf3.IDataInput;
+import org.red5.io.amf3.IDataOutput;
+import org.red5.io.amf3.IExternalizable;
+
+public class PlayerData implements IExternalizable{
 	public String username = "";
+	
+	public String thumbNail = "";
 
-	public String modelKey = "";
-
-	public PlayerData(String username, String modelKey) {
+	public PlayerData(String username, String thumbNail) {
 		this.username = username;
-		this.modelKey = modelKey;
+		this.thumbNail = thumbNail;
 	}
 
-	public PlayerData() {
+	public void readExternal(IDataInput input) {
+		username = input.readUTF();
+		thumbNail = input.readUTF();
+	}
+
+	public void writeExternal(IDataOutput output) {
+		output.writeUTF(username);
+		output.writeUTF(thumbNail);
 	}
 }

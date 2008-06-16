@@ -8,30 +8,31 @@ import com.paperworld.core.util.math.Matrix3D;
 import com.paperworld.core.util.math.Quaternion;
 import com.paperworld.core.util.math.Vector3D;
 
-public class KinematicBehaviour2D extends AbstractSteeringAction implements IAvatarBehaviour {
+public class SimpleBehaviour2D extends AbstractSteeringAction implements IAvatarBehaviour {
 
-	private double toDEGREES  = 180/Math.PI;
 	private double toRADIANS  = Math.PI/180;
 	
-	public static double EPSILON = 0.005;
-
+	private int speed = 5;
+	
+	private double lastRotation = 0;
+	
+	private Vector3D rotationAxis = DisplayObject3D.UP;
+	
+	private double rotationAngle = 0.0;	
+	
 	public Double maxAcceleration = 5.0;
 
 	public Double maxSpeed = 50.0;
 
 	public Double minSpeed = -maxSpeed;
-
-	private Vector3D rotationAxis = DisplayObject3D.UP;
 	
-	private double rotationAngle = 0.0;
-
 	@Override
 	public void act() {
-		
+				
 		AvatarInput input = character.getInput();
 		AvatarState state = character.getState();
 		DisplayObject3D displayObject = character.getDisplayObject();
-
+		
 		if (input.forward)
 			state.speed = (state.speed + maxAcceleration > maxSpeed) ? maxSpeed
 					: state.speed + maxAcceleration;
@@ -72,33 +73,9 @@ public class KinematicBehaviour2D extends AbstractSteeringAction implements IAva
 	public void setRotationAxis(Vector3D angle) {
 		rotationAxis = angle;
 	}
-
-	private Double getRotationAngle(Quaternion qr){
-		
-		return Math.acos(qr.w) * 2 * toRADIANS;
-		
-		/*Vector3D axis = new Vector3D();	
-		
-	    double cos_angle  = qr.w;
-	    double angle      = Math.acos( cos_angle ) * 2 * RADIANS;
-	    double sin_angle  = Math.sqrt( 1.0 - cos_angle * cos_angle );
-	    
-	    System.out.println("sin_angle: " + Math.abs( sin_angle ));
-	    
-	    if ( Math.abs( sin_angle ) < 0.0005 )
-	    {
-	    	sin_angle = 1.0;
-	    }
-
-	    axis.x = qr.x / sin_angle;
-	    axis.y = qr.y / sin_angle;
-	    axis.z = qr.z / sin_angle;
-		System.out.println("axis: (" + axis.x + ", " + axis.y + ", " + axis.z + ") angle: " + angle);
-		return angle;*/
-	}
-
+	
 	public void update(Avatar avatar) {
-		// TODO Auto-generated method stub
 		act();
 	}
+
 }

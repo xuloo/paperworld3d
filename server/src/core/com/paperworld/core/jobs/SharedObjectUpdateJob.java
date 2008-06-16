@@ -20,12 +20,11 @@ public class SharedObjectUpdateJob implements IScheduledJob {
 			throws CloneNotSupportedException {
 		try {
 			ISharedObject so = remoteScene.getSO();
-			
+			//System.out.println("so " + so);
 			so.beginUpdate();
 			
 			for (Player player : remoteScene.getPlayers()) {
 				Avatar avatar = player.avatar;
-				System.out.println("updating " + avatar);
 				so.setAttribute(avatar.id, avatar.getAvatarData());
 			}
 

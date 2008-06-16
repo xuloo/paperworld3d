@@ -40,12 +40,16 @@ public class AvatarData {
 	public AvatarInput input;
 	
 	public int time;
+	
+	public String skinKey;
 
 	/**
 	 * Holds the full classname of the object that handles the input on the
 	 * server and provides a visual representation on the client.
 	 */
 	public String modelKey;
+	
+	
 
 	/**
 	 * Constructor.
@@ -55,8 +59,9 @@ public class AvatarData {
 	 * @param state
 	 * @param input
 	 */
-	public AvatarData(String modelKey, int time, AvatarInput input, AvatarState state) {
+	public AvatarData(String modelKey, String skinKey, int time, AvatarInput input, AvatarState state) {
 		this.modelKey = modelKey;
+		this.skinKey = skinKey;
 		this.time = time;
 		this.input = input;
 		this.state = state;

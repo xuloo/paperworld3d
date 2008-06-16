@@ -24,6 +24,7 @@
 package com.paperworld.core.player;
 
 import org.red5.server.api.IConnection;
+import org.red5.server.api.IScope;
 import org.red5.server.framework.Client;
 
 import com.paperworld.core.avatar.Avatar;
@@ -87,6 +88,8 @@ public class Player {
 	private RemoteScene scene;
 
 	private IConnection connection;
+	
+	private IScope scope;
 
 	// private Client client;
 
@@ -98,6 +101,8 @@ public class Player {
 	/*
 	 * public Player(String uid) { this.uid = uid; }
 	 */
+	
+	private PlayerData playerData;
 
 	public Player() {
 
@@ -131,10 +136,10 @@ public class Player {
 	 */
 	public void receiveInput(Integer time, AvatarInput input) {
 
-		while (this.time < time) {
+		/*while (this.time < time) {
 			avatar.update();
 			this.time++;
-		}
+		}*/
 
 		avatar.setInput(input);
 	}
@@ -213,12 +218,9 @@ public class Player {
 
 	public void setScene(RemoteScene scene) {
 		this.scene = scene;
-		System.out.println("Adding Scene " + scene.getBehaviour());
-		if (scene != null) {
+		/*if (scene != null) {
 			avatar.setBehaviour(scene.getBehaviour());
-		}
-System.out.println("avatar behaviour " + avatar.getBehaviour());
-		// avatar.zone = zone;
+		}*/
 	}
 
 	public void setConnection(IConnection connection) {
@@ -227,5 +229,17 @@ System.out.println("avatar behaviour " + avatar.getBehaviour());
 
 	public IConnection getConnection() {
 		return connection;
+	}
+	
+	public PlayerData getPlayerData() {
+		return new PlayerData(username, avatar.getThumbNail());
+	}
+	
+	public void setScope(IScope scope) {
+		this.scope = scope;
+	}
+	
+	public IScope getScope() {
+		return scope;
 	}
 }

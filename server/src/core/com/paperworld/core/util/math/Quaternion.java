@@ -231,6 +231,22 @@ public class Quaternion {
 
 		return m;
 	}
+	
+	public static Quaternion createFromAxisAngle( double x, double y, double z, double angle ) {
+		double sin = Math.sin( angle / 2 );
+		double cos = Math.cos( angle / 2 );
+
+		Quaternion q = new Quaternion();
+
+		q.x = x * sin;
+		q.y = y * sin;
+		q.z = z * sin;
+		q.w = cos;
+
+		q.normalize();
+		
+		return q;
+	}
 
 	public String toString() {
 		return "x: " + x + " y: " + y + " z: " + z + " w: " + w;

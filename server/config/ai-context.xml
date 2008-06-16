@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans>
+
+<bean id="aiZone" class="com.paperworld.scenes.RemoteScene">
+		<property name="name" value="aiZone"/>
+		<property name="persistent" value="false"/>
+		<property name="updateRate" value="5"/>
+		<property name="service">
+			<ref bean="paperworld.service"/>
+		</property>
+		<property name="player">
+			<ref bean="ai.player"/>
+		</property>
+	</bean>
+
+<bean id="ai.player" 
+		class="com.paperworld.core.player.Player" 
+		singleton="false">
+		<property name="avatar">
+			<ref bean="ai.avatar"/>
+		</property>
+		<property name="username" value="AI Player"/>
+	</bean>
+	
+	<bean id="ai.avatar" 
+		class="com.paperworld.core.avatar.Avatar"
+		singleton="false">
+		<property name="modelKey" value="planeAvatar"/>
+		<property name="behaviour">
+			<ref bean="ai.behaviour"/>
+		</property>
+		<property name="thumbNail" value="thumbnail"/>
+	</bean>
+	
+	<bean id="ai.behaviour" 
+		class="org.actionengine.steering.behaviour.AIBehaviour"
+		singleton="false">
+		<constructor-arg><ref bean="web.handler"/></constructor-arg>
+	</bean>
+	
+	<bean id="state.machine" class="org.actionengine.statemachine.StateMachine">
+		<property name="initialState">
+			<ref bean="first.state"/>
+		</property>
+	</bean>
+	
+	<bean id="first.state" class="org.actionengine.statemachine.avatar.AvatarStateMachineState">
+		<property name="action">
+			<ref bean="first.action"/>
+		</property>
+		<property name="firstTransition">
+			<ref bean="first.transition"/>
+		</property>
+	</bean>
+	
+	<bean id="first.action" class="org.actionengine.statemachine.avatar.FirstStateAction">
+	</bean>
+	
+	<bean id="first.transition" class="org.actionengine.statemachine.avatar.AvatarStateTransition">
+		<property name="targetState">
+			<ref bean="second.state"/>
+		</property>
+		<property name="condition">
+			<ref bean="proximity.condition"/>
+		</property>
+	</bean>
+
+	<bean id="proximity.condition" class="org.actionengine.statemachine.avatar.ProximityCondition">
+		<property name="watch">
+			<ref bean="avatar"/>
+		</property>
+	</bean>
+	
+	<bean id="second.state" class="org.actionengine.statemachine.avatar.AvatarStateMachineState">
+		<property name="action">
+			<ref bean="second.action"/>
+		</property>
+		<property name="firstTransition">
+			<ref bean="second.transition"/>
+		</property>
+	</bean>
+	
+	<bean id="second.action" class="org.actionengine.statemachine.avatar.SecondStateAction">
+	</bean>
+	
+	<bean id="second.transition" class="org.actionengine.statemachine.avatar.AvatarStateTransition">
+	</bean>
+	
+</beans>

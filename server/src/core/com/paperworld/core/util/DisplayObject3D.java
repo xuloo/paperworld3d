@@ -26,6 +26,7 @@ package com.paperworld.core.util;
 import com.paperworld.collision.BoundingSphere;
 import com.paperworld.collision.ICollidable;
 import com.paperworld.core.util.math.Matrix3D;
+import com.paperworld.core.util.math.Quaternion;
 import com.paperworld.core.util.math.Vector3D;
 
 public class DisplayObject3D 
@@ -37,6 +38,9 @@ public class DisplayObject3D
 	static private double toDEGREES  = 180/Math.PI;
 	static private double toRADIANS  = Math.PI/180;
 	
+	private static Matrix3D _tempMatrix		= Matrix3D.getIDENTITY(); 
+	private static Quaternion _tempQuat		= new Quaternion(); 
+	
 	/**
 	* Relative directions.
 	*/
@@ -46,6 +50,15 @@ public class DisplayObject3D
 	static public Vector3D RIGHT     = new Vector3D(  1.0,  0.0,  0.0 );
 	static public Vector3D UP        = new Vector3D(  0.0,  1.0,  0.0 );
 	static public Vector3D DOWN      = new Vector3D(  0.0, -1.0,  0.0 );
+	
+	private Vector3D _rotation = new Vector3D();
+	
+	public double _rotationX;
+	public double _rotationY;
+	public double _rotationZ;
+	
+	public boolean _transformDirty;
+	public boolean _rotationDirty;
 	
 	public DisplayObject3D() 
 	{
@@ -95,6 +108,56 @@ public class DisplayObject3D
 	public void setZ( double value )
 	{
 		transform.n34 = value;
+	}
+	
+	/**
+	* Specifies the rotation around the X axis from its original orientation.
+	*/
+	public double getRotationX()
+	{
+		if( this._rotationDirty ) updateRotation();
+
+		return -this._rotationX * toDEGREES;
+	}
+
+	public void setRotationX( double rot )
+	{
+		this._rotationX = -rot * toRADIANS;
+		this._transformDirty = true;
+	}
+
+
+	/**
+	* Specifies the rotation around the Y axis from its original orientation.
+	*/
+	public double getRotationY()
+	{
+		if( this._rotationDirty ) updateRotation();
+
+		return -this._rotationY * toDEGREES;
+	}
+
+	public void setRotationY( double rot )
+	{
+		this._rotationY = -rot * toRADIANS;
+		this._transformDirty = true;
+	}
+
+
+	/**
+	* Specifies the rotation around the Z axis from its original orientation.
+	*/
+	public double getRotationZ()
+	{
+		if( this._rotationDirty ) updateRotation();
+
+		return -this._rotationZ * toDEGREES;
+	}
+
+	public void setRotationZ( double rot )
+	{
+		this._rotationZ = -rot * toRADIANS;
+		this._transformDirty = true;
 	}
 	
 	/**
@@ -166,6 +229,8 @@ public class DisplayObject3D
 		angle = angle * toRADIANS;
 
 		Vector3D vector = RIGHT.copy();
+		
+		if( this._transformDirty ) updateTransform();
 
 		Matrix3D.rotateAxis( transform, vector );
 		Matrix3D m = Matrix3D.rotationMatrix( vector.x, vector.y, vector.z, angle );
@@ -185,6 +250,8 @@ public class DisplayObject3D
 		angle *= toRADIANS;
 
 		Vector3D vector = UP.copy();
+		
+		if( this._transformDirty ) updateTransform();
 
 		Matrix3D.rotateAxis( transform, vector );
 		Matrix3D m = Matrix3D.rotationMatrix( vector.x, vector.y, vector.z, angle );
@@ -203,10 +270,51 @@ public class DisplayObject3D
 		angle *= toRADIANS;
 
 		Vector3D vector = FORWARD.copy();
+		
+		if( this._transformDirty ) updateTransform();
 
 		Matrix3D.rotateAxis( transform, vector );
 		Matrix3D m = Matrix3D.rotationMatrix( vector.x, vector.y, vector.z, angle );
 
 		transform.calculateMultiply3x3( m , transform );
+	}
+	
+	protected void updateTransform()
+	{		
+		_tempQuat = Matrix3D.euler2quaternion( -this._rotationY, -this._rotationZ, this._rotationX, _tempQuat ); // Swapped
+
+		//var m:Matrix3D = Matrix3D.quaternion2matrix( q.x, q.y, q.z, q.w );
+		_tempMatrix = Matrix3D.quaternion2matrix( _tempQuat.x, _tempQuat.y, _tempQuat.z, _tempQuat.w, _tempMatrix );
+		//var q:Quaternion = Quaternion.createFromEuler( -this._rotationY, -this._rotationZ, this._rotationX );
+		//var m:Matrix3D = q.toMatrix();
+		
+		Matrix3D transform = this.transform;
+
+		_tempMatrix.n14 = transform.n14;
+		_tempMatrix.n24 = transform.n24;
+		_tempMatrix.n34 = transform.n34;
+
+		transform.copy( _tempMatrix );
+
+		// Scale
+		//var scaleM:Matrix3D = Matrix3D.IDENTITY;
+		/*_tempMatrix.reset(); 
+		_tempMatrix.n11 = this._scaleX;
+		_tempMatrix.n22 = this._scaleY;
+		_tempMatrix.n33 = this._scaleZ;*/
+
+		this.transform.calculateMultiply( transform, _tempMatrix );
+
+		this._transformDirty = false;
+	}
+	
+	private void updateRotation()
+	{		
+		_rotation = Matrix3D.matrix2euler( this.transform, _rotation);
+		this._rotationX = _rotation.x * toRADIANS;
+		this._rotationY = _rotation.y * toRADIANS;
+		this._rotationZ = _rotation.z * toRADIANS;
+
+		this._rotationDirty = false;
 	}
 }

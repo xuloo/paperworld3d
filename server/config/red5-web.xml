@@ -27,6 +27,8 @@
         class="org.red5.server.framework.Application" />
 		
 	<import resource="paperworld-service.xml"/>
+	<import resource="chat-service.xml"/>
+	<!-- import resource="xtratheatre-service.xml"/ -->
 	
 	<!-- 
 	<bean id="sessionFactory"

@@ -1,9 +1,8 @@
 package com.paperworld.core.avatar.behaviour;
 
-import com.paperworld.core.avatar.AvatarInput;
-import com.paperworld.core.avatar.AvatarState;
-import com.paperworld.core.util.DisplayObject3D;
+import com.paperworld.core.avatar.Avatar;
+
 
 public interface IAvatarBehaviour {
-	public void update(AvatarInput input, AvatarState state, DisplayObject3D displayObject);
+	public void update(Avatar avatar);
 }

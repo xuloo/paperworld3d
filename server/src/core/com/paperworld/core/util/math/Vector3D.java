@@ -150,6 +150,13 @@ public class Vector3D {
 	public String toString() {
 		return "Vector3D(" + x + ", " + y + ", " + z + ")";
 	}
+	
+	public void reset(double newx, double newy, double newz)
+	{
+		x = newx; 
+		y = newy; 
+		z = newz; 
+	}
 
 	public Vector3D clone()
 	{

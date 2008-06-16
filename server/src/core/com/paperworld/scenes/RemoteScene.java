@@ -2,24 +2,23 @@ package com.paperworld.scenes;
 
 import java.util.ArrayList;
 
+import org.red5.server.adapter.IApplication;
 import org.red5.server.api.IScope;
-import org.red5.server.api.Red5;
 import org.red5.server.api.ScopeUtils;
-import org.red5.server.api.scheduling.IScheduledJob;
 import org.red5.server.api.scheduling.ISchedulingService;
 import org.red5.server.api.so.ISharedObject;
 import org.red5.server.api.so.ISharedObjectService;
+import org.red5.server.framework.Application;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.paperworld.actions.Action;
 import com.paperworld.core.PaperworldService;
-import com.paperworld.core.avatar.Avatar;
-import com.paperworld.core.avatar.behaviour.AbstractSteeringBehaviour;
+import com.paperworld.core.jobs.PlayerUpdateJob;
 import com.paperworld.core.jobs.SharedObjectUpdateJob;
 import com.paperworld.core.player.Player;
-import com.paperworld.lobby.LobbyData;
 
-public class RemoteScene implements IScheduledJob {
+public class RemoteScene /*implements IScheduledJob*/ {
 
 	public static Logger log = LoggerFactory.getLogger(RemoteScene.class);
 	
@@ -31,28 +30,33 @@ public class RemoteScene implements IScheduledJob {
 	/** Should the SharedObject be persistent? */
 	protected boolean persistent = false;
 
-	protected ISharedObject so;
+	//protected ISharedObject so;
 
 	protected PaperworldService service;
 
-	protected AbstractSteeringBehaviour behaviour;
+	protected Action behaviour;
 	
 	private int updateRate;
 	
-	protected LobbyData lobbyData;
-
+	protected SceneData sceneData;
+	
+	protected IScope scope;
+	
 	public RemoteScene() {
-		lobbyData = new LobbyData();
+		sceneData = new SceneData();
 	}
 
-	public void init(ISchedulingService scheduler) {
-		System.out.println("initialising shared object updater");
-		scheduler.addScheduledJob(1000 / updateRate, new SharedObjectUpdateJob(this));
+	public void init(Application application) {
+		System.out.println("Initialising RemoteScene (" + name + ")");
+		scope = application.getScope();
+		application.addScheduledJob(1000 / 25, new PlayerUpdateJob(players));
+		application.addScheduledJob(1000 / updateRate, new SharedObjectUpdateJob(this));
 	}
 
 	public void addPlayer(Player player) {
-		so = getSharedObject(Red5.getConnectionLocal().getScope());
-		System.out.println("Scene adding " + player.avatar);
+		System.out.println("adding player " + player);
+		System.out.println("adding " + player.getUsername() + " to " + (name + "_players"));
+		getSharedObject(name + "_players").setAttribute(player.getUsername(), player.getPlayerData());
 		players.add(player);
 	}
 	
@@ -62,13 +66,21 @@ public class RemoteScene implements IScheduledJob {
 
 	public void removePlayer(Player player) {
 		players.remove(player);
+		getSharedObject(name).removeAttribute(player.getUsername());
+		getSharedObject(name + "_players").removeAttribute(player.getUsername());
 		if (players.size() < 1) {
-			so.close();
-			so = null;
+			try {
+				//ISharedObject so = getSharedObject();
+				//so.close();
+				//so = null;
+			}
+			catch (Exception e) {
+				
+			}
 		}
 	}
 
-	private ISharedObject getSharedObject(IScope scope) {
+	protected ISharedObject getSharedObject(String name) {
 		ISharedObjectService service = (ISharedObjectService) ScopeUtils
 				.getScopeService(scope, ISharedObjectService.class, false);
 		return service.getSharedObject(scope, name, persistent);
@@ -79,7 +91,7 @@ public class RemoteScene implements IScheduledJob {
 	}
 
 	private int renderCounter = 0;
-
+/*
 	public void execute(ISchedulingService arg0)
 			throws CloneNotSupportedException {
 
@@ -91,7 +103,6 @@ public class RemoteScene implements IScheduledJob {
 				
 				for (Player player : players) {
 					Avatar avatar = player.avatar;
-					System.out.println("updating " + player + " == " + avatar);
 					so.setAttribute(avatar.id, avatar.getAvatarData());
 				}
 
@@ -102,10 +113,11 @@ public class RemoteScene implements IScheduledJob {
 		}
 
 		renderCounter++;
-	}
+	}*/
 
 	public void setName(String n) {
 		name = n;
+		sceneData.name = n;
 	}
 
 	public void setPersistent(boolean p) {
@@ -116,28 +128,40 @@ public class RemoteScene implements IScheduledJob {
 		this.service = service;
 	}
 	
-	public void setBehaviour(AbstractSteeringBehaviour b) {
+	public void setBehaviour(Action b) {
 		behaviour = b;
 	}
 
-	public AbstractSteeringBehaviour getBehaviour() {
+	public Action getBehaviour() {
 		return behaviour;
 	}
 	
 	public ISharedObject getSO() {
-		return so;
+		return getSharedObject(name);
 	}
 	
 	public void setUpdateRate(int updateRate) {
-		System.out.println("setting update rate to " + updateRate);
 		this.updateRate = updateRate;
 	}
 	
 	public SceneData getSceneData() {
-		return new SceneData(name);
+		return sceneData;
 	}
 	
-	public LobbyData getLobbyData() {
-		return lobbyData;
+	public void setScope(IScope scope) {
+		this.scope = scope;
+	}
+	
+	public void setImage(String image) {
+		sceneData.image = image;
+	}
+	
+	public void setModel(String model) {
+		sceneData.model = model;
+	}
+	
+	public void setPlayer(Player player) {
+		System.out.println("RemoteScene.setPlayer()");
+		players.add(player);
 	}
 }

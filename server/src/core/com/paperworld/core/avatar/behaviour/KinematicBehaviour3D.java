@@ -1,11 +1,12 @@
 package com.paperworld.core.avatar.behaviour;
 
+import com.paperworld.core.avatar.Avatar;
 import com.paperworld.core.avatar.AvatarInput;
 import com.paperworld.core.avatar.AvatarState;
 import com.paperworld.core.util.DisplayObject3D;
 import com.paperworld.core.util.math.Quaternion;
 
-public class KinematicBehaviour3D extends AbstractSteeringBehaviour {
+public class KinematicBehaviour3D extends AbstractSteeringAction implements IAvatarBehaviour {
 
 	public Double maxAcceleration = 5.0;
 
@@ -17,7 +18,7 @@ public class KinematicBehaviour3D extends AbstractSteeringBehaviour {
 
 	}
 
-	public void run() {
+	public void act() {
 
 		AvatarInput input = character.getInput();
 		AvatarState state = character.getState();
@@ -40,6 +41,11 @@ public class KinematicBehaviour3D extends AbstractSteeringBehaviour {
 		state.setTransform(displayObject.transform);
 		state.setOrientation(Quaternion.createFromMatrix(state
 				.returnTransform()));
+	}
+
+	public void update(Avatar avatar) {
+		// TODO Auto-generated method stub
+		act();
 	}
 
 }
