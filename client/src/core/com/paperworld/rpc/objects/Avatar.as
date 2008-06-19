@@ -287,14 +287,16 @@ package com.paperworld.rpc.objects
 					state.position.z = stateData["pz"];
 					
 					state.speed = stateData["speed"];
+					
+					logger.info(name + ":\n" + state.transform.n14 + ", " + state.transform.n24 + ", " + state.transform.n34);
+
 				}
 				else
 				{
 					state = new AvatarState( );
 				}
 				
-				//logger.info("Synchronising:\n" + state.transform.n14 + ", " + state.transform.n24 + ", " + state.transform.n34);
-				
+								
 				// Get the Input data.				
 				var inputData : Object = data["input"];
 				input.back = inputData["back"];

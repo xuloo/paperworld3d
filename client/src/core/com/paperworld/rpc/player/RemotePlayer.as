@@ -172,7 +172,7 @@ package com.paperworld.rpc.player
 						
 			if (userInput.hasChanged && _avatar)
 			{			
-				logger.info("handling input :: " + username);
+				//logger.info("handling input :: " + username);
 				
 				_avatar.character.input.left = userInput.A;
 				_avatar.character.input.right = userInput.D;

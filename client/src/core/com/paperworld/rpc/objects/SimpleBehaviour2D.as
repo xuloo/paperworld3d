@@ -21,6 +21,8 @@ package com.paperworld.rpc.objects
 		
 		public function update(input : AvatarInput, state : AvatarState, displayObject : DisplayObject3D) : void 
 		{			
+			displayObject.copyTransform(state.transform);
+			
 			if ( input.forward ) 
 				displayObject.moveForward( speed );
 

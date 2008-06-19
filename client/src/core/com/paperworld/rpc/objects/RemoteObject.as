@@ -41,9 +41,9 @@ package com.paperworld.rpc.objects
 	 */
 	public class RemoteObject extends EventDispatcher
 	{
-		protected const defaultTightness : Number = 0.5;
+		protected const defaultTightness : Number = 0.1;
 
-		protected const smoothTightness : Number = 0.5;
+		protected const smoothTightness : Number = 0.01;
 
 		public var input : AvatarInput;
 
