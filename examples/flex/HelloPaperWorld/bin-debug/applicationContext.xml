@@ -9,7 +9,7 @@
 	<object id="connection" class="jedai.net.rpc.Red5Connection">
 		<constructor-arg value="default"/>
 		<constructor-arg value="true"/>
-		<property name="rtmpURI" value="rtmp://localhost/jedai"/>
+		<property name="rtmpURI" value="rtmp://localhost/paperworld3d"/>
 		<property name="connectionArgs">
 	      <array>
 	        <ref>client</ref>
@@ -17,8 +17,4 @@
     	</property>
 	</object>
 	
-	<!--object id="avatar" class="examples.SimpleAvatar">
-		
-	</object-->
-
 </objects>
