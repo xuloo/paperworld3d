@@ -70,13 +70,13 @@ public class PaperworldService implements IApplication, IConnectionListener {
 	}
 	
 	public void init() {
-		System.out.println("Initialising paperworldservice " + scope);
+		/*System.out.println("Initialising paperworldservice " + scope);
 		Map<String, RemoteScene> scenes = sceneManager.getScenes();
 
 		for (String key : scenes.keySet()) {
 			RemoteScene scene = (RemoteScene) scenes.get(key);
 			//scene.init(application);
-		}
+		}*/
 	}
 
 	public Object[] connectToScene(String username, String zoneId) {

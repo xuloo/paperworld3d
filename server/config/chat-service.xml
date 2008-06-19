@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+
+	<bean id="chatservice.service" class="com.paperworld.chat.ChatService">
+		<property name="application">
+			<ref bean="web.handler"/>
+		</property>
+		<property name="service">
+			<ref bean="paperworld.service"/>
+		</property>
+	</bean>
+
+</beans>

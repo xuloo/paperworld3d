@@ -2,7 +2,7 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 <beans>
 	
-	<bean id="paperworld.service" class="com.paperworld.core.PaperworldService" init-method="init">
+	<bean id="paperworld.service" class="com.paperworld.core.PaperworldService">
 		<property name="application">
 			<ref bean="web.handler"/>
 		</property> 
@@ -16,7 +16,7 @@
 	<bean id="defaultZone" class="com.paperworld.scenes.RemoteScene">
 		<property name="name" value="defaultZone"/>
 		<property name="persistent" value="false"/>
-		<property name="updateRate" value="2"/>
+		<property name="updateRate" value="5"/>
 		<property name="service">
 			<ref bean="paperworld.service"/>
 		</property>

@@ -41,7 +41,7 @@ public class SceneManager {
 		System.out.println("adding player to scene " + player);
 		RemoteScene scene = scenes.get(sceneKey);
 		scene.addPlayer(player);
-		//player.setScene(scene);
+		player.setScene(scene);
 	}
 	
 	public void removePlayerFromScene(Player player) {

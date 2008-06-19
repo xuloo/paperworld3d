@@ -49,7 +49,7 @@ public class RemoteScene /*implements IScheduledJob*/ {
 	public void init(Application application) {
 		System.out.println("Initialising RemoteScene (" + name + ")");
 		scope = application.getScope();
-		application.addScheduledJob(1000 / 25, new PlayerUpdateJob(players));
+		application.addScheduledJob(1000 / 25, new PlayerUpdateJob(this));
 		application.addScheduledJob(1000 / updateRate, new SharedObjectUpdateJob(this));
 	}
 

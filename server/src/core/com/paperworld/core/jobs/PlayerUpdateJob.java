@@ -1,23 +1,24 @@
 package com.paperworld.core.jobs;
 
-import java.util.ArrayList;
-
 import org.red5.server.api.scheduling.IScheduledJob;
 import org.red5.server.api.scheduling.ISchedulingService;
 
 import com.paperworld.core.player.Player;
+import com.paperworld.scenes.RemoteScene;
 
 public class PlayerUpdateJob implements IScheduledJob {
 
-	private ArrayList<Player> players;
+	private RemoteScene scene;
 	
-	public PlayerUpdateJob(ArrayList<Player> players) {
-		this.players = players;
+	public PlayerUpdateJob(RemoteScene scene) {
+		this.scene = scene;
+		//System.out.println("player update job created");
 	}
 	
 	public void execute(ISchedulingService arg0)
 			throws CloneNotSupportedException {
-		for (Player player : players) {
+		//System.out.println("updating " + scene.getPlayers().size() + " Players " + this);
+		for (Player player : scene.getPlayers()) {
 			player.update();
 		}
 
