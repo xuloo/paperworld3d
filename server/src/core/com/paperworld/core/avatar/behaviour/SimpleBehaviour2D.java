@@ -33,16 +33,28 @@ public class SimpleBehaviour2D extends AbstractSteeringAction implements IAvatar
 		AvatarState state = character.getState();
 		DisplayObject3D displayObject = character.getDisplayObject();
 		
+		//System.out.println(input.left + " : " + input.right);
+		
+		state.speed = 0;
+		
 		if (input.forward)
-			state.speed = (state.speed + maxAcceleration > maxSpeed) ? maxSpeed
-					: state.speed + maxAcceleration;
-
+			state.speed = speed;
+		
 		if (input.back)
-			state.speed = (state.speed - maxAcceleration < minSpeed) ? minSpeed
-					: state.speed - maxAcceleration;
+			state.speed = -speed;
 		
 		translate(displayObject, state.speed);
-		rotate(displayObject, input.mouseX);
+		//rotate(displayObject, input.mouseX);
+		
+		double yawAmount = 0.0;
+		
+		if (input.left)
+			yawAmount = -1.0;
+		
+		if (input.right)
+			yawAmount = 1.0;
+		
+		rotate(displayObject, yawAmount);
 		
 		state.setTransform(displayObject.transform);
 		state.setOrientation(Quaternion.createFromMatrix(state
