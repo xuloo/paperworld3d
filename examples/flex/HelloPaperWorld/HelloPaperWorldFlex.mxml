@@ -31,7 +31,6 @@
 			PaperWorld.getInstance().initialise(stage);
 			
 			_player = new RemotePlayer();
-			//_player.username = Red5BootStrapper.getInstance().client.username;
 			
 			remoteCanvas.addPlayer(_player); 
 			remoteCanvas.startRendering();
@@ -41,7 +40,6 @@
 	
 	<jdi:Login id="login" horizontalCenter="-43" verticalCenter="2"/>
 	<ns1:RemoteCanvas id="remoteCanvas" zone="defaultZone" x="250" y="81" width="300" height="300"/>
-	<ns1:BubbleChat x="175" y="31" id="bubbleChat" remoteCanvas="{remoteCanvas}" player="{_player}"/>
 	
 	
 </mx:Application>

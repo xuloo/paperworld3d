@@ -7,8 +7,8 @@
 		singleton="false">
 	</object>
 	
-	
-	<!-- object id="planeAvatar" class="com.paperworld.rpc.objects.Avatar" 
+	<!-- 
+	<object id="planeAvatar" class="com.paperworld.rpc.objects.Avatar" 
 		singleton="false">
 		<constructor-arg>
 			<ref>greenPlane</ref>
@@ -16,33 +16,12 @@
 		<property name="behaviour">
 			<ref>simpleBehaviour2D</ref>
 		</property>
-		<property name="proxy">
-			<ref>redAvatar</ref>
-		</property>
-	</object -->
+	</object>
 	
 	<object id="greenPlane" class="org.papervision3d.objects.primitives.Plane" 
 	singleton="false">
 		<constructor-arg>
 			<ref>greenMaterial</ref>
-		</constructor-arg>
-		<constructor-arg value="250"/>
-		<constructor-arg value="250"/>
-	</object>
-	
-	<object id="redAvatar" class="com.paperworld.rpc.objects.Proxy">
-		<constructor-arg>
-			<ref>redPlane</ref>
-		</constructor-arg>
-		<property name="behaviour">
-			<ref>simpleBehaviour2D</ref>
-		</property>
-	</object>
-	
-	<object id="redPlane" class="org.papervision3d.objects.primitives.Plane" 
-	singleton="false">
-		<constructor-arg>
-			<ref>redMaterial</ref>
 		</constructor-arg>
 		<constructor-arg value="250"/>
 		<constructor-arg value="250"/>
@@ -54,13 +33,9 @@
 		<property name="doubleSided" value="true"/>
 	</object>
 	
-	<object id="redMaterial" class="org.papervision3d.materials.ColorMaterial" 
-	singleton="false">
-		<constructor-arg value="0xff0000"/>
-		<property name="doubleSided" value="true"/>
-	</object>
-	
 	<object id="simpleBehaviour2D" class="com.paperworld.rpc.objects.SimpleBehaviour2D" 
 	singleton="false"/>
+	
+	-->
 	
 </objects>
