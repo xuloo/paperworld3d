@@ -58,14 +58,34 @@ package com.paperworld.rpc.input
 		{
 			super( time );
 			
-			stage = PaperWorld.getInstance( ).stage;
+			stage = PaperWorld.getInstance().stage;
+			registerListeners(stage);
+			
+		}
+				
+		override public function registerListeners(stage:DisplayObject):void 
+		{
+			unRegisterListeners();
+			this.stage = stage;
+			//stage = PaperWorld.getInstance( ).stage;
 			logger.info("has listener; " + stage);
 			stage.addEventListener( KeyboardEvent.KEY_DOWN, onKeyDown );
 			stage.addEventListener( KeyboardEvent.KEY_UP, onKeyUp );	        
-			stage.addEventListener( MouseEvent.MOUSE_MOVE, onMouseMove );
-			stage.addEventListener( MouseEvent.MOUSE_DOWN, onMouseDown);
-			stage.addEventListener( MouseEvent.MOUSE_UP, onMouseUp);
-			
+			//stage.addEventListener( MouseEvent.MOUSE_MOVE, onMouseMove );
+			//stage.addEventListener( MouseEvent.MOUSE_DOWN, onMouseDown);
+			//stage.addEventListener( MouseEvent.MOUSE_UP, onMouseUp);
+		}
+		
+		override public function unRegisterListeners():void 
+		{
+			if (stage)
+			{
+				stage.removeEventListener( KeyboardEvent.KEY_DOWN, onKeyDown );
+				stage.removeEventListener( KeyboardEvent.KEY_UP, onKeyUp );	        
+				//stage.removeEventListener( MouseEvent.MOUSE_MOVE, onMouseMove );
+				//stage.removeEventListener( MouseEvent.MOUSE_DOWN, onMouseDown);
+				//stage.removeEventListener( MouseEvent.MOUSE_UP, onMouseUp);
+			}
 		}
 
 		/**
@@ -73,7 +93,7 @@ package com.paperworld.rpc.input
 		 */
 		private function onKeyDown( event : KeyboardEvent ) : void 
 		{
-			logger.info("key down: " + event.keyCode);
+			logger.info("key down: " + event.keyCode + ", " + stage);
 			
 			switch ( event.keyCode )
 			{
@@ -86,11 +106,11 @@ package com.paperworld.rpc.input
 					break;
 	
 				case KeyDefinitions.UP_ARROW:
-					current.up = true;
+					current.forward = true;
 					break;
 	
 				case KeyDefinitions.DOWN_ARROW:
-					current.down = true;
+					current.backward = true;
 					break;
 	
 				case KeyDefinitions.SPACEBAR:
@@ -116,23 +136,23 @@ package com.paperworld.rpc.input
 				case KeyDefinitions.PAGE_DOWN:
 					current.pageDown = true;
 					break;
-	                
+	                /*
 				case KeyDefinitions.W:
-					current.W = true;
+					current.forward = true;
 					break;
 	            	
 				case KeyDefinitions.S:
-					current.S = true;
+					current.backward = true;
 					break;
 	           
 				case KeyDefinitions.D:
-					current.D = true;
+					current.right = true;
 					break;
 	            	
 				case KeyDefinitions.A:
-					current.A = true;
+					current.left = true;
 					break;
-	            
+	            */
 				case KeyDefinitions.K:
 					current.K = true;
 					break;
@@ -207,11 +227,11 @@ package com.paperworld.rpc.input
 					break;
 	
 				case KeyDefinitions.UP_ARROW:
-					current.up = false;
+					current.forward = false;
 					break;
 	
 				case KeyDefinitions.DOWN_ARROW:
-					current.down = false;
+					current.backward = false;
 					break;
 	
 				case KeyDefinitions.SPACEBAR:
@@ -237,23 +257,23 @@ package com.paperworld.rpc.input
 				case KeyDefinitions.PAGE_DOWN:
 					current.pageDown = false;
 					break;
-	                
+	                /*
 				case KeyDefinitions.W:
-					current.W = false;
+					current.forward = false;
 					break;
 	            	
 				case KeyDefinitions.S:
-					current.S = false;
+					current.backward = false;
 					break;
 	           
 				case KeyDefinitions.D:
-					current.D = false;
+					current.right = false;
 					break;
 	            	
 				case KeyDefinitions.A:
-					current.A = false;
+					current.left = false;
 					break;
-	            	
+	            	*/
 				case KeyDefinitions.K:
 					current.K = true;
 					break;
@@ -342,7 +362,7 @@ package com.paperworld.rpc.input
 			{
 				current.mouseX = x;
 				current.mouseY = y;	
-				$hasChanged = true;
+				//$hasChanged = true;
 			}
 		}
 	}

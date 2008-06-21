@@ -141,7 +141,7 @@ package com.paperworld.rpc.objects
 		
 		protected function createBehaviour():void 
 		{
-			behaviour = new Behaviour2D();
+			behaviour = new SimpleBehaviour2D();
 		}
 		
 		protected function createAvatar(data:Object = null):void 
@@ -288,7 +288,7 @@ package com.paperworld.rpc.objects
 					
 					state.speed = stateData["speed"];
 					
-					logger.info(name + ":\n" + state.transform.n14 + ", " + state.transform.n24 + ", " + state.transform.n34);
+					//logger.info(name + ":\n" + state.transform.n14 + ", " + state.transform.n24 + ", " + state.transform.n34);
 
 				}
 				else

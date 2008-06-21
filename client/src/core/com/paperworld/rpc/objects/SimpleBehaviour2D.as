@@ -29,7 +29,13 @@ package com.paperworld.rpc.objects
 			if ( input.back ) 
 				displayObject.moveForward( -speed );			
 			
-			displayObject.yaw( input.mouseX );			
+			//displayObject.yaw( input.mouseX );	
+			
+			if ( input.left )
+				displayObject.yaw( -1 );
+				
+			if ( input.right )
+				displayObject.yaw( 1 );		
 			
 			state.transform.copy( displayObject.transform );
 			state.orientation = Quaternion.createFromMatrix( state.transform );

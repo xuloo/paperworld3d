@@ -13,12 +13,17 @@ package com.paperworld.rpc.views
 	
 	import org.papervision3d.cameras.*;
 	import org.papervision3d.render.BasicRenderEngine;
+	import org.papervision3d.scenes.Scene3D;
 	import org.papervision3d.view.AbstractView;
 	import org.papervision3d.view.Viewport3D;
 
 	public class RemoteView extends AbstractView
 	{
 		private var gameTimer:GameTimer = GameTimer.getInstance();
+		
+		private var _floorViewport:Viewport3D;
+		private var _floorRenderer:BasicRenderEngine;
+		private var _floorScene:Scene3D;
 		
 		private var logger:XrayLog = new XrayLog();
 		
@@ -38,9 +43,19 @@ package com.paperworld.rpc.views
 			remoteScene.zone = value;
 		}
 		
+		public function get floorScene():Scene3D
+		{
+			return _floorScene;
+		}
+		
 		public function RemoteView(scene:String = null, viewportWidth:Number=640, viewportHeight:Number=320, scaleToStage:Boolean=true, interactive:Boolean=true, cameraType:String = "CAMERA3D")
 		{
 			super();
+			
+			_floorScene = new Scene3D();
+			_floorViewport = new Viewport3D(viewportWidth, viewportHeight, scaleToStage, interactive);
+			addChild(_floorViewport);
+			_floorRenderer = new BasicRenderEngine();
 						
 			createScene(scene);
 			createViewport(viewportWidth, viewportHeight, scaleToStage, interactive);
@@ -96,6 +111,13 @@ package com.paperworld.rpc.views
 			gameTimer.addEventListener(RenderEvent.RENDER_EVENT, onRenderTick);
 			gameTimer.start();
 			viewport.containerSprite.cacheAsBitmap = false;
+		}
+		
+		override protected function onRenderTick(event:Event=null):void
+		{
+			super.onRenderTick(event);
+			
+			_floorRenderer.renderScene(_floorScene, camera, _floorViewport);
 		}
 		
 		override public function stopRendering(reRender:Boolean = false, cacheAsBitmap:Boolean = false):void

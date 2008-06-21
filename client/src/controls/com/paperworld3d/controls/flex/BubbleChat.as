@@ -5,9 +5,11 @@ package com.paperworld3d.controls.flex
 	import com.paperworld.rpc.scenes.RemoteScene;
 	import com.paperworld.rpc.timer.GameTimer;
 	import com.paperworld.rpc.timer.events.IntegrationEvent;
+	import com.paperworld.rpc.util.KeyDefinitions;
 	import com.paperworld3d.controls.flex.objects.BubbleChatInstance;
 	
 	import flash.events.Event;
+	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
 	import flash.events.SyncEvent;
 	import flash.net.Responder;
@@ -29,6 +31,8 @@ package com.paperworld3d.controls.flex
 	{
 		private var logger:XrayLog = new XrayLog();
 		
+		public static var MINIMUM_DISTANCE:Number = 1000;
+		
 		protected var _remoteCanvas:RemoteCanvas;
 		
 		protected var _chatInput:TextInput;
@@ -44,6 +48,8 @@ package com.paperworld3d.controls.flex
 		protected var _instances:Array;
 		
 		protected var _player:RemotePlayer;
+		
+		protected var _target:DisplayObject3D;
 		
 		public function set remoteCanvas(value:RemoteCanvas):void 
 		{
@@ -76,6 +82,8 @@ package com.paperworld3d.controls.flex
 			_instances = new Array();
 			_chatResponder = new Responder(chatMessageResponse, chatMessageFailed);
 			
+			addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
+			
 			var conn:Red5Connection = Red5BootStrapper.getInstance().connection;
 			if (conn) 
 			{
@@ -84,6 +92,18 @@ package com.paperworld3d.controls.flex
 			else
 			{
 				Red5BootStrapper.getInstance().addEventListener(Red5Event.CONNECTED, connect);
+			}
+		}
+		
+		private function onKeyDown(event:KeyboardEvent):void 
+		{
+			switch (event.keyCode)
+			{
+				case KeyDefinitions.ENTER:
+				{
+					onSubmitClick();
+					break;
+				}
 			}
 		}
 		
@@ -101,12 +121,17 @@ package com.paperworld3d.controls.flex
 			for (var i:String in _instances)
 			{
 				var instance:BubbleChatInstance = BubbleChatInstance(_instances[i]);
-				var target:DisplayObject3D = _remoteCanvas.scene.getPlayerByName(i).avatar.avatar.displayObject;
-				//var camera:CameraObject3D = _remoteCanvas.camera;
-				//var persp:Number = (camera.focus * camera.zoom) / (camera.focus + target.z);
-				logger.info("TArget: " + target.screen.x + " | " + (_remoteCanvas.width / 2));
-				instance.x = (target.screen.x + (_remoteCanvas.width / 2)) - (instance.width / 2);
-				instance.y = (target.screen.y + (_remoteCanvas.height / 2));
+				var player:RemotePlayer = _remoteCanvas.scene.getPlayerByName(i);
+				var target:DisplayObject3D = player.avatar.avatar.displayObject;
+				var inRange:Boolean = (player == _player) ? true : withinRange(target);
+				
+				instance.withinRange = inRange;
+				
+				if (inRange)
+				{
+					instance.x = (target.screen.x + (_remoteCanvas.width / 2)) - (instance.width / 2);
+					instance.y = (target.screen.y + (_remoteCanvas.height / 2));
+				}
 			}
 		}
 		
@@ -168,44 +193,26 @@ package com.paperworld3d.controls.flex
 					chatInstance.setMessages(data[i]);
 				}
 			}
-			/*
-			var message:ChatMessage;
-			
-			for (var i:String in data)
-			{
-				logger.info(i + " => " + data[i]);
-				
-				for (var j:String in data[i])
-				{
-					logger.info(i + " : " + j + " => " + (data[i][j] as ChatMessage));
-					
-					message = data[i][j] as ChatMessage;
-					if (!message.isDisplayed) break;
-				}
-			}
-			
-			if (message)
-			{
-				logger.info("New Message: " + message);
-				if (_instances[message.username] == null)
-				{
-					logger.info("creating new bubble chat instance");
-					var target:DisplayObject3D = _remoteScene.getPlayerByName(message.username).avatar.avatar.displayObject;
-					var instance:BubbleChatInstance = new BubbleChatInstance(target);
-					_remoteCanvas.addChild(instance);
-					
-					_instances[message.username] = instance;
-				}
-				
-				BubbleChatInstance(_instances[message.username]).addMessage(message);
-				
-				message.isDisplayed = true;
-			}*/
 		}
 		
-		private function onSubmitClick(event:MouseEvent) : void 
+		private function withinRange(target:DisplayObject3D):Boolean
 		{
-			logger.info("Player: " + _player + " RemoteScene: " + _remoteScene);
+			if (!_target)
+			{
+				_target = _player.avatar.avatar.displayObject;
+			}
+			
+			var x:Number = target.x - _target.x;
+			var y:Number = target.y - _target.y;
+			var z:Number = target.z - _target.z;
+			
+			var distance:Number = Math.sqrt(x * x + y * y + z * z);
+			
+			return distance < MINIMUM_DISTANCE;
+		}
+		
+		private function onSubmitClick(event:MouseEvent = null) : void 
+		{
 			var conn:Red5Connection = Red5BootStrapper.getInstance().connection;
 			conn.call("chatservice.chatMessage", _chatResponder, _player.username, _remoteCanvas.scene.zone, _chatInput.text);
 		
@@ -214,15 +221,12 @@ package com.paperworld3d.controls.flex
 		
 		public function chatMessageResponse(response:Object):void 
 		{
-			logger.info("Chat message sent successfully");
 			_chatInput.htmlText = "";
 			_chatInput.enabled = true;
 		}
 		
 		public function chatMessageFailed(response:Object):void 
-		{
-			logger.info("chat message failed to send");
-			
+		{		
 			for (var i:String in response)
 			{
 				logger.info(i + " = " + response[i]);

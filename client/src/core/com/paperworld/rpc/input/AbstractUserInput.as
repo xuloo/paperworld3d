@@ -24,9 +24,9 @@
 package com.paperworld.rpc.input
 {
 	import com.blitzagency.xray.logger.XrayLog;
-	import com.paperworld.rpc.timer.GameTimer;
 	import com.paperworld.rpc.timer.events.IntegrationEvent;
 	
+	import flash.display.DisplayObject;
 	import flash.events.EventDispatcher;	
 
 	/**
@@ -289,6 +289,16 @@ package com.paperworld.rpc.input
 		public function set hasChanged(value:Boolean):void 
 		{
 			$hasChanged = value;
+		}
+		
+		public function registerListeners(stage:DisplayObject):void 
+		{
+			
+		}
+		
+		public function unRegisterListeners():void 
+		{
+			
 		}
 	}
 }

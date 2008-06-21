@@ -174,10 +174,10 @@ package com.paperworld.rpc.player
 			{			
 				//logger.info("handling input :: " + username);
 				
-				_avatar.character.input.left = userInput.A;
-				_avatar.character.input.right = userInput.D;
-				_avatar.character.input.forward = userInput.W;
-				_avatar.character.input.back = userInput.S;
+				_avatar.character.input.left = userInput.left;
+				_avatar.character.input.right = userInput.right;
+				_avatar.character.input.forward = userInput.forward;
+				_avatar.character.input.back = userInput.backward;
 				_avatar.character.input.up = userInput.K;
 				_avatar.character.input.down = userInput.M;
 				_avatar.character.input.firing = userInput.space;
@@ -189,6 +189,8 @@ package com.paperworld.rpc.player
 				_avatar.character.input.rollPositive = userInput.TWO;
 				_avatar.character.input.mouseX = userInput.mouseX;
 				_avatar.character.input.mouseY = userInput.mouseY;
+
+				logger.info("left: " + _avatar.character.input.left + " right: " + _avatar.character.input.right);
 
 				if($connection)
 				{			
