@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="build-paperworld-server" default="all" basedir="."
+    xmlns:ivy="antlib:org.apache.ivy.ant">
+
+    <description>
+      PaperWorld3D server build and deployment.
+    </description>
+	
+     <!-- set global properties for this build -->
+	<property file="../../build/user.properties"/>
+	<property file="../../build/build.properties"/>
+	<property file="build.properties"/>
+	
+	<taskdef classpath="${basedir}/../../${build.lib}/ant-contrib-1.0b3.jar" resource="net/sf/antcontrib/antlib.xml"/>
+     
+     <property environment="env"/>
+
+     <path id="classpath">
+       <pathelement location="${red5.dir}/red5.jar"/>
+       <pathelement location="lib/jedai.jar"/>
+     </path>
+	 
+	 <target name="all" depends="jar, javadoc, clean" />
+
+	<target name="compile-core" depends="clean-core, prepare-core" 
+	 	description="compile the source">
+		 
+       <mkdir dir="${build.dir}"/>
+
+       <javac srcdir="${paperworld.src.dir}" destdir="${build.dir}" classpathref="classpath"/>
+
+	   <copy todir="${build.dir}" file="${paperworld.src.dir}/logback.xml" overwrite="true"/>
+
+     </target>
+	
+	<target name="prepare-core">
+		<mkdir dir="${build.dir}"/>
+       </target>
+       	
+    <target name="clean-core" description="delete the contents of the build directory (the compiled classes), then delete the directory itself">
+    	<delete failonerror="no" includeemptydirs="true">
+    		<fileset dir="${build.dir}" includes="**/*" />
+    		<fileset dir="../jar" includes="**/*.jar" />
+    	</delete>
+    		
+    	<delete dir="${build.dir}"/>
+    </target>
+	
+     <target name="dist" depends="clean, prepare-core, jar" description="generate the distribution" >
+
+     	<for list="${examples}" param="example">
+     		<sequential>			
+     				
+		     	<copy todir="../../examples/@{example}/WebContent/WEB-INF/lib">
+					<fileset dir="../jar">
+						<include name="**/*.jar"/>
+					</fileset>
+				</copy>    			
+     					
+     		</sequential>
+     	</for>
+
+     </target>
+     	
+     <target name="jar">
+          	<antcall target="build-core-jar"/>
+     </target>
+
+     <target name="build-core-jar" depends="compile-core" description="insert this app into the RED5_HOME service">
+          	
+		<jar jarfile="${jar.dir}/${core.output.name}.jar" basedir="${build.dir}"/>
+	
+     </target>
+
+     <target name="clean" description="clean up" >
+       <antcall target="clean-core"/>
+     </target>
+	
+	<target name="javadoc" description="Generate JavaDoc">
+		<javadoc useexternalfile="true" failonerror="false" verbose="false" classpathref="classpath"
+					 destdir="${javadoc.dir}" author="true" version="true" use="true" splitindex="true"
+					 windowtitle="${documentation.title}">
+					<fileset dir="${paperworld.src.dir}" defaultexcludes="yes">
+						<include name="com/paperworld/**"/>
+						<exclude name="**/*.xml"/>
+						<exclude name="**/*.xsd"/>
+					</fileset>
+					<doctitle><![CDATA[<h1>${documentation.title}</h1>]]></doctitle>
+					<bottom><![CDATA[<i>Copyright &#169; ${red5.age} <a href="${paperworld.url}" target="_blank">${red5.name}</a></i>]]></bottom>
+					<tag name="todo" scope="all" description="To do:"/>
+		</javadoc>
+	</target>
+</project>

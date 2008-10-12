@@ -1,125 +1,108 @@
-<project name="build-paperworld" default="build" basedir=".">
+<project name="build-paperworld" default="all" basedir=".">
 
 	<property file="build.properties"/>
 	
-	<taskdef resource="flexTasks.tasks" classpath="flexTasks.jar" />
-	<taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask" classpath="lib/xmltask-v1.15.1.jar"/>
+	<taskdef resource="flexTasks.tasks" classpath="lib/flexTasks.jar" />
 	<taskdef classpath="lib/ant-contrib-1.0b3.jar" resource="net/sf/antcontrib/antlib.xml"/>
 
-
-	<target name="build">
-		
+	<!-- builds everything; client libraries and docs, server libraries and docs, all examples -->
+	<target name="all" depends="build-client,build-server,build-examples"/>
+	
+	<target name="build-client">
+		<ant antfile="../client/build/build.xml" inheritall="false"/>
 	</target>
 	
-	<target name="build-external-libraries">
+	<target name="build-server">
+		<ant antfile="../server/build/build.xml" inheritall="false"/>		
+	</target>
+	
+	<target name="build-examples">
 		
-		<for list="${external.libraries}" param="library">
+		<for list="${examples}" param="example">
 			<sequential>			
 				
-				<echo>Building Module => @{library}</echo>
-				
-				<antcall target="build-external-library">
-					<param name="name" value="@{library}"/>
-					<param name="src.dir" value="${@{library}.src.dir}"/>
+				<echo>Building Example => @{example}</echo>
+
+				<antcall target="build-example" >					
+				 	<param name="example" value="@{example}"/>
 				</antcall>
-				
+
 			</sequential>
 		</for>
 		
 	</target>
 
-	<target name="build-external-library">
-		<echo>building ${name} library </echo>
+	<!-- allows building a single example. Use with -D switch i.e. ant build-example -Dexample=HelloPaperWorld -->
+	<target name="build-example">
 		
-		<antcall target="create-config-file">
-			<param name="src.dir" value="${src.dir}" />
-			<!--param name="deploy.dir" value="${deploy.dir}"/>
-			<param name="requires" value="${requires}" /-->
-		</antcall>
+		<echo> Building ${example}</echo>		
+		<ant antfile="../examples/${example}/build.xml" inheritall="false"/>
 		
-		<!-- build the list of actionscript classes in the source path -->
-		<path id="original.path">
-			<fileset dir="${src.dir}">
-				<include name="**/*.as"/>
+		<echo> Building ${example}/Client</echo>	
+		<ant antfile="../examples/${example}Client/build/build.xml" inheritall="false"/>
+		
+	</target>
+	
+	<target name="create-downloads" depends="clean-downloads,all,prepare-downloads,
+		create-complete-download-zip,create-libraries-download-zip,create-docs-download-zip">
+		<delete failonerror="no" includeemptydirs="true">
+			<fileset dir="../downloads/temp"/>
+		</delete>
+	</target>
+	
+	<target name="create-complete-download-zip">
+		<zip destfile="../downloads/paperworld-src-${version}.zip"
+		       basedir="../downloads/temp"
+		  />
+	</target>
+	
+	<target name="create-libraries-download-zip">
+		<zip destfile="../downloads/paperworld-libraries-${version}.zip">
+			<zipfileset dir="../client/bin" prefix="client"/>
+			<zipfileset dir="../server/jar" prefix="server"/>
+		 </zip>
+	</target>
+	
+	<target name="create-docs-download-zip">
+		<zip destfile="../downloads/paperworld-api-examples-${version}.zip">
+			<zipfileset dir="../client/docs" prefix="api/client"/>
+			<zipfileset dir="../server/doc" prefix="api/server"/>
+			<zipfileset dir="../examples" prefix="examples"/>
+		</zip>
+	</target>
+	
+	<target name="prepare-downloads">
+		<mkdir dir="../downloads/temp"/>
+		<copy todir="../downloads/temp/client">
+			<fileset dir="../client">
+				<exclude name="**/*.as3_classpath"/>
+				<exclude name="**/*.project"/>
+				<exclude name="**/.settings/**"/>
 			</fileset>
-		</path>
-		
-		<!-- edit the path names to make sure they start with 'com' -->
-		<path id="base.path" path="${src.dir}/"/>
-		<pathconvert refid="base.path" property="base.path.prop"/>
-		
-		<!-- convert the directory seperators from os-specific to the '.' seperator -->
-		<pathconvert refid="original.path" property="converted.path" dirsep="." pathsep=" ">
-			<mapper type="glob" from="${base.path.prop}\*.as" to="*"/>
-		</pathconvert>
-			
-		<!--echo>Source directory => ${src.dir}</echo-->
-		<echo>Converted path => ${converted.path}</echo>
-		
-		<!-- call the compiler -->
-		<antcall target="compile-compc">
-			<param name="classes" value="${converted.path}"/>
-			<param name="output" value="../client/lib/${name}.swc"/>
-		</antcall>
-		
-	</target>
-	
-	<!-- Creates the config file for the compiler to read when building. All the source paths for all modules are added to
-		 this config file. -->
-	<target name="create-config-file" description="creates the config file that contains all source paths so allows all modules to build from same configuration">
-		
-		<echo>Creating config file: ${src.dir} => ${requires}</echo>
-		
-		<!-- copy the template file over and filter to include the playerglobal.swc component -->
-		<copy file="${template.dir}/${config.template.file}" todir=".">
-			<filterset>
-				<filter token="PLAYERGLOBAL" value="${playerglobal}"/>
-				<filter token="FRAMEWORK" value="${framework}"/>
-				<filter token="FLEX_HOME" value="${FLEX_HOME}"/>
-			</filterset>
 		</copy>
-		
-		<!-- rename the file -->
-		<move file="${config.template.file}" tofile="${config.file}"/>
-		
-		<antcall target="-add-config-path">
-			<param name="module" value="${src.dir}" />
-			<param name="path.attribute" value="/${flex.config.tag}/${compiler.tag}/${source.path.tag}"/>
-		</antcall>
-	
-		<!--for list="${requires}" param="required.library">
-			<sequential>			
-					
-				<antcall target="-add-config-path">
-					<param name="module" value="${basedir}/${@{required.library}.deploy.dir}/lib/library.swc" />
-					<param name="path.attribute" value="/${flex.config.tag}/${compiler.tag}/${external.library.tag}"/>
-				</antcall>
-				
-			</sequential>
-		</for-->
-
+		<copy todir="../downloads/temp/server">
+			<fileset dir="../server">
+				<exclude name="**/*.classpath"/>
+			</fileset>
+		</copy>
+		<copy todir="../downloads/temp/tests">
+			<fileset dir="../tests">
+			</fileset>
+		</copy>
+		<copy todir="../downloads/temp/examples">
+			<fileset dir="../examples">
+				<exclude name="**/*.classpath"/>
+				<exclude name="**/*.as3_classpath"/>
+				<exclude name="**/*.project"/>
+				<exclude name="**/.settings/**"/>
+			</fileset>
+		</copy>
 	</target>
 	
-	<!-- Adds a path to the flex-config file for a module (either a source-path or external-library-path element -->
-	<target name="-add-config-path" description="adds a path-element to the flex config file for a module">
-		<echo>adding path: ${module}</echo>
-		<xmltask source="${config.file}" 
-				dest="${config.file}"
-				outputter="simple:3"
-		>
-			<insert path="${path.attribute}" xml="${open.path.element}${module}${close.path.element}"/>
-		</xmltask>
-	</target>
-	
-	<target name="compile-compc" >
-		<compc  
-           output="${output}"
-		   include-classes="${classes}"
-		   optimize="${optimize}"
-		   debug="${debug}"
-		>
-			<load-config filename="${config.file}"/>
-		</compc>
+	<target name="clean-downloads">
+		<delete failonerror="no" includeemptydirs="true">
+			<fileset dir="../downloads"/>
+		</delete>
 	</target>
 	
 </project>

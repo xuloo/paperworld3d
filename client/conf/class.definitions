@@ -1,0 +1,3 @@
+file.types.map=com.paperworld.loading.FileTypesMap
+url.file.loader=com.paperworld.loading.loaders.URLFileLoader
+loader.file.loader=com.paperworld.loading.loader.LoaderFileLoader

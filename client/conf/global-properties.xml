@@ -1,0 +1,11 @@
+<objects xmlns="http://www.pranaframework.org/objects"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://www.pranaframework.org/objects http://www.pranaframework.org/schema/objects/prana-objects-0.6.xsd ">
+         
+         <property file="class.definitions" />
+         
+         <object id="file.types.mapper" class="${file.types.mapper}">
+         	
+         </object>
+         
+</objects>

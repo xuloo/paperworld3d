@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects xmlns="http://www.pranaframework.org/objects"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://www.pranaframework.org/objects
+		 http://www.pranaframework.org/schema/objects/prana-objects-0.6.xsd">
+		 
+	<object id="connection" class="jedai.net.rpc.Red5Connection">
+		<constructor-arg value="default"/>
+		<constructor-arg value="true"/>
+		<property name="rtmpURI" value="rtmp://localhost/paperworld3d"/>
+		<property name="connectionArgs">
+	      <array>
+	        <ref>client</ref>
+	      </array>
+    	</property>
+	</object>
+	
+	<object id="client" class="jedai.net.ClientManager">
+		<property name="username" value="user"/>
+		<property name="password" value="pass"/>
+	</object>
+	
+</objects>
