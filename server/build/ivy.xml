@@ -11,11 +11,6 @@
 		<conf name="eclipse" description="Special dependencies in Eclipse"/>
 	</configurations>
     <dependencies> 
-        <dependency org="papervision" name="papervision3d" rev="2.0" />   
-	<dependency org="away" name="away3d" rev="2.1" />    
-	<dependency org="polygonallabs" name="datastructures" rev="1.0" />   
-	<dependency org="flexunit" name="flexunit" rev=""/> 
-	<dependency org="red5" name="jedai" rev="" />
-	<dependency org="prana" name="prana" rev="0.5" />  
+		<dependency org="red5" name="jedai" rev="" />
     </dependencies>
 </ivy-module>

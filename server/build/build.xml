@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="build-paperworld-server" default="all" basedir="."
-    xmlns:ivy="antlib:org.apache.ivy.ant">
+<project name="build-paperworld-server" default="all" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
 
     <description>
       PaperWorld3D server build and deployment.
@@ -13,6 +12,29 @@
 	
 	<taskdef classpath="${basedir}/../../${build.lib}/ant-contrib-1.0b3.jar" resource="net/sf/antcontrib/antlib.xml"/>
      
+	<taskdef resource="org/apache/ivy/ant/antlib.xml" 
+			 uri="antlib:org.apache.ivy.ant" 
+			 classpath="${basedir}/../../${build.lib}/${ivy.lib}.jar"/>
+		
+	<target name="retrieve" unless="library.installed" description="Retrieves the libraries if needed">
+		
+		<echo>${basedir}/../../${build.lib}/${ivy.lib}.jar</echo>
+		
+		<!-- Ivy configuration - http://ant.apache.org/ivy/history/trunk/ant.html -->
+		<ivy:settings file="ivysettings.xml"/>
+			
+		<condition property="ivy.conf.name" value="java6">
+			<not>
+				<isset property="ivy.conf.name"/>
+			</not>
+		</condition>
+
+		<echo message="Ivy conf name: ${ivy.conf.name}"/>
+		
+		<ivy:resolve file="ivy.xml" conf="${ivy.conf.name}"/>
+		<ivy:retrieve pattern="../lib/[artifact].[ext]" conf="${ivy.conf.name}"/>
+	</target>
+	
      <property environment="env"/>
 
      <path id="classpath">
