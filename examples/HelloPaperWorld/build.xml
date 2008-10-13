@@ -7,11 +7,11 @@
 	<property name="app.dir" value="${red5.dir}/webapps/${app.name}"/>
 
 	<path id="classpath">
-    	<pathelement location="${red5.dir}/red5.jar"/>
-    	<fileset dir="lib">
-        	<include name="**/*.jar"/>
-      	</fileset>
-    </path>
+    		<pathelement location="${red5.dir}/red5.jar"/>
+		<fileset dir="lib">
+        		<include name="**/*.jar"/>
+      		</fileset>
+    	</path>
 
 	<target name="clean">
 		<delete failonerror="no" includeemptydirs="true">
@@ -25,6 +25,7 @@
 	</target>
 	
 	<target name="compile">
+		<mkdir dir="${basedir}/build/classes"/>
 		<javac srcdir="${basedir}/src" destdir="${basedir}/build/classes" classpathref="classpath"/>
 	</target>
 	
