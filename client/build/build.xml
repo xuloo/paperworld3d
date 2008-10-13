@@ -1,4 +1,4 @@
-<project name="build-paperworld-client" default="all" basedir=".">
+<project name="build-paperworld-client" default="all" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
 
 	<property file="../../build/user.properties"/>
 	<property file="../../build/build.properties"/>
@@ -7,7 +7,24 @@
 	<taskdef resource="flexTasks.tasks" classpath="${basedir}/../../${build.lib}/flexTasks.jar" />
 	<taskdef classpath="${basedir}/../../${build.lib}/ant-contrib-1.0b3.jar" resource="net/sf/antcontrib/antlib.xml"/>
 
+	<taskdef resource="org/apache/ivy/ant/antlib.xml"
+	         uri="antlib:org.apache.ivy.ant" classpath="${basedir}/../lib/ivy.jar"/>
 	
+	<target name="retrieve" unless="library.installed" description="Retrieves the libraries if needed">
+		<echo>${basedir}/../lib/ivy-trunk.jar</echo>
+			<!-- Ivy configuration - http://ant.apache.org/ivy/history/trunk/ant.html -->
+			<ivy:settings file="ivysettings.xml"/>
+			<condition property="ivy.conf.name" value="java6">
+				<not>
+					<isset property="ivy.conf.name"/>
+				</not>
+			</condition>
+
+			<echo message="Ivy conf name: ${ivy.conf.name}"/>
+			<ivy:resolve file="ivy.xml" conf="${ivy.conf.name}"/>
+			<ivy:retrieve pattern="../lib/[artifact](-[revision]).swc" conf="${ivy.conf.name}"/>
+		</target>
+
 	<target name="all" depends="clean, prepare, build-tests, build-libraries, generate-docs" 
 		description="builds all the paperworld libraries and generates documentation" />
 	

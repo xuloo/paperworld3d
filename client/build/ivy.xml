@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="1.3" 
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+    <info organisation="paperworld" module="client" />
+	<configurations>
+	    <conf name="default"/>
+		<conf name="java5" extends="default" description="Java 5 dependencies"/>
+		<conf name="java6" extends="default" description="Java 6 dependencies"/>
+		<conf name="utest" extends="eclipse" description="Unit testing dependencies"/>
+		<conf name="eclipse" description="Special dependencies in Eclipse"/>
+	</configurations>
+    <dependencies> 
+        <dependency org="papervision" name="papervision3d" rev="2.0" />   
+	<dependency org="away" name="away3d" rev="2.1" />    
+	<dependency org="polygonallabs" name="datastructures" rev="1.0" />   
+	<dependency org="flexunit" name="flexunit" rev=""/> 
+	<dependency org="red5" name="jedai" rev="" />
+	<dependency org="prana" name="prana-main" rev="" />  
+    </dependencies>
+</ivy-module>
