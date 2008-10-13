@@ -42,7 +42,7 @@
        <pathelement location="lib/jedai.jar"/>
      </path>
 	 
-	 <target name="all" depends="jar, javadoc, clean" />
+	 <target name="all" depends="retrieve, jar, javadoc, clean" />
 
 	<target name="compile-core" depends="clean-core, prepare-core" 
 	 	description="compile the source">
@@ -62,7 +62,6 @@
     <target name="clean-core" description="delete the contents of the build directory (the compiled classes), then delete the directory itself">
     	<delete failonerror="no" includeemptydirs="true">
     		<fileset dir="${build.dir}" includes="**/*" />
-    		<fileset dir="../jar" includes="**/*.jar" />
     	</delete>
     		
     	<delete dir="${build.dir}"/>

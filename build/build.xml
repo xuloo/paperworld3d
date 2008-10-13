@@ -44,7 +44,7 @@
 	</target>
 	
 	<target name="create-downloads" depends="clean-downloads,all,prepare-downloads,
-		create-complete-download-zip,create-libraries-download-zip,create-docs-download-zip">
+		create-complete-download-zip,create-bin-download-zip,create-docs-download-zip">
 		<delete failonerror="no" includeemptydirs="true">
 			<fileset dir="../downloads/temp"/>
 		</delete>
@@ -56,8 +56,8 @@
 		  />
 	</target>
 	
-	<target name="create-libraries-download-zip">
-		<zip destfile="../downloads/paperworld-libraries-${version}.zip">
+	<target name="create-bin-download-zip">
+		<zip destfile="../downloads/paperworld-bin-${version}.zip">
 			<zipfileset dir="../client/bin" prefix="client"/>
 			<zipfileset dir="../server/jar" prefix="server"/>
 		 </zip>
