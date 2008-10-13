@@ -21,7 +21,7 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.multiplayer.data 
 {
-	import com.paperworld.core.BaseClass;
+	import com.paperworld.core.BaseClass;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
@@ -38,38 +38,38 @@ package com.paperworld.multiplayer.data
 		{
 			super( );
 		}
-		
-		public function getRef():String
+
+		public function getRef() : String
 		{
 			return ref;
 		}
-		
-		public function setRef(ref:String):void
+
+		public function setRef(ref : String) : void
 		{
 			this.ref = ref;
 		}
-		
-		public function getTime():int
+
+		public function getTime() : int
 		{
 			return time;
 		}
-		
-		public function setTime(time:int):void
+
+		public function setTime(time : int) : void
 		{
 			this.time = time;
 		}
-		
-		public function getId():String
+
+		public function getId() : String
 		{
 			return id;
 		}
-		
-		public function setId(id:String):void
+
+		public function setId(id : String) : void
 		{
 			this.id = id;
 		}
-		
-		public function toString():String
+
+		public function toString() : String
 		{
 			return 'AvatarData {\n    ref: ' + ref + '\n    time: ' + time + '\n    id: ' + id + '\n}';	
 		}

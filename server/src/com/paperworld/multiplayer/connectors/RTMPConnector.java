@@ -57,7 +57,7 @@ public class RTMPConnector extends AbstractConnector {
 		sharedObjectUpdateJob = application.addScheduledJob(1000 / 5,
 				new UpdateSharedObjectJob(this));
 	}
-	
+
 	@Override
 	public boolean appStart(IScope arg0) {
 		// TODO Auto-generated method stub
@@ -65,12 +65,13 @@ public class RTMPConnector extends AbstractConnector {
 		return true;
 	}
 
-	public ISharedObject getSharedObject(String name,
-			boolean persistent) {
+	public ISharedObject getSharedObject(String name, boolean persistent) {
 
 		ISharedObjectService service = (ISharedObjectService) ScopeUtils
-				.getScopeService(application.getScope(), ISharedObjectService.class, false);
-		return service.getSharedObject(application.getScope(), name, persistent);
+				.getScopeService(application.getScope(),
+						ISharedObjectService.class, false);
+		return service
+				.getSharedObject(application.getScope(), name, persistent);
 	}
 
 	/**
@@ -139,5 +140,10 @@ public class RTMPConnector extends AbstractConnector {
 	public int incrementTime() {
 
 		return time++;
+	}
+
+	@Override
+	public int getTime() {
+		return time;
 	}
 }

@@ -13,6 +13,7 @@
 				file="${basedir}/../src/HelloPaperWorldClient.as"
 				debug="true"
 				default-background-color="0xffffff"
+				default-frame-rate="30"
 			>
 				
 				<source-path path-element="${basedir}/../src"/>

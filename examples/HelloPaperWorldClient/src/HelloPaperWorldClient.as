@@ -1,12 +1,8 @@
 package  
 {
-	import com.paperworld.util.math.Quaternion;	
-	
 	import flash.events.Event;
-	import flash.events.KeyboardEvent;
 	import flash.net.registerClassAlias;
 	
-	import org.papervision3d.objects.DisplayObject3D;
 	import org.papervision3d.view.BasicView;
 	
 	import com.blitzagency.xray.logger.XrayLog;
@@ -22,10 +18,8 @@ package
 	import com.paperworld.multiplayer.scenes.SynchronisedScene;
 	import com.paperworld.util.clock.Clock;
 	import com.paperworld.util.clock.events.ClockEvent;
-	import com.paperworld.util.keys.KeyDefinitions;
-	import com.paperworld.util.keys.KeyUpCommand;
-	import com.paperworld.util.keys.KeyboardManager;
-	import com.paperworld.util.math.Vector3;		
+	import com.paperworld.util.math.Quaternion;
+	import com.paperworld.util.math.Vector3;	
 
 	/**
 	 * @author Trevor
@@ -38,14 +32,10 @@ package
 
 		private var player : Player;
 
-		private var object : DisplayObject3D;
-
 		public function HelloPaperWorldClient()
 		{			
 			logger.info( "HelloPaperWorldClient" );
-			
-			KeyboardManager.getInstance( ).addCommand( KeyDefinitions.A, KeyboardEvent.KEY_DOWN, new KeyUpCommand( new BasicKeyboardInput( ) ) );
-			
+
 			var linkageEnforcer : LinkageEnforcer = new LinkageEnforcer( );
 			
 			var connector : RTMPConnector = new RTMPConnector( );
@@ -59,29 +49,9 @@ package
 			
 			syncScene = new SynchronisedScene( );
 			syncScene.connector = connector;
-			
-			//syncScene.addEventListener( SynchronisedSceneEvent.CONTEXT_LOADED, onContextLoaded );
-			//syncScene.addEventListener( SynchronisedSceneEvent.CONNECTED_TO_SERVER, onConnectedToServer );
 			syncScene.connect( "test" );
 			
 			player = new Player( );
-			
-			
-			
-			//var material : MaterialObject3D = new WireframeMaterial( 0xff0000 );
-			//material.doubleSided = true;
-			//var object : SynchronisableObject = new SynchronisableObject( new Plane( material, 100, 100 ) );
-			//this.object = object.object;
-			//syncScene.scene.addChild(object.object);
-			
-			
-			
-			
-			//player.avatar.input = input.input;
-			//player.avatar.syncObject = object;
-			//player.avatar.behaviour = new SimpleAvatarBehaviour2D( );
-			
-			//syncScene.addRemoteChild( object );
 
 			scene = syncScene.scene;
 			
@@ -112,4 +82,3 @@ package
 		}
 	}
 }
-

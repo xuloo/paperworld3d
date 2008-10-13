@@ -29,13 +29,13 @@ package com.paperworld.multiplayer.objects
 	import com.paperworld.interpolators.Interpolator;
 	import com.paperworld.multiplayer.behaviours.AvatarBehaviour;
 	import com.paperworld.multiplayer.connectors.LagListener;
+	import com.paperworld.multiplayer.connectors.events.LagEvent;
 	import com.paperworld.multiplayer.data.State;
 	import com.paperworld.multiplayer.events.ServerSyncEvent;
 	import com.paperworld.multiplayer.scenes.AbstractSynchronisedScene;
 	import com.paperworld.util.Synchronizable;
 	import com.paperworld.util.clock.Clock;
-	import com.paperworld.util.clock.events.ClockEvent;
-	import com.paperworld.multiplayer.connectors.events.LagEvent;		
+	import com.paperworld.util.clock.events.ClockEvent;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
@@ -59,6 +59,11 @@ package com.paperworld.multiplayer.objects
 			proxy.state = value.clone( );	
 		}
 
+		public function get time() : int
+		{
+			return client.time;
+		}
+
 		public function set time(value : int) : void
 		{
 			client.time = value;
@@ -76,7 +81,6 @@ package com.paperworld.multiplayer.objects
 		 */
 		public function set syncObject(value : Synchronizable) : void
 		{
-			logger.info( "setting syncObject " + value );
 			client.syncObject = value;
 		}
 
@@ -117,7 +121,6 @@ package com.paperworld.multiplayer.objects
 		public function set client(value : Client) : void
 		{
 			_client = value;
-			logger.info( "setting client " + value + " " + _client );
 		}
 
 		private var logger : XrayLog = new XrayLog( );
@@ -142,9 +145,9 @@ package com.paperworld.multiplayer.objects
 		 */
 		public function synchronise(event : ServerSyncEvent) : void
 		{
-			var time : int = event.data.t;
-			var state : State = event.data.state;
-			var input : Input = event.data.input;
+			var time : int = event.time;
+			var state : State = event.state;
+			var input : Input = event.input;
 			
 			client.synchronise( time, state, input );
 			proxy.synchronise( time, state, input );

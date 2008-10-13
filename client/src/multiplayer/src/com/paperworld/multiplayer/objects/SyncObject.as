@@ -25,7 +25,7 @@ package com.paperworld.multiplayer.objects
 	import com.paperworld.input.Input;
 	import com.paperworld.multiplayer.behaviours.AvatarBehaviour;
 	import com.paperworld.multiplayer.behaviours.SimpleAvatarBehaviour2D;
-	import com.paperworld.multiplayer.data.State;		
+	import com.paperworld.multiplayer.data.State;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
@@ -37,7 +37,7 @@ package com.paperworld.multiplayer.objects
 		public var smoothTightness : Number = 0.01;
 
 		public var tightness : Number;
-		
+
 		public var behaviour : AvatarBehaviour;
 
 		public var input : Input;
@@ -50,8 +50,8 @@ package com.paperworld.multiplayer.objects
 		{
 			return current;	
 		}
-		
-		public function set state(value:State):void
+
+		public function set state(value : State) : void
 		{
 			previous = current;
 			current = value;
@@ -61,7 +61,7 @@ package com.paperworld.multiplayer.objects
 
 		public var replaying : Boolean;
 
-		public function update(/*t : int*/) : void
+		public function update() : void
 		{
 			behaviour.update( input, state );
 			
@@ -76,8 +76,8 @@ package com.paperworld.multiplayer.objects
 
 		public function snap(state : State) : void
 		{
-			previous = current.clone();
-			current = state.clone();
+			previous = current.clone( );
+			current = state.clone( );
 		}
 
 		public function smooth() : void
@@ -95,7 +95,7 @@ package com.paperworld.multiplayer.objects
 			current = new State( );
 			previous = new State( );
 			
-			behaviour = new SimpleAvatarBehaviour2D();
+			behaviour = new SimpleAvatarBehaviour2D( );
 		}
 
 		override public function destroy() : void 
@@ -111,10 +111,7 @@ package com.paperworld.multiplayer.objects
 
 		public function equals(other : SyncObject) : Boolean
 		{				
-			return  tightness == other.tightness && 
-					time == other.time && 
-					input.equals( other.input ) && 
-					state.equals( other.state );	
+			return  tightness == other.tightness && time == other.time && input.equals( other.input ) && state.equals( other.state );	
 		}
 	}
 }

@@ -21,8 +21,11 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.multiplayer.data 
 {
-	import com.paperworld.core.BaseClass;	import com.paperworld.util.math.Matrix3D;	import com.paperworld.util.math.Quaternion;	import com.paperworld.util.math.Vector3;	
-	/**
+	import com.paperworld.core.BaseClass;
+	import com.paperworld.util.math.Matrix3D;
+	import com.paperworld.util.math.Quaternion;
+	import com.paperworld.util.math.Vector3;	
+	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
 	 */
 	public class State extends BaseClass
@@ -48,11 +51,7 @@ package com.paperworld.multiplayer.data
 
 		public function equals(other : State) : Boolean
 		{
-			return  transform == other.transform && 
-					position.equals( other.position ) && 
-					orientation.equals( other.orientation ) && 
-					velocity.equals( other.velocity ) && 
-					rotation == other.rotation; 	
+			return  transform == other.transform && position.equals( other.position ) && orientation.equals( other.orientation ) && velocity.equals( other.velocity ) && rotation == other.rotation; 	
 		}
 
 		public function notEquals(other : State) : Boolean
@@ -64,18 +63,18 @@ package com.paperworld.multiplayer.data
 		{
 			var state : State = new State( );
 			
-			state.transform 	= Matrix3D( transform.clone( ) );
-			state.position 		= Vector3( position.clone( ) );
-			state.orientation 	= Quaternion( orientation.clone( ) );
-			state.velocity 		= Vector3( velocity.clone( ) );
-			state.rotation 		= rotation;
+			state.transform = Matrix3D( transform.clone( ) );
+			state.position = Vector3( position.clone( ) );
+			state.orientation = Quaternion( orientation.clone( ) );
+			state.velocity = Vector3( velocity.clone( ) );
+			state.rotation = rotation;
 			
 			return state;	
 		}
-		
+
 		public function compare(other : State) : Boolean
 		{
-			var threshold:Number = 0.1 * 0.1;
+			var threshold : Number = 0.1 * 0.1;
 			
 			return other.position.returnSubtraction( position ).isMagnitudeGreaterThan( threshold );
 		}
@@ -140,8 +139,8 @@ package com.paperworld.multiplayer.data
 		{
 			this.rotation = rotation;	
 		}
-		
-		public function toString():String
+
+		public function toString() : String
 		{
 			return 'State {\n' + '    position: ' + position + '\n    orientation: ' + orientation.w + '\n}';	
 		}

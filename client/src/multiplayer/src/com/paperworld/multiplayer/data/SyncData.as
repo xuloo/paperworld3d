@@ -21,42 +21,41 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.multiplayer.data 
 {
-	import com.paperworld.input.Input;	
-	
+	import com.paperworld.input.Input;		
+
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
 	 */
 	public class SyncData 
 	{
-		public var t : int;
-		
-		public var serverTime:int;
+		public var time : int;
+
+		public var serverTime : int;
 
 		public var input : Input;
 
 		public var state : State;
-		
+
 		public function SyncData()
 		{
-			
-		}
-		
-		public function getT() : int
-		{
-			return t;
 		}
 
-		public function setT(t : int) : void
+		public function getTime() : int
 		{
-			this.t = t;
+			return time;
 		}
-		
-		public function getServerTime():int
+
+		public function setTime(time : int) : void
+		{
+			this.time = time;
+		}
+
+		public function getServerTime() : int
 		{
 			return serverTime;
 		}
-		
-		public function serServerTime(serverTime:int):void
+
+		public function serServerTime(serverTime : int) : void
 		{
 			this.serverTime = serverTime;
 		}
@@ -80,10 +79,10 @@ package com.paperworld.multiplayer.data
 		{
 			this.state = state;	
 		}
-		
-		public function toString():String
+
+		public function toString() : String
 		{
-			return 'ServerSyncEvent {\n' + '    time: ' + t + '\n    input: ' + input + '\n    state: ' + state + '\n}';
+			return 'ServerSyncEvent {\n' + '    time: ' + time + '\n    input: ' + input + '\n    state: ' + state + '\n}';
 		}
 	}
 }

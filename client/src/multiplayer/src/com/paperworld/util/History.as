@@ -72,7 +72,6 @@ package com.paperworld.util
 	            importantMoves.add( move );
 	
 			// add move to history
-
 			moves.add( move );
 		}
 
@@ -81,18 +80,17 @@ package com.paperworld.util
 			// discard out of date important moves 
 			/*if (importantMoves.oldest( ))
 			{
-				while (importantMoves.oldest( ).time < t && !importantMoves.empty( ))
-	            	importantMoves.remove( );
+			while (importantMoves.oldest( ).time < t && !importantMoves.empty( ))
+			importantMoves.remove( );
 			}*/
-			
-			try {
-			//if (moves.oldest( ))
-			//{
+
+			try 
+			{
 				while (moves.oldest( ).time < t && !moves.empty( ))
 	           			moves.remove( );
-			//}
 			}
-			catch( e:Error ) {
+			catch( e : Error ) 
+			{
 			}
 
 			if (moves.empty( ))
@@ -105,18 +103,18 @@ package com.paperworld.util
 				moves.remove( );
 	
 				// save current scene data
-				var	savedInput : Input = Input( syncObject.input.clone( ) );
+				var	savedInput : Input = syncObject.input.clone( );
 	
 				// rewind to correction and replay moves
 				syncObject.time = t;
 				syncObject.input = input;
-				logger.info("state: " + syncObject.state + "\n" + state );
+
 				syncObject.snap( state );
 	
 				syncObject.replaying = true;
 	
 				var i : int = moves.tail;
-				logger.info('time before ' + syncObject.time);
+
 				while (i != moves.head)
 				{
 					var next : Move = Move( moves.moves[i] );
@@ -125,7 +123,6 @@ package com.paperworld.util
 					{						
 						while (syncObject.time < moves.moves[i].time)
 						{
-							logger.info("updating");
 							syncObject.update( );
 						}
 					
@@ -136,9 +133,9 @@ package com.paperworld.util
 					i++;
 					if (i > 1000) i = 0;
 				}
-				logger.info('time after ' + syncObject.time);
+
 				//syncObject.update( );
-		            
+
 				syncObject.replaying = false;
 	
 				// restore saved input

@@ -56,6 +56,11 @@ public class AbstractConnector implements IApplication, IConnector, IService, IS
 	public int incrementTime() {
 		return 0;
 	}
+	
+	@Override
+	public int getTime() {
+		return 0;
+	}
 
 	public void execute(ISchedulingService arg0)
 			throws CloneNotSupportedException {

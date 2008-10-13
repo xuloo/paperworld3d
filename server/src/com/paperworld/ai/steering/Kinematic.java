@@ -1,8 +1,5 @@
 package com.paperworld.ai.steering;
 
-import org.red5.io.amf3.IDataInput;
-import org.red5.io.amf3.IDataOutput;
-
 import com.paperworld.core.math.Quaternion;
 import com.paperworld.core.math.Vector3;
 import com.paperworld.multiplayer.behaviour.IAvatarBehaviour;

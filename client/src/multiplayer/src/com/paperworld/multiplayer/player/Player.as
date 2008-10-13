@@ -24,7 +24,7 @@ package com.paperworld.multiplayer.player
 	import com.blitzagency.xray.logger.XrayLog;
 	import com.paperworld.core.EventDispatchingBaseClass;
 	import com.paperworld.multiplayer.objects.Avatar;
-	
+
 	import jedai.net.rpc.Red5Connection;	
 
 	/**
@@ -51,7 +51,7 @@ package com.paperworld.multiplayer.player
 		public var username : String = "user";
 
 		
-
+		
 		public function Player()
 		{
 			super( this );

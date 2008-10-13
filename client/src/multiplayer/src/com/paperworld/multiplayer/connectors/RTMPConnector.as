@@ -26,17 +26,15 @@ package com.paperworld.multiplayer.connectors
 	import flash.net.ObjectEncoding;
 	import flash.net.Responder;
 	import flash.utils.getTimer;
-	
+
 	import com.blitzagency.xray.logger.XrayLog;
 	import com.paperworld.input.events.UserInputEvent;
 	import com.paperworld.multiplayer.connectors.events.ConnectorEvent;
 	import com.paperworld.multiplayer.connectors.events.LagEvent;
-	import com.paperworld.multiplayer.data.State;
 	import com.paperworld.multiplayer.data.SyncData;
 	import com.paperworld.multiplayer.data.TimedInput;
 	import com.paperworld.multiplayer.events.ServerSyncEvent;
-	import com.paperworld.util.math.Quaternion;
-	
+
 	import jedai.events.Red5Event;
 	import jedai.net.rpc.Red5Connection;
 	import jedai.net.rpc.RemoteSharedObject;	
@@ -133,11 +131,10 @@ package com.paperworld.multiplayer.connectors
 				switch (changeList[i].code)
 				{
 					case "change":
-						if (name != String(clientID)) 
-						{
-							//logger.info("syncData: " + _remoteSharedObject._so.data[name]);
-							logger.info("sync data [" + name + "]:\n" + SyncData( _remoteSharedObject._so.data[name]).state.orientation.w);
-							dispatchEvent( new ServerSyncEvent( ServerSyncEvent.REMOTE_AVATAR_SYNC, name, SyncData( _remoteSharedObject._so.data[name] ) ) );
+						if (name != String( clientID )) 
+						{							
+							var data : SyncData = SyncData( _remoteSharedObject._so.data[name] );
+							dispatchEvent( new ServerSyncEvent( ServerSyncEvent.REMOTE_AVATAR_SYNC, name, data.time, data.input, data.state ) );
 						}
 						break;
 						
@@ -188,14 +185,12 @@ package com.paperworld.multiplayer.connectors
 		override public function onInputUpdate(event : UserInputEvent) : void
 		{			
 			time = getTimer( );
-			_connection.call( 'multiplayer.receiveInput', _responder, clientID, new TimedInput(event.time, event.input) );
+			_connection.call( 'multiplayer.receiveInput', _responder, clientID, new TimedInput( event.time, event.input ) );
 		}
 
 		public function onResult(data : SyncData) : void
-		{
-			logger.info( "result: " + data );
-			
-			dispatchEvent( new ServerSyncEvent( ServerSyncEvent.LOCAL_AVATAR_SYNC, String(clientID), data ) );
+		{			
+			dispatchEvent( new ServerSyncEvent( ServerSyncEvent.LOCAL_AVATAR_SYNC, String( clientID ), data.serverTime, data.input, data.state ) );
 			
 			dispatchEvent( new LagEvent( data.serverTime, getTimer( ) - time ) );
 		}

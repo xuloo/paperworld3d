@@ -21,9 +21,9 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.multiplayer.connectors 
 {
-	import flash.events.IEventDispatcher;	
+	import flash.events.IEventDispatcher;
 
-	import com.paperworld.input.UserInput;	
+	import com.paperworld.input.UserInput;		
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]

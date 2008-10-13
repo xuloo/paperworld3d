@@ -21,12 +21,6 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.core.math;
 
-import org.red5.io.amf3.IDataInput;
-import org.red5.io.amf3.IDataOutput;
-import org.red5.io.amf3.IExternalizable;
-
-
-
 /**
  * The Number3D class represents a value in a three-dimensional coordinate
  * system.

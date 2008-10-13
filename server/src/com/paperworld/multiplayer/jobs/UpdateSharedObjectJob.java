@@ -33,16 +33,11 @@ public class UpdateSharedObjectJob extends AbstractUpdateJob {
 			PlayerContext playerContext = player.getContext();
 			String id = playerContext.getId();
 			Avatar avatar = player.getAvatar();
-			int time = avatar.time;
+			int time = connector.getTime();
 			Input input = avatar.input;
 			State state = avatar.getState();
-			
-			SyncData data = new SyncData(time, input, state);
-			so.setAttribute(id, data);
-			//System.out.println("rot pre: " + data.state.orientation.w);
-			//players.get(key).getAvatar().updateSharedObject(so);
-			//SyncData d = (SyncData) so.getAttribute(id);
-			//System.out.println("rot pos: " + d.state.orientation.w);
+
+			so.setAttribute(id, new SyncData(time, input, state));
 		}
 		
 		so.endUpdate();

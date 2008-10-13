@@ -21,14 +21,14 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.multiplayer.objects 
 {
-	import com.paperworld.multiplayer.connectors.LagListener;	
 	import com.blitzagency.xray.logger.XrayLog;
 	import com.paperworld.input.Input;
+	import com.paperworld.multiplayer.connectors.LagListener;
+	import com.paperworld.multiplayer.connectors.events.LagEvent;
 	import com.paperworld.multiplayer.data.State;
 	import com.paperworld.util.History;
 	import com.paperworld.util.Move;
-	import com.paperworld.util.Synchronizable;
-	import com.paperworld.multiplayer.connectors.events.LagEvent;	
+	import com.paperworld.util.Synchronizable;		
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
@@ -38,18 +38,15 @@ package com.paperworld.multiplayer.objects
 		protected var _history : History;
 
 		protected var _syncObject : Synchronizable;	
-		
+
 		public function get syncObject() : Synchronizable
 		{
 			return _syncObject;	
 		}	
-		
-		public function set syncObject(value : Synchronizable):void
-		{
-			
+
+		public function set syncObject(value : Synchronizable) : void
+		{			
 			_syncObject = value;
-			
-			logger.info("Client setting syncObject " + value + " " + _syncObject);
 		}
 
 		private var logger : XrayLog = new XrayLog( );
@@ -83,9 +80,7 @@ package com.paperworld.multiplayer.objects
 		}
 
 		override public function synchronise(t : int, state : State, input : Input) : void
-		{
-			//logger.info("Synchronising client\n" + this.state + "\n" + state);
-			
+		{			
 			var original : State = state.clone( );
 
 			_history.correction( this, t, state, input );		
@@ -93,7 +88,7 @@ package com.paperworld.multiplayer.objects
 			if (original.compare( state ))
             	smooth( );
 		}
-		
+
 		public function onLagUpdate(event : LagEvent) : void
 		{
 			//logger.info("server = " + event.serverTime + "\nclient: " + time + "\nlag: " + event.lag);

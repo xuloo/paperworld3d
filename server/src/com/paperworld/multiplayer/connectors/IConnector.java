@@ -10,6 +10,8 @@ public interface IConnector {
 
 	public int incrementTime();
 	
+	public int getTime();
+	
 	public HashMap<String, Player> getPlayers();
 	
 	public ISharedObject getSharedObject(String name, boolean persistent);

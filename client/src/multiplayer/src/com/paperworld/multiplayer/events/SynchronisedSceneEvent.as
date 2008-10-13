@@ -22,8 +22,8 @@
 package com.paperworld.multiplayer.events 
 {
 	import flash.events.Event;
-	
-	import com.paperworld.multiplayer.scenes.AbstractSynchronisedScene;		
+
+	import com.paperworld.multiplayer.scenes.AbstractSynchronisedScene;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
@@ -37,10 +37,10 @@ package com.paperworld.multiplayer.events
 		public static const CONNECTED_TO_SCENE : String = "ConnectedToScene";
 
 		public static const DISCONNECTED_FROM_SERVER : String = "DisconnectedFromServer";
-		
+
 		public var scene : AbstractSynchronisedScene;
 
-		public function SynchronisedSceneEvent(type : String, scene: AbstractSynchronisedScene, bubbles : Boolean = false, cancelable : Boolean = false)
+		public function SynchronisedSceneEvent(type : String, scene : AbstractSynchronisedScene, bubbles : Boolean = false, cancelable : Boolean = false)
 		{
 			super( type, bubbles, cancelable );
 			

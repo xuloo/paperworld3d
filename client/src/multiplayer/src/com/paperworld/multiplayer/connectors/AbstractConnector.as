@@ -23,7 +23,7 @@ package com.paperworld.multiplayer.connectors
 {
 	import flash.events.Event;
 	import flash.net.Responder;
-	
+
 	import com.blitzagency.xray.logger.XrayLog;
 	import com.paperworld.core.context.ContextLoader;
 	import com.paperworld.input.UserInput;
@@ -31,7 +31,7 @@ package com.paperworld.multiplayer.connectors
 	import com.paperworld.input.events.UserInputEvent;
 	import com.paperworld.multiplayer.connectors.Connector;
 	import com.paperworld.multiplayer.events.ServerSyncEvent;
-	
+
 	import jedai.net.rpc.Red5Connection;	
 
 	/**
@@ -44,8 +44,8 @@ package com.paperworld.multiplayer.connectors
 		protected var _userInput : UserInput;
 
 		protected var _responder : Responder;
-		
-		public function get id():String
+
+		public function get id() : String
 		{
 			return "";
 		}
@@ -110,7 +110,7 @@ package com.paperworld.multiplayer.connectors
 		 */
 		override protected function onContextLoaded(event : Event) : void
 		{			
-			super.onContextLoaded(event);
+			super.onContextLoaded( event );
 			
 			if (_connecting) connect( );
 		}
@@ -126,7 +126,7 @@ package com.paperworld.multiplayer.connectors
 		public function onInputUpdate(event : UserInputEvent) : void
 		{
 		}
-		
+
 		public function get input() : UserInput
 		{
 			return _userInput;
@@ -138,13 +138,13 @@ package com.paperworld.multiplayer.connectors
 			
 			_userInput.addListener( this );
 		}
-		
+
 		public function addListener(listener : ConnectorListener) : void
 		{
 			addEventListener( ServerSyncEvent.REMOTE_AVATAR_SYNC, listener.onRemoteAvatarSync );			addEventListener( ServerSyncEvent.LOCAL_AVATAR_SYNC, listener.onLocalAvatarSync );
 			addEventListener( ServerSyncEvent.AVATAR_DELETE, listener.onAvatarDelete );
 		}
-		
+
 		public function removeListener(listener : ConnectorListener) : void
 		{
 			removeEventListener( ServerSyncEvent.REMOTE_AVATAR_SYNC, listener.onRemoteAvatarSync );			removeEventListener( ServerSyncEvent.LOCAL_AVATAR_SYNC, listener.onLocalAvatarSync );

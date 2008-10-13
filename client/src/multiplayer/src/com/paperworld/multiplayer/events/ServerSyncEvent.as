@@ -23,29 +23,37 @@ package com.paperworld.multiplayer.events
 {
 	import flash.events.Event;
 
-	import com.paperworld.multiplayer.data.SyncData;		
+	import com.paperworld.input.Input;
+	import com.paperworld.multiplayer.data.State;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
 	 */
 	public class ServerSyncEvent extends Event 
 	{
-		public static var REMOTE_AVATAR_SYNC : String = "RemoteAvatarSync";		public static var LOCAL_AVATAR_SYNC : String = "LocalAvatarSync";
+		public static var REMOTE_AVATAR_SYNC : String = "RemoteAvatarSync";
+		public static var LOCAL_AVATAR_SYNC : String = "LocalAvatarSync";
 
 		public static var AVATAR_DELETE : String = "AvatarDelete";
-		
+
 		public static var INPUT_RESPONSE : String = "InputResponse";
 
 		public var id : String;
 
-		public var data : SyncData;
+		public var time : int;
 
-		public function ServerSyncEvent(type : String, id : String, data : SyncData = null, bubbles : Boolean = false, cancelable : Boolean = false)
+		public var input : Input;
+
+		public var state : State;
+
+		public function ServerSyncEvent(type : String, id : String, time : int = 0, input : Input = null, state : State = null, bubbles : Boolean = false, cancelable : Boolean = false)
 		{
 			super( type, bubbles, cancelable );
 			
 			this.id = id;
-			this.data = data;
+			this.time = time;
+			this.input = input;
+			this.state = state;
 		}	
 	}
 }

@@ -21,10 +21,7 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.util 
 {
-	import com.blitzagency.xray.logger.XrayLog;	
-	
-	import org.pranaframework.utils.Assert;
-
+	import com.blitzagency.xray.logger.XrayLog;
 	import com.paperworld.core.BaseClass;		
 
 	/**
@@ -32,7 +29,7 @@ package com.paperworld.util
 	 */
 	public class CircularBuffer extends BaseClass
 	{
-		public var logger : XrayLog = new XrayLog();
+		public var logger : XrayLog = new XrayLog( );
 
 		public var head : int;
 
@@ -81,7 +78,7 @@ package com.paperworld.util
 
 		public function remove() : void
 		{
-			if (!empty())
+			if (!empty( ))
 			{
 				tail++;
 				if (tail >= moves.length) 
