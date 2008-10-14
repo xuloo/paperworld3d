@@ -31,8 +31,8 @@ public class SyncData {
 
 	public State state;
 
-	public SyncData(int time, Input input, State state) {
-		t = time;
+	public SyncData(int serverTime, Input input, State state) {
+		this.serverTime = serverTime;
 		this.input = input;
 		this.state = state;
 	}

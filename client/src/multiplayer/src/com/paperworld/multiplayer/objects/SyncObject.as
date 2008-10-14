@@ -119,19 +119,20 @@ package com.paperworld.multiplayer.objects
 		public function update(event : ClockEvent = null) : void
 		{			
 			tightness += (defaultTightness - tightness) * 0.01;
-			time++;
-			//time += deltaTime;
+			//time++;
+			time += deltaTime;
 			
-			//var integerTime:int = int(time) - lastTime;
+			var integerTime:int = int(time) - lastTime;
 			
-			//while (integerTime > 0)
-			//{
-				behaviour.update( input, state );
-			//	integerTime -= 1;
-			//}
+			while (integerTime > 0)
+			{
+				
+				integerTime -= 1;
+			}
 			
-			//lastTime = int(time);
+			lastTime = int(time);
 			
+			behaviour.update( input, state );
 			displayObject.synchronise( input, state );	
 		}
 

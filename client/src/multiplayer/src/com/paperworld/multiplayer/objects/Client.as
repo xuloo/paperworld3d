@@ -83,27 +83,31 @@ package com.paperworld.multiplayer.objects
             	smooth( );
 		}
 
-		public function onLagUpdate(event : LagEvent) : void
-		{
-			logger.info( "server = " + event.serverTime + "\nclient: " + time + "\nlag: " + event.lag );
-			
-			/*if (event.serverTime > time)
+		public function onServerTimeUpdate(event : LagEvent) : void
+		{			
+			if (event.time > time)
 			{
 				deltaTime = 1.25;
 			}
-			else if (event.serverTime < time)
+			else if (event.time < time)
 			{
 				deltaTime = 0.75;
 			}
 			else
 			{
 				deltaTime = 1.0;
-			}*/
+			}
+		}
+		
+		public function onServerJitterUpdate(event : LagEvent) : void
+		{
 		}
 
 		public function updateClientInput(event : UserInputEvent) : void
 		{
 			input = event.input;
 		}
+		
+		
 	}
 }

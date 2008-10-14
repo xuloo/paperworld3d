@@ -28,6 +28,7 @@ package com.paperworld.multiplayer.connectors
 	 */
 	public interface LagListener 
 	{
-		function onLagUpdate(event : LagEvent) : void;
+		function onServerTimeUpdate(event : LagEvent) : void;
+				function onServerJitterUpdate(event : LagEvent) : void;
 	}
 }

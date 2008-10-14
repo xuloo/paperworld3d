@@ -120,7 +120,7 @@ package com.paperworld.multiplayer.connectors
 		public function addPlayerResult(data:SyncData):void
 		{
 			logger.info("time: " + data.serverTime);
-			//player.avatar.time = data.serverTime;
+			player.avatar.time = data.serverTime;
 		}
 
 		protected function onConnectionDisconnected(event : Red5Event) : void
@@ -146,11 +146,16 @@ package com.paperworld.multiplayer.connectors
 				switch (changeList[i].code)
 				{
 					case "change":
+						
+						var data : SyncData = SyncData( _remoteSharedObject._so.data[name] );
+						
 						if (name != String( clientID )) 
-						{							
-							var data : SyncData = SyncData( _remoteSharedObject._so.data[name] );
-							logger.info( clientID + " updating " + name + " => " + data.state.orientation.w);
-							dispatchEvent( new ServerSyncEvent( ServerSyncEvent.REMOTE_AVATAR_SYNC, name, data.time, data.input, data.state ) );
+						{														
+							//logger.info( clientID + " updating " + name + " => " + data.state.orientation.w);
+							dispatchEvent( new ServerSyncEvent( ServerSyncEvent.REMOTE_AVATAR_SYNC, name, data.time, data.input, data.state ) );						}
+						else
+						{
+							dispatchEvent( new LagEvent( LagEvent.TIME_UPDATE, data.serverTime ) );
 						}
 						break;
 						
@@ -208,7 +213,7 @@ package com.paperworld.multiplayer.connectors
 		{			
 			dispatchEvent( new ServerSyncEvent( ServerSyncEvent.LOCAL_AVATAR_SYNC, String( clientID ), data.serverTime, data.input, data.state ) );
 			
-			dispatchEvent( new LagEvent( data.serverTime, getTimer( ) - time ) );
+			dispatchEvent( new LagEvent( LagEvent.JITTER_UPDATE, getTimer( ) - time ) );
 		}
 
 		public function onStatus(status : Object) : void
@@ -217,6 +222,12 @@ package com.paperworld.multiplayer.connectors
 			{
 				logger.info( i + " " + status[i] );
 			}
+		}
+		
+		public function addLagListener(listener : LagListener) : void
+		{
+			addEventListener( LagEvent.TIME_UPDATE, listener.onServerTimeUpdate);
+			addEventListener( LagEvent.JITTER_UPDATE, listener.onServerJitterUpdate);
 		}
 	}
 }

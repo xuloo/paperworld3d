@@ -105,9 +105,6 @@ package com.paperworld.multiplayer.scenes
 		 */
 		override public function initialise() : void
 		{			
-			// Create a new Clock to keep time.
-			//clock = new Clock( );
-
 			avatarsByName = new Array( );			
 		}
 
@@ -126,9 +123,7 @@ package com.paperworld.multiplayer.scenes
 		}
 
 		public function onRemoteSync(event : ServerSyncEvent) : void
-		{
-			logger.info("Syncing remote object");
-			
+		{			
 			var avatar : SyncObject = SyncObject( avatarsByName[event.id] );
 
 			if (!avatar)
@@ -140,6 +135,7 @@ package com.paperworld.multiplayer.scenes
 				avatar.time = event.time;
 				
 				addRemoteChild( avatar.displayObject );
+				
 				avatarsByName[event.id] = avatar;
 			}
 
@@ -171,7 +167,7 @@ package com.paperworld.multiplayer.scenes
 			addRemoteChild( avatar.displayObject );
 
 			avatar.userInput = connector.input;
-			connector.addEventListener( LagEvent.LAG_UPDATE, avatar.onLagUpdate );
+			connector.addLagListener( avatar );
 			
 			player.avatar = avatar;
 			

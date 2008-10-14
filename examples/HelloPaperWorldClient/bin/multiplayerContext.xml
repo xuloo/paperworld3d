@@ -2,7 +2,7 @@
 <objects>
 
 	<object id="local.avatar" class="com.paperworld.multiplayer.objects.Client" >
-		<property name="syncObject">
+		<property name="displayObject">
 			<object class="com.paperworld.multiplayer.objects.SynchronisableObject">
 				<property name="object">
 				<object class="org.papervision3d.objects.primitives.Plane">
@@ -21,7 +21,7 @@
 	</object>
 	
 	<object id="remote.avatar" class="com.paperworld.multiplayer.objects.Proxy" >
-		<property name="syncObject">
+		<property name="displayObject">
 			<object class="com.paperworld.multiplayer.objects.SynchronisableObject">
 				<property name="object">
 					<object class="org.papervision3d.objects.primitives.Plane">
@@ -38,47 +38,5 @@
 			</object>
 		</property>
 	</object>
-	
-	<object id="local.sync.object" class="com.paperworld.multiplayer.objects.SynchronisableObject" singleton="false" scope="prototype" lazy-init="true">
-		<property name="object"><ref>local.display.object</ref></property>
-	</object>
-	
-	<object id="local.display.object" class="org.papervision3d.objects.primitives.Plane" singleton="false" scope="prototype" lazy-init="true">
-		<constructor-arg><ref>local.material</ref></constructor-arg>
-		<constructor-arg value="100" />	
-		<constructor-arg value="100" />
-	</object>
-	
-	<object id="local.material" class="org.papervision3d.materials.WireframeMaterial" singleton="false" scope="prototype" lazy-init="true">
-		<constructor-arg value="0xff0000" />
-		<property name="doubleSided" value="true"/>
-	</object>
-	
-	<!-- <object id="remote.avatar" class="com.paperworld.multiplayer.objects.RemoteAvatar" singleton="false" scope="prototype" lazy-init="true">
-		<property name="client"><ref>sync.client</ref></property>
-		<property name="proxy"><ref>sync.proxy</ref></property>
-		<property name="syncObject">
-			<object class="com.paperworld.multiplayer.objects.SynchronisableObject"/>
-		</property>
-	</object> -->
-	
-	<object id="remote.sync.object" class="com.paperworld.multiplayer.objects.SynchronisableObject" singleton="false" scope="prototype" lazy-init="true">
-		<property name="object"><ref>remote.display.object</ref></property>
-	</object>
-	
-	<object id="remote.display.object" class="org.papervision3d.objects.primitives.Plane" singleton="false" scope="prototype" lazy-init="true">
-		<constructor-arg><ref>remote.material</ref></constructor-arg>
-		<constructor-arg value="100" />	
-		<constructor-arg value="100" />
-	</object>
-	
-	<object id="remote.material" class="org.papervision3d.materials.WireframeMaterial" singleton="false" scope="prototype" lazy-init="true">
-		<constructor-arg value="0x00ff00" />
-		<property name="doubleSided" value="true"/>
-	</object>
-	
-	<object id="sync.client" class="com.paperworld.multiplayer.objects.Client" singleton="false" scope="prototype" lazy-init="true" />
-	
-	<object id="sync.proxy" class="com.paperworld.multiplayer.objects.Proxy" singleton="false" scope="prototype" lazy-init="true" />
-	
+
 </objects>

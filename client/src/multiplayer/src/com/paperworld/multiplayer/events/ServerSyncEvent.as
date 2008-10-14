@@ -33,6 +33,8 @@ package com.paperworld.multiplayer.events
 	{
 		public static var REMOTE_AVATAR_SYNC : String = "RemoteAvatarSync";
 		public static var LOCAL_AVATAR_SYNC : String = "LocalAvatarSync";
+		
+		public static var SERVER_TIME_UPDATE : String = "ServerTimeUpdate";
 
 		public static var AVATAR_DELETE : String = "AvatarDelete";
 

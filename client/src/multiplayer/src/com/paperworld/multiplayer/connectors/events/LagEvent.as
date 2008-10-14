@@ -28,18 +28,17 @@ package com.paperworld.multiplayer.connectors.events
 	 */
 	public class LagEvent extends Event 
 	{
-		public static var LAG_UPDATE : String = "LagUpdate";
+		public static var TIME_UPDATE : String = "TimeUpdate";
 
-		public var serverTime : int;
+		public static var JITTER_UPDATE : String = "JitterUpdate";		
 
-		public var lag : int;
+		public var time : int;
 
-		public function LagEvent(serverTime : int, lag : int, bubbles : Boolean = false, cancelable : Boolean = false)
+		public function LagEvent(type : String, time : int, bubbles : Boolean = false, cancelable : Boolean = false)
 		{
-			super( LAG_UPDATE, bubbles, cancelable );
+			super( type, bubbles, cancelable );
 			
-			this.serverTime = serverTime;
-			this.lag = lag;
+			this.time = time;
 		}
 	}
 }

@@ -29,7 +29,7 @@
 		singleton="true" 
 		init-method="createScheduledJobs">
 		<property name="application" ref="web.handler" />
-		<property name="frameRate" value="30" />
+		<property name="frameRate" value="60" />
 	</bean>
  
 </beans>
