@@ -83,8 +83,15 @@ public class RTMPConnector extends AbstractConnector {
 		Avatar avatar = players.get(uid).getAvatar();
 
 		avatar.update(input);
-		System.out.println("returning " + avatar.state.orientation.w);
+		System.out.println("returning " + time);
 		return new SyncData(time, input.time, avatar.input, avatar.state);
+	}
+
+	public SyncData addPlayer(String id) {
+		Avatar avatar = players.get(id).getAvatar();
+		avatars.put(id, avatar);
+
+		return new SyncData(time, 0, avatar.input, avatar.state);
 	}
 
 	public boolean appConnect(IConnection connection, Object[] params) {

@@ -23,9 +23,9 @@ package com.paperworld.multiplayer.player
 {
 	import com.blitzagency.xray.logger.XrayLog;
 	import com.paperworld.core.EventDispatchingBaseClass;
-	import com.paperworld.multiplayer.objects.Avatar;
-
-	import jedai.net.rpc.Red5Connection;	
+	import com.paperworld.multiplayer.objects.SyncObject;
+	
+	import jedai.net.rpc.Red5Connection;		
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
@@ -36,14 +36,14 @@ package com.paperworld.multiplayer.player
 
 		protected var _connection : Red5Connection;
 
-		protected var _avatar : Avatar;		
+		protected var _avatar : SyncObject;		
 
-		public function get avatar() : Avatar
+		public function get avatar() : SyncObject
 		{
 			return _avatar;	
 		}
 
-		public function set avatar(value : Avatar) : void
+		public function set avatar(value : SyncObject) : void
 		{
 			_avatar = value;	
 		}

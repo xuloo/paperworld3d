@@ -5,7 +5,7 @@ import java.util.HashMap;
 import org.red5.server.api.scheduling.ISchedulingService;
 
 import com.paperworld.multiplayer.connectors.IConnector;
-import com.paperworld.multiplayer.player.Player;
+import com.paperworld.multiplayer.objects.Avatar;
 
 public class UpdateAvatarsJob extends AbstractUpdateJob {
 
@@ -19,11 +19,11 @@ public class UpdateAvatarsJob extends AbstractUpdateJob {
 
 		int time = connector.incrementTime();
 
-		HashMap<String, Player> players = connector.getPlayers();
+		HashMap<String, Avatar> avatars = connector.getAvatars();
 
-		for (String key : players.keySet()) {
+		for (String key : avatars.keySet()) {
 			//System.out.println("updating " + players.get(key).getAvatar());
-			players.get(key).getAvatar().update(time);
+			avatars.get(key).update(time);
 		}
 
 	}

@@ -28,10 +28,10 @@ package com.paperworld.multiplayer.connectors
 	 */
 	public interface ConnectorListener 
 	{
-		function onLocalAvatarSync(event : ServerSyncEvent) : void;
+		function onLocalSync(event : ServerSyncEvent) : void;
 
-		function onRemoteAvatarSync(event : ServerSyncEvent) : void;
+		function onRemoteSync(event : ServerSyncEvent) : void;
 
-		function onAvatarDelete(event : ServerSyncEvent) : void;
+		function onDelete(event : ServerSyncEvent) : void;
 	}
 }

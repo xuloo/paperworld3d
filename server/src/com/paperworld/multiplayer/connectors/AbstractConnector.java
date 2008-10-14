@@ -1,7 +1,6 @@
 package com.paperworld.multiplayer.connectors;
 
 import java.util.HashMap;
-import java.util.List;
 
 import org.red5.server.adapter.IApplication;
 import org.red5.server.adapter.MultiThreadedApplicationAdapter;
@@ -12,11 +11,14 @@ import org.red5.server.api.scheduling.IScheduledJob;
 import org.red5.server.api.scheduling.ISchedulingService;
 import org.red5.server.api.so.ISharedObject;
 
+import com.paperworld.multiplayer.objects.Avatar;
 import com.paperworld.multiplayer.player.Player;
 
 public class AbstractConnector implements IApplication, IConnector, IService, IScheduledJob {
 
 	protected HashMap<String, Player> players;
+	
+	protected HashMap<String, Avatar> avatars;
 
 	protected IScope scope;
 
@@ -26,6 +28,7 @@ public class AbstractConnector implements IApplication, IConnector, IService, IS
 
 	public AbstractConnector() {
 		players = new HashMap<String, Player>();
+		avatars = new HashMap<String, Avatar>();
 	}
 
 	public void setApplication(MultiThreadedApplicationAdapter application) {
@@ -45,6 +48,11 @@ public class AbstractConnector implements IApplication, IConnector, IService, IS
 	@Override
 	public HashMap<String, Player> getPlayers() {
 		return players;
+	}
+	
+	@Override 
+	public HashMap<String, Avatar> getAvatars() {
+		return avatars;
 	}
 	
 	@Override

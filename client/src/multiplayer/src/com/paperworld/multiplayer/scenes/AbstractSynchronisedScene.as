@@ -22,18 +22,20 @@
 package com.paperworld.multiplayer.scenes 
 {
 	import flash.events.Event;
-
+	
 	import com.blitzagency.xray.logger.XrayLog;
 	import com.paperworld.action.Action;
 	import com.paperworld.core.context.ContextLoader;
 	import com.paperworld.multiplayer.connectors.ConnectorListener;
 	import com.paperworld.multiplayer.connectors.RTMPConnector;
 	import com.paperworld.multiplayer.connectors.events.LagEvent;
+	import com.paperworld.multiplayer.data.State;
 	import com.paperworld.multiplayer.events.ServerSyncEvent;
 	import com.paperworld.multiplayer.lod.LodConstraint;
-	import com.paperworld.multiplayer.objects.Avatar;
+	import com.paperworld.multiplayer.objects.Client;
+	import com.paperworld.multiplayer.objects.SyncObject;
 	import com.paperworld.multiplayer.player.Player;
-	import com.paperworld.util.Synchronizable;	
+	import com.paperworld.util.Synchronizable;		
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
@@ -52,12 +54,12 @@ package com.paperworld.multiplayer.scenes
 		/**
 		 * The 'point of view' object for Level of Detail heuristics - if no pov is defined then LOD will not be activated.
 		 */
-		public var pov : Avatar;
+		public var pov : SyncObject;
 
 		/**
 		 * The list of avatars in this scene.
 		 */
-		public var avatars : Avatar;
+		public var avatars : SyncObject;
 
 		public var avatarsByName : Array;
 
@@ -123,40 +125,42 @@ package com.paperworld.multiplayer.scenes
 			connector.connect( sceneName );
 		}
 
-		public function onRemoteAvatarSync(event : ServerSyncEvent) : void
+		public function onRemoteSync(event : ServerSyncEvent) : void
 		{
-			var avatar : Avatar = Avatar( avatarsByName[event.id] );
+			logger.info("Syncing remote object");
+			
+			var avatar : SyncObject = SyncObject( avatarsByName[event.id] );
 
 			if (!avatar)
 			{
-				avatar = Avatar( _applicationContext.getObject( 'remote.avatar' ) );
+				avatar = SyncObject( _applicationContext.getObject( 'remote.avatar' ) );
 	
 				avatar.input = event.input;
 				avatar.state = event.state;
 				avatar.time = event.time;
 				
-				addRemoteChild( avatar.syncObject );
+				addRemoteChild( avatar.displayObject );
 				avatarsByName[event.id] = avatar;
 			}
 
 			avatar.synchronise( event );	
 		}
 
-		public function onLocalAvatarSync(event : ServerSyncEvent) : void
+		public function onLocalSync(event : ServerSyncEvent) : void
 		{
 			player.avatar.synchronise( event );
 		}
 
-		public function onAvatarDelete(event : ServerSyncEvent) : void
+		public function onDelete(event : ServerSyncEvent) : void
 		{
-			var avatar : Avatar = Avatar( avatarsByName[event.id] );
-			removeRemoteChild( avatar.syncObject );
+			var avatar : SyncObject = SyncObject( avatarsByName[event.id] );
+			removeRemoteChild( avatar.displayObject );
 		}
 
 		
 		public function addPlayer(player : Player, isLocal : Boolean = true) : void
 		{
-			var avatar : Avatar = Avatar( _applicationContext.getObject( 'local.avatar' ) );
+			var avatar : Client = Client( _applicationContext.getObject( 'local.avatar' ) );
 
 			if (isLocal) pov = avatar;
 			
@@ -164,7 +168,7 @@ package com.paperworld.multiplayer.scenes
 			avatars = avatar;
 					
 			//avatarsByName[connector.clientID] = avatar;
-			addRemoteChild( avatar.syncObject );
+			addRemoteChild( avatar.displayObject );
 
 			avatar.userInput = connector.input;
 			connector.addEventListener( LagEvent.LAG_UPDATE, avatar.onLagUpdate );
@@ -172,6 +176,8 @@ package com.paperworld.multiplayer.scenes
 			player.avatar = avatar;
 			
 			this.player = player;
+			
+			connector.addPlayer( player );
 		}
 
 		/**
@@ -215,14 +221,14 @@ package com.paperworld.multiplayer.scenes
 
 		public function removeRemoteChild(child : Synchronizable) : Synchronizable
 		{
-			var previous : Avatar;
-			var next : Avatar = avatars;
+			var previous : SyncObject;
+			var next : SyncObject = avatars;
 			
 			// Loop through each avatar in the list.
 			while (next)
 			{			
 				// When we find the avatar that's handling the child passed.	
-				if (next.syncObject == child)
+				if (next.displayObject == child)
 				{
 					// Link the previous avatar with the next one - removing the current one from the list.
 					previous.next = next.next;
@@ -232,7 +238,7 @@ package com.paperworld.multiplayer.scenes
 				
 				// Move to the next avatar in the list.
 				previous = next;
-				next = Avatar( next.next );				
+				next = SyncObject( next.next );				
 			}	
 			
 			removeChild( child.getObject( ) );

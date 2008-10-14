@@ -23,12 +23,15 @@ package com.paperworld.multiplayer.objects
 {
 	import com.blitzagency.xray.logger.XrayLog;
 	import com.paperworld.input.Input;
+	import com.paperworld.input.UserInput;
+	import com.paperworld.input.events.UserInputEvent;
 	import com.paperworld.multiplayer.connectors.LagListener;
 	import com.paperworld.multiplayer.connectors.events.LagEvent;
 	import com.paperworld.multiplayer.data.State;
+	import com.paperworld.multiplayer.events.ServerSyncEvent;
 	import com.paperworld.util.History;
 	import com.paperworld.util.Move;
-	import com.paperworld.util.Synchronizable;		
+	import com.paperworld.util.clock.events.ClockEvent;		
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
@@ -37,16 +40,9 @@ package com.paperworld.multiplayer.objects
 	{
 		protected var _history : History;
 
-		protected var _syncObject : Synchronizable;	
-
-		public function get syncObject() : Synchronizable
+		public function set userInput(value : UserInput) : void
 		{
-			return _syncObject;	
-		}	
-
-		public function set syncObject(value : Synchronizable) : void
-		{			
-			_syncObject = value;
+			value.addEventListener( UserInputEvent.INPUT_CHANGED, updateClientInput );
 		}
 
 		private var logger : XrayLog = new XrayLog( );
@@ -63,7 +59,7 @@ package com.paperworld.multiplayer.objects
 			_history = new History( );
 		}
 
-		override public function update() : void
+		override public function update(event : ClockEvent = null) : void
 		{						
 			// add to history
 			var move : Move = new Move( );
@@ -74,16 +70,14 @@ package com.paperworld.multiplayer.objects
 			_history.add( move );
 			
 			// update scene
-			super.update( );		
-			
-			syncObject.synchronise( input, state );	
+			super.update( event );		
 		}
 
-		override public function synchronise(t : int, state : State, input : Input) : void
+		override public function synchronise(event : ServerSyncEvent) : void
 		{			
 			var original : State = state.clone( );
 
-			_history.correction( this, t, state, input );		
+			_history.correction( this, event.time, event.state, event.input );		
 
 			if (original.compare( state ))
             	smooth( );
@@ -91,7 +85,25 @@ package com.paperworld.multiplayer.objects
 
 		public function onLagUpdate(event : LagEvent) : void
 		{
-			//logger.info("server = " + event.serverTime + "\nclient: " + time + "\nlag: " + event.lag);
+			logger.info( "server = " + event.serverTime + "\nclient: " + time + "\nlag: " + event.lag );
+			
+			/*if (event.serverTime > time)
+			{
+				deltaTime = 1.25;
+			}
+			else if (event.serverTime < time)
+			{
+				deltaTime = 0.75;
+			}
+			else
+			{
+				deltaTime = 1.0;
+			}*/
+		}
+
+		public function updateClientInput(event : UserInputEvent) : void
+		{
+			input = event.input;
 		}
 	}
 }

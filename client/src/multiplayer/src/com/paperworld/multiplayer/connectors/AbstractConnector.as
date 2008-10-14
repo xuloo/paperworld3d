@@ -23,7 +23,7 @@ package com.paperworld.multiplayer.connectors
 {
 	import flash.events.Event;
 	import flash.net.Responder;
-
+	
 	import com.blitzagency.xray.logger.XrayLog;
 	import com.paperworld.core.context.ContextLoader;
 	import com.paperworld.input.UserInput;
@@ -31,7 +31,8 @@ package com.paperworld.multiplayer.connectors
 	import com.paperworld.input.events.UserInputEvent;
 	import com.paperworld.multiplayer.connectors.Connector;
 	import com.paperworld.multiplayer.events.ServerSyncEvent;
-
+	import com.paperworld.multiplayer.player.Player;
+	
 	import jedai.net.rpc.Red5Connection;	
 
 	/**
@@ -139,16 +140,20 @@ package com.paperworld.multiplayer.connectors
 			_userInput.addListener( this );
 		}
 
+		public function addPlayer(player : Player) : void
+		{
+		}
+
 		public function addListener(listener : ConnectorListener) : void
 		{
-			addEventListener( ServerSyncEvent.REMOTE_AVATAR_SYNC, listener.onRemoteAvatarSync );			addEventListener( ServerSyncEvent.LOCAL_AVATAR_SYNC, listener.onLocalAvatarSync );
-			addEventListener( ServerSyncEvent.AVATAR_DELETE, listener.onAvatarDelete );
+			addEventListener( ServerSyncEvent.REMOTE_AVATAR_SYNC, listener.onRemoteSync );			addEventListener( ServerSyncEvent.LOCAL_AVATAR_SYNC, listener.onLocalSync );
+			addEventListener( ServerSyncEvent.AVATAR_DELETE, listener.onDelete );
 		}
 
 		public function removeListener(listener : ConnectorListener) : void
 		{
-			removeEventListener( ServerSyncEvent.REMOTE_AVATAR_SYNC, listener.onRemoteAvatarSync );			removeEventListener( ServerSyncEvent.LOCAL_AVATAR_SYNC, listener.onLocalAvatarSync );
-			removeEventListener( ServerSyncEvent.AVATAR_DELETE, listener.onAvatarDelete );
+			removeEventListener( ServerSyncEvent.REMOTE_AVATAR_SYNC, listener.onRemoteSync );			removeEventListener( ServerSyncEvent.LOCAL_AVATAR_SYNC, listener.onLocalSync );
+			removeEventListener( ServerSyncEvent.AVATAR_DELETE, listener.onDelete );
 		}
 	}
 }

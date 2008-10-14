@@ -22,14 +22,14 @@
 package com.paperworld.multiplayer.lod 
 {
 	import com.paperworld.action.Action;
-	import com.paperworld.multiplayer.objects.Avatar;	
+	import com.paperworld.multiplayer.objects.SyncObject;		
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
 	 */
 	public class LodConstraint extends Action
 	{		
-		public function testConstraint(pov : Avatar, other : Avatar) : int
+		public function testConstraint(pov : SyncObject, other : SyncObject) : int
 		{
 			return 0;
 		}

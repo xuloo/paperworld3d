@@ -21,6 +21,8 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.multiplayer.connectors 
 {
+	import com.paperworld.multiplayer.player.Player;	
+	
 	import flash.events.IEventDispatcher;
 
 	import com.paperworld.input.UserInput;		
@@ -37,6 +39,8 @@ package com.paperworld.multiplayer.connectors
 		function set input(value : UserInput) : void;
 
 		function get id() : String;
+		
+		function addPlayer(player : Player):void;
 
 		function addListener(listener : ConnectorListener) : void;
 

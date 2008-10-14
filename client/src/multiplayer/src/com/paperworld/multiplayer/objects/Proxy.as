@@ -21,8 +21,11 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.multiplayer.objects 
 {
+	import com.blitzagency.xray.logger.XrayLog;
 	import com.paperworld.input.Input;
-	import com.paperworld.multiplayer.data.State;	
+	import com.paperworld.multiplayer.data.State;
+	import com.paperworld.multiplayer.events.ServerSyncEvent;
+	import com.paperworld.util.clock.events.ClockEvent;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
@@ -33,7 +36,7 @@ package com.paperworld.multiplayer.objects
 
 		public var updating : Boolean;
 
-		//private var logger : XrayLog = new XrayLog( );
+		private var logger : XrayLog = new XrayLog( );
 
 		public function Proxy()
 		{
@@ -48,16 +51,16 @@ package com.paperworld.multiplayer.objects
 			updating = false;	
 		}
 
-		override public function synchronise(t : int, state : State, input : Input) : void
+		override public function synchronise(event : ServerSyncEvent) : void
 		{			
-			if (t < _lastSyncTime)
+			if (event.time < _lastSyncTime)
             	return;
 
-			_lastSyncTime = t;
+			_lastSyncTime = event.time;
 			updating = true;
 	
 			// set proxy input	
-			this.input = Input( input.clone( ) );
+			this.input = event.input.clone( );
 	
 			// correct if significantly different	
 			if (state.compare( this.state ))
@@ -67,10 +70,12 @@ package com.paperworld.multiplayer.objects
 			}
 		}
 
-		override public function update() : void
-		{			
+		override public function update(event : ClockEvent = null) : void
+		{				
 			if (updating)
-          		super.update( );
+			{
+          		super.update( event );
+			}
 		}
 	}
 }

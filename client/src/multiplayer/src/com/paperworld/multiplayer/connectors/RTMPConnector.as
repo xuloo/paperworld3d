@@ -26,7 +26,7 @@ package com.paperworld.multiplayer.connectors
 	import flash.net.ObjectEncoding;
 	import flash.net.Responder;
 	import flash.utils.getTimer;
-
+	
 	import com.blitzagency.xray.logger.XrayLog;
 	import com.paperworld.input.events.UserInputEvent;
 	import com.paperworld.multiplayer.connectors.events.ConnectorEvent;
@@ -34,7 +34,8 @@ package com.paperworld.multiplayer.connectors
 	import com.paperworld.multiplayer.data.SyncData;
 	import com.paperworld.multiplayer.data.TimedInput;
 	import com.paperworld.multiplayer.events.ServerSyncEvent;
-
+	import com.paperworld.multiplayer.player.Player;
+	
 	import jedai.events.Red5Event;
 	import jedai.net.rpc.Red5Connection;
 	import jedai.net.rpc.RemoteSharedObject;	
@@ -107,6 +108,20 @@ package com.paperworld.multiplayer.connectors
 			
 			_userInput.addEventListener( UserInputEvent.INPUT_CHANGED, onInputUpdate );
 		}
+		
+		private var player:Player;
+		
+		override public function addPlayer(player : Player) : void
+		{
+			this.player = player;
+			_connection.call('multiplayer.addPlayer', new Responder(addPlayerResult, onResult), clientID );
+		}
+		
+		public function addPlayerResult(data:SyncData):void
+		{
+			logger.info("time: " + data.serverTime);
+			//player.avatar.time = data.serverTime;
+		}
 
 		protected function onConnectionDisconnected(event : Red5Event) : void
 		{
@@ -134,6 +149,7 @@ package com.paperworld.multiplayer.connectors
 						if (name != String( clientID )) 
 						{							
 							var data : SyncData = SyncData( _remoteSharedObject._so.data[name] );
+							logger.info( clientID + " updating " + name + " => " + data.state.orientation.w);
 							dispatchEvent( new ServerSyncEvent( ServerSyncEvent.REMOTE_AVATAR_SYNC, name, data.time, data.input, data.state ) );
 						}
 						break;
