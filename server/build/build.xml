@@ -32,22 +32,21 @@
 		<echo message="Ivy conf name: ${ivy.conf.name}"/>
 		
 		<ivy:resolve file="ivy.xml" conf="${ivy.conf.name}"/>
-		<ivy:retrieve pattern="../lib/[artifact].[ext]" conf="${ivy.conf.name}"/>
+		<ivy:retrieve pattern="${basedir}/../lib/[artifact].[ext]" conf="${ivy.conf.name}"/>
 	</target>
 	
      <property environment="env"/>
 
      <path id="classpath">
        <pathelement location="${red5.dir}/red5.jar"/>
-       <pathelement location="lib/jedai.jar"/>
+       <pathelement location="${basedir}/../lib/jedai.jar"/>
      </path>
 	 
-	 <target name="all" depends="retrieve, jar, javadoc, clean" />
+	 <target name="all" depends="retrieve, jar,javadoc,clean" />
 
 	<target name="compile-core" depends="clean-core, prepare-core" 
 	 	description="compile the source">
-		 
-       <mkdir dir="${build.dir}"/>
+		 <echo>${basedir}/../lib/</echo>
 
        <javac srcdir="${paperworld.src.dir}" destdir="${build.dir}" classpathref="classpath"/>
 
