@@ -24,7 +24,7 @@ package
 	/**
 	 * @author Trevor
 	 */
-	public class HelloPaperWorldClient extends BasicView 
+	public class HelloPaperWorldClientPV3D extends BasicView 
 	{
 		private var logger : XrayLog = new XrayLog( );
 
@@ -32,7 +32,7 @@ package
 
 		private var player : Player;
 
-		public function HelloPaperWorldClient()
+		public function HelloPaperWorldClientPV3D()
 		{			
 			logger.info( "HelloPaperWorldClient" );
 
