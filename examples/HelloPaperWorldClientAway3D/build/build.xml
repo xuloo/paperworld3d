@@ -1,4 +1,4 @@
-<project name="HelloPaperWorldClientPV3D" default="build-example" basedir=".">
+<project name="HelloPaperWorldClientAway3D" default="build-example" basedir=".">
 
 	<property file="../../../build/user.properties"/>
 	<property file="../../../build/build.properties"/>
@@ -9,8 +9,8 @@
 	<target name="build-example" description="builds the example client">
 
 			<mxmlc
-				output="../bin/HelloPaperWorldClientPV3D.swf"
-				file="${basedir}/../src/HelloPaperWorldClientPV3D.as"
+				output="../bin/HelloPaperWorldClientAway3D.swf"
+				file="${basedir}/../src/HelloPaperWorldClientAway3D.as"
 				debug="true"
 				default-background-color="0xffffff"
 				default-frame-rate="30"
@@ -39,7 +39,7 @@
 	
 	<target name="launch-example">
 		<exec executable="${flash.player}" spawn="true">
-			<arg line="../bin/HelloPaperWorldClientPV3D.swf"/>
+			<arg line="../bin/HelloPaperWorldClientAway3D.swf"/>
 		</exec>
 	</target>
 	

@@ -11,29 +11,31 @@
 	         uri="antlib:org.apache.ivy.ant" 
 			 classpath="${basedir}/../../${build.lib}/${ivy.lib}.jar"/>
 	
-	<target name="retrieve" unless="library.installed" description="Retrieves the libraries if needed">
-		<echo>${basedir}/../lib/ivy-trunk.jar</echo>
-			<!-- Ivy configuration - http://ant.apache.org/ivy/history/trunk/ant.html -->
-			<ivy:settings file="ivysettings.xml"/>
-			<condition property="ivy.conf.name" value="java6">
-				<not>
-					<isset property="ivy.conf.name"/>
-				</not>
-			</condition>
-
-			<echo message="Ivy conf name: ${ivy.conf.name}"/>
-			<ivy:resolve file="ivy.xml" conf="${ivy.conf.name}"/>
-			<ivy:retrieve pattern="../lib/[artifact].swc" conf="${ivy.conf.name}"/>
-		</target>
-
+	
 	<target name="all" depends="clean, prepare, retrieve, build-tests, build-libraries, generate-docs" 
 		description="builds all the paperworld libraries and generates documentation" />
+	
 	
 	<target name="build-libraries" depends="clean-output, prepare-output, 
 											build-logging, build-core, build-ai, build-multiplayer, 
 											build-papervision3d-library, build-away3d-library" 
 		
 		description="builds all the paperworld client libraries and unit tests" />
+	
+	<target name="retrieve" unless="library.installed" description="Retrieves the libraries if needed">
+
+		<ivy:settings file="ivysettings.xml"/>
+	
+		<condition property="ivy.conf.name" value="java6">
+			<not>
+				<isset property="ivy.conf.name"/>
+			</not>
+		</condition>
+
+		<ivy:resolve file="ivy.xml" conf="${ivy.conf.name}"/>
+		<ivy:retrieve pattern="../lib/[artifact].swc" conf="${ivy.conf.name}"/>
+	
+	</target>
 	
 	<target name="build-ai" description="builds the ai paperworld client library swc.">
 			
@@ -328,8 +330,8 @@
 	<target name="generate-docs" depends="clean-docs, prepare-docs" description="creates the asdoc documentation for the project">
 		
 		<exec executable="${asdoc}" failonerror="true" >
-		  <arg line="-doc-sources ../src/core/src ../src/ai/src ../src/multiplayer/src ../src/ui/src ../src/logging ../src/away3d ../src/pv3d" />
-		  <arg line="-external-library-path ../lib/jedai.swc ../lib/prana.swc ../lib/datastructures.swc ../lib/flexunit.swc ../lib/papervision3d.swc ../lib/away3d.swc" />
+		  <arg line="-doc-sources ../src/core/src ../src/ai/src ../src/multiplayer/src ../src/away3d ../src/pv3d" />
+		  <arg line="-external-library-path ../lib/jedai.swc ../lib/prana.swc ../lib/datastructures.swc ../lib/flexunit.swc ../lib/papervision3d.swc ../lib/away3d.swc ../bin/${logging.output.name}.swc" />
 		  <arg line="-output ../docs" />
 		  <arg line="-main-title 'PaperWorld3D API Documentation'"/>
 		  <arg line="-window-title 'PaperWorld3D API Documentation'"/>

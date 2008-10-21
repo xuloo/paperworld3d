@@ -6,7 +6,7 @@
 	<taskdef classpath="lib/ant-contrib-1.0b3.jar" resource="net/sf/antcontrib/antlib.xml"/>
 
 	<!-- builds everything; client libraries and docs, server libraries and docs, all examples -->
-	<target name="all" depends="build-client,build-server,build-examples"/>
+	<target name="all" depends="build-client,build-server,build-all-examples"/>
 	
 	<target name="build-client">
 		<ant antfile="../client/build/build.xml" inheritall="false"/>
@@ -16,9 +16,21 @@
 		<ant antfile="../server/build/build.xml" inheritall="false"/>		
 	</target>
 	
+	<target name="build-all-examples">
+		
+		<antcall target="build-examples">
+			<param name="example.list" value="${server.examples}"/>
+		</antcall>
+		
+		<antcall target="build-examples">
+			<param name="example.list" value="${client.examples}"/>
+		</antcall>
+		
+	</target>
+	
 	<target name="build-examples">
 		
-		<for list="${examples}" param="example">
+		<for list="${example.list}" param="example">
 			<sequential>			
 				
 				<echo>Building Example => @{example}</echo>
@@ -36,11 +48,8 @@
 	<target name="build-example">
 		
 		<echo> Building ${example}</echo>		
-		<ant antfile="../examples/${example}/build.xml" inheritall="false"/>
-		
-		<echo> Building ${example}/Client</echo>	
-		<ant antfile="../examples/${example}Client/build/build.xml" inheritall="false"/>
-		
+		<ant antfile="../examples/${example}/build/build.xml" inheritall="false"/>
+				
 	</target>
 	
 	<target name="create-downloads" depends="clean-downloads,all,prepare-downloads,
