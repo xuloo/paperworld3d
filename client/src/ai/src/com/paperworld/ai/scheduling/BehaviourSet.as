@@ -2,7 +2,8 @@ package com.paperworld.ai.scheduling
 {
 	import com.paperworld.core.BaseClass;
 	
-	import de.polygonal.ds.HashMap;		
+	import de.polygonal.ds.HashMap;	
+
 	/**
 	 * @author Trevor
 	 */

@@ -1,7 +1,8 @@
 package com.paperworld.ai.scheduling 
 {
 	import com.paperworld.action.Action;
-	import com.paperworld.core.BaseClass;		
+	import com.paperworld.core.BaseClass;	
+
 	/**
 	 * @author Trevor
 	 */

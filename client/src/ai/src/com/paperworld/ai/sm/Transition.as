@@ -11,7 +11,7 @@
  */
 package com.paperworld.ai.sm 
 {
-	import com.paperworld.ai.sm.BaseTransition;	
+	import com.paperworld.ai.sm.BaseTransition;		
 
 	/**
      * Transitions map between state machines.

@@ -11,8 +11,8 @@
  */
 package com.paperworld.ai.learning 
 {
-	import com.paperworld.core.interfaces.Destroyable;	
-	import com.paperworld.core.BaseClass;	
+	import com.paperworld.core.BaseClass;
+	import com.paperworld.core.interfaces.Destroyable;		
 
 	/**
 	 * A state in a reinforcement problem will be indexed by number,

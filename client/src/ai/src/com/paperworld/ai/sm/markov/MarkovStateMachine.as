@@ -12,7 +12,7 @@
 package com.paperworld.ai.sm.markov 
 {
 	import com.paperworld.action.Action;
-	import com.paperworld.ai.sm.BaseTransition;		
+	import com.paperworld.ai.sm.BaseTransition;	
 
 	/**
 	 * The markov state machine is responsible for keeping track of

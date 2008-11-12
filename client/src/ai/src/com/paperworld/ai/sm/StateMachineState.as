@@ -11,7 +11,7 @@
  */
 package com.paperworld.ai.sm 
 {
-	import com.paperworld.action.Action;		
+	import com.paperworld.action.Action;			
 
 	/**
      * This represents one internal state a character be in: such as

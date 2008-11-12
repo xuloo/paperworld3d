@@ -12,7 +12,7 @@
 package com.paperworld.ai.dectree 
 {
 	import com.paperworld.ai.dectree.RandomDecision;
-	import com.paperworld.util.number.RandomUtils;		
+	import com.paperworld.util.number.RandomUtils;	
 
 	/**
 	 * This class represents a stable random decision. As long as the

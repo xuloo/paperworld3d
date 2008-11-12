@@ -6,6 +6,7 @@ package com.paperworld.ai.scheduling
 	
 	import de.polygonal.ds.HashMap;
 	import de.polygonal.ds.Iterator;	
+
 	/**
 	 * @author Trevor
 	 */

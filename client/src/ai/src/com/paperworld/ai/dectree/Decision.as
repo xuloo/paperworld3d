@@ -11,7 +11,7 @@
  */
 package com.paperworld.ai.dectree 
 {
-	import com.paperworld.ai.dectree.DecisionTreeNode;	
+	import com.paperworld.ai.dectree.DecisionTreeNode;		
 
 	/**
 	 * Other than actions, the tree is made up of decisions, which

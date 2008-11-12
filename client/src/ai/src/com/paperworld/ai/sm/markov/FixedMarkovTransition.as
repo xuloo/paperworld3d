@@ -11,7 +11,7 @@
  */
 package com.paperworld.ai.sm.markov 
 {
-	import com.paperworld.ai.sm.markov.MarkovTransition;
+	import com.paperworld.ai.sm.markov.MarkovTransition;	
 
 	/**
 	 * A markov transition with a fixed and explicit matrix.

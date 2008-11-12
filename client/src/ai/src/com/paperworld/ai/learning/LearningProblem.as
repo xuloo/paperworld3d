@@ -11,8 +11,8 @@
  */
 package com.paperworld.ai.learning 
 {
-	import com.paperworld.core.BaseClass;	
-	
+	import com.paperworld.core.BaseClass;		
+
 	/**
 	 * This is a class that you need to implement in order to
 	 * represent the problem you're trying to solve to the learning

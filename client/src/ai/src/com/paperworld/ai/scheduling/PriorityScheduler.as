@@ -1,7 +1,10 @@
 package com.paperworld.ai.scheduling 
 {
-	import de.polygonal.ds.Iterator;	
-	import de.polygonal.ds.HashMap;import flash.utils.getTimer;	
+	import flash.utils.getTimer;
+	
+	import de.polygonal.ds.HashMap;
+	import de.polygonal.ds.Iterator;		
+
 	/**
 	 * @author Trevor
 	 */

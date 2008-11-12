@@ -11,7 +11,7 @@
  */
 package com.paperworld.ai.sm 
 {
-	import com.paperworld.action.Action;	
+	import com.paperworld.action.Action;		
 
 	/**
 	 * @author Trevor

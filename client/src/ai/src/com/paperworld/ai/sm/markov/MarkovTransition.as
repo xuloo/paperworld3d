@@ -11,7 +11,7 @@
  */
 package com.paperworld.ai.sm.markov 
 {
-	import com.paperworld.ai.sm.BaseTransition;	
+	import com.paperworld.ai.sm.BaseTransition;		
 
 	/**
 	 * Markov transitions consist of a matrix that is multiplied by

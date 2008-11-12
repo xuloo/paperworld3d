@@ -12,7 +12,7 @@
 package com.paperworld.ai.learning 
 {
 	import com.paperworld.action.Action;
-	import com.paperworld.core.BaseClass;		
+	import com.paperworld.core.BaseClass;	
 
 	/**
 	 * An action moves between states of the problem. In our case we
