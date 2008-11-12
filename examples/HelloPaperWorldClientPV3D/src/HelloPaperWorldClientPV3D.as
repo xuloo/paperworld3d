@@ -54,13 +54,6 @@ package
 			player = new Player( );
 
 			scene = syncScene.scene;
-			
-			registerClassAlias( 'com.paperworld.multiplayer.data.Input', Input );
-			registerClassAlias( 'com.paperworld.multiplayer.data.TimedInput', TimedInput );
-			registerClassAlias( 'com.paperworld.multiplayer.data.SyncData', SyncData );
-			registerClassAlias( 'com.paperworld.multiplayer.data.State', State );
-			registerClassAlias( 'com.paperworld.core.math.Vector3', Vector3 );
-			registerClassAlias( 'com.paperworld.core.math.Quaternion', Quaternion );
 		}
 
 		public function onContextLoaded(event : Event) : void 
