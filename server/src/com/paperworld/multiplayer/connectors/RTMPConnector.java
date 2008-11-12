@@ -22,6 +22,7 @@
 package com.paperworld.multiplayer.connectors;
 
 import org.red5.server.api.IConnection;
+import org.red5.server.api.IContext;
 import org.red5.server.api.IScope;
 import org.red5.server.api.ScopeUtils;
 import org.red5.server.api.so.ISharedObject;
@@ -48,9 +49,6 @@ public class RTMPConnector extends AbstractConnector {
 	}
 
 	protected void createScheduledJobs() {
-
-		System.out.println("Starting scheduled jobs " + application.getScope());
-
 		avatarUpdateJob = application.addScheduledJob(1000 / frameRate,
 				new UpdateAvatarsJob(this));
 
@@ -60,8 +58,6 @@ public class RTMPConnector extends AbstractConnector {
 
 	@Override
 	public boolean appStart(IScope arg0) {
-		// TODO Auto-generated method stub
-		System.out.println("multiplayer service starting");
 		return true;
 	}
 
@@ -83,7 +79,7 @@ public class RTMPConnector extends AbstractConnector {
 		Avatar avatar = players.get(uid).getAvatar();
 
 		avatar.update(input);
-		System.out.println("returning " + time);
+
 		return new SyncData(time, input.time, avatar.input, avatar.state);
 	}
 
@@ -100,23 +96,18 @@ public class RTMPConnector extends AbstractConnector {
 		System.out.println(name + " connecting "
 				+ connection.getClient().getId());
 
-		Player player = new Player(name, connection);
+		//Player player = new Player(name, connection);
+		Player player = (Player) application.getContext().getBean("default.player");
+		player.setName(name);
+		player.setConnection(connection);
 
-		Kinematic kinematic = new Kinematic();
-
-		Avatar avatar = new Avatar(kinematic);
+		Avatar avatar = (Avatar) application.getContext().getBean("default.avatar");
 
 		avatar.time = time;
-		avatar.setKinematic(kinematic);
 
 		player.setAvatar(avatar);
 
-		// addNewPlayer(player);
-
 		players.put(connection.getClient().getId(), player);
-
-		System.out.println("player "
-				+ players.get(connection.getClient().getId()));
 
 		return true;
 	}

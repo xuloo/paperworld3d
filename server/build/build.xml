@@ -42,11 +42,10 @@
        <pathelement location="${basedir}/../lib/jedai.jar"/>
      </path>
 	 
-	 <target name="all" depends="retrieve, jar,javadoc,clean" />
+	 <target name="all" depends="retrieve,jar,javadoc,clean" />
 
 	<target name="compile-core" depends="clean-core, prepare-core" 
 	 	description="compile the source">
-		 <echo>${basedir}/../lib/</echo>
 
        <javac srcdir="${paperworld.src.dir}" destdir="${build.dir}" classpathref="classpath"/>
 
@@ -67,8 +66,8 @@
     </target>
 	
      <target name="dist" depends="clean, prepare-core, jar" description="generate the distribution" >
-
-     	<for list="${examples}" param="example">
+		<echo> ${server.examples}</echo>
+     	<for list="${server.examples}" param="example">
      		<sequential>			
      				
 		     	<copy todir="../../examples/@{example}/WebContent/WEB-INF/lib">

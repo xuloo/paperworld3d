@@ -11,20 +11,40 @@
  */
 package com.paperworld.ai.steering;
 
+import com.paperworld.multiplayer.data.Input;
+
 
 /**
  * The steering behaviour is the base class for all dynamic
  * steering behaviours.
  */
-abstract public class SteeringBehaviour {
+abstract public class AbstractSteeringBehaviour {
 	/**
      * The character who is moving.
      */
-    public Kinematic character;
+    protected Kinematic character;
+    
+    protected Input input;
 
     /**
      * Works out the desired steering and writes it into the given
      * steering output structure.
      */
     abstract public void getSteering(SteeringOutput output);
+    
+    public void setCharacter(Kinematic character) {
+    	this.character = character;
+    }
+    
+    public Kinematic getCharacter() {
+    	return character;
+    }
+    
+    public void setInput(Input input) {
+    	this.input = input;
+    }
+    
+    public Input getInput() {
+    	return input;
+    }
 }

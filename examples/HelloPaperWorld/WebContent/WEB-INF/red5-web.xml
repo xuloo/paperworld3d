@@ -23,13 +23,7 @@
 	<bean id="web.handler" 
 	    class="org.red5.core.Application" 
 		singleton="true" />
-		
-	<bean id="multiplayer.service"
-		class="com.paperworld.multiplayer.connectors.RTMPConnector"
-		singleton="true" 
-		init-method="createScheduledJobs">
-		<property name="application" ref="web.handler" />
-		<property name="frameRate" value="60" />
-	</bean>
- 
+	
+	<import resource="paperworld-web.xml" />
+	 
 </beans>

@@ -151,8 +151,8 @@ public class Vector3 /*implements IExternalizable */
 	/**
 	 * Add
 	 */
-	public static Vector3 add(Vector3 v, Vector3 w) {
-		return new Vector3(v.x + w.x, v.y + w.y, v.z + w.z);
+	public Vector3 add(Vector3 w) {
+		return new Vector3(x + w.x, y + w.y, z + w.z);
 	}
 
 	/**

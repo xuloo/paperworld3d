@@ -12,11 +12,11 @@
 		/**		 * Copies the values of this Number3d to the passed Number3d.		 * 		 */		public function copyFrom(n : Vector3) : void		{			x = n.x; 			y = n.y; 			z = n.z; 		}
 		/** 		 * Quick way to set the properties of the Number3D		 * 		 */		public function clear(newx : Number = 0, newy : Number = 0, newz : Number = 0) : void		{			x = newx; 			y = newy; 			z = newz; 		}
 		// ______________________________________________________________________ MATH			/**		 * Modulo		 */		public function get magnitude() : Number		{			return Math.sqrt( this.x * this.x + this.y * this.y + this.z * this.z );		}
-		/**		 * Add		 */		public static function add( v : Vector3, w : Vector3 ) : Vector3		{			return new Vector3( v.x + w.x, v.y + w.y, v.z + w.z );		}
+		/**		 * Add		 */		public function add( v : Vector3, w : Vector3 ) : Vector3		{			return new Vector3( v.x + w.x, v.y + w.y, v.z + w.z );		}
 		/**		 * Subtract.		 */		public static function sub( v : Vector3, w : Vector3 ) : Vector3		{			return new Vector3( v.x - w.x, v.y - w.y, v.z - w.z );		}
-		/**		 * Dot product.		 */		public static function dot( v : Vector3, w : Vector3 ) : Number		{			return ( v.x * w.x + v.y * w.y + w.z * v.z );		}
-		/**		 * Cross product. Now optionally takes a target Number3D to put the change into. So we're not constantly making new number3Ds. 		 * Maybe make a crossEq function? 		 */		public static function cross( v : Vector3, w : Vector3, targetN : Vector3 = null ) : Vector3		{			if(!targetN) targetN = ZERO; 			 			targetN.clear( (w.y * v.z) - (w.z * v.y), (w.z * v.x) - (w.x * v.z), (w.x * v.y) - (w.y * v.x) );			return targetN; 		}
-		/**		 * Normalize.		 */		public function normalise() : void		{			var mod : Number = this.magnitude;				if( mod != 0 && mod != 1)			{				this.x /= mod;				this.y /= mod;				this.z /= mod;			}		}
+		/**		 * Dot product.		 */		public function dot( w : Vector3 ) : Number		{			return ( x * w.x + y * w.y + w.z * z );		}
+		/**		 * Cross product. Now optionally takes a target Number3D to put the change into. So we're not constantly making new number3Ds. 		 * Maybe make a crossEq function? 		 */		public function cross( w : Vector3, targetN : Vector3 = null ) : Vector3		{			if(!targetN) targetN = ZERO; 			 			targetN.clear( (w.y * z) - (w.z * y), (w.z * x) - (w.x * z), (w.x * y) - (w.y * x) );			return targetN; 		}
+		/**		 * Normalize.		 */		public function normalise() : void		{			var mod : Number = this.magnitude;				if( mod != 0 && mod != 1)			{				this.x /= mod;				this.y /= mod;				this.z /= mod;			}		}				public function negate():void		{			x = -x;			y = -y;			z = -z;		}
 		/**		 * Multiplies the vector by a number. The same as the *= operator		 */		public function multiplyEq(n : Number) : void		{			x *= n; 			y *= n;			z *= n; 			}
 		public function returnScale(s : Number) : Vector3		{			return new Vector3( x *= s, y *= s, z *= s );			}
 		public function returnDivision(s : Number) : Vector3		{			return new Vector3( x /= s, y /= s, z /= s );			}

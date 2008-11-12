@@ -12,6 +12,7 @@
 package com.paperworld.ai.steering;
 
 
+import com.paperworld.core.math.Quaternion;
 import com.paperworld.core.math.Vector3;
 
 /**
@@ -32,14 +33,14 @@ public class SteeringOutput {
 	/**
 	 * The angular component of the steering action.
 	 */
-	public Double angular;
+	public Quaternion angular;
 
 	/**
 	 * Creates a new steering action with zero linear and angular changes.
 	 */
 	public SteeringOutput() {
 		linear = new Vector3();
-		angular = 0.0;
+		angular = new Quaternion();
 	}
 
 	/**
@@ -51,7 +52,7 @@ public class SteeringOutput {
 	 * @param angular
 	 *            The initial angular change to give the SteeringOutput.
 	 */
-	public SteeringOutput(Vector3 linear, Double angular) {
+	public SteeringOutput(Vector3 linear, Quaternion angular) {
 		this.linear = linear;
 		this.angular = angular;
 	}
@@ -61,7 +62,7 @@ public class SteeringOutput {
 	 */
 	public void clear() {
 		linear.clear();
-		angular = 0.0;
+		angular.clear();
 	}
 
 	/**

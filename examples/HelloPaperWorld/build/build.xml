@@ -4,7 +4,7 @@
 	<property file="../../build/user.properties"/>
 
 	<property name="app.name" value="${ant.project.name}"/>
-	<property name="app.dir" value="${red5.dir}/webapps/${app.name}"/>
+	<property name="app.dir" value="${red5.dir}/dist/webapps/${app.name}"/>
 
 	<path id="classpath">
     		<pathelement location="${red5.dir}/red5.jar"/>

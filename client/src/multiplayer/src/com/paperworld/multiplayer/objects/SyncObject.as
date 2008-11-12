@@ -21,15 +21,16 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.multiplayer.objects 
 {
+	import com.paperworld.core.objects.SteeringBehaviour;
+	import com.paperworld.core.objects.SteeringOutput;
 	import com.paperworld.core.BaseClass;
 	import com.paperworld.input.Input;
-	import com.paperworld.multiplayer.behaviours.AvatarBehaviour;
 	import com.paperworld.multiplayer.behaviours.SimpleAvatarBehaviour2D;
 	import com.paperworld.multiplayer.data.State;
 	import com.paperworld.multiplayer.events.ServerSyncEvent;
 	import com.paperworld.util.Synchronizable;
 	import com.paperworld.util.clock.Clock;
-	import com.paperworld.util.clock.events.ClockEvent;	
+	import com.paperworld.util.clock.events.ClockEvent;		
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
@@ -51,7 +52,7 @@ package com.paperworld.multiplayer.objects
 		 * The 'loosest' tightness allowed in the adaptive smoothing algorithm.
 		 */
 		public var smoothTightness : Number = 0.01;
-		
+
 		/**
 		 * The current tightness value for adaptive smoothing.
 		 */
@@ -60,7 +61,7 @@ package com.paperworld.multiplayer.objects
 		/**
 		 * The AvatarBehaviour instance used to interpret user input for this SyncObject.
 		 */
-		public var behaviour : AvatarBehaviour;
+		public var behaviour : SteeringBehaviour;
 
 		/**
 		 * The current user input state for this object.
@@ -93,7 +94,9 @@ package com.paperworld.multiplayer.objects
 			previous = current;
 			current = value;
 		}
-		
+
+		protected var output : SteeringOutput;
+
 		/**
 		 * The visible object in the scene that this object represents over the wire.
 		 */
@@ -108,7 +111,7 @@ package com.paperworld.multiplayer.objects
 		 * The amount that this object's time will change by on the next update() call.
 		 */
 		public var deltaTime : Number = 1;
-		
+
 		public var lastTime : int = 0;
 
 		/**
@@ -119,20 +122,18 @@ package com.paperworld.multiplayer.objects
 		public function update(event : ClockEvent = null) : void
 		{			
 			tightness += (defaultTightness - tightness) * 0.01;
-			//time++;
 			time += deltaTime;
 			
-			var integerTime:int = int(time) - lastTime;
+			var integerTime : int = int( time ) - lastTime;
 			
 			while (integerTime > 0)
-			{
-				
+			{				
 				integerTime -= 1;
 			}
 			
-			lastTime = int(time);
+			lastTime = int( time );
 			
-			behaviour.update( input, state );
+			behaviour.getSteering( output );
 			displayObject.synchronise( input, state );	
 		}
 

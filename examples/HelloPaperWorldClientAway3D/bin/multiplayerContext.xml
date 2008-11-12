@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<objects>
+
+	<object id="local.avatar" class="com.paperworld.multiplayer.objects.Client" >
+		<property name="displayObject">
+			<object class="com.paperworld.multiplayer.objects.SynchronisableObject">
+				<property name="object">
+				<object class="org.papervision3d.objects.primitives.Plane">
+					<constructor-arg>
+						<object class="org.papervision3d.materials.WireframeMaterial">
+							<constructor-arg value="0xff0000" />
+							<property name="doubleSided" value="true"/>
+						</object>
+					</constructor-arg>
+					<constructor-arg value="100" />	
+					<constructor-arg value="100" />
+				</object>
+				</property>
+			</object>
+		</property>
+	</object>
+	
+	<object id="remote.avatar" class="com.paperworld.multiplayer.objects.Proxy" >
+		<property name="displayObject">
+			<object class="com.paperworld.multiplayer.objects.SynchronisableObject">
+				<property name="object">
+					<object class="org.papervision3d.objects.primitives.Plane">
+						<constructor-arg>
+							<object class="org.papervision3d.materials.WireframeMaterial">
+								<constructor-arg value="0x00ff00" />
+								<property name="doubleSided" value="true"/>
+							</object>
+						</constructor-arg>
+						<constructor-arg value="100" />	
+						<constructor-arg value="100" />
+					</object>
+				</property>
+			</object>
+		</property>
+	</object>
+
+</objects>

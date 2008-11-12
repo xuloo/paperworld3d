@@ -24,13 +24,14 @@ package com.paperworld.multiplayer.objects;
 import org.red5.server.api.so.ISharedObject;
 
 import com.paperworld.ai.steering.Kinematic;
-import com.paperworld.multiplayer.behaviour.IAvatarBehaviour;
+import com.paperworld.ai.steering.SteeringBehaviour;
+import com.paperworld.ai.steering.SteeringOutput;
 import com.paperworld.multiplayer.behaviour.SimpleAvatarBehaviour2D;
 import com.paperworld.multiplayer.data.AvatarData;
 import com.paperworld.multiplayer.data.Input;
-import com.paperworld.multiplayer.data.TimedInput;
 import com.paperworld.multiplayer.data.State;
 import com.paperworld.multiplayer.data.SyncData;
+import com.paperworld.multiplayer.data.TimedInput;
 import com.paperworld.multiplayer.player.PlayerContext;
 import com.paperworld.util.collections.CircularBuffer;
 
@@ -55,13 +56,19 @@ public class Avatar {
 	public String ref;
 
 	protected PlayerContext playerContext;
+	
+	protected SteeringOutput output = new SteeringOutput();
 
 	/**
 	 * The IBehaviour object that's used to interpret the Input for this
 	 * Kinematic.
 	 */
-	public IAvatarBehaviour behaviour;
+	public SteeringBehaviour behaviour;
 
+	public Avatar() {
+		initialise();
+	}
+	
 	public Avatar(Kinematic kinematic) {
 		this.kinematic = kinematic;
 
@@ -69,7 +76,6 @@ public class Avatar {
 	}
 
 	public void initialise() {
-		behaviour = new SimpleAvatarBehaviour2D();
 		buffer = new CircularBuffer<TimedInput>(TimedInput.class);
 		input = new Input();
 		state = new State();
@@ -106,7 +112,11 @@ public class Avatar {
 		 */
 
 		// Update the behaviour.
-		behaviour.update(time, input, kinematic);
+		behaviour.getSteering(output);
+		
+		kinematic.velocity = output.linear;
+		kinematic.position.add(output.linear);
+		kinematic.orientation = output.angular;
 	}
 
 	public void update(TimedInput move) {
@@ -119,14 +129,17 @@ public class Avatar {
 
 		so.setAttribute(playerContext.getId(), new SyncData(time, this.input,
 				getState()));
-
-		// System.out.println("rot: " + state.orientation.w);
 	}
 
 	public Kinematic getKinematic() {
 		return kinematic;
 	}
 
+	public void setBehaviour(SteeringBehaviour behaviour) {
+		behaviour.setInput(input);
+		this.behaviour = behaviour;
+	}
+	
 	public void setKinematic(Kinematic kinematic) {
 		this.kinematic = kinematic;
 	}

@@ -26,10 +26,10 @@ package com.paperworld.util.math
 
 	/**
 	 * This class is lifted wholesale from Papervision3D - i've adapted for use within the paperworld framework
- 	 * but i didn't write the original class. 
- 	 * 
- 	 * Although i did contribute the slerp() method :)
- 	 * 
+	 * but i didn't write the original class. 
+	 * 
+	 * Although i did contribute the slerp() method :)
+	 * 
 	 * @author Tim Knip 
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
 	 */
@@ -87,6 +87,14 @@ package com.paperworld.util.math
 		public function clone() : Quaternion
 		{
 			return new Quaternion( x, y, z, w );
+		}
+		
+		public function clear():void 
+		{
+			x = 0;
+			y = 0;
+			z = 0;
+			w = 1;
 		}
 
 		/**
@@ -150,7 +158,7 @@ package com.paperworld.util.math
 		 * @param	ay	Y-angle in radians.
 		 * @param	az	Z-angle in radians.
 		 */ 
-		public function setFromEuler(ax:Number, ay:Number, az:Number, useDegrees:Boolean=false):void
+		public function setFromEuler(ax : Number, ay : Number, az : Number, useDegrees : Boolean = false) : void
 		{
 			if( useDegrees )
 			{
@@ -159,19 +167,19 @@ package com.paperworld.util.math
 				az *= DEGTORAD;
 			}
 			
-			var fSinPitch       :Number = Math.sin( ax * 0.5 );
-			var fCosPitch       :Number = Math.cos( ax * 0.5 );
-			var fSinYaw         :Number = Math.sin( ay * 0.5 );
-			var fCosYaw         :Number = Math.cos( ay * 0.5 );
-			var fSinRoll        :Number = Math.sin( az * 0.5 );
-			var fCosRoll        :Number = Math.cos( az * 0.5 );
-			var fCosPitchCosYaw :Number = fCosPitch * fCosYaw;
-			var fSinPitchSinYaw :Number = fSinPitch * fSinYaw;
+			var fSinPitch : Number = Math.sin( ax * 0.5 );
+			var fCosPitch : Number = Math.cos( ax * 0.5 );
+			var fSinYaw : Number = Math.sin( ay * 0.5 );
+			var fCosYaw : Number = Math.cos( ay * 0.5 );
+			var fSinRoll : Number = Math.sin( az * 0.5 );
+			var fCosRoll : Number = Math.cos( az * 0.5 );
+			var fCosPitchCosYaw : Number = fCosPitch * fCosYaw;
+			var fSinPitchSinYaw : Number = fSinPitch * fSinYaw;
 
-			this.x = fSinRoll * fCosPitchCosYaw     - fCosRoll * fSinPitchSinYaw;
+			this.x = fSinRoll * fCosPitchCosYaw - fCosRoll * fSinPitchSinYaw;
 			this.y = fCosRoll * fSinPitch * fCosYaw + fSinRoll * fCosPitch * fSinYaw;
 			this.z = fCosRoll * fCosPitch * fSinYaw - fSinRoll * fSinPitch * fCosYaw;
-			this.w = fCosRoll * fCosPitchCosYaw     + fSinRoll * fSinPitchSinYaw;
+			this.w = fCosRoll * fCosPitchCosYaw + fSinRoll * fSinPitchSinYaw;
 		}
 
 		/**
@@ -280,13 +288,13 @@ package com.paperworld.util.math
 		 * @param	b
 		 * @return
 		 */
-		public static function multiply( a : Quaternion, b : Quaternion ) : Quaternion
+		public function multiply( b : Quaternion ) : Quaternion
 		{
 			var c : Quaternion = new Quaternion( );
-			c.x = a.w * b.x + a.x * b.w + a.y * b.z - a.z * b.y;
-			c.y = a.w * b.y - a.x * b.z + a.y * b.w + a.z * b.x;
-			c.z = a.w * b.z + a.x * b.y - a.y * b.x + a.z * b.w;
-			c.w = a.w * b.w - a.x * b.x - a.y * b.y - a.z * b.z;
+			c.x = w * b.x + x * b.w + y * b.z - z * b.y;
+			c.y = w * b.y - x * b.z + y * b.w + z * b.x;
+			c.z = w * b.z + x * b.y - y * b.x + z * b.w;
+			c.w = w * b.w - x * b.x - y * b.y - z * b.z;
 			return c;
 		}
 
@@ -451,28 +459,28 @@ package com.paperworld.util.math
 		 * 
 		 * @return matrix. @see org.papervision3d.core.Matrix3D
 		 */
-		public function get matrix():Matrix3D
+		public function get matrix() : Matrix3D
 		{
-			var xx:Number = x * x;
-			var xy:Number = x * y;
-			var xz:Number = x * z;
-			var xw:Number = x * w;
-			var yy:Number = y * y;
-			var yz:Number = y * z;
-			var yw:Number = y * w;
-			var zz:Number = z * z;
-			var zw:Number = z * w;
+			var xx : Number = x * x;
+			var xy : Number = x * y;
+			var xz : Number = x * z;
+			var xw : Number = x * w;
+			var yy : Number = y * y;
+			var yz : Number = y * z;
+			var yw : Number = y * w;
+			var zz : Number = z * z;
+			var zw : Number = z * w;
 
 			_matrix.n11 = 1 - 2 * ( yy + zz );
-			_matrix.n12 =     2 * ( xy - zw );
-			_matrix.n13 =     2 * ( xz + yw );
+			_matrix.n12 = 2 * ( xy - zw );
+			_matrix.n13 = 2 * ( xz + yw );
 			
-			_matrix.n21 =     2 * ( xy + zw );
+			_matrix.n21 = 2 * ( xy + zw );
 			_matrix.n22 = 1 - 2 * ( xx + zz );
-			_matrix.n23 =     2 * ( yz - xw );
+			_matrix.n23 = 2 * ( yz - xw );
 			
-			_matrix.n31 =     2 * ( xz - yw );
-			_matrix.n32 =     2 * ( yz + xw );
+			_matrix.n31 = 2 * ( xz - yw );
+			_matrix.n32 = 2 * ( yz + xw );
 			_matrix.n33 = 1 - 2 * ( xx + yy );
 			
 			return _matrix;
@@ -486,6 +494,11 @@ package com.paperworld.util.math
 		public static function add(a : Quaternion, b : Quaternion) : Quaternion
 		{
 			return new Quaternion( a.x + b.x, a.y + b.y, a.z + b.z, a.w + b.w );	
+		}
+
+		public function scale(s : Number) : Quaternion
+		{
+			return new Quaternion( w * s, x * s, y * s, z * s );
 		}
 
 		// GETTERS / SETTERS for sending this object over the wire.

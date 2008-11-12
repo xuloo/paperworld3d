@@ -21,25 +21,46 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.multiplayer.behaviours 
 {
-	import com.paperworld.input.Input;
-	import com.paperworld.multiplayer.data.State;	
+	import com.paperworld.core.objects.SteeringBehaviour;
+	import com.paperworld.core.objects.SteeringOutput;
+	import com.paperworld.multiplayer.data.State;
+	import com.paperworld.util.math.Quaternion;
+	import com.paperworld.util.math.Vector3;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
 	 */
-	public class SimpleAvatarBehaviour2D implements AvatarBehaviour 
+	public class SimpleAvatarBehaviour2D extends SteeringBehaviour 
 	{
 		//private var logger : XrayLog = new XrayLog( );
 
-		public function update(input : Input, state : State) : void
+		public function update(output : SteeringOutput) : void
 		{
-			if (input.forward) state.position.z += 5;
-			if (input.back) state.position.z -= 5;
-			if (input.moveRight) state.position.x += 5;
-			if (input.moveLeft) state.position.x -= 5;
-			
-			if (input.turnRight) state.orientation.w += 1;
-			if (input.turnLeft) state.orientation.w -= 1;
+			if (input != null) 
+			{
+				if (input.getForward( ))
+				output.linear.z += 5;
+
+				if (input.getBack( ))
+				output.linear.z -= 5;
+
+				if (input.getMoveRight( ))
+				output.linear.x += 5;
+
+				if (input.getMoveLeft( ))
+				output.linear.x -= 5;
+
+				if (input.getTurnRight( ))
+				output.angular.w += 1;
+
+				if (input.getTurnLeft( ))
+				output.angular.w -= 1;
+			}		
+		}
+
+		protected function handleForward(state : State) : Vector3 
+		{
+			return new Vector3( Math.cos( state.orientation.w ) * 5, 0, Math.sin( state.orientation.w ) * 5 );
 		}
 	}
 }

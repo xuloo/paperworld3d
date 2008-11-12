@@ -67,6 +67,18 @@ public class Player {
 		return context.getConnection();
 	}
 	
+	public void setConnection(IConnection connection) {
+		context = new PlayerContext(connection);
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
 	public void destroy() {
 		avatar.destroy();
 	}

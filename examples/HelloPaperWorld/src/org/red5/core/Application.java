@@ -26,10 +26,15 @@ import org.red5.server.api.Red5;
 import org.red5.server.api.service.ServiceUtils;
 import org.red5.server.api.stream.IBroadcastStream;
 import org.red5.server.api.stream.IStreamAwareScopeHandler;
+import org.red5.server.framework.Client;
 import org.red5.server.framework.ClientManager;
 import org.red5.server.framework.LayoutManager;
 import org.red5.server.framework.StreamManager;
-import org.red5.server.framework.*;
+import org.slf4j.Logger;
+import org.slf4j.impl.StaticLoggerBinder;
+
+import ch.qos.logback.classic.LoggerContext;
+import ch.qos.logback.classic.selector.ContextSelector;
 
 /**
  * Red5Server Framework.
@@ -40,6 +45,19 @@ import org.red5.server.framework.*;
  */
 public class Application extends ApplicationAdapter implements IStreamAwareScopeHandler {
 	
+	protected static Logger log;
+	
+	//provide the logger context for other parts of the app
+	public static LoggerContext loggerContext;
+	
+	static {
+		    ContextSelector selector = StaticLoggerBinder.SINGLETON.getContextSelector();
+		    //get the logger context for the servlet / app context
+		    loggerContext = selector.getLoggerContext("HelloPaperWorld");
+		    //get the logger for this class only
+			log = loggerContext.getLogger(Application.class);
+	}
+	
 	/** Manager for the clients. */
 	private ClientManager clientMgr = new ClientManager("clientlist", false);
 	private StreamManager streamMgr = new StreamManager("streamlist", false);
@@ -47,6 +65,7 @@ public class Application extends ApplicationAdapter implements IStreamAwareScope
 	
 	public Application() {
 		System.out.println("test");
+		log.debug("hello {}", "arse");
 	}
 	
 	/** {@inheritDoc} */

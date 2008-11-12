@@ -14,16 +14,17 @@ import org.red5.server.api.so.ISharedObject;
 import com.paperworld.multiplayer.objects.Avatar;
 import com.paperworld.multiplayer.player.Player;
 
-public class AbstractConnector implements IApplication, IConnector, IService, IScheduledJob {
+public class AbstractConnector implements IApplication, IConnector, IService,
+		IScheduledJob {
 
 	protected HashMap<String, Player> players;
-	
+
 	protected HashMap<String, Avatar> avatars;
 
 	protected IScope scope;
 
 	protected MultiThreadedApplicationAdapter application;
-	
+
 	protected int frameRate;
 
 	public AbstractConnector() {
@@ -33,41 +34,48 @@ public class AbstractConnector implements IApplication, IConnector, IService, IS
 
 	public void setApplication(MultiThreadedApplicationAdapter application) {
 		this.application = application;
-		application.addListener(this);		
+		application.addListener(this);
 	}
-	
+
 	public void setFrameRate(int frameRate) {
 		this.frameRate = frameRate;
 	}
-	
-	protected String createScheduledJob(int interval, IScheduledJob job)
-	{
+
+	protected String createScheduledJob(int interval, IScheduledJob job) {
 		return application.addScheduledJob(interval, job);
 	}
-	
+
 	@Override
 	public HashMap<String, Player> getPlayers() {
 		return players;
 	}
-	
-	@Override 
+
+	@Override
 	public HashMap<String, Avatar> getAvatars() {
 		return avatars;
 	}
-	
+
 	@Override
 	public ISharedObject getSharedObject(String name, boolean persistent) {
 		return null;
 	}
-	
+
 	@Override
 	public int incrementTime() {
 		return 0;
 	}
-	
+
 	@Override
 	public int getTime() {
 		return 0;
+	}
+
+	public void setAvatar(Avatar avatar) {
+		avatars.put(avatar.getAvatarData().getRef(), avatar);
+	}
+
+	public void setAvatars(HashMap<String, Avatar> avatars) {
+		this.avatars = avatars;
 	}
 
 	public void execute(ISchedulingService arg0)

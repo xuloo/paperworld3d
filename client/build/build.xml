@@ -265,11 +265,15 @@
 			<include-sources dir="${papervision3d.src.dir}/src">
                  <include name="**/*.as"/>
             </include-sources>
+			<include-sources dir="${basedir}/${multiplayer.src.dir}/src">
+                 <include name="**/*.as"/>
+            </include-sources>
 			<compiler.external-library-path dir="../lib" append="true">
-				<include name="*.swc" />
+				<include name="*.swc" />				
 			</compiler.external-library-path>
 			<compiler.external-library-path dir="../bin" append="true">
-				<include name="*.swc" />
+				<include name="${core.output.name}.swc"/>
+				<include name="${logging.output.name}.swc"/>
 			</compiler.external-library-path>
 		</compc>
 		
@@ -290,6 +294,7 @@
 			<compiler.external-library-path dir="../bin" append="true">
 				<include name="*.swc" />
 			</compiler.external-library-path>
+			
 		</compc>
 		
 	</target>

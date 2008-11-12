@@ -53,9 +53,9 @@ package com.paperworld.multiplayer.objects
 
 		public function synchronise(input : Input, state : State) : void
 		{			
-			this.object.x = state.position.x;
-			this.object.y = state.position.y;
-			this.object.z = state.position.z;
+			this.object.x += state.velocity.x;
+			this.object.y += state.velocity.y;
+			this.object.z += state.velocity.z;
 
 			object.localRotationY = state.orientation.w;
 		}
