@@ -11,7 +11,7 @@
  */
 package com.paperworld.ai.collision 
 {
-	import com.paperworld.ai.steering.Kinematic;
+	import com.paperworld.core.objects.Kinematic;
 	import com.paperworld.util.math.Vector3;	
 
 	/**
