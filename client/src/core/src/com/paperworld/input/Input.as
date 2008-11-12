@@ -21,12 +21,9 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.input 
 {
-	import flash.utils.IExternalizable;	
+	import flash.net.registerClassAlias;
 	
-	import com.paperworld.core.BaseClass;
-	
-	import flash.utils.IDataInput;
-	import flash.utils.IDataOutput;		
+	import com.paperworld.core.BaseClass;		
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
@@ -210,7 +207,7 @@ package com.paperworld.input
 							  mouseX : Number = 0, mouseY : Number = 0)
 		{
 			super();
-			
+						
 			this.forward 	= forward;
 			this.back 		= back;
 			this.turnRight 	= turnRight;
@@ -225,6 +222,11 @@ package com.paperworld.input
 			this.jump 		= jump;
 			this.mouseX 	= mouseX;
 			this.mouseY 	= mouseY;
+		}
+		
+		override public function initialise():void 
+		{
+			registerClassAlias( 'com.paperworld.multiplayer.data.Input', Input );
 		}
 
 		public function clone() : Input
@@ -303,41 +305,5 @@ package com.paperworld.input
 		{
 			return 'Input {\n' + '    turnLeft: ' + turnLeft + '\n    turnRight: ' + turnRight + '\n}';	
 		}
-		
-		/*public function readExternal(input : IDataInput) : void
-		{
-			setForward(input.readBoolean());
-			setBack(input.readBoolean());
-			setTurnRight(input.readBoolean());
-			setTurnLeft(input.readBoolean());
-			setMoveRight(input.readBoolean());
-			setMoveLeft(input.readBoolean());
-			setTurnUp(input.readBoolean());
-			setTurnDown(input.readBoolean());
-			setMoveUp(input.readBoolean());
-			setMoveDown(input.readBoolean());
-			setFire(input.readBoolean());
-			setJump(input.readBoolean());
-			setMouseX(input.readDouble());
-			setMouseY(input.readDouble());
-		}
-		
-		public function writeExternal(output : IDataOutput) : void
-		{
-			output.writeBoolean(getForward());
-			output.writeBoolean(getBack());
-			output.writeBoolean(getTurnRight());
-			output.writeBoolean(getTurnLeft());
-			output.writeBoolean(getMoveRight());
-			output.writeBoolean(getMoveLeft());
-			output.writeBoolean(getTurnUp());
-			output.writeBoolean(getTurnDown());
-			output.writeBoolean(getMoveUp());
-			output.writeBoolean(getMoveDown());
-			output.writeBoolean(getFire());
-			output.writeBoolean(getJump());
-			output.writeDouble(getMouseX());
-			output.writeDouble(getMouseY());
-		}*/
 	}
 }

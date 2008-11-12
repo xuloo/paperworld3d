@@ -21,8 +21,8 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.util.math
 {
-	import com.paperworld.core.BaseClass;
-	import com.paperworld.util.math.Matrix3D;		
+	import flash.net.registerClassAlias;
+	import com.paperworld.core.BaseClass;	import com.paperworld.util.math.Matrix3D;	
 
 	/**
 	 * This class is lifted wholesale from Papervision3D - i've adapted for use within the paperworld framework
@@ -74,6 +74,11 @@ package com.paperworld.util.math
 			_matrix = Matrix3D.IDENTITY;
 		}
 
+		override public function initialise() : void 
+		{
+			registerClassAlias( 'com.paperworld.core.math.Quaternion', Quaternion );
+		}
+
 		public function equals(other : Quaternion) : Boolean
 		{
 			return x == other.x && y == other.y && z == other.z && w == other.w;
@@ -88,8 +93,8 @@ package com.paperworld.util.math
 		{
 			return new Quaternion( x, y, z, w );
 		}
-		
-		public function clear():void 
+
+		public function clear() : void 
 		{
 			x = 0;
 			y = 0;

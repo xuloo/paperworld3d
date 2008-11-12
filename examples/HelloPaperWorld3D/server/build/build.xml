@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="HelloPaperWorld" default="build" basedir="../">  
 
-	<property file="../../build/user.properties"/>
+	<property file="../../../build/user.properties"/>
 
 	<property name="app.name" value="${ant.project.name}"/>
 	<property name="app.dir" value="${red5.dir}/dist/webapps/${app.name}"/>

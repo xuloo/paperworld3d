@@ -28,17 +28,26 @@ package com.paperworld.core.context
 	 */
 	public class CoreContext 
 	{
+		/**
+		 * The Singleton instance of this class.
+		 */
 		protected static var _instance : CoreContext;
 
+		/**
+		 * The application context used to load and store all Prana definitions for this application.
+		 */
 		protected var _applicationContext : XMLApplicationContext;
 
-		public function CoreContext()
+		/**
+		 * Constructor - uses internal class instance to prevent direct instantiation.
+		 */
+		public function CoreContext(singleton : Singleton)
 		{
 		}
 
 		public static function getInstance() : CoreContext
 		{
-			return _instance = (_instance == null) ? new CoreContext( ) : _instance;	
+			return _instance = (_instance == null) ? new CoreContext( new Singleton( ) ) : _instance;	
 		}
 
 		public function getObject(name : String) : *
@@ -51,4 +60,8 @@ package com.paperworld.core.context
 			return _applicationContext.getObject( name, args );
 		}
 	}
+}
+
+internal class Singleton 
+{
 }

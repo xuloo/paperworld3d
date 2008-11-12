@@ -11,9 +11,9 @@
  */
 package com.paperworld.ai.steering.kinematic.behaviours 
 {
-	import com.paperworld.util.number.RandomUtils;	
+	import com.paperworld.ai.steering.kinematic.behaviours.KinematicMovement;
 	import com.paperworld.core.objects.SteeringOutput;
-	import com.paperworld.ai.steering.kinematic.behaviours.KinematicMovement;	
+	import com.paperworld.util.number.RandomUtils;		
 
 	/**
 	 * @author Trevor

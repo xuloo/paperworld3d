@@ -11,7 +11,7 @@
  */
 package com.paperworld.ai.steering.behaviour;
 
-import com.paperworld.ai.steering.SteeringBehaviour;
+import com.paperworld.ai.steering.AbstractSteeringBehaviour;
 import com.paperworld.ai.steering.SteeringOutput;
 import com.paperworld.core.math.Vector3;
 
@@ -19,7 +19,7 @@ import com.paperworld.core.math.Vector3;
  * The seek steering behaviour takes a target and aims in the opposite direction
  * with maximum acceleration.
  */
-public class Flee extends SteeringBehaviour
+public class Flee extends AbstractSteeringBehaviour
 {
 	/**
 	 * The target may be any vector (i.e. it might be something that has no

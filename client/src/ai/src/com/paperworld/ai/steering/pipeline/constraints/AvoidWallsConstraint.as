@@ -12,8 +12,8 @@
 package com.paperworld.ai.steering.pipeline.constraints 
 {
 	import com.paperworld.ai.collision.CollisionDetector;
-	import com.paperworld.core.objects.Kinematic;
 	import com.paperworld.ai.steering.pipeline.SteeringConstraint;
+	import com.paperworld.core.objects.Kinematic;
 	import com.paperworld.util.math.Vector3;	
 
 	/**

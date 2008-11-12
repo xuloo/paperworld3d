@@ -11,9 +11,9 @@
  */
 package com.paperworld.ai.steering.pipeline 
 {
-	import com.paperworld.core.objects.Kinematic;
 	import com.paperworld.core.BaseClass;
-	import com.paperworld.util.math.Vector3;		
+	import com.paperworld.core.objects.Kinematic;
+	import com.paperworld.util.math.Vector3;	
 
 	/**
 	 * The steering system, uses a targeter, an actuator and an

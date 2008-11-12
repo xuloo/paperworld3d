@@ -21,7 +21,9 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.multiplayer.data 
 {
-	import com.paperworld.input.Input;		
+	import flash.net.registerClassAlias;
+	
+	import com.paperworld.input.Input;			
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
@@ -38,6 +40,7 @@ package com.paperworld.multiplayer.data
 
 		public function SyncData()
 		{
+			registerClassAlias( 'com.paperworld.multiplayer.data.SyncData', SyncData );
 		}
 
 		public function getTime() : int

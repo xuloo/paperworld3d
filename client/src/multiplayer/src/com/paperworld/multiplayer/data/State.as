@@ -21,10 +21,13 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.multiplayer.data 
 {
+	import flash.net.registerClassAlias;
+
 	import com.paperworld.core.BaseClass;
 	import com.paperworld.util.math.Matrix3D;
 	import com.paperworld.util.math.Quaternion;
-	import com.paperworld.util.math.Vector3;	
+	import com.paperworld.util.math.Vector3;	
+
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
 	 */
@@ -40,8 +43,15 @@ package com.paperworld.multiplayer.data
 
 		public var rotation : Number;
 
+		public function State()
+		{
+			super( );
+		}
+
 		override public function initialise() : void
 		{
+			registerClassAlias( 'com.paperworld.multiplayer.data.State', State );
+			
 			transform = Matrix3D.IDENTITY;
 			position = new Vector3( );
 			orientation = new Quaternion( );

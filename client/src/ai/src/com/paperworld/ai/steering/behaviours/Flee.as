@@ -9,8 +9,8 @@
  */
 package com.paperworld.ai.steering.behaviours 
 {
-	import com.paperworld.core.objects.SteeringOutput;
-	import com.paperworld.ai.steering.behaviours.Seek;	
+	import com.paperworld.ai.steering.behaviours.Seek;
+	import com.paperworld.core.objects.SteeringOutput;	
 
 	/**
 	 * @author Trevor

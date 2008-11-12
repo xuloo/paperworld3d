@@ -11,10 +11,10 @@
  */
 package com.paperworld.ai.steering.pipeline.constraints 
 {
-	import com.paperworld.ai.steering.pipeline.SteeringUtils;	
-	import com.paperworld.core.objects.Kinematic;
+	import com.paperworld.ai.steering.pipeline.SteeringUtils;
 	import com.paperworld.ai.steering.pipeline.constraints.AvoidAgentConstraint;
-	import com.paperworld.util.math.Vector3;	
+	import com.paperworld.core.objects.Kinematic;
+	import com.paperworld.util.math.Vector3;		
 
 	/**
 	 * @author Trevor

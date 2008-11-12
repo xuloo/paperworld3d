@@ -11,9 +11,9 @@
  */
 package com.paperworld.ai.steering.pipeline 
 {
-	import com.paperworld.core.objects.Kinematic;
-	import com.paperworld.core.BaseClass;	
-	
+	import com.paperworld.core.BaseClass;
+	import com.paperworld.core.objects.Kinematic;	
+
 	/**
 	 * Constrains what the steering system can do in order to achieve
      * its goals. It is provided with the actor and goal (or subgoal,

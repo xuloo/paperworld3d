@@ -11,9 +11,9 @@
  */
 package com.paperworld.ai.steering.pipeline 
 {
+	import com.paperworld.core.BaseClass;
 	import com.paperworld.core.objects.Kinematic;
 	import com.paperworld.core.objects.SteeringOutput;
-	import com.paperworld.core.BaseClass;
 	import com.paperworld.util.math.Vector3;	
 
 	/**

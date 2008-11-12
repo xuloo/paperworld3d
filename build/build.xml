@@ -20,10 +20,12 @@
 		
 		<antcall target="build-examples">
 			<param name="example.list" value="${server.examples}"/>
+			<param name="type" value="server" />
 		</antcall>
 		
 		<antcall target="build-examples">
 			<param name="example.list" value="${client.examples}"/>
+			<param name="type" value="client" />
 		</antcall>
 		
 	</target>

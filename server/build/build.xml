@@ -49,7 +49,7 @@
 
        <javac srcdir="${paperworld.src.dir}" destdir="${build.dir}" classpathref="classpath"/>
 
-	   <copy todir="${build.dir}" file="${paperworld.src.dir}/logback.xml" overwrite="true"/>
+	   <!--<copy todir="${build.dir}" file="${paperworld.src.dir}/logback.xml" overwrite="true"/>-->
 
      </target>
 	

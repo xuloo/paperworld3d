@@ -11,9 +11,9 @@
  */
 package com.paperworld.ai.steering.pipeline 
 {
-	import com.paperworld.core.BaseClass;	
-	import com.paperworld.core.objects.Kinematic;	
-	
+	import com.paperworld.core.BaseClass;
+	import com.paperworld.core.objects.Kinematic;		
+
 	/**
 	 * Generates goals in the form of a kinematic (position,
 	 * orientation, velocity and rotation) that can be sought by the

@@ -11,7 +11,7 @@
  */
 package com.paperworld.ai.steering.kinematic.behaviours 
 {
-	import com.paperworld.core.objects.SteeringOutput;		
+	import com.paperworld.core.objects.SteeringOutput;			
 
 	/**
 	 * @author Trevor

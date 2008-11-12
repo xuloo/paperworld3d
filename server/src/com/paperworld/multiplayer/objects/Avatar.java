@@ -24,7 +24,7 @@ package com.paperworld.multiplayer.objects;
 import org.red5.server.api.so.ISharedObject;
 
 import com.paperworld.ai.steering.Kinematic;
-import com.paperworld.ai.steering.SteeringBehaviour;
+import com.paperworld.ai.steering.AbstractSteeringBehaviour;
 import com.paperworld.ai.steering.SteeringOutput;
 import com.paperworld.multiplayer.behaviour.SimpleAvatarBehaviour2D;
 import com.paperworld.multiplayer.data.AvatarData;
@@ -63,7 +63,7 @@ public class Avatar {
 	 * The IBehaviour object that's used to interpret the Input for this
 	 * Kinematic.
 	 */
-	public SteeringBehaviour behaviour;
+	public AbstractSteeringBehaviour behaviour;
 
 	public Avatar() {
 		initialise();
@@ -135,7 +135,7 @@ public class Avatar {
 		return kinematic;
 	}
 
-	public void setBehaviour(SteeringBehaviour behaviour) {
+	public void setBehaviour(AbstractSteeringBehaviour behaviour) {
 		behaviour.setInput(input);
 		this.behaviour = behaviour;
 	}

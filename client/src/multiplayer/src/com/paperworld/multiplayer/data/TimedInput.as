@@ -21,6 +21,8 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.multiplayer.data 
 {
+	import flash.net.registerClassAlias;
+	
 	import com.paperworld.core.BaseClass;
 	import com.paperworld.input.Input;	
 
@@ -35,10 +37,15 @@ package com.paperworld.multiplayer.data
 
 		public function TimedInput(time : int = 0, input : Input = null)
 		{
-			super( );
+			super( );			
 			
 			this.time = time;
 			this.input = input;
+		}
+		
+		override public function initialise():void 
+		{
+			registerClassAlias( 'com.paperworld.multiplayer.data.TimedInput', TimedInput );
 		}
 
 		public function getTime() : int

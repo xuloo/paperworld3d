@@ -12,7 +12,7 @@
 package com.paperworld.ai.steering.pipeline 
 {
 	import com.paperworld.core.objects.Kinematic;
-	import com.paperworld.util.math.Vector3;		
+	import com.paperworld.util.math.Vector3;	
 
 	/**
 	 * @author Trevor

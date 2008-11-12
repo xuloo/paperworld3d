@@ -13,7 +13,7 @@ package com.paperworld.ai.steering.kinematic.behaviours
 {
 	import com.paperworld.core.objects.Location;
 	import com.paperworld.core.objects.SteeringOutput;	
-	
+
 	/**
      * The base class for all kinematic movement behaviours.
      * 
