@@ -3,7 +3,7 @@
 
 	<object id="local.avatar" class="com.paperworld.multiplayer.objects.Client" >
 		<property name="displayObject">
-			<object class="com.paperworld.multiplayer.objects.SynchronisableObject">
+			<object class="com.paperworld.multiplayer.objects.SimpleSynchronisableObject">
 				<property name="object">
 					<object class="Icon" />
 				</property>
@@ -13,7 +13,7 @@
 	
 	<object id="remote.avatar" class="com.paperworld.multiplayer.objects.Proxy" >
 		<property name="displayObject">
-			<object class="com.paperworld.multiplayer.objects.SynchronisableObject">
+			<object class="com.paperworld.multiplayer.objects.SimpleSynchronisableObject">
 				<property name="object">
 					<object class="Icon" />
 				</property>

@@ -1,4 +1,4 @@
-<project name="HelloPaperWorldClient2D" default="build-example" basedir=".">
+<project name="HelloPaperWorld2DClient" default="build-example" basedir=".">
 
 	<property file="../../../../build/user.properties"/>
 	<property file="../../../../build/build.properties"/>
@@ -9,8 +9,8 @@
 	<target name="build-example" description="builds the example client">
 
 			<mxmlc
-				output="../bin/HelloPaperWorldClient2D.swf"
-				file="${basedir}/../src/HelloPaperWorldClient2D.as"
+				output="../bin/HelloPaperWorld2DClient.swf"
+				file="${basedir}/../src/HelloPaperWorld2DClient.as"
 				debug="true"
 				default-background-color="0xffffff"
 				default-frame-rate="30"
