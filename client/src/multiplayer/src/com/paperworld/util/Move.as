@@ -21,7 +21,7 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.util 
 {
-	import com.paperworld.input.Input;
+	import com.actionengine.flash.input.Input;
 	import com.paperworld.multiplayer.data.State;	
 
 	/**

@@ -21,11 +21,11 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.multiplayer.objects 
 {
-	import com.blitzagency.xray.logger.XrayLog;
-	import com.paperworld.input.Input;
+	import com.actionengine.flash.util.clock.events.ClockEvent;
+	import com.actionengine.flash.util.logging.Logger;
+	import com.actionengine.flash.util.logging.LoggerContext;
 	import com.paperworld.multiplayer.data.State;
-	import com.paperworld.multiplayer.events.ServerSyncEvent;
-	import com.paperworld.util.clock.events.ClockEvent;	
+	import com.paperworld.multiplayer.events.ServerSyncEvent;		
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
@@ -36,7 +36,7 @@ package com.paperworld.multiplayer.objects
 
 		public var updating : Boolean;
 
-		private var logger : XrayLog = new XrayLog( );
+		private var logger : Logger = LoggerContext.getLogger( Proxy );
 
 		public function Proxy()
 		{
@@ -74,7 +74,7 @@ package com.paperworld.multiplayer.objects
 		{				
 			if (updating)
 			{
-          		super.update( event );
+				super.update( event );
 			}
 		}
 	}

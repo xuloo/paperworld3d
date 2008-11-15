@@ -21,15 +21,16 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.util 
 {
-	import com.blitzagency.xray.logger.XrayLog;
-	import com.paperworld.core.BaseClass;		
+	import com.actionengine.flash.util.logging.LoggerContext;	
+	import com.actionengine.flash.util.logging.Logger;	
+	import com.actionengine.flash.core.BaseClass;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
 	 */
 	public class CircularBuffer extends BaseClass
 	{
-		public var logger : XrayLog = new XrayLog( );
+		public var logger : Logger = LoggerContext.getLogger( CircularBuffer );
 
 		public var head : int;
 

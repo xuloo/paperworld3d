@@ -22,14 +22,15 @@
 package com.paperworld.multiplayer.scenes 
 {
 	import flash.events.Event;
+	import flash.net.registerClassAlias;
 	
-	import com.blitzagency.xray.logger.XrayLog;
-	import com.paperworld.action.Action;
-	import com.paperworld.core.context.ContextLoader;
+	import com.actionengine.flash.core.context.ContextLoader;
+	import com.actionengine.flash.util.logging.Logger;
+	import com.actionengine.flash.util.logging.LoggerContext;
+	import com.brainfarm.flash.util.math.Vector3;
 	import com.paperworld.multiplayer.connectors.ConnectorListener;
 	import com.paperworld.multiplayer.connectors.RTMPConnector;
-	import com.paperworld.multiplayer.connectors.events.LagEvent;
-	import com.paperworld.multiplayer.data.State;
+	import com.paperworld.multiplayer.data.SyncData;
 	import com.paperworld.multiplayer.events.ServerSyncEvent;
 	import com.paperworld.multiplayer.lod.LodConstraint;
 	import com.paperworld.multiplayer.objects.Client;
@@ -42,7 +43,7 @@ package com.paperworld.multiplayer.scenes
 	 */
 	public class AbstractSynchronisedScene extends ContextLoader implements ConnectorListener
 	{
-		private var logger : XrayLog = new XrayLog( );
+		private var logger : Logger = LoggerContext.getLogger( AbstractSynchronisedScene );
 
 		/**
 		 * The Clock instance used as a timer for this scene.
@@ -105,7 +106,9 @@ package com.paperworld.multiplayer.scenes
 		 */
 		override public function initialise() : void
 		{			
-			avatarsByName = new Array( );			
+			avatarsByName = new Array( );		
+			
+			registerClassAlias( 'com.paperworld.core.math.Vector3', Vector3 );				registerClassAlias( 'com.paperworld.multiplayer.data.SyncData', SyncData );	
 		}
 
 		public function connect(scene : String, context : String = "multiplayerContext.xml") : void

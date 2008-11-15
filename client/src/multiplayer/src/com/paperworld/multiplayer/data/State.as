@@ -22,11 +22,11 @@
 package com.paperworld.multiplayer.data 
 {
 	import flash.net.registerClassAlias;
-
-	import com.paperworld.core.BaseClass;
-	import com.paperworld.util.math.Matrix3D;
-	import com.paperworld.util.math.Quaternion;
-	import com.paperworld.util.math.Vector3;	
+	
+	import com.actionengine.flash.core.BaseClass;
+	import com.brainfarm.flash.util.math.Matrix3D;
+	import com.brainfarm.flash.util.math.Quaternion;
+	import com.brainfarm.flash.util.math.Vector3;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]

@@ -23,8 +23,8 @@ package com.paperworld.multiplayer.data
 {
 	import flash.net.registerClassAlias;
 	
-	import com.paperworld.core.BaseClass;
-	import com.paperworld.input.Input;	
+	import com.actionengine.flash.core.BaseClass;
+	import com.actionengine.flash.input.Input;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]

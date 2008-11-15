@@ -22,13 +22,11 @@
 package com.paperworld.multiplayer.objects 
 {
 	import org.papervision3d.objects.DisplayObject3D;
-
-	import com.blitzagency.xray.logger.XrayLog;
-	import com.paperworld.core.BaseClass;
-	import com.paperworld.input.Input;
+	
+	import com.actionengine.flash.core.BaseClass;
+	import com.actionengine.flash.input.Input;
 	import com.paperworld.multiplayer.data.State;
-	import com.paperworld.util.Synchronizable;
-	import com.paperworld.util.math.Quaternion;		
+	import com.paperworld.util.Synchronizable;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
@@ -36,8 +34,6 @@ package com.paperworld.multiplayer.objects
 	public class SynchronisableObject extends BaseClass implements Synchronizable 
 	{
 		public var object : DisplayObject3D;
-
-		private var logger : XrayLog = new XrayLog( );
 
 		public function SynchronisableObject(object : DisplayObject3D = null)
 		{

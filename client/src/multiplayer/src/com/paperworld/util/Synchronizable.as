@@ -21,14 +21,14 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.util
 {
-	import com.paperworld.core.interfaces.Destroyable;
-	import com.paperworld.input.Input;
+	import com.actionengine.flash.core.interfaces.IDestroyable;
+	import com.actionengine.flash.input.Input;
 	import com.paperworld.multiplayer.data.State;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
 	 */
-	public interface Synchronizable extends Destroyable
+	public interface Synchronizable extends IDestroyable
 	{
 		function getObject() : *;
 

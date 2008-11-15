@@ -21,20 +21,19 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.multiplayer.objects 
 {
-	import com.paperworld.util.clock.events.ClockEvent;	
-	import com.paperworld.util.clock.Clock;	
-	import com.paperworld.core.interfaces.Animatable;	
-
 	import org.papervision3d.core.animation.channel.AbstractChannel3D;
 	import org.papervision3d.objects.DisplayObject3D;
 	import org.papervision3d.objects.parsers.DAE;
-
-	import com.paperworld.multiplayer.objects.SynchronisableObject;		
+	
+	import com.actionengine.flash.core.interfaces.IAnimatable;
+	import com.actionengine.flash.util.clock.Clock;
+	import com.actionengine.flash.util.clock.events.ClockEvent;
+	import com.paperworld.multiplayer.objects.SynchronisableObject;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
 	 */
-	public class AnimationAwareDAE extends SynchronisableObject implements Animatable
+	public class AnimationAwareDAE extends SynchronisableObject implements IAnimatable
 	{
 		public var _channels : Array;
 

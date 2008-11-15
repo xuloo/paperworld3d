@@ -21,9 +21,10 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.util 
 {
-	import com.blitzagency.xray.logger.XrayLog;
-	import com.paperworld.core.BaseClass;
-	import com.paperworld.input.Input;
+	import com.actionengine.flash.util.logging.LoggerContext;	
+	import com.actionengine.flash.util.logging.Logger;	
+	import com.actionengine.flash.core.BaseClass;
+	import com.actionengine.flash.input.Input;
 	import com.paperworld.multiplayer.data.State;
 	import com.paperworld.multiplayer.objects.SyncObject;	
 
@@ -36,7 +37,7 @@ package com.paperworld.util
 
 		public var importantMoves : CircularBuffer;
 
-		private var logger : XrayLog = new XrayLog( );
+		private var logger : Logger = LoggerContext.getLogger( History );
 
 		public function History(size : int = 200)
 		{

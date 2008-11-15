@@ -27,8 +27,9 @@ package com.paperworld.multiplayer.connectors
 	import flash.net.Responder;
 	import flash.utils.getTimer;
 	
-	import com.blitzagency.xray.logger.XrayLog;
-	import com.paperworld.input.events.UserInputEvent;
+	import com.actionengine.flash.input.events.UserInputEvent;
+	import com.actionengine.flash.util.logging.Logger;
+	import com.actionengine.flash.util.logging.LoggerContext;
 	import com.paperworld.multiplayer.connectors.events.ConnectorEvent;
 	import com.paperworld.multiplayer.connectors.events.LagEvent;
 	import com.paperworld.multiplayer.data.SyncData;
@@ -38,14 +39,14 @@ package com.paperworld.multiplayer.connectors
 	
 	import jedai.events.Red5Event;
 	import jedai.net.rpc.Red5Connection;
-	import jedai.net.rpc.RemoteSharedObject;	
+	import jedai.net.rpc.RemoteSharedObject;		
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
 	 */
 	public class RTMPConnector extends AbstractConnector 
 	{
-		private var logger : XrayLog = new XrayLog( );
+		private var logger : Logger = LoggerContext.getLogger( RTMPConnector );
 
 		protected var _remoteSharedObject : RemoteSharedObject;
 
@@ -108,18 +109,18 @@ package com.paperworld.multiplayer.connectors
 			
 			_userInput.addEventListener( UserInputEvent.INPUT_CHANGED, onInputUpdate );
 		}
-		
-		private var player:Player;
-		
+
+		private var player : Player;
+
 		override public function addPlayer(player : Player) : void
 		{
 			this.player = player;
-			_connection.call('multiplayer.addPlayer', new Responder(addPlayerResult, onResult), clientID );
+			_connection.call( 'multiplayer.addPlayer', new Responder( addPlayerResult, onResult ), clientID );
 		}
-		
-		public function addPlayerResult(data:SyncData):void
+
+		public function addPlayerResult(data : SyncData) : void
 		{
-			logger.info("time: " + data.serverTime);
+			logger.info( "time: " + data.serverTime );
 			player.avatar.time = data.serverTime;
 		}
 
@@ -223,11 +224,11 @@ package com.paperworld.multiplayer.connectors
 				logger.info( i + " " + status[i] );
 			}
 		}
-		
+
 		public function addLagListener(listener : LagListener) : void
 		{
-			addEventListener( LagEvent.TIME_UPDATE, listener.onServerTimeUpdate);
-			addEventListener( LagEvent.JITTER_UPDATE, listener.onServerJitterUpdate);
+			addEventListener( LagEvent.TIME_UPDATE, listener.onServerTimeUpdate );
+			addEventListener( LagEvent.JITTER_UPDATE, listener.onServerJitterUpdate );
 		}
 	}
 }

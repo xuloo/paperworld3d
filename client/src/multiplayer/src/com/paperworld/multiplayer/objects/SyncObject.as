@@ -21,16 +21,16 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.multiplayer.objects 
 {
-	import com.paperworld.core.objects.SteeringBehaviour;
-	import com.paperworld.core.objects.SteeringOutput;
-	import com.paperworld.core.BaseClass;
-	import com.paperworld.input.Input;
+	import com.actionengine.flash.core.BaseClass;
+	import com.actionengine.flash.input.Input;
+	import com.actionengine.flash.util.clock.Clock;
+	import com.actionengine.flash.util.clock.events.ClockEvent;
+	import com.brainfarm.flash.steering.SteeringBehaviour;
+	import com.brainfarm.flash.steering.SteeringOutput;
 	import com.paperworld.multiplayer.behaviours.SimpleAvatarBehaviour2D;
 	import com.paperworld.multiplayer.data.State;
 	import com.paperworld.multiplayer.events.ServerSyncEvent;
-	import com.paperworld.util.Synchronizable;
-	import com.paperworld.util.clock.Clock;
-	import com.paperworld.util.clock.events.ClockEvent;		
+	import com.paperworld.util.Synchronizable;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]

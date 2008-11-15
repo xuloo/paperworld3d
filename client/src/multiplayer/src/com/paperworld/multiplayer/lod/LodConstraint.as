@@ -21,8 +21,8 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.multiplayer.lod 
 {
-	import com.paperworld.action.Action;
-	import com.paperworld.multiplayer.objects.SyncObject;		
+	import com.actionengine.flash.action.Action;
+	import com.paperworld.multiplayer.objects.SyncObject;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]

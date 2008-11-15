@@ -21,7 +21,7 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.multiplayer.data 
 {
-	import com.paperworld.core.BaseClass;	
+	import com.actionengine.flash.core.BaseClass;		
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]

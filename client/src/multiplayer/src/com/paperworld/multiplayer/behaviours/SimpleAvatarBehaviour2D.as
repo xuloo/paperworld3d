@@ -21,11 +21,10 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.multiplayer.behaviours 
 {
-	import com.paperworld.core.objects.SteeringBehaviour;
-	import com.paperworld.core.objects.SteeringOutput;
-	import com.paperworld.multiplayer.data.State;
-	import com.paperworld.util.math.Quaternion;
-	import com.paperworld.util.math.Vector3;	
+	import com.brainfarm.flash.steering.SteeringBehaviour;
+	import com.brainfarm.flash.steering.SteeringOutput;
+	import com.brainfarm.flash.util.math.Vector3;
+	import com.paperworld.multiplayer.data.State;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]

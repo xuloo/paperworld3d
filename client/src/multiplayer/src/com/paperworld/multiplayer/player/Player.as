@@ -21,18 +21,19 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.multiplayer.player 
 {
-	import com.blitzagency.xray.logger.XrayLog;
-	import com.paperworld.core.EventDispatchingBaseClass;
+	import com.actionengine.flash.util.logging.LoggerContext;	
+	import com.actionengine.flash.util.logging.Logger;	
+	import com.actionengine.flash.core.EventDispatchingBaseClass;
 	import com.paperworld.multiplayer.objects.SyncObject;
-	
-	import jedai.net.rpc.Red5Connection;		
+
+	import jedai.net.rpc.Red5Connection;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
 	 */
 	public class Player extends EventDispatchingBaseClass 
 	{
-		private var logger : XrayLog = new XrayLog( );		
+		private var logger : Logger = LoggerContext.getLogger( Player );
 
 		protected var _connection : Red5Connection;
 

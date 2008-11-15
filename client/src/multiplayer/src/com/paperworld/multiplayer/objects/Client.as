@@ -21,17 +21,17 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.multiplayer.objects 
 {
-	import com.blitzagency.xray.logger.XrayLog;
-	import com.paperworld.input.Input;
-	import com.paperworld.input.UserInput;
-	import com.paperworld.input.events.UserInputEvent;
+	import com.actionengine.flash.util.logging.LoggerContext;	
+	import com.actionengine.flash.util.logging.Logger;	
+	import com.actionengine.flash.input.UserInput;
+	import com.actionengine.flash.input.events.UserInputEvent;
+	import com.actionengine.flash.util.clock.events.ClockEvent;
 	import com.paperworld.multiplayer.connectors.LagListener;
 	import com.paperworld.multiplayer.connectors.events.LagEvent;
 	import com.paperworld.multiplayer.data.State;
 	import com.paperworld.multiplayer.events.ServerSyncEvent;
 	import com.paperworld.util.History;
-	import com.paperworld.util.Move;
-	import com.paperworld.util.clock.events.ClockEvent;		
+	import com.paperworld.util.Move;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
@@ -45,7 +45,7 @@ package com.paperworld.multiplayer.objects
 			value.addEventListener( UserInputEvent.INPUT_CHANGED, updateClientInput );
 		}
 
-		private var logger : XrayLog = new XrayLog( );
+		private var logger : Logger = LoggerContext.getLogger( Client );
 
 		public function Client()
 		{
@@ -98,7 +98,7 @@ package com.paperworld.multiplayer.objects
 				deltaTime = 1.0;
 			}
 		}
-		
+
 		public function onServerJitterUpdate(event : LagEvent) : void
 		{
 		}
@@ -107,7 +107,5 @@ package com.paperworld.multiplayer.objects
 		{
 			input = event.input;
 		}
-		
-		
 	}
 }

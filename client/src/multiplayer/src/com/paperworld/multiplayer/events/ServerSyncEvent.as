@@ -22,8 +22,8 @@
 package com.paperworld.multiplayer.events 
 {
 	import flash.events.Event;
-
-	import com.paperworld.input.Input;
+	
+	import com.actionengine.flash.input.Input;
 	import com.paperworld.multiplayer.data.State;	
 
 	/**

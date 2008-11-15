@@ -21,11 +21,10 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.multiplayer.connectors 
 {
-	import com.paperworld.multiplayer.player.Player;	
-	
 	import flash.events.IEventDispatcher;
-
-	import com.paperworld.input.UserInput;		
+	
+	import com.actionengine.flash.input.UserInput;
+	import com.paperworld.multiplayer.player.Player;		
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]

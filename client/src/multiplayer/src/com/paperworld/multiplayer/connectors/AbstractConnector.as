@@ -23,16 +23,17 @@ package com.paperworld.multiplayer.connectors
 {
 	import flash.events.Event;
 	import flash.net.Responder;
-	
-	import com.blitzagency.xray.logger.XrayLog;
-	import com.paperworld.core.context.ContextLoader;
-	import com.paperworld.input.UserInput;
-	import com.paperworld.input.UserInputListener;
-	import com.paperworld.input.events.UserInputEvent;
+
+	import com.actionengine.flash.core.context.ContextLoader;
+	import com.actionengine.flash.input.UserInput;
+	import com.actionengine.flash.input.UserInputListener;
+	import com.actionengine.flash.input.events.UserInputEvent;
+	import com.actionengine.flash.util.logging.Logger;
+	import com.actionengine.flash.util.logging.LoggerContext;
 	import com.paperworld.multiplayer.connectors.Connector;
 	import com.paperworld.multiplayer.events.ServerSyncEvent;
 	import com.paperworld.multiplayer.player.Player;
-	
+
 	import jedai.net.rpc.Red5Connection;	
 
 	/**
@@ -40,7 +41,7 @@ package com.paperworld.multiplayer.connectors
 	 */
 	public class AbstractConnector extends ContextLoader implements Connector, UserInputListener
 	{
-		private var logger : XrayLog = new XrayLog( );	
+		private var logger : Logger = LoggerContext.getLogger( AbstractConnector );
 
 		protected var _userInput : UserInput;
 
