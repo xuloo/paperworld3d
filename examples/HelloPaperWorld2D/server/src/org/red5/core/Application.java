@@ -53,7 +53,7 @@ public class Application extends ApplicationAdapter implements IStreamAwareScope
 	static {
 		    ContextSelector selector = StaticLoggerBinder.SINGLETON.getContextSelector();
 		    //get the logger context for the servlet / app context
-		    loggerContext = selector.getLoggerContext("HelloPaperWorld");
+		    loggerContext = selector.getLoggerContext("HelloPaperWorld2D");
 		    //get the logger for this class only
 			log = loggerContext.getLogger(Application.class);
 	}

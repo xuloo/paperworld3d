@@ -22,10 +22,6 @@
 package com.paperworld.multiplayer.player;
 
 import org.red5.server.api.IConnection;
-import org.red5.server.api.IScope;
-import org.red5.server.api.ScopeUtils;
-import org.red5.server.api.so.ISharedObject;
-import org.red5.server.api.so.ISharedObjectService;
 
 import com.paperworld.multiplayer.objects.Avatar;
 

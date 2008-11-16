@@ -21,8 +21,11 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.multiplayer.objects 
 {
+	import com.actionengine.flash.util.logging.LoggerContext;	
+	import com.actionengine.flash.util.logging.Logger;	
+
 	import org.papervision3d.objects.DisplayObject3D;
-	
+
 	import com.actionengine.flash.core.BaseClass;
 	import com.actionengine.flash.input.Input;
 	import com.paperworld.multiplayer.data.State;
@@ -33,6 +36,8 @@ package com.paperworld.multiplayer.objects
 	 */
 	public class SynchronisableObject extends BaseClass implements Synchronizable 
 	{
+		private var logger : Logger = LoggerContext.getLogger( SynchronisableObject );
+
 		public var object : DisplayObject3D;
 
 		public function SynchronisableObject(object : DisplayObject3D = null)
@@ -49,6 +54,8 @@ package com.paperworld.multiplayer.objects
 
 		public function synchronise(input : Input, state : State) : void
 		{			
+			logger.info("synchronising object");
+			
 			this.object.x += state.velocity.x;
 			this.object.y += state.velocity.y;
 			this.object.z += state.velocity.z;

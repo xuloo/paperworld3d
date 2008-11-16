@@ -21,17 +21,17 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.multiplayer.objects 
 {
-	import com.actionengine.flash.util.logging.LoggerContext;	
-	import com.actionengine.flash.util.logging.Logger;	
 	import com.actionengine.flash.input.UserInput;
 	import com.actionengine.flash.input.events.UserInputEvent;
 	import com.actionengine.flash.util.clock.events.ClockEvent;
+	import com.actionengine.flash.util.logging.Logger;
+	import com.actionengine.flash.util.logging.LoggerContext;
 	import com.paperworld.multiplayer.connectors.LagListener;
 	import com.paperworld.multiplayer.connectors.events.LagEvent;
 	import com.paperworld.multiplayer.data.State;
 	import com.paperworld.multiplayer.events.ServerSyncEvent;
 	import com.paperworld.util.History;
-	import com.paperworld.util.Move;	
+	import com.paperworld.util.Move;		
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
@@ -106,6 +106,7 @@ package com.paperworld.multiplayer.objects
 		public function updateClientInput(event : UserInputEvent) : void
 		{
 			input = event.input;
+			behaviour.input = event.input;
 		}
 	}
 }

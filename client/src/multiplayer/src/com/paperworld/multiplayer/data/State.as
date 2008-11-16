@@ -21,8 +21,6 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.multiplayer.data 
 {
-	import flash.net.registerClassAlias;
-	
 	import com.actionengine.flash.core.BaseClass;
 	import com.brainfarm.flash.util.math.Matrix3D;
 	import com.brainfarm.flash.util.math.Quaternion;
@@ -49,9 +47,7 @@ package com.paperworld.multiplayer.data
 		}
 
 		override public function initialise() : void
-		{
-			registerClassAlias( 'com.paperworld.multiplayer.data.State', State );
-			
+		{			
 			transform = Matrix3D.IDENTITY;
 			position = new Vector3( );
 			orientation = new Quaternion( );

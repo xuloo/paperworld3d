@@ -26,7 +26,7 @@ package com.paperworld.multiplayer.connectors
 	import flash.net.ObjectEncoding;
 	import flash.net.Responder;
 	import flash.utils.getTimer;
-	
+
 	import com.actionengine.flash.input.events.UserInputEvent;
 	import com.actionengine.flash.util.logging.Logger;
 	import com.actionengine.flash.util.logging.LoggerContext;
@@ -36,7 +36,7 @@ package com.paperworld.multiplayer.connectors
 	import com.paperworld.multiplayer.data.TimedInput;
 	import com.paperworld.multiplayer.events.ServerSyncEvent;
 	import com.paperworld.multiplayer.player.Player;
-	
+
 	import jedai.events.Red5Event;
 	import jedai.net.rpc.Red5Connection;
 	import jedai.net.rpc.RemoteSharedObject;		
@@ -133,8 +133,10 @@ package com.paperworld.multiplayer.connectors
 		 * Handles a sync event from the RemoteSharedObject.
 		 * Iterate over the list of avatars in this scene and apply the LOD heuristics.
 		 */
-		public function synchronise(event : flash.events.SyncEvent) : void
+		public function synchronise(event : SyncEvent) : void
 		{
+			logger.info( "Synchronising" );
+			
 			var changeList : Array = event.changeList;
 			var length : int = changeList.length;
 			
@@ -152,10 +154,11 @@ package com.paperworld.multiplayer.connectors
 						
 						if (name != String( clientID )) 
 						{														
-							//logger.info( clientID + " updating " + name + " => " + data.state.orientation.w);
+							logger.info( clientID + " updating " + name + " => " + data.state.orientation.w );
 							dispatchEvent( new ServerSyncEvent( ServerSyncEvent.REMOTE_AVATAR_SYNC, name, data.time, data.input, data.state ) );						}
 						else
 						{
+							//dispatchEvent( new ServerSyncEvent( ServerSyncEvent.LOCAL_AVATAR_SYNC, name, data.time, data.input, data.state ) );
 							dispatchEvent( new LagEvent( LagEvent.TIME_UPDATE, data.serverTime ) );
 						}
 						break;

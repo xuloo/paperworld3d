@@ -18,7 +18,7 @@ package
 	 */
 	public class HelloPaperWorld2DClient extends Sprite 
 	{
-		private var logger : Logger = LoggerContext.getLogger( HelloPaperWorld2DClient );
+		private var logger : Logger;
 
 		private var syncScene : SimpleSynchronisedScene;
 
@@ -50,6 +50,8 @@ package
 		
 		public function onContextLoaded(event : Event) : void 
 		{
+			logger = LoggerContext.getLogger( HelloPaperWorld2DClient );
+			
 			logger.info( "Context Loaded connecting" );
 		}
 

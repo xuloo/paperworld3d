@@ -21,22 +21,26 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.multiplayer.behaviours 
 {
+	import com.actionengine.flash.util.logging.Logger;
+	import com.actionengine.flash.util.logging.LoggerContext;
 	import com.brainfarm.flash.steering.SteeringBehaviour;
 	import com.brainfarm.flash.steering.SteeringOutput;
 	import com.brainfarm.flash.util.math.Vector3;
-	import com.paperworld.multiplayer.data.State;	
+	import com.paperworld.multiplayer.data.State;		
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
 	 */
 	public class SimpleAvatarBehaviour2D extends SteeringBehaviour 
 	{
-		//private var logger : XrayLog = new XrayLog( );
-
+		private var logger : Logger = LoggerContext.getLogger( SimpleAvatarBehaviour2D );
+		
 		public function update(output : SteeringOutput) : void
 		{
-			if (input != null) 
-			{
+			logger.info("updating behaviour");
+			
+			//if (input != null) 
+			//{
 				if (input.getForward( ))
 				output.linear.z += 5;
 
@@ -54,7 +58,7 @@ package com.paperworld.multiplayer.behaviours
 
 				if (input.getTurnLeft( ))
 				output.angular.w -= 1;
-			}		
+			//}		
 		}
 
 		protected function handleForward(state : State) : Vector3 

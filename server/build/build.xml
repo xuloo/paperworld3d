@@ -76,7 +76,13 @@
 					<fileset dir="../jar">
 						<include name="**/*.jar"/>
 					</fileset>
-				</copy>    			
+				</copy>    
+     			
+     			<copy todir="../../examples/@{example}/WebContent/WEB-INF/lib">
+					<fileset dir="../lib">
+						<include name="**/*.jar"/>
+					</fileset>
+				</copy>  
      					
      		</sequential>
      	</for>

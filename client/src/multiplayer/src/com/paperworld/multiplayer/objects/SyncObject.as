@@ -25,6 +25,8 @@ package com.paperworld.multiplayer.objects
 	import com.actionengine.flash.input.Input;
 	import com.actionengine.flash.util.clock.Clock;
 	import com.actionengine.flash.util.clock.events.ClockEvent;
+	import com.actionengine.flash.util.logging.Logger;
+	import com.actionengine.flash.util.logging.LoggerContext;
 	import com.brainfarm.flash.steering.SteeringBehaviour;
 	import com.brainfarm.flash.steering.SteeringOutput;
 	import com.paperworld.multiplayer.behaviours.SimpleAvatarBehaviour2D;
@@ -37,6 +39,8 @@ package com.paperworld.multiplayer.objects
 	 */
 	public class SyncObject extends BaseClass
 	{
+		private var logger : Logger = LoggerContext.getLogger( SyncObject );
+
 		/**
 		 * AbstractSynchronisedScene stores SyncObject instances in a single linked list
 		 * as an optimisation for iterating over the synchronisable objects in a scene.
@@ -134,6 +138,7 @@ package com.paperworld.multiplayer.objects
 			lastTime = int( time );
 			
 			behaviour.getSteering( output );
+			logger.info( behaviour + " " + output.angular.w );
 			displayObject.synchronise( input, state );	
 		}
 
@@ -175,6 +180,7 @@ package com.paperworld.multiplayer.objects
 			previous = new State( );
 			
 			behaviour = new SimpleAvatarBehaviour2D( );
+			output = new SteeringOutput( );
 			
 			Clock.getInstance( ).addEventListener( ClockEvent.TIMESTEP, update );
 		}

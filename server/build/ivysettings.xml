@@ -8,6 +8,8 @@
      	 	</filesystem>        
             <url name="googlecode">
                 <artifact pattern="http://paperworld3d.googlecode.com/svn/dependancies/[artifact](-[revision]).[ext]" />
+                <artifact pattern="http://actionengine.googlecode.com/svn/releases/[artifact](-[revision]).[ext]" />
+                <artifact pattern="http://brainfarm.googlecode.com/svn/releases/[artifact](-[revision]).[ext]" />
             </url>    
         </chain>
     </resolvers>

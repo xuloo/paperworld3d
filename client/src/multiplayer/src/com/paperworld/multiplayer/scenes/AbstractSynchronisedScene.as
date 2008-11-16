@@ -21,15 +21,19 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.multiplayer.scenes 
 {
+	import com.brainfarm.flash.util.math.Quaternion;	
+	
 	import flash.events.Event;
 	import flash.net.registerClassAlias;
-	
+
 	import com.actionengine.flash.core.context.ContextLoader;
+	import com.actionengine.flash.input.Input;
 	import com.actionengine.flash.util.logging.Logger;
 	import com.actionengine.flash.util.logging.LoggerContext;
 	import com.brainfarm.flash.util.math.Vector3;
 	import com.paperworld.multiplayer.connectors.ConnectorListener;
 	import com.paperworld.multiplayer.connectors.RTMPConnector;
+	import com.paperworld.multiplayer.data.State;
 	import com.paperworld.multiplayer.data.SyncData;
 	import com.paperworld.multiplayer.events.ServerSyncEvent;
 	import com.paperworld.multiplayer.lod.LodConstraint;
@@ -43,7 +47,7 @@ package com.paperworld.multiplayer.scenes
 	 */
 	public class AbstractSynchronisedScene extends ContextLoader implements ConnectorListener
 	{
-		private var logger : Logger = LoggerContext.getLogger( AbstractSynchronisedScene );
+		private var logger : Logger;
 
 		/**
 		 * The Clock instance used as a timer for this scene.
@@ -106,9 +110,13 @@ package com.paperworld.multiplayer.scenes
 		 */
 		override public function initialise() : void
 		{			
+			logger = LoggerContext.getLogger( AbstractSynchronisedScene );
+			
 			avatarsByName = new Array( );		
 			
-			registerClassAlias( 'com.paperworld.core.math.Vector3', Vector3 );				registerClassAlias( 'com.paperworld.multiplayer.data.SyncData', SyncData );	
+			registerClassAlias( 'com.brainfarm.java.util.math.Vector3', Vector3 );				registerClassAlias( 'com.paperworld.multiplayer.data.SyncData', SyncData );	
+			registerClassAlias( 'com.paperworld.multiplayer.data.State', State );
+			registerClassAlias( 'com.brainfarm.java.util.math.Quaternion', Quaternion );
 		}
 
 		public function connect(scene : String, context : String = "multiplayerContext.xml") : void
@@ -147,6 +155,7 @@ package com.paperworld.multiplayer.scenes
 
 		public function onLocalSync(event : ServerSyncEvent) : void
 		{
+			logger.info("local object syncing");
 			player.avatar.synchronise( event );
 		}
 

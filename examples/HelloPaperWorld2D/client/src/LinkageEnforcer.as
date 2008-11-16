@@ -13,5 +13,7 @@ package
 		private var proxy : Proxy;	
 
 		private var vector3 : Vector3;
+		
+		private var logger:Xrayl
 	}
 }
