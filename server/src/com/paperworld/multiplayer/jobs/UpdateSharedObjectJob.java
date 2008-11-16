@@ -4,9 +4,11 @@ import java.util.HashMap;
 
 import org.red5.server.api.scheduling.ISchedulingService;
 import org.red5.server.api.so.ISharedObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import com.actionengine.java.data.Input;
 import com.paperworld.multiplayer.connectors.IConnector;
-import com.paperworld.multiplayer.data.Input;
 import com.paperworld.multiplayer.data.State;
 import com.paperworld.multiplayer.data.SyncData;
 import com.paperworld.multiplayer.objects.Avatar;
@@ -15,6 +17,8 @@ import com.paperworld.multiplayer.player.PlayerContext;
 
 public class UpdateSharedObjectJob extends AbstractUpdateJob {
 		
+	private static Logger log = LoggerFactory.getLogger(UpdateSharedObjectJob.class);
+	
 	public UpdateSharedObjectJob(IConnector connector) {
 		super(connector);
 	}
@@ -36,7 +40,7 @@ public class UpdateSharedObjectJob extends AbstractUpdateJob {
 			int time = connector.getTime();
 			Input input = avatar.input;
 			State state = avatar.getState();
-
+			//log.info("updating {} {}", new Object[]{id, time});
 			so.setAttribute(id, new SyncData(time, input, state));
 		}
 		

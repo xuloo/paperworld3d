@@ -21,8 +21,9 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.multiplayer.behaviour;
 
-import com.paperworld.ai.steering.AbstractSteeringBehaviour;
-import com.paperworld.ai.steering.SteeringOutput;
+import com.brainfarm.java.steering.AbstractSteeringBehaviour;
+import com.brainfarm.java.steering.SteeringOutput;
+
 
 public class SimpleAvatarBehaviour2D extends AbstractSteeringBehaviour {
 	

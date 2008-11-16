@@ -21,6 +21,8 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.multiplayer.data;
 
+import com.actionengine.java.data.Input;
+
 public class SyncData {
 
 	public int t;	

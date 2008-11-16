@@ -21,9 +21,10 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.multiplayer.data;
 
-import com.paperworld.core.math.Matrix;
-import com.paperworld.core.math.Quaternion;
-import com.paperworld.core.math.Vector3;
+import com.brainfarm.java.util.math.Matrix;
+import com.brainfarm.java.util.math.Quaternion;
+import com.brainfarm.java.util.math.Vector3;
+
 
 public class State {
 

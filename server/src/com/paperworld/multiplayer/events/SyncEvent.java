@@ -21,7 +21,7 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.multiplayer.events;
 
-import com.paperworld.multiplayer.data.Input;
+import com.actionengine.java.data.Input;
 import com.paperworld.multiplayer.data.State;
 
 public class SyncEvent {

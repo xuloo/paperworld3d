@@ -22,13 +22,13 @@
 package com.paperworld.multiplayer.connectors;
 
 import org.red5.server.api.IConnection;
-import org.red5.server.api.IContext;
 import org.red5.server.api.IScope;
 import org.red5.server.api.ScopeUtils;
 import org.red5.server.api.so.ISharedObject;
 import org.red5.server.api.so.ISharedObjectService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import com.paperworld.ai.steering.Kinematic;
 import com.paperworld.multiplayer.data.SyncData;
 import com.paperworld.multiplayer.data.TimedInput;
 import com.paperworld.multiplayer.jobs.UpdateAvatarsJob;
@@ -37,6 +37,8 @@ import com.paperworld.multiplayer.objects.Avatar;
 import com.paperworld.multiplayer.player.Player;
 
 public class RTMPConnector extends AbstractConnector {
+
+	private static Logger log = LoggerFactory.getLogger(RTMPConnector.class);
 
 	public int time = 0;
 
@@ -76,6 +78,8 @@ public class RTMPConnector extends AbstractConnector {
 	 */
 	public SyncData receiveInput(String uid, TimedInput input) {
 
+		log.info("receiving input {}", input);
+		
 		Avatar avatar = players.get(uid).getAvatar();
 
 		avatar.update(input);
@@ -96,12 +100,14 @@ public class RTMPConnector extends AbstractConnector {
 		System.out.println(name + " connecting "
 				+ connection.getClient().getId());
 
-		//Player player = new Player(name, connection);
-		Player player = (Player) application.getContext().getBean("default.player");
+		// Player player = new Player(name, connection);
+		Player player = (Player) application.getContext().getBean(
+				"default.player");
 		player.setName(name);
 		player.setConnection(connection);
 
-		Avatar avatar = (Avatar) application.getContext().getBean("default.avatar");
+		Avatar avatar = (Avatar) application.getContext().getBean(
+				"default.avatar");
 
 		avatar.time = time;
 

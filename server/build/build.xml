@@ -40,6 +40,8 @@
      <path id="classpath">
        <pathelement location="${red5.dir}/red5.jar"/>
        <pathelement location="${basedir}/../lib/jedai.jar"/>
+     	<pathelement location="${basedir}/../lib/actionengine-java.jar"/>
+       	<pathelement location="${basedir}/../lib/brainfarm-java.jar"/>
      </path>
 	 
 	 <target name="all" depends="retrieve,jar,javadoc,clean" />

@@ -23,17 +23,16 @@ package com.paperworld.multiplayer.objects;
 
 import org.red5.server.api.so.ISharedObject;
 
-import com.paperworld.ai.steering.Kinematic;
-import com.paperworld.ai.steering.AbstractSteeringBehaviour;
-import com.paperworld.ai.steering.SteeringOutput;
-import com.paperworld.multiplayer.behaviour.SimpleAvatarBehaviour2D;
+import com.actionengine.java.data.Input;
+import com.actionengine.java.util.collections.CircularBuffer;
+import com.brainfarm.java.steering.AbstractSteeringBehaviour;
+import com.brainfarm.java.steering.Kinematic;
+import com.brainfarm.java.steering.SteeringOutput;
 import com.paperworld.multiplayer.data.AvatarData;
-import com.paperworld.multiplayer.data.Input;
 import com.paperworld.multiplayer.data.State;
 import com.paperworld.multiplayer.data.SyncData;
 import com.paperworld.multiplayer.data.TimedInput;
 import com.paperworld.multiplayer.player.PlayerContext;
-import com.paperworld.util.collections.CircularBuffer;
 
 public class Avatar {
 

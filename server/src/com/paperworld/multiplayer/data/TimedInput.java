@@ -1,5 +1,7 @@
 package com.paperworld.multiplayer.data;
 
+import com.actionengine.java.data.Input;
+
 public class TimedInput {
 
 	public int time;
