@@ -71,6 +71,8 @@ package com.paperworld.multiplayer.connectors
 		 */
 		override public function connectToServer(event : Event = null) : void
 		{				
+			logger.info("Connection URI: " + _connection.rtmpURI);
+			
 			_connection.addEventListener( Red5Event.CONNECTED, onConnectionEstablished );
 			_connection.addEventListener( Red5Event.DISCONNECTED, onConnectionDisconnected );
 			_connection.client = this;

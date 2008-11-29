@@ -22,6 +22,8 @@
 package com.paperworld.multiplayer.objects;
 
 import org.red5.server.api.so.ISharedObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.actionengine.java.data.Input;
 import com.actionengine.java.util.collections.CircularBuffer;
@@ -35,6 +37,8 @@ import com.paperworld.multiplayer.data.TimedInput;
 import com.paperworld.multiplayer.player.PlayerContext;
 
 public class Avatar {
+	
+	private static Logger log = LoggerFactory.getLogger(Avatar.class);
 
 	protected Kinematic kinematic;
 
@@ -111,11 +115,13 @@ public class Avatar {
 		 */
 
 		// Update the behaviour.
-		behaviour.getSteering(output);
+		behaviour.getSteering(output, input);
 		
 		kinematic.velocity = output.linear;
 		kinematic.position.add(output.linear);
 		kinematic.orientation = output.angular;
+		
+		log.debug("angle {}", kinematic.orientation.w);
 	}
 
 	public void update(TimedInput move) {

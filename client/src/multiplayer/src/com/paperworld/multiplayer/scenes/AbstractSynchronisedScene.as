@@ -123,6 +123,8 @@ package com.paperworld.multiplayer.scenes
 		{
 			sceneName = scene;
 			
+			logger.info("connecting to " + scene);
+			
 			loadContext( context );				
 		}
 
@@ -155,7 +157,7 @@ package com.paperworld.multiplayer.scenes
 
 		public function onLocalSync(event : ServerSyncEvent) : void
 		{
-			logger.info("local object syncing");
+			logger.info("local object syncing " + event.state.orientation.w);
 			player.avatar.synchronise( event );
 		}
 

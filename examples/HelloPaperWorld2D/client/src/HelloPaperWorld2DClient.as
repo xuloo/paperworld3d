@@ -3,6 +3,7 @@ package
 	import flash.display.Sprite;
 	import flash.events.Event;
 	
+	import com.actionengine.flash.core.context.CoreContext;
 	import com.actionengine.flash.input.BasicKeyboardInput;
 	import com.actionengine.flash.input.UserInput;
 	import com.actionengine.flash.util.clock.Clock;
@@ -29,9 +30,21 @@ package
 		public function HelloPaperWorld2DClient()
 		{
 			var linkageEnforcer : LinkageEnforcer = new LinkageEnforcer( );
-						
+			
+			var context : CoreContext = CoreContext.getInstance( );
+			
+			context.addContexts( [ 'logging-context.xml' ] );
+			context.addEventListener( Event.COMPLETE, onContextLoaded );
+			context.load( );				
+		}
+		
+		private function onContextLoaded(event : Event) : void 
+		{
+			logger = LoggerContext.getLogger( HelloPaperWorld2DClient );
+			
+			logger.info( "Context Loaded connecting" );
+			
 			var connector : RTMPConnector = new RTMPConnector( );
-			connector.addEventListener( ConnectorEvent.CONTEXT_LOADED, onContextLoaded );
 			connector.addEventListener( ConnectorEvent.CONNECTED_TO_SERVER, onConnectedToServer );
 			
 			var input : UserInput = new BasicKeyboardInput( );
@@ -41,18 +54,11 @@ package
 			
 			syncScene = new SimpleSynchronisedScene( );
 			syncScene.connector = connector;
-			syncScene.connect( "test" );
+			syncScene.connect( "HelloPaperWorld2D" );
 			
 			player = new Player( );
 
 			scene = syncScene.scene;
-		}
-		
-		public function onContextLoaded(event : Event) : void 
-		{
-			logger = LoggerContext.getLogger( HelloPaperWorld2DClient );
-			
-			logger.info( "Context Loaded connecting" );
 		}
 
 		public function onConnectedToServer(event : Event) : void

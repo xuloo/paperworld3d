@@ -21,11 +21,17 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.multiplayer.behaviour;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.actionengine.java.data.Input;
 import com.brainfarm.java.steering.AbstractSteeringBehaviour;
 import com.brainfarm.java.steering.SteeringOutput;
 
 
 public class SimpleAvatarBehaviour2D extends AbstractSteeringBehaviour {
+	
+	private static Logger log = LoggerFactory.getLogger(SimpleAvatarBehaviour2D.class);
 	
 	public SimpleAvatarBehaviour2D() {
 
@@ -33,7 +39,7 @@ public class SimpleAvatarBehaviour2D extends AbstractSteeringBehaviour {
 
 	@Override
 	public void getSteering(SteeringOutput output) {
-		
+		/*log.debug("getting steering output {} {}", new Object[]{input.getTurnRight(), input.getTurnLeft()});
 		if (input != null) {
 			if (input.getForward())
 				output.linear.z += 5;
@@ -53,7 +59,33 @@ public class SimpleAvatarBehaviour2D extends AbstractSteeringBehaviour {
 			if (input.getTurnLeft())
 				output.angular.w -= 1;
 		}
-		
+		log.debug("anglular output {}", output.angular.w);*/
+	}
+	
+	@Override
+	public void getSteering(SteeringOutput output, Input input)
+	{
+		log.debug("getting steering output {} {}", new Object[]{input.getTurnRight(), input.getTurnLeft()});
+		if (input != null) {
+			if (input.getForward())
+				output.linear.z += 5;
+
+			if (input.getBack())
+				output.linear.z -= 5;
+
+			if (input.getMoveRight())
+				output.linear.x += 5;
+
+			if (input.getMoveLeft())
+				output.linear.x -= 5;
+
+			if (input.getTurnRight())
+				output.angular.w += 1;
+
+			if (input.getTurnLeft())
+				output.angular.w -= 1;
+		}
+		log.debug("anglular output {}", output.angular.w);
 	}
 
 }

@@ -1,5 +1,6 @@
 package  
 {
+	import com.blitzagency.xray.logger.XrayLog;	
 	import com.brainfarm.flash.util.math.Vector3;
 	import com.paperworld.multiplayer.objects.Proxy;		
 
@@ -14,6 +15,6 @@ package
 
 		private var vector3 : Vector3;
 		
-		private var logger:Xrayl
+		private var logger : XrayLog;
 	}
 }
