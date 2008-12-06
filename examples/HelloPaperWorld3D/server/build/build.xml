@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="HelloPaperWorld" default="build" basedir="../">  
+<project name="HelloPaperWorld3D" default="build" basedir="../">  
 
 	<property file="../../../build/user.properties"/>
 
