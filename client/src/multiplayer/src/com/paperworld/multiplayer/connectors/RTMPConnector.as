@@ -70,9 +70,7 @@ package com.paperworld.multiplayer.connectors
 		 * Calls the Red5Bootstrapper to establish an rtmp connection with a Red5 server.
 		 */
 		override public function connectToServer(event : Event = null) : void
-		{				
-			logger.info("Connection URI: " + _connection.rtmpURI);
-			
+		{							
 			_connection.addEventListener( Red5Event.CONNECTED, onConnectionEstablished );
 			_connection.addEventListener( Red5Event.DISCONNECTED, onConnectionDisconnected );
 			_connection.client = this;
@@ -117,12 +115,12 @@ package com.paperworld.multiplayer.connectors
 		override public function addPlayer(player : Player) : void
 		{
 			this.player = player;
+			
 			_connection.call( 'multiplayer.addPlayer', new Responder( addPlayerResult, onResult ), clientID );
 		}
 
 		public function addPlayerResult(data : SyncData) : void
 		{
-			logger.info( "time: " + data.serverTime );
 			player.avatar.time = data.serverTime;
 		}
 
@@ -136,9 +134,7 @@ package com.paperworld.multiplayer.connectors
 		 * Iterate over the list of avatars in this scene and apply the LOD heuristics.
 		 */
 		public function synchronise(event : SyncEvent) : void
-		{
-			logger.info( "Synchronising" );
-			
+		{			
 			var changeList : Array = event.changeList;
 			var length : int = changeList.length;
 			
@@ -155,12 +151,11 @@ package com.paperworld.multiplayer.connectors
 						var data : SyncData = SyncData( _remoteSharedObject._so.data[name] );
 						
 						if (name != String( clientID )) 
-						{														
-							logger.info( clientID + " updating " + name + " => " + data.state.orientation.w );
-							dispatchEvent( new ServerSyncEvent( ServerSyncEvent.REMOTE_AVATAR_SYNC, name, data.time, data.input, data.state ) );						}
+						{									
+							dispatchEvent( new ServerSyncEvent( ServerSyncEvent.REMOTE_AVATAR_SYNC, name, data.serverTime, data.input, data.state ) );						}
 						else
 						{
-							//dispatchEvent( new ServerSyncEvent( ServerSyncEvent.LOCAL_AVATAR_SYNC, name, data.time, data.input, data.state ) );
+							dispatchEvent( new ServerSyncEvent( ServerSyncEvent.LOCAL_AVATAR_SYNC, name, data.serverTime, data.input, data.state ) );
 							dispatchEvent( new LagEvent( LagEvent.TIME_UPDATE, data.serverTime ) );
 						}
 						break;

@@ -24,6 +24,8 @@ package
 			displayObject.graphics.drawCircle( 0, 0, 25 );
 			displayObject.graphics.endFill( );
 			
+			displayObject.graphics.lineTo(0, 25);
+			
 			addChild( displayObject );
 		}
 	}

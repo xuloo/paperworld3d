@@ -45,6 +45,8 @@ public class RTMPConnector extends AbstractConnector {
 	protected String avatarUpdateJob;
 
 	protected String sharedObjectUpdateJob;
+	
+	protected int clientUpdateRate;
 
 	public RTMPConnector() {
 		super();
@@ -54,7 +56,7 @@ public class RTMPConnector extends AbstractConnector {
 		avatarUpdateJob = application.addScheduledJob(1000 / frameRate,
 				new UpdateAvatarsJob(this));
 
-		sharedObjectUpdateJob = application.addScheduledJob(1000 / 5,
+		sharedObjectUpdateJob = application.addScheduledJob(1000 / clientUpdateRate,
 				new UpdateSharedObjectJob(this));
 	}
 
@@ -149,5 +151,9 @@ public class RTMPConnector extends AbstractConnector {
 	@Override
 	public int getTime() {
 		return time;
+	}
+	
+	public void setClientUpdateRate(int clientUpdateRate) {
+		this.clientUpdateRate = clientUpdateRate;
 	}
 }

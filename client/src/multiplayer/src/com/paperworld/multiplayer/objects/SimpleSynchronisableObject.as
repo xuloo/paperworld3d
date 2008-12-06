@@ -1,5 +1,7 @@
 package com.paperworld.multiplayer.objects 
 {
+	import com.actionengine.flash.util.logging.LoggerContext;	
+	import com.actionengine.flash.util.logging.Logger;	
 	import com.actionengine.flash.core.BaseClass;	
 
 	import flash.display.Sprite;
@@ -13,6 +15,8 @@ package com.paperworld.multiplayer.objects
 	 */
 	public class SimpleSynchronisableObject extends BaseClass implements Synchronizable 
 	{
+		private var logger : Logger = LoggerContext.getLogger( SimpleSynchronisableObject );
+
 		public var object : Sprite;
 
 		public function SimpleSynchronisableObject(object : Sprite = null)
@@ -29,9 +33,9 @@ package com.paperworld.multiplayer.objects
 
 		public function synchronise(input : Input, state : State) : void
 		{
-			this.object.x += state.velocity.x;
-			this.object.y += state.velocity.y;
-			
+			this.object.x = state.position.x;
+			this.object.y = state.position.y;
+
 			object.rotation = state.orientation.w;
 		}
 

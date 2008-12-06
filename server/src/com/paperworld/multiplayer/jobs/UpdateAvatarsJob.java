@@ -22,7 +22,6 @@ public class UpdateAvatarsJob extends AbstractUpdateJob {
 		HashMap<String, Avatar> avatars = connector.getAvatars();
 
 		for (String key : avatars.keySet()) {
-			//System.out.println("updating " + players.get(key).getAvatar());
 			avatars.get(key).update(time);
 		}
 

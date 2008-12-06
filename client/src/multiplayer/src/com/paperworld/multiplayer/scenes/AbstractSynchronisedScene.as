@@ -157,7 +157,7 @@ package com.paperworld.multiplayer.scenes
 
 		public function onLocalSync(event : ServerSyncEvent) : void
 		{
-			logger.info("local object syncing " + event.state.orientation.w);
+			//logger.info("local object syncing " + event.state.orientation.w);
 			player.avatar.synchronise( event );
 		}
 

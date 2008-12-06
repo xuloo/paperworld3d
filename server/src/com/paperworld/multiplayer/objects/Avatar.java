@@ -37,7 +37,7 @@ import com.paperworld.multiplayer.data.TimedInput;
 import com.paperworld.multiplayer.player.PlayerContext;
 
 public class Avatar {
-	
+
 	private static Logger log = LoggerFactory.getLogger(Avatar.class);
 
 	protected Kinematic kinematic;
@@ -59,7 +59,7 @@ public class Avatar {
 	public String ref;
 
 	protected PlayerContext playerContext;
-	
+
 	protected SteeringOutput output = new SteeringOutput();
 
 	/**
@@ -71,7 +71,7 @@ public class Avatar {
 	public Avatar() {
 		initialise();
 	}
-	
+
 	public Avatar(Kinematic kinematic) {
 		this.kinematic = kinematic;
 
@@ -116,12 +116,12 @@ public class Avatar {
 
 		// Update the behaviour.
 		behaviour.getSteering(output, input);
-		
+
 		kinematic.velocity = output.linear;
-		kinematic.position.add(output.linear);
+		kinematic.position.plusEq(output.linear);
 		kinematic.orientation = output.angular;
 		
-		log.debug("angle {}", kinematic.orientation.w);
+		//log.debug("velocity {} position {}", new Object[] {output.linear, kinematic.position});
 	}
 
 	public void update(TimedInput move) {
@@ -144,7 +144,7 @@ public class Avatar {
 		behaviour.setInput(input);
 		this.behaviour = behaviour;
 	}
-	
+
 	public void setKinematic(Kinematic kinematic) {
 		this.kinematic = kinematic;
 	}

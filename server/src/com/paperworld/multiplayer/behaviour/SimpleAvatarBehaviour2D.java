@@ -28,64 +28,55 @@ import com.actionengine.java.data.Input;
 import com.brainfarm.java.steering.AbstractSteeringBehaviour;
 import com.brainfarm.java.steering.SteeringOutput;
 
-
 public class SimpleAvatarBehaviour2D extends AbstractSteeringBehaviour {
-	
-	private static Logger log = LoggerFactory.getLogger(SimpleAvatarBehaviour2D.class);
-	
+
+	private static Logger log = LoggerFactory
+			.getLogger(SimpleAvatarBehaviour2D.class);
+
+	public double moveForwardAmount = 1.0;
+
+	public double moveBackAmount = 1.0;
+
+	public double moveRightAmount = 1.0;
+
+	public double moveLeftAmount = 1.0;
+
+	public double turnLeftAmount = 1.0;
+
+	public double turnRightAmount = 1.0;
+
 	public SimpleAvatarBehaviour2D() {
 
 	}
 
 	@Override
 	public void getSteering(SteeringOutput output) {
-		/*log.debug("getting steering output {} {}", new Object[]{input.getTurnRight(), input.getTurnLeft()});
-		if (input != null) {
-			if (input.getForward())
-				output.linear.z += 5;
-
-			if (input.getBack())
-				output.linear.z -= 5;
-
-			if (input.getMoveRight())
-				output.linear.x += 5;
-
-			if (input.getMoveLeft())
-				output.linear.x -= 5;
-
-			if (input.getTurnRight())
-				output.angular.w += 1;
-
-			if (input.getTurnLeft())
-				output.angular.w -= 1;
-		}
-		log.debug("anglular output {}", output.angular.w);*/
 	}
-	
+
 	@Override
-	public void getSteering(SteeringOutput output, Input input)
-	{
-		log.debug("getting steering output {} {}", new Object[]{input.getTurnRight(), input.getTurnLeft()});
+	public void getSteering(SteeringOutput output, Input input) {
+
+		output.clear();
+
 		if (input != null) {
 			if (input.getForward())
-				output.linear.z += 5;
+				output.linear.y += moveForwardAmount;
 
 			if (input.getBack())
-				output.linear.z -= 5;
+				output.linear.y -= moveBackAmount;
 
 			if (input.getMoveRight())
-				output.linear.x += 5;
+				output.linear.x += moveRightAmount;
 
 			if (input.getMoveLeft())
-				output.linear.x -= 5;
+				output.linear.x -= moveLeftAmount;
 
 			if (input.getTurnRight())
-				output.angular.w += 1;
+				output.angular.w += turnRightAmount;
 
 			if (input.getTurnLeft())
-				output.angular.w -= 1;
+				output.angular.w -= turnLeftAmount;
 		}
-		log.debug("anglular output {}", output.angular.w);
 	}
 
 }

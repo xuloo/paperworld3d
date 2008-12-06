@@ -136,9 +136,13 @@ package com.paperworld.multiplayer.objects
 			}
 			
 			lastTime = int( time );
-			
+
 			behaviour.getSteering( output );
-			logger.info( behaviour + " " + output.angular.w );
+			
+			state.velocity = output.linear;
+			state.position.plusEq( output.linear );
+			state.orientation = output.angular;
+					
 			displayObject.synchronise( input, state );	
 		}
 

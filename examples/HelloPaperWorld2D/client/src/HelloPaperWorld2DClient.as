@@ -2,7 +2,7 @@ package
 {
 	import flash.display.Sprite;
 	import flash.events.Event;
-	
+
 	import com.actionengine.flash.core.context.CoreContext;
 	import com.actionengine.flash.input.BasicKeyboardInput;
 	import com.actionengine.flash.input.UserInput;
@@ -24,8 +24,6 @@ package
 		private var syncScene : SimpleSynchronisedScene;
 
 		private var player : Player;
-		
-		private var scene : Sprite;
 
 		public function HelloPaperWorld2DClient()
 		{
@@ -37,7 +35,7 @@ package
 			context.addEventListener( Event.COMPLETE, onContextLoaded );
 			context.load( );				
 		}
-		
+
 		private function onContextLoaded(event : Event) : void 
 		{
 			logger = LoggerContext.getLogger( HelloPaperWorld2DClient );
@@ -56,9 +54,9 @@ package
 			syncScene.connector = connector;
 			syncScene.connect( "HelloPaperWorld2D" );
 			
+			addChild( syncScene.view );
+			
 			player = new Player( );
-
-			scene = syncScene.scene;
 		}
 
 		public function onConnectedToServer(event : Event) : void
@@ -70,7 +68,7 @@ package
 			var clock : Clock = Clock.getInstance( );
 						
 			//clock.addEventListener( ClockEvent.RENDER, onRenderTick );
-	
+
 			clock.start( );
 		}
 	}

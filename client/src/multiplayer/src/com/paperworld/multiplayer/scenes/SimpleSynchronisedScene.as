@@ -3,47 +3,55 @@ package com.paperworld.multiplayer.scenes
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	
+	import com.actionengine.flash.core.interfaces.IInitialisable;
+	import com.actionengine.flash.util.logging.Logger;
+	import com.actionengine.flash.util.logging.LoggerContext;
 	import com.paperworld.multiplayer.objects.SimpleSynchronisableObject;
 	import com.paperworld.multiplayer.scenes.AbstractSynchronisedScene;	
 
 	/**
 	 * @author Trevor
 	 */
-	public class SimpleSynchronisedScene extends AbstractSynchronisedScene 
+	public class SimpleSynchronisedScene extends AbstractSynchronisedScene implements IInitialisable
 	{
-		protected var _scene : Sprite;
+		private var logger : Logger = LoggerContext.getLogger( SimpleSynchronisedScene );
 
-		public function get scene() : Sprite
+		protected var _view : Sprite;
+
+		public function get view() : Sprite
 		{
-			return _scene;
+			return _view;
 		}
 
-		public function set scene(value : Sprite) : void
+		public function set view(value : Sprite) : void 
 		{
-			_scene = value;
+			_view = value;
 		}
 
 		public function SimpleSynchronisedScene()
 		{
 			super( );
+			
+			initialise( );
 		}
 
 		override public function initialise() : void
-		{
-			super.initialise( );
+		{			
+			_view = new Sprite( );
 			
-			_scene = new Sprite( );	
+			super.initialise( );
 		}
 
 		override public function addChild(child : *) : *
-		{
+		{			
 			if (child is DisplayObject)
 			{
-				return _scene.addChild( child );	
+				return _view.addChild( DisplayObject( child ) );	
 			}
 			else if (child is SimpleSynchronisableObject)
 			{
-				return _scene.addChild( SimpleSynchronisableObject( child ).object );
+				logger.info( "adding child " + SimpleSynchronisableObject( child ).object );
+				return _view.addChild( SimpleSynchronisableObject( child ).object );
 			}
 			else
 			{
@@ -55,7 +63,7 @@ package com.paperworld.multiplayer.scenes
 
 		override public function removeChild(child : *) : *
 		{
-			return _scene.removeChild( child );
+			return _view.removeChild( child );
 		}
 	}
 }

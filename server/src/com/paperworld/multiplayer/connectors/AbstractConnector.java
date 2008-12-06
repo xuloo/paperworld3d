@@ -26,6 +26,8 @@ public class AbstractConnector implements IApplication, IConnector, IService,
 	protected MultiThreadedApplicationAdapter application;
 
 	protected int frameRate;
+	
+	
 
 	public AbstractConnector() {
 		players = new HashMap<String, Player>();

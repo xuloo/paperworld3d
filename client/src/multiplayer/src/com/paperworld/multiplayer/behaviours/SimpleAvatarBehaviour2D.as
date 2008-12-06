@@ -33,32 +33,44 @@ package com.paperworld.multiplayer.behaviours
 	 */
 	public class SimpleAvatarBehaviour2D extends SteeringBehaviour 
 	{
-		private var logger : Logger = LoggerContext.getLogger( SimpleAvatarBehaviour2D );
-		
-		public function update(output : SteeringOutput) : void
+		public var logger : Logger = LoggerContext.getLogger( SimpleAvatarBehaviour2D );
+
+		public var moveForwardAmount : Number = 1;
+
+		public var moveBackAmount : Number = 1;
+
+		public var moveRightAmount : Number = 1;
+
+		public var moveLeftAmount : Number = 1;
+
+		public var turnLeftAmount : Number = 1;
+
+		public var turnRightAmount : Number = 1;
+
+		override public function getSteering(output : SteeringOutput) : void
 		{
-			logger.info("updating behaviour");
+			output.clear();
 			
-			//if (input != null) 
-			//{
+			if (input != null) 
+			{
 				if (input.getForward( ))
-				output.linear.z += 5;
+					output.linear.y += moveForwardAmount;
 
 				if (input.getBack( ))
-				output.linear.z -= 5;
+					output.linear.y -= moveBackAmount;
 
 				if (input.getMoveRight( ))
-				output.linear.x += 5;
+					output.linear.x += moveRightAmount;
 
 				if (input.getMoveLeft( ))
-				output.linear.x -= 5;
+					output.linear.x -= moveLeftAmount;
 
 				if (input.getTurnRight( ))
-				output.angular.w += 1;
+					output.angular.w += turnRightAmount;
 
 				if (input.getTurnLeft( ))
-				output.angular.w -= 1;
-			//}		
+					output.angular.w -= turnLeftAmount;
+			}
 		}
 
 		protected function handleForward(state : State) : Vector3 

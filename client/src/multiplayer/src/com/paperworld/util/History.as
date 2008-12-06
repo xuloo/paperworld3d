@@ -99,7 +99,7 @@ package com.paperworld.util
 	
 			// compare correction state with move history state
 			if (state.notEquals( moves.oldest( ).state ))
-			{
+			{				
 				// discard corrected move
 				moves.remove( );
 	
@@ -111,7 +111,7 @@ package com.paperworld.util
 				syncObject.input = input;
 
 				syncObject.snap( state );
-	
+				
 				syncObject.replaying = true;
 	
 				var i : int = moves.tail;
