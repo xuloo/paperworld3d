@@ -3,6 +3,14 @@ package org.red5.core;
 /*
  * RED5 Open Source Flash Server - http://www.osflash.org/red5
  * 
+ * Copyright (c) 2006-2008 by respective authors (see below). All rights reserved.
+ * 
+ * This library is free software; you can redistribute it and/or modify it under the 
+ * terms of the GNU Lesser General Public License as published package org.red5.core;
+
+/*
+ * RED5 Open Source Flash Server - http://www.osflash.org/red5
+ * 
  * Copyright (c) 2006-2007 by respective authors (see below). All rights reserved.
  * 
  * This library is free software; you can redistribute it and/or modify it under the 
@@ -18,7 +26,6 @@ package org.red5.core;
  * with this library; if not, write to the Free Software Foundation, Inc., 
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA 
  */
-
 import org.red5.server.adapter.ApplicationAdapter;
 import org.red5.server.api.IConnection;
 import org.red5.server.api.IScope;
@@ -53,7 +60,7 @@ public class Application extends ApplicationAdapter implements IStreamAwareScope
 	static {
 		    ContextSelector selector = StaticLoggerBinder.SINGLETON.getContextSelector();
 		    //get the logger context for the servlet / app context
-		    loggerContext = selector.getLoggerContext("HelloPaperWorld");
+		    loggerContext = selector.getLoggerContext("HelloPaperWorld3D");
 		    //get the logger for this class only
 			log = loggerContext.getLogger(Application.class);
 	}
@@ -143,5 +150,4 @@ public class Application extends ApplicationAdapter implements IStreamAwareScope
 		super.streamPublishStart(stream);
 		
 	}
-	
 }

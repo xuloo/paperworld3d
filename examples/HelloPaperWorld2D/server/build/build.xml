@@ -17,7 +17,6 @@
 		<delete failonerror="no" includeemptydirs="true">
     		<fileset dir="${app.dir}" includes="**/*" />
     	</delete>
-    	<delete dir="${app.dir}"/>
 	</target>
 	
 	<target name="prepare">

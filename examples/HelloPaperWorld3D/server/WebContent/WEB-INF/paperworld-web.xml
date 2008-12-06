@@ -19,7 +19,7 @@
 		<property name="kinematic" ref="default.kinematic"/>
 	</bean>
 	
-	<bean id="default.kinematic" class="com.paperworld.ai.steering.Kinematic" />
+	<bean id="default.kinematic" class="com.brainfarm.java.steering.Kinematic" />
 	
 	<bean id="default.behaviour" class="com.paperworld.multiplayer.behaviour.SimpleAvatarBehaviour2D" />
 	
