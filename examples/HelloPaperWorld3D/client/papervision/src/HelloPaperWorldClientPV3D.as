@@ -1,9 +1,9 @@
 package  
 {
+	import org.papervision3d.scenes.Scene3D;	
+
 	import flash.events.Event;
-	
-	import org.papervision3d.view.BasicView;
-	
+
 	import com.actionengine.flash.core.context.CoreContext;
 	import com.actionengine.flash.input.BasicKeyboardInput;
 	import com.actionengine.flash.input.UserInput;
@@ -14,16 +14,15 @@ package
 	import com.paperworld.multiplayer.connectors.RTMPConnector;
 	import com.paperworld.multiplayer.connectors.events.ConnectorEvent;
 	import com.paperworld.multiplayer.player.Player;
-	import com.paperworld.multiplayer.scenes.SynchronisedScene;	
+	import com.paperworld.multiplayer.scenes.SynchronisedScene;
+	import com.paperworld.views.ChequerBoardView;		
 
 	/**
 	 * @author Trevor
 	 */
-	public class HelloPaperWorldClientPV3D extends BasicView 
+	public class HelloPaperWorldClientPV3D extends ChequerBoardView 
 	{
 		private var logger : Logger;
-
-		private var syncScene : SynchronisedScene;
 
 		private var player : Player;
 
@@ -42,6 +41,11 @@ package
 		{
 			logger = LoggerContext.getLogger( HelloPaperWorldClientPV3D );
 			
+			initialise( );
+		}
+
+		override public function initialise() : void
+		{			
 			var connector : RTMPConnector = new RTMPConnector( );
 			connector.addEventListener( ConnectorEvent.CONNECTED_TO_SERVER, onConnectedToServer );
 			
@@ -56,7 +60,9 @@ package
 			
 			player = new Player( );
 
-			scene = syncScene.scene;
+			scene = Scene3D( syncScene.scene );
+			
+			super.initialise( );
 		}
 
 		public function onConnectedToServer(event : Event) : void

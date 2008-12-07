@@ -18,6 +18,9 @@
 				</property>
 			</object>
 		</property>
+		<property name="behaviour">
+			<object class="com.paperworld.multiplayer.behaviours.SimpleAvatarBehaviour25D"/>
+		</property>
 	</object>
 	
 	<object id="remote.avatar" class="com.paperworld.multiplayer.objects.Proxy" >
@@ -36,6 +39,9 @@
 					</object>
 				</property>
 			</object>
+		</property>
+		<property name="behaviour">
+			<object class="com.paperworld.multiplayer.behaviours.SimpleAvatarBehaviour25D"/>
 		</property>
 	</object>
 
