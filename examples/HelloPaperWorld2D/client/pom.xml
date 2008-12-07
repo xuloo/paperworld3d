@@ -119,8 +119,8 @@
 				<version>1.2-SNAPSHOT</version>
 				<executions>
 					<execution>
-						<id>test-swf</id>
-						<phase>test</phase>
+						<id>copy-resources</id>
+						<phase>compile</phase>
 						<configuration>
 							<tasks unless="maven.test.skip">
 								<copy
@@ -133,20 +133,6 @@
 							<goal>run</goal>
 						</goals>
 					</execution>
-					<!--
-						<execution>
-						<id>build-driving-games</id>
-						<phase>compile</phase>
-						<configuration>
-						<tasks>
-						<ant dir="../ridemakerz-games/build" />
-						</tasks>
-						</configuration>
-						<goals>
-						<goal>run</goal>
-						</goals>
-						</execution>
-					-->
 				</executions>
 			</plugin>
 
