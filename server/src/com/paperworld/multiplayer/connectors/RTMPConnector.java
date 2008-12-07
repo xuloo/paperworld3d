@@ -90,6 +90,7 @@ public class RTMPConnector extends AbstractConnector {
 	}
 
 	public SyncData addPlayer(String id) {
+		log.debug("adding player {}", id);
 		Avatar avatar = players.get(id).getAvatar();
 		avatars.put(id, avatar);
 
@@ -99,7 +100,7 @@ public class RTMPConnector extends AbstractConnector {
 	public boolean appConnect(IConnection connection, Object[] params) {
 		String name = (String) params[0];
 
-		System.out.println(name + " connecting "
+		log.debug(name + " connecting "
 				+ connection.getClient().getId());
 
 		// Player player = new Player(name, connection);

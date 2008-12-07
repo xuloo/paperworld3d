@@ -40,7 +40,7 @@ public class UpdateSharedObjectJob extends AbstractUpdateJob {
 			int time = connector.getTime();
 			Input input = avatar.input;
 			State state = avatar.getState();
-			log.debug("time {}", time);
+
 			so.setAttribute(id, new SyncData(time, input, state));
 		}
 		
