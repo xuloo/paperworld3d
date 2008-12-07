@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.paperworld</groupId>
+	<artifactId>HelloPaperWorld2DClient</artifactId>
+	<packaging>swf</packaging>
+	<version>0.6</version>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<flex.home>C:/projects/flex_sdk_3</flex.home>
+	</properties>
+
+	<repositories>
+		<repository>
+			<id>project-repo</id>
+			<url>
+				http://92.48.67.26:8081/artifactory/libs-releases-local
+			</url>
+		</repository>
+	</repositories>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>com.paperworld</groupId>
+			<artifactId>paperworld-client</artifactId>
+			<version>0.6-SNAPSHOT</version>
+			<type>swc</type>
+		</dependency>
+
+		<dependency>
+			<groupId>com.blitzagency</groupId>
+			<artifactId>xray</artifactId>
+			<version>1.0</version>
+			<type>swc</type>
+		</dependency>
+
+		<!-- <dependency>
+			<groupId>org.pranaframework</groupId>
+			<artifactId>pranaframework</artifactId>
+			<version>0.5</version>
+			<type>swc</type>
+			</dependency>
+			
+			<dependency>
+			<groupId>com.actionengine</groupId>
+			<artifactId>actionengine-flash</artifactId>
+			<version>0.1.1</version>
+			<type>swc</type>
+			</dependency>
+			
+			<dependency>
+			<groupId>com.brainfarm</groupId>
+			<artifactId>brainfarm-flash</artifactId>
+			<version>0.1</version>
+			<type>swc</type>
+			</dependency>
+			
+			<dependency>
+			<groupId>org.red5</groupId>
+			<artifactId>jedai</artifactId>
+			<version>0.1</version>
+			<type>swc</type>
+			</dependency>
+			
+			<dependency>
+			<groupId>Away3D</groupId>
+			<artifactId>Away3D</artifactId>
+			<version>2.1</version>
+			<type>swc</type>
+			</dependency>
+			
+			<dependency>
+			<groupId>org.papervision3D</groupId>
+			<artifactId>papervision3D</artifactId>
+			<version>2.0</version>
+			<type>swc</type>
+			</dependency> -->
+
+	</dependencies>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>apache.org</id>
+			<name>Maven Plugin Snapshots</name>
+			<url>
+				http://people.apache.org/repo/m2-snapshot-repository
+			</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+
+	<build>
+		<finalName>HelloPaperWorld2DClient</finalName>
+
+		<plugins>
+			<plugin>
+				<groupId>net.israfil.mojo</groupId>
+				<artifactId>maven-flex2-plugin</artifactId>
+				<version>1.3</version>
+				<extensions>true</extensions>
+				<configuration>
+					<main>HelloPaperWorld2DClient.as</main>
+					<useNetwork>true</useNetwork>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.2-SNAPSHOT</version>
+				<executions>
+					<execution>
+						<id>test-swf</id>
+						<phase>test</phase>
+						<configuration>
+							<tasks unless="maven.test.skip">
+								<copy
+									todir="${project.build.directory}">
+									<fileset dir="src/main/resources/" />
+								</copy>
+							</tasks>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+					<!--
+						<execution>
+						<id>build-driving-games</id>
+						<phase>compile</phase>
+						<configuration>
+						<tasks>
+						<ant dir="../ridemakerz-games/build" />
+						</tasks>
+						</configuration>
+						<goals>
+						<goal>run</goal>
+						</goals>
+						</execution>
+					-->
+				</executions>
+			</plugin>
+
+		</plugins>
+	</build>
+</project>

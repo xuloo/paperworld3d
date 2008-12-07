@@ -2,17 +2,17 @@ package
 {
 	import flash.display.Sprite;
 	import flash.events.Event;
-
+	
 	import com.actionengine.flash.core.context.CoreContext;
 	import com.actionengine.flash.input.BasicKeyboardInput;
 	import com.actionengine.flash.input.UserInput;
 	import com.actionengine.flash.util.clock.Clock;
 	import com.actionengine.flash.util.logging.Logger;
 	import com.actionengine.flash.util.logging.LoggerContext;
-	import com.paperworld.multiplayer.connectors.RTMPConnector;
-	import com.paperworld.multiplayer.connectors.events.ConnectorEvent;
-	import com.paperworld.multiplayer.player.Player;
-	import com.paperworld.multiplayer.scenes.SimpleSynchronisedScene;	
+	import com.paperworld.flash.connectors.RTMPConnector;
+	import com.paperworld.flash.connectors.events.ConnectorEvent;
+	import com.paperworld.flash.player.Player;
+	import com.paperworld.flash.scenes.SimpleSynchronisedScene;	
 
 	/**
 	 * @author Trevor
