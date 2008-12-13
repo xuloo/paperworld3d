@@ -19,49 +19,63 @@
  * Suite 330, Boston, MA 02111-1307 USA 
  * 
  * -------------------------------------------------------------------------------------- */
-package com.paperworld.multiplayer.objects 
+package com.paperworld.flash.behaviours 
 {
-	import org.papervision3d.objects.DisplayObject3D;
-
-	import com.actionengine.flash.core.BaseClass;
-	import com.actionengine.flash.input.Input;
 	import com.actionengine.flash.util.logging.Logger;
 	import com.actionengine.flash.util.logging.LoggerContext;
-	import com.paperworld.api.ISynchronisable;
-	import com.paperworld.flash.data.State;		
+	import com.brainfarm.flash.steering.SteeringBehaviour;
+	import com.brainfarm.flash.steering.SteeringOutput;
+	import com.brainfarm.flash.util.math.Vector3;
+	import com.paperworld.flash.data.State;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
 	 */
-	public class SynchronisableObject extends BaseClass implements ISynchronisable
+	public class SimpleAvatarBehaviour2D extends SteeringBehaviour 
 	{
-		private var logger : Logger = LoggerContext.getLogger( SynchronisableObject );
+		public var logger : Logger = LoggerContext.getLogger( SimpleAvatarBehaviour2D );
 
-		public var object : DisplayObject3D;
+		public var moveForwardAmount : Number = 1;
 
-		public function SynchronisableObject(object : DisplayObject3D = null)
+		public var moveBackAmount : Number = 1;
+
+		public var moveRightAmount : Number = 1;
+
+		public var moveLeftAmount : Number = 1;
+
+		public var turnLeftAmount : Number = 1;
+
+		public var turnRightAmount : Number = 1;
+
+		override public function getSteering(output : SteeringOutput) : void
 		{
-			super( );
+			output.clear();
 			
-			this.object = object;
+			if (input != null) 
+			{
+				if (input.getForward( ))
+					output.linear.y += moveForwardAmount;
+
+				if (input.getBack( ))
+					output.linear.y -= moveBackAmount;
+
+				if (input.getMoveRight( ))
+					output.linear.x += moveRightAmount;
+
+				if (input.getMoveLeft( ))
+					output.linear.x -= moveLeftAmount;
+
+				if (input.getTurnRight( ))
+					output.angular.w += turnRightAmount;
+
+				if (input.getTurnLeft( ))
+					output.angular.w -= turnLeftAmount;
+			}
 		}
 
-		public function getObject() : *
+		protected function handleForward(state : State) : Vector3 
 		{
-			return object;
-		}
-
-		public function synchronise(time : int, input : Input, state : State) : void
-		{						
-			this.object.x += state.velocity.x;
-			this.object.y += state.velocity.y;
-			this.object.z += state.velocity.z;
-
-			object.localRotationY = state.orientation.w;
-		}
-
-		override public function destroy() : void
-		{
+			return new Vector3( Math.cos( state.orientation.w ) * 5, 0, Math.sin( state.orientation.w ) * 5 );
 		}
 	}
 }

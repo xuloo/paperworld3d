@@ -24,16 +24,16 @@ package com.paperworld.multiplayer.scenes
 	import org.papervision3d.objects.DisplayObject3D;
 	import org.papervision3d.scenes.Scene3D;
 	
-	import com.paperworld.multiplayer.connectors.Connector;
-	import com.paperworld.multiplayer.objects.SynchronisableObject;
-	import com.paperworld.multiplayer.scenes.AbstractSynchronisedScene;		
+	import com.paperworld.flash.connectors.IConnector;
+	import com.paperworld.flash.scenes.AbstractSynchronisedScene;
+	import com.paperworld.multiplayer.objects.SynchronisableObject;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
 	 */
 	public class SynchronisedScene extends AbstractSynchronisedScene 
 	{
-		public function SynchronisedScene(connector : Connector = null)
+		public function SynchronisedScene(connector : IConnector = null)
 		{
 			super( );
 		}

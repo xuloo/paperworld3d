@@ -19,49 +19,42 @@
  * Suite 330, Boston, MA 02111-1307 USA 
  * 
  * -------------------------------------------------------------------------------------- */
-package com.paperworld.multiplayer.objects 
+package com.paperworld.flash.player 
 {
-	import org.papervision3d.objects.DisplayObject3D;
-
-	import com.actionengine.flash.core.BaseClass;
-	import com.actionengine.flash.input.Input;
+	import com.actionengine.flash.core.EventDispatchingBaseClass;
 	import com.actionengine.flash.util.logging.Logger;
 	import com.actionengine.flash.util.logging.LoggerContext;
-	import com.paperworld.api.ISynchronisable;
-	import com.paperworld.flash.data.State;		
+	import com.paperworld.api.ISynchronisedAvatar;		
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
 	 */
-	public class SynchronisableObject extends BaseClass implements ISynchronisable
+	public class Player extends EventDispatchingBaseClass 
 	{
-		private var logger : Logger = LoggerContext.getLogger( SynchronisableObject );
+		private var logger : Logger = LoggerContext.getLogger( Player );
 
-		public var object : DisplayObject3D;
+		protected var _avatar : ISynchronisedAvatar;		
 
-		public function SynchronisableObject(object : DisplayObject3D = null)
+		public function getAvatar() : ISynchronisedAvatar
 		{
-			super( );
-			
-			this.object = object;
+			return _avatar;	
 		}
 
-		public function getObject() : *
+		public function setAvatar(avatar : ISynchronisedAvatar) : void
 		{
-			return object;
+			_avatar = avatar;	
 		}
 
-		public function synchronise(time : int, input : Input, state : State) : void
-		{						
-			this.object.x += state.velocity.x;
-			this.object.y += state.velocity.y;
-			this.object.z += state.velocity.z;
+		public var username : String = "user";		
 
-			object.localRotationY = state.orientation.w;
+		public function Player()
+		{
+			super( this );
 		}
 
-		override public function destroy() : void
+		override public function initialise() : void
 		{
+			//_avatar = new Avatar( );
 		}
 	}
 }

@@ -19,49 +19,31 @@
  * Suite 330, Boston, MA 02111-1307 USA 
  * 
  * -------------------------------------------------------------------------------------- */
-package com.paperworld.multiplayer.objects 
+package com.paperworld.flash.connectors 
 {
-	import org.papervision3d.objects.DisplayObject3D;
-
-	import com.actionengine.flash.core.BaseClass;
-	import com.actionengine.flash.input.Input;
-	import com.actionengine.flash.util.logging.Logger;
-	import com.actionengine.flash.util.logging.LoggerContext;
-	import com.paperworld.api.ISynchronisable;
-	import com.paperworld.flash.data.State;		
+	import flash.events.IEventDispatcher;
+	
+	import com.actionengine.flash.input.UserInput;
+	import com.paperworld.flash.connectors.IConnectorListener;
+	import com.paperworld.flash.player.Player;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
 	 */
-	public class SynchronisableObject extends BaseClass implements ISynchronisable
+	public interface IConnector extends IEventDispatcher
 	{
-		private var logger : Logger = LoggerContext.getLogger( SynchronisableObject );
+		function connect(scene : String = null, context : String = null) : void;
 
-		public var object : DisplayObject3D;
+		function disconnect() : void
 
-		public function SynchronisableObject(object : DisplayObject3D = null)
-		{
-			super( );
-			
-			this.object = object;
-		}
+		function set input(value : UserInput) : void;
 
-		public function getObject() : *
-		{
-			return object;
-		}
+		function get id() : String;
+		
+		function addPlayer(player : Player):void;
 
-		public function synchronise(time : int, input : Input, state : State) : void
-		{						
-			this.object.x += state.velocity.x;
-			this.object.y += state.velocity.y;
-			this.object.z += state.velocity.z;
+		function addListener(listener : IConnectorListener) : void;
 
-			object.localRotationY = state.orientation.w;
-		}
-
-		override public function destroy() : void
-		{
-		}
+		function removeListener(listener : IConnectorListener) : void;
 	}
 }

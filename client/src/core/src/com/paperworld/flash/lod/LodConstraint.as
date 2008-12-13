@@ -19,49 +19,19 @@
  * Suite 330, Boston, MA 02111-1307 USA 
  * 
  * -------------------------------------------------------------------------------------- */
-package com.paperworld.multiplayer.objects 
+package com.paperworld.flash.lod 
 {
-	import org.papervision3d.objects.DisplayObject3D;
-
-	import com.actionengine.flash.core.BaseClass;
-	import com.actionengine.flash.input.Input;
-	import com.actionengine.flash.util.logging.Logger;
-	import com.actionengine.flash.util.logging.LoggerContext;
-	import com.paperworld.api.ISynchronisable;
-	import com.paperworld.flash.data.State;		
+	import com.actionengine.flash.action.Action;
+	import com.paperworld.api.ISynchronisedAvatar;		
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
 	 */
-	public class SynchronisableObject extends BaseClass implements ISynchronisable
-	{
-		private var logger : Logger = LoggerContext.getLogger( SynchronisableObject );
-
-		public var object : DisplayObject3D;
-
-		public function SynchronisableObject(object : DisplayObject3D = null)
+	public class LodConstraint extends Action
+	{		
+		public function testConstraint(pov : ISynchronisedAvatar, other : ISynchronisedAvatar) : int
 		{
-			super( );
-			
-			this.object = object;
-		}
-
-		public function getObject() : *
-		{
-			return object;
-		}
-
-		public function synchronise(time : int, input : Input, state : State) : void
-		{						
-			this.object.x += state.velocity.x;
-			this.object.y += state.velocity.y;
-			this.object.z += state.velocity.z;
-
-			object.localRotationY = state.orientation.w;
-		}
-
-		override public function destroy() : void
-		{
+			return 0;
 		}
 	}
 }

@@ -25,8 +25,8 @@ package com.paperworld.util
 	import com.actionengine.flash.input.Input;
 	import com.actionengine.flash.util.logging.Logger;
 	import com.actionengine.flash.util.logging.LoggerContext;
-	import com.paperworld.flash.data.State;
-	import com.paperworld.flash.objects.AbstractSynchronisedAvatar;		
+	import com.paperworld.api.ISynchronisedAvatar;
+	import com.paperworld.flash.data.State;		
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
@@ -76,7 +76,7 @@ package com.paperworld.util
 			moves.add( move );
 		}
 
-		public function correction(syncObject : AbstractSynchronisedAvatar, t : int, state : State, input : Input) : void
+		public function correction(avatar : ISynchronisedAvatar, t : int, state : State, input : Input) : void
 		{
 			// discard out of date important moves 
 			/*if (importantMoves.oldest( ))
@@ -104,15 +104,15 @@ package com.paperworld.util
 				moves.remove( );
 	
 				// save current scene data
-				var	savedInput : Input = syncObject.input.clone( );
+				var	savedInput : Input = avatar.getInput( ).clone( );
 	
 				// rewind to correction and replay moves
-				syncObject.time = t;
-				syncObject.input = input;
+				avatar.setTime( t );
+				avatar.setInput( input );
 
-				syncObject.snap( state );
+				avatar.snap( state );
 				
-				syncObject.replaying = true;
+				avatar.setReplaying( true );
 	
 				var i : int = moves.tail;
 
@@ -122,13 +122,13 @@ package com.paperworld.util
 
 					if (next)
 					{						
-						while (syncObject.time < moves.moves[i].time)
+						while (avatar.getTime( ) < moves.moves[i].time)
 						{
-							syncObject.update( );
+							avatar.update( );
 						}
 					
-						syncObject.input = moves.moves[i].input;
-						moves.moves[i].state = syncObject.state;
+						avatar.setInput( moves.moves[i].input );
+						moves.moves[i].setState( avatar.getState( ) );
 					}
 					
 					i++;
@@ -137,10 +137,10 @@ package com.paperworld.util
 
 				//syncObject.update( );
 
-				syncObject.replaying = false;
+				avatar.setReplaying( false );
 	
 				// restore saved input
-				syncObject.input = savedInput;
+				avatar.setInput( savedInput );
 			}
 		}
 

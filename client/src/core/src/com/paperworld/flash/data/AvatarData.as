@@ -19,49 +19,59 @@
  * Suite 330, Boston, MA 02111-1307 USA 
  * 
  * -------------------------------------------------------------------------------------- */
-package com.paperworld.multiplayer.objects 
+package com.paperworld.flash.data 
 {
-	import org.papervision3d.objects.DisplayObject3D;
-
-	import com.actionengine.flash.core.BaseClass;
-	import com.actionengine.flash.input.Input;
-	import com.actionengine.flash.util.logging.Logger;
-	import com.actionengine.flash.util.logging.LoggerContext;
-	import com.paperworld.api.ISynchronisable;
-	import com.paperworld.flash.data.State;		
+	import com.actionengine.flash.core.BaseClass;			
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
 	 */
-	public class SynchronisableObject extends BaseClass implements ISynchronisable
+	public class AvatarData extends BaseClass 
 	{
-		private var logger : Logger = LoggerContext.getLogger( SynchronisableObject );
+		public var ref : String;
 
-		public var object : DisplayObject3D;
+		public var time : int;
 
-		public function SynchronisableObject(object : DisplayObject3D = null)
+		public var id : String;
+
+		public function AvatarData()
 		{
 			super( );
-			
-			this.object = object;
 		}
 
-		public function getObject() : *
+		public function getRef() : String
 		{
-			return object;
+			return ref;
 		}
 
-		public function synchronise(time : int, input : Input, state : State) : void
-		{						
-			this.object.x += state.velocity.x;
-			this.object.y += state.velocity.y;
-			this.object.z += state.velocity.z;
-
-			object.localRotationY = state.orientation.w;
-		}
-
-		override public function destroy() : void
+		public function setRef(ref : String) : void
 		{
+			this.ref = ref;
+		}
+
+		public function getTime() : int
+		{
+			return time;
+		}
+
+		public function setTime(time : int) : void
+		{
+			this.time = time;
+		}
+
+		public function getId() : String
+		{
+			return id;
+		}
+
+		public function setId(id : String) : void
+		{
+			this.id = id;
+		}
+
+		public function toString() : String
+		{
+			return 'AvatarData {\n    ref: ' + ref + '\n    time: ' + time + '\n    id: ' + id + '\n}';	
 		}
 	}
 }

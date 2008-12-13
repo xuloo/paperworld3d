@@ -1,19 +1,16 @@
 package com.paperworld.views 
 {
-	import org.papervision3d.materials.BitmapMaterial;	
-
-	import flash.display.Bitmap;	
-
-	import org.papervision3d.objects.DisplayObject3D;	
+	import flash.display.Bitmap;
+	
+	import org.papervision3d.core.proto.MaterialObject3D;
 	import org.papervision3d.core.view.IView;
-	import org.papervision3d.materials.ColorMaterial;
+	import org.papervision3d.materials.BitmapMaterial;
+	import org.papervision3d.objects.DisplayObject3D;
 	import org.papervision3d.objects.primitives.Plane;
 	import org.papervision3d.view.BasicView;
-
+	
 	import com.actionengine.flash.core.interfaces.IInitialisable;
-	import com.paperworld.multiplayer.scenes.AbstractSynchronisedScene;
-
-	import org.papervision3d.core.proto.MaterialObject3D;		
+	import com.paperworld.flash.scenes.AbstractSynchronisedScene;		
 
 	/**
 	 * @author Trevor

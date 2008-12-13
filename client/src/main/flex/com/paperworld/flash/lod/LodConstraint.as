@@ -22,14 +22,14 @@
 package com.paperworld.flash.lod 
 {
 	import com.actionengine.flash.action.Action;
-	import com.paperworld.flash.objects.SyncObject;	
+	import com.paperworld.flash.objects.AbstractSynchronisedAvatar;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
 	 */
 	public class LodConstraint extends Action
 	{		
-		public function testConstraint(pov : SyncObject, other : SyncObject) : int
+		public function testConstraint(pov : AbstractSynchronisedAvatar, other : AbstractSynchronisedAvatar) : int
 		{
 			return 0;
 		}

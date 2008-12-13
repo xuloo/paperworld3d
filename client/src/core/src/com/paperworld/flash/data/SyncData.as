@@ -19,49 +19,71 @@
  * Suite 330, Boston, MA 02111-1307 USA 
  * 
  * -------------------------------------------------------------------------------------- */
-package com.paperworld.multiplayer.objects 
+package com.paperworld.flash.data 
 {
-	import org.papervision3d.objects.DisplayObject3D;
-
-	import com.actionengine.flash.core.BaseClass;
-	import com.actionengine.flash.input.Input;
-	import com.actionengine.flash.util.logging.Logger;
-	import com.actionengine.flash.util.logging.LoggerContext;
-	import com.paperworld.api.ISynchronisable;
-	import com.paperworld.flash.data.State;		
+	import com.actionengine.flash.input.Input;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
 	 */
-	public class SynchronisableObject extends BaseClass implements ISynchronisable
+	public class SyncData 
 	{
-		private var logger : Logger = LoggerContext.getLogger( SynchronisableObject );
+		public var time : int;
 
-		public var object : DisplayObject3D;
+		public var serverTime : int;
 
-		public function SynchronisableObject(object : DisplayObject3D = null)
+		public var input : Input;
+
+		public var state : State;
+
+		public function SyncData()
 		{
-			super( );
 			
-			this.object = object;
 		}
 
-		public function getObject() : *
+		public function getTime() : int
 		{
-			return object;
+			return time;
 		}
 
-		public function synchronise(time : int, input : Input, state : State) : void
-		{						
-			this.object.x += state.velocity.x;
-			this.object.y += state.velocity.y;
-			this.object.z += state.velocity.z;
-
-			object.localRotationY = state.orientation.w;
-		}
-
-		override public function destroy() : void
+		public function setTime(time : int) : void
 		{
+			this.time = time;
+		}
+
+		public function getServerTime() : int
+		{
+			return serverTime;
+		}
+
+		public function serServerTime(serverTime : int) : void
+		{
+			this.serverTime = serverTime;
+		}
+
+		public function getInput() : Input
+		{
+			return input;	
+		}
+
+		public function setInput(input : Input) : void
+		{	
+			this.input = input;
+		}
+
+		public function getState() : State
+		{
+			return state;	
+		}
+
+		public function setState(state : State) : void
+		{
+			this.state = state;	
+		}
+
+		public function toString() : String
+		{
+			return 'ServerSyncEvent {\n' + '    time: ' + time + '\n    input: ' + input + '\n    state: ' + state + '\n}';
 		}
 	}
 }

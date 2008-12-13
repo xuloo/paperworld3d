@@ -24,7 +24,7 @@ package com.paperworld.flash.player
 	import com.actionengine.flash.core.EventDispatchingBaseClass;
 	import com.actionengine.flash.util.logging.Logger;
 	import com.actionengine.flash.util.logging.LoggerContext;
-	import com.paperworld.flash.objects.SyncObject;
+	import com.paperworld.flash.objects.AbstractSynchronisedAvatar;
 	
 	import jedai.net.rpc.Red5Connection;		
 
@@ -37,14 +37,14 @@ package com.paperworld.flash.player
 
 		protected var _connection : Red5Connection;
 
-		protected var _avatar : SyncObject;		
+		protected var _avatar : AbstractSynchronisedAvatar;		
 
-		public function get avatar() : SyncObject
+		public function get avatar() : AbstractSynchronisedAvatar
 		{
 			return _avatar;	
 		}
 
-		public function set avatar(value : SyncObject) : void
+		public function set avatar(value : AbstractSynchronisedAvatar) : void
 		{
 			_avatar = value;	
 		}

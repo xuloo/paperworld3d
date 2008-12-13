@@ -19,49 +19,32 @@
  * Suite 330, Boston, MA 02111-1307 USA 
  * 
  * -------------------------------------------------------------------------------------- */
-package com.paperworld.multiplayer.objects 
+package com.paperworld.flash.events 
 {
-	import org.papervision3d.objects.DisplayObject3D;
-
-	import com.actionengine.flash.core.BaseClass;
-	import com.actionengine.flash.input.Input;
-	import com.actionengine.flash.util.logging.Logger;
-	import com.actionengine.flash.util.logging.LoggerContext;
-	import com.paperworld.api.ISynchronisable;
-	import com.paperworld.flash.data.State;		
+	import flash.events.Event;
+	
+	import com.paperworld.flash.scenes.AbstractSynchronisedScene;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
 	 */
-	public class SynchronisableObject extends BaseClass implements ISynchronisable
+	public class SynchronisedSceneEvent extends Event 
 	{
-		private var logger : Logger = LoggerContext.getLogger( SynchronisableObject );
+		public static const CONTEXT_LOADED : String = "ContextLoaded";
 
-		public var object : DisplayObject3D;
+		public static const CONNECTED_TO_SERVER : String = "ConnectedToServer";
 
-		public function SynchronisableObject(object : DisplayObject3D = null)
+		public static const CONNECTED_TO_SCENE : String = "ConnectedToScene";
+
+		public static const DISCONNECTED_FROM_SERVER : String = "DisconnectedFromServer";
+
+		public var scene : AbstractSynchronisedScene;
+
+		public function SynchronisedSceneEvent(type : String, scene : AbstractSynchronisedScene, bubbles : Boolean = false, cancelable : Boolean = false)
 		{
-			super( );
+			super( type, bubbles, cancelable );
 			
-			this.object = object;
-		}
-
-		public function getObject() : *
-		{
-			return object;
-		}
-
-		public function synchronise(time : int, input : Input, state : State) : void
-		{						
-			this.object.x += state.velocity.x;
-			this.object.y += state.velocity.y;
-			this.object.z += state.velocity.z;
-
-			object.localRotationY = state.orientation.w;
-		}
-
-		override public function destroy() : void
-		{
+			this.scene = scene;
 		}
 	}
 }

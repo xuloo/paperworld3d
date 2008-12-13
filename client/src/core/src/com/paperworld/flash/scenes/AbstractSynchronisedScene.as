@@ -19,36 +19,35 @@
  * Suite 330, Boston, MA 02111-1307 USA 
  * 
  * -------------------------------------------------------------------------------------- */
-package com.paperworld.multiplayer.scenes 
+package com.paperworld.flash.scenes 
 {
-	import com.brainfarm.flash.util.math.Quaternion;	
-	
 	import flash.events.Event;
 	import flash.net.registerClassAlias;
-
+	
 	import com.actionengine.flash.core.context.ContextLoader;
-	import com.actionengine.flash.input.Input;
 	import com.actionengine.flash.util.logging.Logger;
 	import com.actionengine.flash.util.logging.LoggerContext;
+	import com.brainfarm.flash.util.math.Quaternion;
 	import com.brainfarm.flash.util.math.Vector3;
-	import com.paperworld.multiplayer.connectors.ConnectorListener;
-	import com.paperworld.multiplayer.connectors.RTMPConnector;
-	import com.paperworld.multiplayer.data.State;
-	import com.paperworld.multiplayer.data.SyncData;
-	import com.paperworld.multiplayer.events.ServerSyncEvent;
-	import com.paperworld.multiplayer.lod.LodConstraint;
-	import com.paperworld.multiplayer.objects.Client;
-	import com.paperworld.multiplayer.objects.SyncObject;
-	import com.paperworld.multiplayer.player.Player;
-	import com.paperworld.util.Synchronizable;		
+	import com.paperworld.api.ISynchronisedAvatar;
+	import com.paperworld.api.ISynchronisedObject;
+	import com.paperworld.flash.connectors.IConnectorListener;
+	import com.paperworld.flash.connectors.RTMPConnector;
+	import com.paperworld.flash.connectors.ServerEventTypes;
+	import com.paperworld.flash.connectors.events.ConnectorEvent;
+	import com.paperworld.flash.data.State;
+	import com.paperworld.flash.data.SyncData;
+	import com.paperworld.flash.lod.LodConstraint;
+	import com.paperworld.flash.objects.AbstractSynchronisedAvatar;
+	import com.paperworld.flash.player.Player;		
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
 	 */
-	public class AbstractSynchronisedScene extends ContextLoader implements ConnectorListener
+	public class AbstractSynchronisedScene extends ContextLoader implements IConnectorListener
 	{
 		private var logger : Logger;
-		
+
 		protected var _scene : *;
 
 		public function get scene() : *
@@ -56,11 +55,11 @@ package com.paperworld.multiplayer.scenes
 			return _scene;
 		}
 
-		public function set scene(value : *) : void
+		public function set scene(value : *) : void 
 		{
 			_scene = value;
 		}
-		
+
 		/**
 		 * The Clock instance used as a timer for this scene.
 		 */
@@ -71,12 +70,12 @@ package com.paperworld.multiplayer.scenes
 		/**
 		 * The 'point of view' object for Level of Detail heuristics - if no pov is defined then LOD will not be activated.
 		 */
-		public var pov : SyncObject;
+		public var pov : ISynchronisedAvatar;
 
 		/**
 		 * The list of avatars in this scene.
 		 */
-		public var avatars : SyncObject;
+		public var avatars : ISynchronisedAvatar;
 
 		public var avatarsByName : Array;
 
@@ -135,7 +134,7 @@ package com.paperworld.multiplayer.scenes
 		{
 			sceneName = scene;
 			
-			logger.info("connecting to " + scene);
+			logger.info( "connecting to " + scene );
 			
 			loadContext( context );				
 		}
@@ -147,55 +146,72 @@ package com.paperworld.multiplayer.scenes
 			connector.connect( sceneName );
 		}
 
-		public function onRemoteSync(event : ServerSyncEvent) : void
-		{			
-			var avatar : SyncObject = SyncObject( avatarsByName[event.id] );
+		public function handleRemoteSync(data : Array) : void
+		{						
+			var avatar : ISynchronisedAvatar = ISynchronisedAvatar( avatarsByName[data[0]] );
 
 			if (!avatar)
 			{
-				avatar = SyncObject( _applicationContext.getObject( 'remote.avatar' ) );
+				avatar = ISynchronisedAvatar( _applicationContext.getObject( 'remote.avatar' ) );
 	
-				avatar.input = event.input;
-				avatar.state = event.state;
-				avatar.time = event.time;
+				avatar.setInput( data[2] );
+				avatar.setState( data[3] );
+				avatar.setTime( data[1] );
 				
-				addRemoteChild( avatar.displayObject );
+				addRemoteChild( avatar.getSynchronisedObject( ) );
 				
-				avatarsByName[event.id] = avatar;
+				avatarsByName[data[0]] = avatar;
 			}
 
-			avatar.synchronise( event );	
+			avatar.synchronise( data[1], data[2], data[3] );	
 		}
 
-		public function onLocalSync(event : ServerSyncEvent) : void
+		public function onLocalSync(data : Array) : void
 		{
 			//logger.info("local object syncing " + event.state.orientation.w);
-			player.avatar.synchronise( event );
+			player.getAvatar( ).synchronise( data[1], data[2], data[3] );
 		}
 
-		public function onDelete(event : ServerSyncEvent) : void
+		public function onDelete(data : Array) : void
 		{
-			var avatar : SyncObject = SyncObject( avatarsByName[event.id] );
-			removeRemoteChild( avatar.displayObject );
+			var avatar : AbstractSynchronisedAvatar = AbstractSynchronisedAvatar( avatarsByName[data[0]] );
+			removeRemoteChild( avatar.getSynchronisedObject( ) );
+		}
+
+		public function onConnectorEvent(event : ConnectorEvent) : void
+		{
+			var data : Array = event.data;
+			
+			switch (event.type)
+			{
+				case ServerEventTypes.LOCAL_AVATAR_SYNC:
+					break;
+					
+				case ServerEventTypes.REMOTE_AVATAR_SYNC:
+					handleRemoteSync( data );
+					break;
+					
+				case ServerEventTypes.AVATAR_DELETE:
+					break;
+			}
 		}
 
 		
 		public function addPlayer(player : Player, isLocal : Boolean = true) : void
 		{
-			var avatar : Client = Client( _applicationContext.getObject( 'local.avatar' ) );
+			var avatar : ISynchronisedAvatar = ISynchronisedAvatar( _applicationContext.getObject( 'local.avatar' ) );
 
 			if (isLocal) pov = avatar;
 			
-			avatar.next = avatars;
+			avatar.setNext( avatars );
 			avatars = avatar;
 					
-			//avatarsByName[connector.clientID] = avatar;
-			addRemoteChild( avatar.displayObject );
+			addRemoteChild( avatar.getSynchronisedObject( ) );
 
-			avatar.userInput = connector.input;
-			connector.addLagListener( avatar );
-			
-			player.avatar = avatar;
+			//avatar.userInput = connector.input;
+			//connector.addLagListener( avatar );
+
+			player.setAvatar( avatar );
 			
 			this.player = player;
 			
@@ -217,7 +233,7 @@ package com.paperworld.multiplayer.scenes
 		 * @param child The object that will be synced across clients and added to the 3D scene.
 		 * @param pov Flags whether or not this object should be used as the 'point of view' for the Level of Detail heuristics.
 		 */
-		public function addRemoteChild(child : Synchronizable, pov : Boolean = false) : Synchronizable
+		public function addRemoteChild(child : ISynchronisedObject, pov : Boolean = false) : ISynchronisedObject
 		{
 			// Create a new Avatar to handle synchronisation.
 			//var avatar : Avatar = new Avatar( );
@@ -241,29 +257,29 @@ package com.paperworld.multiplayer.scenes
 			return child;
 		}
 
-		public function removeRemoteChild(child : Synchronizable) : Synchronizable
+		public function removeRemoteChild(child : ISynchronisedObject) : ISynchronisedObject
 		{
-			var previous : SyncObject;
-			var next : SyncObject = avatars;
+			var previous : ISynchronisedAvatar;
+			var next : ISynchronisedAvatar = avatars;
 			
 			// Loop through each avatar in the list.
 			while (next)
 			{			
 				// When we find the avatar that's handling the child passed.	
-				if (next.displayObject == child)
+				if (next.getSynchronisedObject( ) == child)
 				{
 					// Link the previous avatar with the next one - removing the current one from the list.
-					previous.next = next.next;
+					previous.setNext( next.getNext( ) );
 					next.destroy( );					
 					break;	
 				}	
 				
 				// Move to the next avatar in the list.
 				previous = next;
-				next = SyncObject( next.next );				
+				next = next.getNext( );				
 			}	
 			
-			removeChild( child.getObject( ) );
+			removeChild( child.displayObject );
 			
 			return child;
 		}

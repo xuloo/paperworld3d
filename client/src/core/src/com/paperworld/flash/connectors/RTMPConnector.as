@@ -19,27 +19,26 @@
  * Suite 330, Boston, MA 02111-1307 USA 
  * 
  * -------------------------------------------------------------------------------------- */
-package com.paperworld.multiplayer.connectors
+package com.paperworld.flash.connectors
 {
 	import flash.events.Event;
 	import flash.events.SyncEvent;
 	import flash.net.ObjectEncoding;
 	import flash.net.Responder;
 	import flash.utils.getTimer;
-
+	
 	import com.actionengine.flash.input.events.UserInputEvent;
 	import com.actionengine.flash.util.logging.Logger;
 	import com.actionengine.flash.util.logging.LoggerContext;
-	import com.paperworld.multiplayer.connectors.events.ConnectorEvent;
-	import com.paperworld.multiplayer.connectors.events.LagEvent;
-	import com.paperworld.multiplayer.data.SyncData;
-	import com.paperworld.multiplayer.data.TimedInput;
-	import com.paperworld.multiplayer.events.ServerSyncEvent;
-	import com.paperworld.multiplayer.player.Player;
-
+	import com.paperworld.flash.connectors.IConnectorListener;
+	import com.paperworld.flash.connectors.events.ConnectorEvent;
+	import com.paperworld.flash.data.SyncData;
+	import com.paperworld.flash.data.TimedInput;
+	import com.paperworld.flash.player.Player;
+	
 	import jedai.events.Red5Event;
 	import jedai.net.rpc.Red5Connection;
-	import jedai.net.rpc.RemoteSharedObject;		
+	import jedai.net.rpc.RemoteSharedObject;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
@@ -89,7 +88,7 @@ package com.paperworld.multiplayer.connectors
 			_connection = _applicationContext.getObject( "connection" ) as Red5Connection;
 			_connection.objectEncoding = ObjectEncoding.AMF3;
 			
-			dispatchEvent( new ConnectorEvent( ConnectorEvent.CONTEXT_LOADED, this ) );
+			dispatchEvent( new ConnectorEvent( RTMPEventTypes.CONTEXT_LOADED, this ) );
 			
 			super.onContextLoaded( event );
 		}
@@ -102,7 +101,7 @@ package com.paperworld.multiplayer.connectors
 		{
 			logger.info( "connection established" );
 			
-			dispatchEvent( new ConnectorEvent( ConnectorEvent.CONNECTED_TO_SERVER, this ) );
+			dispatchEvent( new ConnectorEvent( RTMPEventTypes.CONNECTED_TO_SERVER, this ) );
 			
 			_remoteSharedObject = new RemoteSharedObject( "avatars", false, false, _connection );
 			_remoteSharedObject.addEventListener( SyncEvent.SYNC, synchronise );
@@ -116,19 +115,17 @@ package com.paperworld.multiplayer.connectors
 		{
 			this.player = player;
 			
-			logger.info("Client ID " + clientID );
-			
 			_connection.call( 'multiplayer.addPlayer', new Responder( addPlayerResult, onResult ), clientID );
 		}
 
 		public function addPlayerResult(data : SyncData) : void
 		{
-			player.avatar.time = data.serverTime;
+			player.getAvatar().setTime(data.serverTime);
 		}
 
 		protected function onConnectionDisconnected(event : Red5Event) : void
 		{
-			dispatchEvent( new ConnectorEvent( ConnectorEvent.DISCONNECTED_FROM_SERVER, this ) );	
+			dispatchEvent( new ConnectorEvent( RTMPEventTypes.DISCONNECTED_FROM_SERVER, this ) );	
 		}
 
 		/**
@@ -154,11 +151,10 @@ package com.paperworld.multiplayer.connectors
 						
 						if (name != String( clientID )) 
 						{									
-							dispatchEvent( new ServerSyncEvent( ServerSyncEvent.REMOTE_AVATAR_SYNC, name, data.serverTime, data.input, data.state ) );						}
+							dispatchEvent( new ConnectorEvent( ServerEventTypes.REMOTE_AVATAR_SYNC, this, name, data.serverTime, data.input, data.state ) );						}
 						else
 						{
-							dispatchEvent( new ServerSyncEvent( ServerSyncEvent.LOCAL_AVATAR_SYNC, name, data.serverTime, data.input, data.state ) );
-							dispatchEvent( new LagEvent( LagEvent.TIME_UPDATE, data.serverTime ) );
+							dispatchEvent( new ConnectorEvent( ServerEventTypes.LOCAL_AVATAR_SYNC, this, name, data.serverTime, data.input, data.state ) );
 						}
 						break;
 						
@@ -175,7 +171,7 @@ package com.paperworld.multiplayer.connectors
 						
 					case "delete":
 						logger.info( "changeList[" + i + "].code: " + changeList[i].code );
-						dispatchEvent( new ServerSyncEvent( ServerSyncEvent.AVATAR_DELETE, name ) );
+						dispatchEvent( new ConnectorEvent( ServerEventTypes.AVATAR_DELETE, this, name ) );
 						break;
 							
 					default:
@@ -214,9 +210,7 @@ package com.paperworld.multiplayer.connectors
 
 		public function onResult(data : SyncData) : void
 		{			
-			dispatchEvent( new ServerSyncEvent( ServerSyncEvent.LOCAL_AVATAR_SYNC, String( clientID ), data.serverTime, data.input, data.state ) );
-			
-			dispatchEvent( new LagEvent( LagEvent.JITTER_UPDATE, getTimer( ) - time ) );
+			dispatchEvent( new ConnectorEvent( ServerEventTypes.LOCAL_AVATAR_SYNC, this, String( clientID ), data.serverTime, data.input, data.state ) );
 		}
 
 		public function onStatus(status : Object) : void
@@ -226,11 +220,19 @@ package com.paperworld.multiplayer.connectors
 				logger.info( i + " " + status[i] );
 			}
 		}
-
-		public function addLagListener(listener : LagListener) : void
+		
+		override public function addListener(listener : IConnectorListener):void 
 		{
-			addEventListener( LagEvent.TIME_UPDATE, listener.onServerTimeUpdate );
-			addEventListener( LagEvent.JITTER_UPDATE, listener.onServerJitterUpdate );
+			addEventListener(ServerEventTypes.REMOTE_AVATAR_SYNC, listener.onConnectorEvent);
+			addEventListener(ServerEventTypes.LOCAL_AVATAR_SYNC, listener.onConnectorEvent);
+			addEventListener(ServerEventTypes.AVATAR_DELETE, listener.onConnectorEvent);
+		}
+		
+		override public function removeListener(listener : IConnectorListener):void 
+		{
+			removeEventListener(ServerEventTypes.REMOTE_AVATAR_SYNC, listener.onConnectorEvent);
+			removeEventListener(ServerEventTypes.LOCAL_AVATAR_SYNC, listener.onConnectorEvent);
+			removeEventListener(ServerEventTypes.AVATAR_DELETE, listener.onConnectorEvent);
 		}
 	}
 }

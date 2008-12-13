@@ -21,6 +21,7 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.flash.objects 
 {
+	import com.actionengine.flash.util.clock.IClockListener;	
 	import com.actionengine.flash.core.BaseClass;
 	import com.actionengine.flash.input.Input;
 	import com.actionengine.flash.util.clock.Clock;
@@ -29,23 +30,45 @@ package com.paperworld.flash.objects
 	import com.actionengine.flash.util.logging.LoggerContext;
 	import com.brainfarm.flash.steering.SteeringBehaviour;
 	import com.brainfarm.flash.steering.SteeringOutput;
+	import com.paperworld.api.ISynchronisedAvatar;
+	import com.paperworld.api.ISynchronisedObject;
 	import com.paperworld.flash.behaviours.SimpleAvatarBehaviour2D;
-	import com.paperworld.flash.data.State;
-	import com.paperworld.flash.events.ServerSyncEvent;
-	import com.paperworld.util.Synchronizable;	
+	import com.paperworld.flash.data.State;		
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
 	 */
-	public class AbstractSynchronisedAvatar extends BaseClass
+	public class AbstractSynchronisedAvatar extends BaseClass implements ISynchronisedAvatar, IClockListener
 	{
-		private var logger : Logger = LoggerContext.getLogger( SyncObject );
+		private var logger : Logger = LoggerContext.getLogger( AbstractSynchronisedAvatar );
 
 		/**
 		 * AbstractSynchronisedScene stores SyncObject instances in a single linked list
 		 * as an optimisation for iterating over the synchronisable objects in a scene.
 		 */
-		public var next : AbstractSynchronisedAvatar;
+		protected var _next : ISynchronisedAvatar;
+
+		public function getNext() : ISynchronisedAvatar
+		{
+			return _next;
+		}
+
+		public function setNext(value : ISynchronisedAvatar) : void
+		{
+			_next = value;
+		}
+
+		protected var _synchronisedObject : ISynchronisedObject;
+
+		public function getSynchronisedObject() : ISynchronisedObject
+		{
+			return _synchronisedObject;
+		}	
+
+		public function setSynchronisedObject(value : ISynchronisedObject) : void
+		{
+			_synchronisedObject = value;
+		}
 
 		/**
 		 * The default tightness for adaptive smoothing.
@@ -60,7 +83,17 @@ package com.paperworld.flash.objects
 		/**
 		 * The current tightness value for adaptive smoothing.
 		 */
-		public var tightness : Number;
+		protected var _tightness : Number;
+
+		public function getTightness() : Number
+		{
+			return _tightness;
+		}
+
+		public function setTightness(tightness : Number) : void
+		{
+			_tightness = tightness;
+		}
 
 		/**
 		 * The AvatarBehaviour instance used to interpret user input for this SyncObject.
@@ -70,46 +103,61 @@ package com.paperworld.flash.objects
 		/**
 		 * The current user input state for this object.
 		 */
-		public var input : Input;
+		protected var _input : Input;
+
+		public function getInput() : Input
+		{
+			return _input;
+		}
+
+		public function setInput(input : Input) : void
+		{
+			_input = input;
+		}
 
 		/**
 		 * The State of this object in the previous frame.
 		 */
-		public var previous : State;
+		protected var _previous : State;
 
 		/**
 		 * The State of this object in the current frame.
 		 */
-		public var current : State;
+		protected var _current : State;
 
 		/**
 		 * Returns the current State of this object.
 		 */
-		public function get state() : State
+		public function getState() : State
 		{
-			return current;	
+			return _current;	
 		}
 
 		/**
 		 * @private
 		 */
-		public function set state(value : State) : void
+		public function setState(value : State) : void
 		{
-			previous = current;
-			current = value;
+			_previous = _current;
+			_current = value;
 		}
 
-		protected var output : SteeringOutput;
-
-		/**
-		 * The visible object in the scene that this object represents over the wire.
-		 */
-		public var displayObject : Synchronizable;	
+		protected var output : SteeringOutput;	
 
 		/**
 		 * The current time stream for this object.
 		 */
-		public var time : Number = 0;
+		public var _time : Number = 0;
+
+		public function getTime() : int
+		{
+			return _time;
+		}
+
+		public function setTime(time : int) : void
+		{
+			_time = time;
+		}
 
 		/**
 		 * The amount that this object's time will change by on the next update() call.
@@ -121,32 +169,42 @@ package com.paperworld.flash.objects
 		/**
 		 * Flagged true if this object is currently replaying from it's Move history buffer.
 		 */
-		public var replaying : Boolean;
+		public var _replaying : Boolean;
 
-		public function update(event : ClockEvent = null) : void
+		public function getReplaying() : Boolean
+		{
+			return _replaying;
+		}
+
+		public function setReplaying(replaying : Boolean) : void
+		{
+			_replaying = replaying;
+		}
+
+		public function update(/*event : ClockEvent = null*/) : void
 		{			
-			tightness += (defaultTightness - tightness) * 0.01;
-			time += deltaTime;
+			_tightness += (defaultTightness - _tightness) * 0.01;
+			_time += deltaTime;
 			
-			var integerTime : int = int( time ) - lastTime;
+			var integerTime : int = int( _time ) - lastTime;
 			
 			while (integerTime > 0)
 			{				
 				integerTime -= 1;
 			}
 			
-			lastTime = int( time );
+			lastTime = int( _time );
 
 			behaviour.getSteering( output );
 			
-			state.velocity = output.linear;
-			state.position.plusEq( output.linear );
-			state.orientation = output.angular;
+			_current.velocity = output.linear;
+			_current.position.plusEq( output.linear );
+			_current.orientation = output.angular;
 					
-			displayObject.synchronise( input, state );	
+			_synchronisedObject.synchronise( _time, _input, _current );	
 		}
 
-		public function synchronise(event : ServerSyncEvent) : void
+		public function synchronise(time : int, input : Input, state : State) : void
 		{
 		}
 
@@ -157,8 +215,8 @@ package com.paperworld.flash.objects
 		 */
 		public function snap(state : State) : void
 		{
-			previous = current.clone( );
-			current = state.clone( );
+			_previous = _current.clone( );
+			_current = state.clone( );
 		}
 
 		/**
@@ -167,7 +225,7 @@ package com.paperworld.flash.objects
 		 */
 		public function smooth() : void
 		{
-			tightness = smoothTightness;
+			_tightness = smoothTightness;
 		}
 
 		/**
@@ -175,18 +233,18 @@ package com.paperworld.flash.objects
 		 */
 		override public function initialise() : void
 		{
-			tightness = defaultTightness;	
-			time = 0;
-			replaying = false;
+			_tightness = defaultTightness;	
+			_time = 0;
+			_replaying = false;
 			
-			input = new Input( );
-			current = new State( );
-			previous = new State( );
+			_input = new Input( );
+			_current = new State( );
+			_previous = new State( );
 			
 			behaviour = new SimpleAvatarBehaviour2D( );
 			output = new SteeringOutput( );
 			
-			Clock.getInstance( ).addEventListener( ClockEvent.TIMESTEP, update );
+			Clock.getInstance( ).addListener( this );
 		}
 
 		/**
@@ -194,13 +252,14 @@ package com.paperworld.flash.objects
 		 */
 		override public function destroy() : void 
 		{
-			time = NaN;
-			tightness = NaN;
+			_time = NaN;
+			_tightness = NaN;
 			defaultTightness = NaN;
 			smoothTightness = NaN;
 			
-			input.destroy( );
-			state.destroy( );	
+			_input.destroy( );
+			_current.destroy( );	
+			_previous.destroy( );
 		}
 
 		/**
@@ -208,11 +267,13 @@ package com.paperworld.flash.objects
 		 */
 		public function equals(other : AbstractSynchronisedAvatar) : Boolean
 		{				
-			return  tightness == other.tightness && time == other.time && input.equals( other.input ) && state.equals( other.state );	
+			return  _tightness == other.getTightness( ) && _time == other.getTime( ) && _input.equals( other.getInput( ) ) && _current.equals( other.getState( ) );	
+		}
+
+		public function onTick(event : ClockEvent) : void
+		{
+			if (event.type == ClockEvent.TIMESTEP)
+				update( );
 		}
 	}
 }
-
-import com.paperworld.flash.behaviours.SimpleAvatarBehaviour2D;
-import com.paperworld.flash.data.State;
-import com.paperworld.flash.events.ServerSyncEvent;

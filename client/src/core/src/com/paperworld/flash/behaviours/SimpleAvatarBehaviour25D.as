@@ -1,7 +1,8 @@
-package com.paperworld.multiplayer.behaviours 
+package com.paperworld.flash.behaviours 
 {
-	import com.brainfarm.flash.steering.SteeringOutput;	
-	
+	import com.brainfarm.flash.steering.SteeringOutput;
+	import com.paperworld.flash.behaviours.SimpleAvatarBehaviour2D;	
+
 	/**
 	 * @author Trevor
 	 */
