@@ -21,8 +21,8 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.flash.objects 
 {
+	import com.actionengine.flash.input.IUserInput;
 	import com.actionengine.flash.input.Input;
-	import com.actionengine.flash.input.UserInput;
 	import com.actionengine.flash.input.events.UserInputEvent;
 	import com.actionengine.flash.util.logging.Logger;
 	import com.actionengine.flash.util.logging.LoggerContext;
@@ -38,7 +38,7 @@ package com.paperworld.flash.objects
 	{
 		protected var _history : History;
 
-		public function set userInput(value : UserInput) : void
+		public function set userInput(value : IUserInput) : void
 		{
 			value.addEventListener( UserInputEvent.INPUT_CHANGED, updateClientInput );
 		}

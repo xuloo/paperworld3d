@@ -25,8 +25,8 @@ package com.paperworld.flash.connectors
 	import flash.net.Responder;
 	
 	import com.actionengine.flash.core.context.ContextLoader;
-	import com.actionengine.flash.input.UserInput;
-	import com.actionengine.flash.input.UserInputListener;
+	import com.actionengine.flash.input.IUserInput;
+	import com.actionengine.flash.input.IUserInputListener;
 	import com.actionengine.flash.input.events.UserInputEvent;
 	import com.actionengine.flash.util.logging.Logger;
 	import com.actionengine.flash.util.logging.LoggerContext;
@@ -39,11 +39,11 @@ package com.paperworld.flash.connectors
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
 	 */
-	public class AbstractConnector extends ContextLoader implements IConnector, UserInputListener
+	public class AbstractConnector extends ContextLoader implements IConnector, IUserInputListener
 	{
 		private var logger : Logger = LoggerContext.getLogger( AbstractConnector );
 
-		protected var _userInput : UserInput;
+		protected var _userInput : IUserInput;
 
 		protected var _responder : Responder;
 
@@ -129,12 +129,12 @@ package com.paperworld.flash.connectors
 		{
 		}
 
-		public function get input() : UserInput
+		public function get input() : IUserInput
 		{
 			return _userInput;
 		}
 
-		public function set input(value : UserInput) : void
+		public function set input(value : IUserInput) : void
 		{
 			_userInput = value;
 			

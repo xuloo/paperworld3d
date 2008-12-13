@@ -19,14 +19,14 @@
  * Suite 330, Boston, MA 02111-1307 USA 
  * 
  * -------------------------------------------------------------------------------------- */
-package com.paperworld.multiplayer.scenes 
+package com.paperworld.pv3d.scenes 
 {
 	import org.papervision3d.objects.DisplayObject3D;
 	import org.papervision3d.scenes.Scene3D;
 	
 	import com.paperworld.flash.connectors.IConnector;
 	import com.paperworld.flash.scenes.AbstractSynchronisedScene;
-	import com.paperworld.multiplayer.objects.SynchronisableObject;	
+	import com.paperworld.pv3d.objects.SynchronisableObject;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]

@@ -32,11 +32,14 @@
 		
 	<target name="build-multiplayer" description="builds the multiplayer paperworld client library swc.">
 			
-		<compc output="${output.dir}/${multiplayer.output.name}.swc"
+		<echo></echo>
+		<echo></echo>
+		
+		<compc output="../bin/paperworld-client-0.6.swc"
 		   optimize="true"
 		   debug="true"
 		>
-			<include-sources dir="${multiplayer.src.dir}/src">
+			<include-sources dir="../src/multiplayer/src">
                  <include name="**/*.as"/>
             </include-sources>
 			<include-sources dir="../src/pv3d/src">
@@ -78,7 +81,8 @@
 	</target>
 	
 	<target name="build-papervision3d-library" description="builds the papervision3d paperworld client library swc.">
-				
+		<echo>${papervision3d.src.dir}</echo>
+		<echo>${multiplayer.src.dir}</echo>
 		<compc output="${output.dir}/${papervision3d.output.name}.swc"
 		   optimize="true"
 		   debug="true"

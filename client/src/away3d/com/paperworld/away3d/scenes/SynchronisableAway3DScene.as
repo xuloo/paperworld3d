@@ -1,6 +1,8 @@
-package com.paperworld.flash.scenes 
+package com.paperworld.away3d.scenes 
 {
-	import away3d.containers.Scene3D;	
+	import com.paperworld.flash.scenes.AbstractSynchronisedScene;
+	
+	import away3d.containers.Scene3D;		
 
 	/**
 	 * @author Trevor

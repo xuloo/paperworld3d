@@ -23,7 +23,7 @@ package com.paperworld.flash.connectors
 {
 	import flash.events.IEventDispatcher;
 	
-	import com.actionengine.flash.input.UserInput;
+	import com.actionengine.flash.input.IUserInput;
 	import com.paperworld.flash.connectors.IConnectorListener;
 	import com.paperworld.flash.player.Player;	
 
@@ -36,7 +36,7 @@ package com.paperworld.flash.connectors
 
 		function disconnect() : void
 
-		function set input(value : UserInput) : void;
+		function set input(value : IUserInput) : void;
 
 		function get id() : String;
 		

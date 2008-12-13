@@ -1,4 +1,4 @@
-package com.paperworld.views 
+package com.paperworld.pv3d.views 
 {
 	import flash.display.Bitmap;
 	
