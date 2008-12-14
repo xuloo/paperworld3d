@@ -50,21 +50,6 @@ package com.paperworld.flash.scenes
 
 		protected var _scene : *;
 
-		public function get scene() : *
-		{
-			return _scene;
-		}
-
-		public function set scene(value : *) : void 
-		{
-			_scene = value;
-		}
-
-		/**
-		 * The Clock instance used as a timer for this scene.
-		 */
-		//public var clock : Clock;
-
 		public var sceneName : String;
 
 		/**

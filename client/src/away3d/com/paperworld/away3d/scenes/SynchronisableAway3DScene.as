@@ -1,7 +1,7 @@
 package com.paperworld.away3d.scenes 
 {
 	import com.paperworld.flash.scenes.AbstractSynchronisedScene;
-	
+
 	import away3d.containers.Scene3D;		
 
 	/**
@@ -9,23 +9,26 @@ package com.paperworld.away3d.scenes
 	 */
 	public class SynchronisableAway3DScene extends AbstractSynchronisedScene
 	{
-		protected var _scene : Scene3D;
-
 		public function SynchronisableAway3DScene(init : Object = null, ...args)
 		{
 			super( );
 			
-			_scene = new Scene3D(init, args);
+			_scene = new Scene3D( init, args );
 		}
 
 		override public function addChild(child : *) : *
 		{
-			return _scene.addChild( child );	
+			return scene.addChild( child );	
 		}
 
 		override public function removeChild(child : *) : *
 		{
-			return _scene.removeChild( child );
+			return scene.removeChild( child );
+		}
+
+		public function get scene() : Scene3D
+		{
+			return Scene3D( _scene );
 		}
 	}
 }

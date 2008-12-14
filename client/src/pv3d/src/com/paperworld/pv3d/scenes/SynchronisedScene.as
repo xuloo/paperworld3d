@@ -49,11 +49,11 @@ package com.paperworld.pv3d.scenes
 		{
 			if (child is DisplayObject3D)
 			{
-				return _scene.addChild( child );	
+				return scene.addChild( child );	
 			}
 			else if (child is SynchronisableObject)
 			{
-				return _scene.addChild( SynchronisableObject( child ).object );
+				return scene.addChild( SynchronisableObject( child ).object );
 			}
 			else
 			{
@@ -65,7 +65,12 @@ package com.paperworld.pv3d.scenes
 
 		override public function removeChild(child : *) : *
 		{
-			return _scene.removeChild( child );
+			return scene.removeChild( child );
+		}
+		
+		public function get scene() : Scene3D
+		{
+			return Scene3D( _scene );
 		}
 	}
 }
