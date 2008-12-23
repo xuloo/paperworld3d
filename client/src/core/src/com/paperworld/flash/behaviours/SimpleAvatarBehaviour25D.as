@@ -1,5 +1,7 @@
 package com.paperworld.flash.behaviours 
 {
+	import com.actionengine.flash.util.logging.LoggerContext;	
+	import com.actionengine.flash.util.logging.Logger;	
 	import com.brainfarm.flash.steering.SteeringOutput;
 	import com.paperworld.flash.behaviours.SimpleAvatarBehaviour2D;	
 
@@ -8,6 +10,8 @@ package com.paperworld.flash.behaviours
 	 */
 	public class SimpleAvatarBehaviour25D extends SimpleAvatarBehaviour2D 
 	{
+		private var logger : Logger = LoggerContext.getLogger( SimpleAvatarBehaviour25D );
+
 		public function SimpleAvatarBehaviour25D()
 		{
 		}
@@ -36,6 +40,8 @@ package com.paperworld.flash.behaviours
 				if (input.getTurnLeft( ))
 					output.angular.w -= turnLeftAmount;
 			}
+			
+			
 		}
 	}
 }

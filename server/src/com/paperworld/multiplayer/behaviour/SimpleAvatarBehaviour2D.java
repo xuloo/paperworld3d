@@ -55,15 +55,15 @@ public class SimpleAvatarBehaviour2D extends AbstractSteeringBehaviour {
 
 	@Override
 	public void getSteering(SteeringOutput output, Input input) {
-
+		
 		output.clear();
 
 		if (input != null) {
 			if (input.getForward())
-				output.linear.y += moveForwardAmount;
+				output.linear.z += moveForwardAmount;
 
 			if (input.getBack())
-				output.linear.y -= moveBackAmount;
+				output.linear.z -= moveBackAmount;
 
 			if (input.getMoveRight())
 				output.linear.x += moveRightAmount;

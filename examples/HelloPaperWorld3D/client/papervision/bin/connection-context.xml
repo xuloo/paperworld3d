@@ -9,7 +9,8 @@
 	<object id="connection" class="jedai.net.rpc.Red5Connection">
 		<constructor-arg value="default"/>
 		<constructor-arg value="true"/>
-		<property name="rtmpURI" value="rtmp://localhost/HelloPaperWorld3D"/>
+		<property name="rtmpURI" value="rtmp://localhost/HelloPaperWorld3D"/> 
+		<!-- <property name="rtmpURI" value="rtmp://66.135.59.133/HelloPaperWorld3D"/>-->
 		<property name="clientManager">
 	        <ref>client</ref>
     	</property>

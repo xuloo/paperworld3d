@@ -26,7 +26,8 @@ package com.paperworld.flash.connectors
 	import flash.net.ObjectEncoding;
 	import flash.net.Responder;
 	import flash.utils.getTimer;
-	
+
+	import com.actionengine.flash.core.context.CoreContext;
 	import com.actionengine.flash.input.events.UserInputEvent;
 	import com.actionengine.flash.util.logging.Logger;
 	import com.actionengine.flash.util.logging.LoggerContext;
@@ -35,7 +36,7 @@ package com.paperworld.flash.connectors
 	import com.paperworld.flash.data.SyncData;
 	import com.paperworld.flash.data.TimedInput;
 	import com.paperworld.flash.player.Player;
-	
+
 	import jedai.events.Red5Event;
 	import jedai.net.rpc.Red5Connection;
 	import jedai.net.rpc.RemoteSharedObject;	
@@ -49,7 +50,7 @@ package com.paperworld.flash.connectors
 
 		protected var _remoteSharedObject : RemoteSharedObject;
 
-		public var clientID : Number;
+		public var clientID : Number = -1;
 
 		public var time : int;
 
@@ -70,28 +71,28 @@ package com.paperworld.flash.connectors
 		 */
 		override public function connectToServer(event : Event = null) : void
 		{							
+			_connection = Red5Connection( _context.getObject( "connection" ) );
+			_connection.objectEncoding = ObjectEncoding.AMF3;
+						
 			_connection.addEventListener( Red5Event.CONNECTED, onConnectionEstablished );
 			_connection.addEventListener( Red5Event.DISCONNECTED, onConnectionDisconnected );
+			
 			_connection.client = this;
+			
+			logger.info("connecting to uri: " + _connection.rtmpURI);
+			
 			_connection.connect( _connection.rtmpURI, _connection.clientManager.username, _connection.clientManager.password );
 		}
 
 		public function setClientID(val : Number) : void
 		{
-			logger.info( "setting client id == " + val );
+			if (clientID < 0)
+			{
+				logger.info( "setting client id == " + val );
 			
-			clientID = val;	
+				clientID = val;	
+			}
 		}	
-
-		override protected function onContextLoaded(event : Event) : void
-		{						
-			_connection = _applicationContext.getObject( "connection" ) as Red5Connection;
-			_connection.objectEncoding = ObjectEncoding.AMF3;
-			
-			dispatchEvent( new ConnectorEvent( RTMPEventTypes.CONTEXT_LOADED, this ) );
-			
-			super.onContextLoaded( event );
-		}
 
 		/**
 		 * Called when a connection has been established.
@@ -120,7 +121,7 @@ package com.paperworld.flash.connectors
 
 		public function addPlayerResult(data : SyncData) : void
 		{
-			player.getAvatar().setTime(data.serverTime);
+			player.getAvatar( ).setTime( data.serverTime );
 		}
 
 		protected function onConnectionDisconnected(event : Red5Event) : void
@@ -150,7 +151,7 @@ package com.paperworld.flash.connectors
 						var data : SyncData = SyncData( _remoteSharedObject._so.data[name] );
 						
 						if (name != String( clientID )) 
-						{									
+						{								
 							dispatchEvent( new ConnectorEvent( ServerEventTypes.REMOTE_AVATAR_SYNC, this, name, data.serverTime, data.input, data.state ) );						}
 						else
 						{
@@ -209,7 +210,7 @@ package com.paperworld.flash.connectors
 		}
 
 		public function onResult(data : SyncData) : void
-		{			
+		{						
 			dispatchEvent( new ConnectorEvent( ServerEventTypes.LOCAL_AVATAR_SYNC, this, String( clientID ), data.serverTime, data.input, data.state ) );
 		}
 
@@ -217,22 +218,22 @@ package com.paperworld.flash.connectors
 		{
 			for (var i:String in status)
 			{
-				logger.info( i + " " + status[i] );
+				logger.info( "status: " + i + " " + status[i] );
 			}
 		}
-		
-		override public function addListener(listener : IConnectorListener):void 
+
+		override public function addListener(listener : IConnectorListener) : void 
 		{
-			addEventListener(ServerEventTypes.REMOTE_AVATAR_SYNC, listener.onConnectorEvent);
-			addEventListener(ServerEventTypes.LOCAL_AVATAR_SYNC, listener.onConnectorEvent);
-			addEventListener(ServerEventTypes.AVATAR_DELETE, listener.onConnectorEvent);
+			addEventListener( ServerEventTypes.REMOTE_AVATAR_SYNC, listener.onConnectorEvent );
+			addEventListener( ServerEventTypes.LOCAL_AVATAR_SYNC, listener.onConnectorEvent );
+			addEventListener( ServerEventTypes.AVATAR_DELETE, listener.onConnectorEvent );
 		}
-		
-		override public function removeListener(listener : IConnectorListener):void 
+
+		override public function removeListener(listener : IConnectorListener) : void 
 		{
-			removeEventListener(ServerEventTypes.REMOTE_AVATAR_SYNC, listener.onConnectorEvent);
-			removeEventListener(ServerEventTypes.LOCAL_AVATAR_SYNC, listener.onConnectorEvent);
-			removeEventListener(ServerEventTypes.AVATAR_DELETE, listener.onConnectorEvent);
+			removeEventListener( ServerEventTypes.REMOTE_AVATAR_SYNC, listener.onConnectorEvent );
+			removeEventListener( ServerEventTypes.LOCAL_AVATAR_SYNC, listener.onConnectorEvent );
+			removeEventListener( ServerEventTypes.AVATAR_DELETE, listener.onConnectorEvent );
 		}
 	}
 }

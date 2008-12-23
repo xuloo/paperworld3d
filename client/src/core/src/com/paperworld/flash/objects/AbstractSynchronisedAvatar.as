@@ -21,18 +21,19 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.flash.objects 
 {
-	import com.actionengine.flash.util.clock.IClockListener;	
 	import com.actionengine.flash.core.BaseClass;
+	import com.actionengine.flash.input.IUserInput;
 	import com.actionengine.flash.input.Input;
 	import com.actionengine.flash.util.clock.Clock;
+	import com.actionengine.flash.util.clock.IClockListener;
 	import com.actionengine.flash.util.clock.events.ClockEvent;
 	import com.actionengine.flash.util.logging.Logger;
 	import com.actionengine.flash.util.logging.LoggerContext;
 	import com.brainfarm.flash.steering.SteeringBehaviour;
 	import com.brainfarm.flash.steering.SteeringOutput;
+	import com.brainfarm.flash.util.math.Vector3;
 	import com.paperworld.api.ISynchronisedAvatar;
 	import com.paperworld.api.ISynchronisedObject;
-	import com.paperworld.flash.behaviours.SimpleAvatarBehaviour2D;
 	import com.paperworld.flash.data.State;		
 
 	/**
@@ -41,6 +42,10 @@ package com.paperworld.flash.objects
 	public class AbstractSynchronisedAvatar extends BaseClass implements ISynchronisedAvatar, IClockListener
 	{
 		private var logger : Logger = LoggerContext.getLogger( AbstractSynchronisedAvatar );
+
+		public function set userInput(value : IUserInput) : void
+		{
+		}
 
 		/**
 		 * AbstractSynchronisedScene stores SyncObject instances in a single linked list
@@ -58,16 +63,16 @@ package com.paperworld.flash.objects
 			_next = value;
 		}
 
-		protected var _synchronisedObject : ISynchronisedObject;
+		public var synchronisedObject : ISynchronisedObject;
 
 		public function getSynchronisedObject() : ISynchronisedObject
 		{
-			return _synchronisedObject;
+			return synchronisedObject;
 		}	
 
 		public function setSynchronisedObject(value : ISynchronisedObject) : void
 		{
-			_synchronisedObject = value;
+			synchronisedObject = value;
 		}
 
 		/**
@@ -181,7 +186,7 @@ package com.paperworld.flash.objects
 			_replaying = replaying;
 		}
 
-		public function update(/*event : ClockEvent = null*/) : void
+		public function update() : void
 		{			
 			_tightness += (defaultTightness - _tightness) * 0.01;
 			_time += deltaTime;
@@ -194,14 +199,8 @@ package com.paperworld.flash.objects
 			}
 			
 			lastTime = int( _time );
-
-			behaviour.getSteering( output );
-			
-			_current.velocity = output.linear;
-			_current.position.plusEq( output.linear );
-			_current.orientation = output.angular;
 					
-			_synchronisedObject.synchronise( _time, _input, _current );	
+			synchronisedObject.synchronise( _time, _input, _current );	
 		}
 
 		public function synchronise(time : int, input : Input, state : State) : void
@@ -241,7 +240,6 @@ package com.paperworld.flash.objects
 			_current = new State( );
 			_previous = new State( );
 			
-			behaviour = new SimpleAvatarBehaviour2D( );
 			output = new SteeringOutput( );
 			
 			Clock.getInstance( ).addListener( this );
@@ -274,6 +272,11 @@ package com.paperworld.flash.objects
 		{
 			if (event.type == ClockEvent.TIMESTEP)
 				update( );
+		}
+
+		public function toString() : String
+		{
+			return '[Avatar: ' + synchronisedObject + ']';
 		}
 	}
 }

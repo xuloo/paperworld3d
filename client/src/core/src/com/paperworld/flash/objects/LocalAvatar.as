@@ -21,6 +21,7 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.flash.objects 
 {
+	import com.actionengine.flash.input.IUserInputListener;	
 	import com.actionengine.flash.input.IUserInput;
 	import com.actionengine.flash.input.Input;
 	import com.actionengine.flash.input.events.UserInputEvent;
@@ -34,16 +35,16 @@ package com.paperworld.flash.objects
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
 	 */
-	public class LocalAvatar extends AbstractSynchronisedAvatar
+	public class LocalAvatar extends AbstractSynchronisedAvatar implements IUserInputListener
 	{
 		protected var _history : History;
 
-		public function set userInput(value : IUserInput) : void
-		{
-			value.addEventListener( UserInputEvent.INPUT_CHANGED, updateClientInput );
-		}
-
 		private var logger : Logger = LoggerContext.getLogger( LocalAvatar );
+		
+		override public function set userInput(value : IUserInput) : void
+		{
+			value.addListener( this );
+		}
 
 		public function LocalAvatar()
 		{
@@ -67,12 +68,18 @@ package com.paperworld.flash.objects
 
 			_history.add( move );
 			
+			behaviour.getSteering( output );
+			
+			_current.velocity = output.linear;
+			_current.position.plusEq( output.linear );
+			_current.orientation = output.angular;
+			
 			// update scene
 			super.update( /*event*/ );		
 		}
 
 		override public function synchronise(time : int, input : Input, state : State) : void
-		{			
+		{						
 			var original : State = state.clone( );
 
 			_history.correction( this, time, state, input );		
@@ -95,7 +102,7 @@ package com.paperworld.flash.objects
 			}
 		}
 		
-		public function updateClientInput(event : UserInputEvent) : void
+		public function onInputUpdate(event : UserInputEvent) : void
 		{
 			_input = event.input;
 			behaviour.input = event.input;

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <objects>
 
-	<object id="local.avatar" class="com.paperworld.multiplayer.objects.Client" >
-		<property name="displayObject">
-			<object class="com.paperworld.multiplayer.objects.SynchronisableObject">
+	<object id="local.avatar" class="com.paperworld.flash.objects.LocalAvatar" lazy-init="true" scope="prototype" singleton="false">
+		<property name="synchronisedObject">
+			<object class="com.paperworld.pv3d.objects.SynchronisableObject">
 				<property name="object">
 				<object class="org.papervision3d.objects.primitives.Plane">
 					<constructor-arg>
@@ -19,13 +19,13 @@
 			</object>
 		</property>
 		<property name="behaviour">
-			<object class="com.paperworld.multiplayer.behaviours.SimpleAvatarBehaviour25D"/>
+			<object class="com.paperworld.flash.behaviours.SimpleAvatarBehaviour25D"/>
 		</property>
 	</object>
 	
-	<object id="remote.avatar" class="com.paperworld.multiplayer.objects.Proxy" >
-		<property name="displayObject">
-			<object class="com.paperworld.multiplayer.objects.SynchronisableObject">
+	<object id="remote.avatar" class="com.paperworld.flash.objects.RemoteAvatar" lazy-init="true" scope="prototype" singleton="false">
+		<property name="synchronisedObject">
+			<object class="com.paperworld.pv3d.objects.SynchronisableObject">
 				<property name="object">
 					<object class="org.papervision3d.objects.primitives.Plane">
 						<constructor-arg>
@@ -41,7 +41,7 @@
 			</object>
 		</property>
 		<property name="behaviour">
-			<object class="com.paperworld.multiplayer.behaviours.SimpleAvatarBehaviour25D"/>
+			<object class="com.paperworld.flash.behaviours.SimpleAvatarBehaviour25D"/>
 		</property>
 	</object>
 

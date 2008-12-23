@@ -21,9 +21,12 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.pv3d.scenes 
 {
+	import com.actionengine.flash.util.logging.LoggerContext;	
+	import com.actionengine.flash.util.logging.Logger;	
+
 	import org.papervision3d.objects.DisplayObject3D;
 	import org.papervision3d.scenes.Scene3D;
-	
+
 	import com.paperworld.flash.connectors.IConnector;
 	import com.paperworld.flash.scenes.AbstractSynchronisedScene;
 	import com.paperworld.pv3d.objects.SynchronisableObject;	
@@ -33,9 +36,25 @@ package com.paperworld.pv3d.scenes
 	 */
 	public class SynchronisedScene extends AbstractSynchronisedScene 
 	{
-		public function SynchronisedScene(connector : IConnector = null)
+		private var logger : Logger = LoggerContext.getLogger( SynchronisedScene );
+
+		protected var _scene : Scene3D;
+
+		override public function get scene() : *
+		{
+			return _scene;
+		}
+
+		override public function set scene(value : *) : void
+		{
+			_scene = value;
+		}
+
+		public function SynchronisedScene(scene : Scene3D, connector : IConnector = null)
 		{
 			super( );
+			
+			_scene = scene;
 		}
 
 		override public function initialise() : void
@@ -46,14 +65,16 @@ package com.paperworld.pv3d.scenes
 		}
 
 		override public function addChild(child : *) : *
-		{
+		{			
+			logger.info( "adding " + DisplayObject3D( SynchronisableObject( child ).object ).material );
+			
 			if (child is DisplayObject3D)
 			{
-				return scene.addChild( child );	
+				return _scene.addChild( child );	
 			}
 			else if (child is SynchronisableObject)
 			{
-				return scene.addChild( SynchronisableObject( child ).object );
+				return _scene.addChild( SynchronisableObject( child ).object );
 			}
 			else
 			{
@@ -65,12 +86,7 @@ package com.paperworld.pv3d.scenes
 
 		override public function removeChild(child : *) : *
 		{
-			return scene.removeChild( child );
-		}
-		
-		public function get scene() : Scene3D
-		{
-			return Scene3D( _scene );
+			return _scene.removeChild( child );
 		}
 	}
 }

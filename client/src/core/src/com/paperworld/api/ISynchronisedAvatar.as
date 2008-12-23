@@ -1,13 +1,16 @@
 package com.paperworld.api 
 {
+	import com.actionengine.flash.input.IUserInput;
 	import com.actionengine.flash.input.Input;
-	import com.paperworld.flash.data.State;		
+	import com.paperworld.flash.data.State;	
 
 	/**
 	 * @author Trevor
 	 */
 	public interface ISynchronisedAvatar extends ISynchronisable
 	{
+		function set userInput(value : IUserInput) : void
+		
 		function getNext() : ISynchronisedAvatar;
 
 		function setNext(value : ISynchronisedAvatar) : void;

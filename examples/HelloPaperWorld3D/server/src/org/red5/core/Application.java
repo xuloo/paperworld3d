@@ -71,7 +71,7 @@ public class Application extends ApplicationAdapter implements IStreamAwareScope
 	private LayoutManager layoutMgr = new LayoutManager("layoutlist", false);
 	
 	public Application() {
-		log.debug("HelloPaperWorld3D Starting");
+		log.debug("HelloPaperWorld3D Started");
 	}
 	
 	/** {@inheritDoc} */

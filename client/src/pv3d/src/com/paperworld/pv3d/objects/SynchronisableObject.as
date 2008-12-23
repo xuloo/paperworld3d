@@ -22,22 +22,32 @@
 package com.paperworld.pv3d.objects 
 {
 	import org.papervision3d.objects.DisplayObject3D;
-
+	
 	import com.actionengine.flash.core.BaseClass;
 	import com.actionengine.flash.input.Input;
 	import com.actionengine.flash.util.logging.Logger;
 	import com.actionengine.flash.util.logging.LoggerContext;
-	import com.paperworld.api.ISynchronisable;
+	import com.paperworld.api.ISynchronisedObject;
 	import com.paperworld.flash.data.State;		
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
 	 */
-	public class SynchronisableObject extends BaseClass implements ISynchronisable
+	public class SynchronisableObject extends BaseClass implements ISynchronisedObject
 	{
 		private var logger : Logger = LoggerContext.getLogger( SynchronisableObject );
 
 		public var object : DisplayObject3D;
+		
+		public function get displayObject() : *
+		{
+			return object;
+		}
+		
+		public function set displayObject(value:*):void
+		{
+			object = value;
+		}
 
 		public function SynchronisableObject(object : DisplayObject3D = null)
 		{
@@ -62,6 +72,11 @@ package com.paperworld.pv3d.objects
 
 		override public function destroy() : void
 		{
+		}
+		
+		public function toString():String
+		{
+			return '[SynchronisedObject: ' + displayObject + ']';
 		}
 	}
 }

@@ -44,9 +44,9 @@
        	<pathelement location="${basedir}/../lib/brainfarm-java.jar"/>
      </path>
 	 
-	 <target name="all" depends="retrieve,jar,javadoc,clean" />
+	 <target name="all" depends="retrieve,build,javadoc,clean" />
 
-	<target name="compile-core" depends="clean-core, prepare-core" 
+	<target name="compile" depends="clean, prepare" 
 	 	description="compile the source">
 
        <javac srcdir="${paperworld.src.dir}" destdir="${build.dir}" classpathref="classpath"/>
@@ -55,11 +55,11 @@
 
      </target>
 	
-	<target name="prepare-core">
+	<target name="prepare">
 		<mkdir dir="${build.dir}"/>
        </target>
        	
-    <target name="clean-core" description="delete the contents of the build directory (the compiled classes), then delete the directory itself">
+    <target name="clean" description="delete the contents of the build directory (the compiled classes), then delete the directory itself">
     	<delete failonerror="no" includeemptydirs="true">
     		<fileset dir="${build.dir}" includes="**/*" />
     	</delete>
@@ -67,7 +67,7 @@
     	<delete dir="${build.dir}"/>
     </target>
 	
-     <target name="dist" depends="clean, prepare-core, jar" description="generate the distribution" >
+     <target name="deploy" depends="clean, prepare, build" description="generate the distribution" >
 		<echo> ${server.examples}</echo>
      	<for list="${server.examples}" param="example">
      		<sequential>			
@@ -88,19 +88,11 @@
      	</for>
 
      </target>
-     	
-     <target name="jar">
-          	<antcall target="build-core-jar"/>
-     </target>
 
-     <target name="build-core-jar" depends="compile-core" description="insert this app into the RED5_HOME service">
+     <target name="build" depends="compile" description="insert this app into the RED5_HOME service">
           	
 		<jar jarfile="${jar.dir}/${core.output.name}.jar" basedir="${build.dir}"/>
 	
-     </target>
-
-     <target name="clean" description="clean up" >
-       <antcall target="clean-core"/>
      </target>
 	
 	<target name="javadoc" description="Generate JavaDoc">

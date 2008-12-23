@@ -21,34 +21,37 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.flash.scenes 
 {
+	import com.paperworld.api.ISynchronisedScene;	
+
 	import flash.events.Event;
 	import flash.net.registerClassAlias;
-	
-	import com.actionengine.flash.core.context.ContextLoader;
+
+	import com.actionengine.flash.core.EventDispatchingBaseClass;
+	import com.actionengine.flash.core.context.CoreContext;
 	import com.actionengine.flash.util.logging.Logger;
 	import com.actionengine.flash.util.logging.LoggerContext;
 	import com.brainfarm.flash.util.math.Quaternion;
 	import com.brainfarm.flash.util.math.Vector3;
 	import com.paperworld.api.ISynchronisedAvatar;
 	import com.paperworld.api.ISynchronisedObject;
+	import com.paperworld.flash.connectors.IConnector;
 	import com.paperworld.flash.connectors.IConnectorListener;
-	import com.paperworld.flash.connectors.RTMPConnector;
 	import com.paperworld.flash.connectors.ServerEventTypes;
 	import com.paperworld.flash.connectors.events.ConnectorEvent;
 	import com.paperworld.flash.data.State;
 	import com.paperworld.flash.data.SyncData;
 	import com.paperworld.flash.lod.LodConstraint;
 	import com.paperworld.flash.objects.AbstractSynchronisedAvatar;
-	import com.paperworld.flash.player.Player;		
+	import com.paperworld.flash.player.Player;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
 	 */
-	public class AbstractSynchronisedScene extends ContextLoader implements IConnectorListener
+	public class AbstractSynchronisedScene extends EventDispatchingBaseClass implements ISynchronisedScene, IConnectorListener
 	{
 		private var logger : Logger;
 
-		protected var _scene : *;
+		protected var _context : CoreContext;
 
 		public var sceneName : String;
 
@@ -71,15 +74,15 @@ package com.paperworld.flash.scenes
 		 */
 		public var lodConstraints : LodConstraint;
 
-		protected var _connector : RTMPConnector;
+		protected var _connector : IConnector;
 
-		public function set connector(value : RTMPConnector) : void
+		public function set connector(value : IConnector) : void
 		{			
 			_connector = value;
 			_connector.addListener( this );
 		}
 
-		public function get connector() : RTMPConnector
+		public function get connector() : IConnector
 		{
 			return _connector;
 		}
@@ -110,34 +113,31 @@ package com.paperworld.flash.scenes
 			
 			avatarsByName = new Array( );		
 			
+			_context = CoreContext.getInstance( );
+			
 			registerClassAlias( 'com.brainfarm.java.util.math.Vector3', Vector3 );				registerClassAlias( 'com.paperworld.multiplayer.data.SyncData', SyncData );	
 			registerClassAlias( 'com.paperworld.multiplayer.data.State', State );
 			registerClassAlias( 'com.brainfarm.java.util.math.Quaternion', Quaternion );
 		}
 
-		public function connect(scene : String, context : String = "multiplayerContext.xml") : void
+		public function connect(...args) : void
 		{
-			sceneName = scene;
+			sceneName = String(args[0]);
 			
 			logger.info( "connecting to " + scene );
 			
-			loadContext( context );				
+			connector.connect( sceneName );			
 		}
 
-		override protected function onContextLoaded(event : Event) : void
-		{
-			super.onContextLoaded( event );
-
-			connector.connect( sceneName );
-		}
-
-		public function handleRemoteSync(data : Array) : void
-		{						
+		protected function handleRemoteSync(data : Array) : void
+		{									
 			var avatar : ISynchronisedAvatar = ISynchronisedAvatar( avatarsByName[data[0]] );
 
 			if (!avatar)
 			{
-				avatar = ISynchronisedAvatar( _applicationContext.getObject( 'remote.avatar' ) );
+				avatar = ISynchronisedAvatar( _context.getObject( 'remote.avatar' ) );
+	
+				logger.info(connector.id + " Handling new Avatar in scene " + data[0]);
 	
 				avatar.setInput( data[2] );
 				avatar.setState( data[3] );
@@ -148,28 +148,30 @@ package com.paperworld.flash.scenes
 				avatarsByName[data[0]] = avatar;
 			}
 
+			logger.info("Updating " + (player.getAvatar( ) == avatar) + " " + (player.getAvatar( ).getSynchronisedObject() == avatar.getSynchronisedObject()));
+
 			avatar.synchronise( data[1], data[2], data[3] );	
 		}
 
-		public function onLocalSync(data : Array) : void
+		protected function handleLocalSync(data : Array) : void
 		{
-			//logger.info("local object syncing " + event.state.orientation.w);
 			player.getAvatar( ).synchronise( data[1], data[2], data[3] );
 		}
 
-		public function onDelete(data : Array) : void
+		protected function handleDelete(data : Array) : void
 		{
 			var avatar : AbstractSynchronisedAvatar = AbstractSynchronisedAvatar( avatarsByName[data[0]] );
 			removeRemoteChild( avatar.getSynchronisedObject( ) );
 		}
 
 		public function onConnectorEvent(event : ConnectorEvent) : void
-		{
+		{			
 			var data : Array = event.data;
 			
 			switch (event.type)
 			{
 				case ServerEventTypes.LOCAL_AVATAR_SYNC:
+					handleLocalSync( data );
 					break;
 					
 				case ServerEventTypes.REMOTE_AVATAR_SYNC:
@@ -177,6 +179,7 @@ package com.paperworld.flash.scenes
 					break;
 					
 				case ServerEventTypes.AVATAR_DELETE:
+					handleDelete( data );
 					break;
 			}
 		}
@@ -184,7 +187,9 @@ package com.paperworld.flash.scenes
 		
 		public function addPlayer(player : Player, isLocal : Boolean = true) : void
 		{
-			var avatar : ISynchronisedAvatar = ISynchronisedAvatar( _applicationContext.getObject( 'local.avatar' ) );
+			var avatar : ISynchronisedAvatar = ISynchronisedAvatar( _context.getObject( 'local.avatar' ) );
+
+			logger.info( "adding player avatar " + avatar );
 
 			if (isLocal) pov = avatar;
 			
@@ -193,7 +198,7 @@ package com.paperworld.flash.scenes
 					
 			addRemoteChild( avatar.getSynchronisedObject( ) );
 
-			//avatar.userInput = connector.input;
+			avatar.userInput = connector.input;
 			//connector.addLagListener( avatar );
 
 			player.setAvatar( avatar );
@@ -218,8 +223,9 @@ package com.paperworld.flash.scenes
 		 * @param child The object that will be synced across clients and added to the 3D scene.
 		 * @param pov Flags whether or not this object should be used as the 'point of view' for the Level of Detail heuristics.
 		 */
-		public function addRemoteChild(child : ISynchronisedObject, pov : Boolean = false) : ISynchronisedObject
+		public function addRemoteChild(child : ISynchronisedObject, isLocal : Boolean = false) : ISynchronisedObject
 		{
+			
 			// Create a new Avatar to handle synchronisation.
 			//var avatar : Avatar = new Avatar( );
 			//avatar.syncObject = child;
@@ -232,14 +238,16 @@ package com.paperworld.flash.scenes
 			//if (pov) this.pov = avatar;
 			
 			// Finally, add the object to the 3D scene.
-			addChild( child );
+			var c:* = addChild( child );
+			
+			logger.info( "adding remote child: " + c );
 			
 			return child;
 		}
 
 		public function removeChild(child : * ) : *
 		{
-			return child;
+			return null;
 		}
 
 		public function removeRemoteChild(child : ISynchronisedObject) : ISynchronisedObject
@@ -268,6 +276,14 @@ package com.paperworld.flash.scenes
 			
 			return child;
 		}
+
+		public function get scene() : *
+		{
+			return null;
+		}
+
+		public function set scene(value : *) : void
+		{
+		}
 	}
 }
-

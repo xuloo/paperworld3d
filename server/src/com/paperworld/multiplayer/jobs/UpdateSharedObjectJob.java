@@ -29,23 +29,22 @@ public class UpdateSharedObjectJob extends AbstractUpdateJob {
 		
 		HashMap<String, Player> players = connector.getPlayers();
 		ISharedObject so = connector.getSharedObject("avatars", false);
-		
+
 		so.beginUpdate();
 		
 		for (String key : players.keySet()) {
+			
 			Player player = players.get(key);
-			PlayerContext playerContext = player.getContext();
-			String id = playerContext.getId();
+			
 			Avatar avatar = player.getAvatar();
 			int time = connector.getTime();
 			Input input = avatar.input;
 			State state = avatar.getState();
-
-			so.setAttribute(id, new SyncData(time, input, state));
+			
+			so.setAttribute(key, new SyncData(time, input, state));
 		}
 		
 		so.endUpdate();
 
 	}
-
 }

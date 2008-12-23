@@ -128,7 +128,7 @@ package com.paperworld.util
 						}
 					
 						avatar.setInput( moves.moves[i].input );
-						moves.moves[i].setState( avatar.getState( ) );
+						moves.moves[i].state = avatar.getState( );
 					}
 					
 					i++;

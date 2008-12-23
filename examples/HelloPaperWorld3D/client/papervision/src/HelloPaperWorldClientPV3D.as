@@ -1,21 +1,23 @@
 package  
 {
-	import org.papervision3d.scenes.Scene3D;	
-
 	import flash.events.Event;
-
+	
+	import org.papervision3d.scenes.Scene3D;
+	
 	import com.actionengine.flash.core.context.CoreContext;
 	import com.actionengine.flash.input.BasicKeyboardInput;
-	import com.actionengine.flash.input.UserInput;
+	import com.actionengine.flash.input.IUserInput;
 	import com.actionengine.flash.util.clock.Clock;
 	import com.actionengine.flash.util.clock.events.ClockEvent;
 	import com.actionengine.flash.util.logging.Logger;
 	import com.actionengine.flash.util.logging.LoggerContext;
-	import com.paperworld.multiplayer.connectors.RTMPConnector;
-	import com.paperworld.multiplayer.connectors.events.ConnectorEvent;
-	import com.paperworld.multiplayer.player.Player;
-	import com.paperworld.multiplayer.scenes.SynchronisedScene;
-	import com.paperworld.views.ChequerBoardView;		
+	import com.paperworld.flash.connectors.RTMPConnector;
+	import com.paperworld.flash.connectors.RTMPEventTypes;
+	import com.paperworld.flash.player.Player;
+	import com.paperworld.pv3d.scenes.SynchronisedScene;
+	import com.paperworld.pv3d.views.ChequerBoardView;
+	
+	import org.papervision3d.view.AbstractView;	
 
 	/**
 	 * @author Trevor
@@ -32,7 +34,7 @@ package
 			
 			var context : CoreContext = CoreContext.getInstance( );
 			
-			context.addContexts( [ 'logging-context.xml' ] );
+			context.addContexts( [ 'logging-context.xml', 'multiplayer-context.xml', 'connection-context.xml' ] );
 			context.addEventListener( Event.COMPLETE, onContextLoaded );
 			context.load( );			
 		}
@@ -47,20 +49,18 @@ package
 		override public function initialise() : void
 		{			
 			var connector : RTMPConnector = new RTMPConnector( );
-			connector.addEventListener( ConnectorEvent.CONNECTED_TO_SERVER, onConnectedToServer );
+			connector.addEventListener( RTMPEventTypes.CONNECTED_TO_SERVER, onConnectedToServer );
 			
-			var input : UserInput = new BasicKeyboardInput( );
+			var input : IUserInput = new BasicKeyboardInput( );
 			input.target = stage;
 			
 			connector.input = input;
 			
-			syncScene = new SynchronisedScene( );
+			syncScene = new SynchronisedScene( scene );
 			syncScene.connector = connector;
 			syncScene.connect( "test" );
 			
 			player = new Player( );
-
-			scene = Scene3D( syncScene.scene );
 			
 			super.initialise( );
 		}

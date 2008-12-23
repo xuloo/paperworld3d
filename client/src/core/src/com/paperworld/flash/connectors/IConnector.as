@@ -37,6 +37,8 @@ package com.paperworld.flash.connectors
 		function disconnect() : void
 
 		function set input(value : IUserInput) : void;
+		
+		function get input() : IUserInput;
 
 		function get id() : String;
 		

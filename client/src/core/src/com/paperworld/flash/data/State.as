@@ -83,7 +83,8 @@ package com.paperworld.flash.data
 		{
 			var threshold : Number = 0.1 * 0.1;
 			
-			return other.position.returnSubtraction( position ).isMagnitudeGreaterThan( threshold );
+			//return other.position.returnSubtraction( position ).isMagnitudeGreaterThan( threshold );
+			return true;
 		}
 
 		override public function destroy() : void

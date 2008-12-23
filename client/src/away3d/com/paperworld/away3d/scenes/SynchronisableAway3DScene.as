@@ -8,12 +8,12 @@ package com.paperworld.away3d.scenes
 	 * @author Trevor
 	 */
 	public class SynchronisableAway3DScene extends AbstractSynchronisedScene
-	{
+	{		
 		public function SynchronisableAway3DScene(init : Object = null, ...args)
 		{
 			super( );
 			
-			_scene = new Scene3D( init, args );
+			scene = new Scene3D( init, args );
 		}
 
 		override public function addChild(child : *) : *
@@ -24,11 +24,6 @@ package com.paperworld.away3d.scenes
 		override public function removeChild(child : *) : *
 		{
 			return scene.removeChild( child );
-		}
-
-		public function get scene() : Scene3D
-		{
-			return Scene3D( _scene );
 		}
 	}
 }

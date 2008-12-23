@@ -21,9 +21,12 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.flash.connectors 
 {
+	import com.actionengine.flash.core.context.CoreContext;	
+	import com.actionengine.flash.core.EventDispatchingBaseClass;	
+
 	import flash.events.Event;
 	import flash.net.Responder;
-	
+
 	import com.actionengine.flash.core.context.ContextLoader;
 	import com.actionengine.flash.input.IUserInput;
 	import com.actionengine.flash.input.IUserInputListener;
@@ -33,15 +36,17 @@ package com.paperworld.flash.connectors
 	import com.paperworld.flash.connectors.IConnector;
 	import com.paperworld.flash.connectors.IConnectorListener;
 	import com.paperworld.flash.player.Player;
-	
+
 	import jedai.net.rpc.Red5Connection;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
 	 */
-	public class AbstractConnector extends ContextLoader implements IConnector, IUserInputListener
+	public class AbstractConnector extends EventDispatchingBaseClass implements IConnector, IUserInputListener
 	{
 		private var logger : Logger = LoggerContext.getLogger( AbstractConnector );
+
+		protected var _context : CoreContext;
 
 		protected var _userInput : IUserInput;
 
@@ -73,12 +78,20 @@ package com.paperworld.flash.connectors
 		 */
 		public function get connected() : Boolean
 		{
+			if (_connection == null)
+				return false;
+			
 			return _connection.connected;
 		}
 
 		public function AbstractConnector()
 		{
-			super( );
+			super( );			
+		}
+
+		override public function initialise() : void 
+		{
+			_context = CoreContext.getInstance( );
 		}
 
 		public function connect(scene : String = null, context : String = "connectionContext.xml") : void
@@ -88,33 +101,12 @@ package com.paperworld.flash.connectors
 			// If a sceneName has been passed as an argument, that's the scene we'll be connecting to.
 			if (sceneName) this.sceneName = sceneName;			
 
-			// If the context file isn't loaded yet...
-			if (!_contextLoaded)
+			// If there's no rtmp connection established with the server...
+			if (!connected)
 			{
-				// load it!
-				loadContext( context );
+				// Connect to the server.
+				connectToServer( );
 			}
-			else
-			{
-				// If there's no rtmp connection established with the server...
-				if (!connected)
-				{
-					// Connect to the server.
-					connectToServer( );
-				}
-			}
-		}
-
-		/**
-		 * Called when the context file has been loaded.
-		 * Flags the context as having been loaded.
-		 * If we're in the process of connecting (ie. the connect() method has been called) then continue.
-		 */
-		override protected function onContextLoaded(event : Event) : void
-		{			
-			super.onContextLoaded( event );
-			
-			if (_connecting) connect( );
 		}
 
 		public function connectToServer(event : Event = null) : void

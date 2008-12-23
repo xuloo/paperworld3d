@@ -121,7 +121,7 @@ public class Avatar {
 		kinematic.position.plusEq(output.linear);
 		kinematic.orientation = output.angular;
 		
-		//log.debug("velocity {} position {}", new Object[] {output.linear, kinematic.position});
+		//log.debug("position {}", new Object[] {output.linear, kinematic.position});
 	}
 
 	public void update(TimedInput move) {

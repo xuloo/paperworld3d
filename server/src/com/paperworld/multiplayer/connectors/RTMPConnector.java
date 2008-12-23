@@ -80,7 +80,7 @@ public class RTMPConnector extends AbstractConnector {
 	 */
 	public SyncData receiveInput(String uid, TimedInput input) {
 
-		log.info("receiving input {}", input);
+		log.info("input {}", input);
 		
 		Avatar avatar = players.get(uid).getAvatar();
 
@@ -92,6 +92,7 @@ public class RTMPConnector extends AbstractConnector {
 	public SyncData addPlayer(String id) {
 		log.debug("adding player {}", id);
 		Avatar avatar = players.get(id).getAvatar();
+		log.debug("avatars {}", players.toString());
 		avatars.put(id, avatar);
 
 		return new SyncData(time, 0, avatar.input, avatar.state);

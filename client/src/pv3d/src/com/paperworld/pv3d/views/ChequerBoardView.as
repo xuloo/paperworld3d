@@ -1,16 +1,17 @@
 package com.paperworld.pv3d.views 
 {
 	import flash.display.Bitmap;
-	
+	import flash.events.MouseEvent;
+
 	import org.papervision3d.core.proto.MaterialObject3D;
 	import org.papervision3d.core.view.IView;
 	import org.papervision3d.materials.BitmapMaterial;
 	import org.papervision3d.objects.DisplayObject3D;
 	import org.papervision3d.objects.primitives.Plane;
 	import org.papervision3d.view.BasicView;
-	
+
 	import com.actionengine.flash.core.interfaces.IInitialisable;
-	import com.paperworld.flash.scenes.AbstractSynchronisedScene;		
+	import com.paperworld.api.ISynchronisedScene;	
 
 	/**
 	 * @author Trevor
@@ -21,13 +22,15 @@ package com.paperworld.pv3d.views
 		[Embed(source="Chequer.png")] 
 		private var ChequerImage : Class; 
 
-		public var syncScene : AbstractSynchronisedScene;
+		public var syncScene : ISynchronisedScene;
 
 		public var floor : DisplayObject3D;
 
 		private var $width : Number;
 
 		private var $height : Number;
+
+		public var zoomAmount : Number = 10;
 
 		public function ChequerBoardView(width : Number = 1000, height : Number = 1000, viewportWidth : Number = 640, viewportHeight : Number = 480, scaleToStage : Boolean = true, interactive : Boolean = false, cameraType : String = "Free") 
 		{
@@ -41,6 +44,8 @@ package com.paperworld.pv3d.views
 		{
 			initialiseFloor( );
 			initialiseCamera( );
+			
+			addEventListeners( );
 		}
 
 		protected function initialiseFloor() : void 
@@ -64,6 +69,16 @@ package com.paperworld.pv3d.views
 		{
 			camera.moveUp( 500 );
 			camera.lookAt( floor );
+		}
+
+		protected function addEventListeners() : void
+		{
+			viewport.addEventListener( MouseEvent.MOUSE_WHEEL, onMouseWheel );
+		}
+
+		protected function onMouseWheel(event : MouseEvent) : void 
+		{
+			camera.moveForward( event.delta > 0 ? zoomAmount : -zoomAmount );
 		}
 	}
 }

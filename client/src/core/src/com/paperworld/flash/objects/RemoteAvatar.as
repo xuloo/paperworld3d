@@ -52,8 +52,9 @@ package com.paperworld.flash.objects
 
 		override public function synchronise(time : int, input : Input, state : State) : void
 		{			
+			// Just ignore any out of order packets...
 			if (time < _lastSyncTime)
-            	return;
+            	return;		
 
 			_lastSyncTime = time;
 			updating = true;
@@ -65,15 +66,27 @@ package com.paperworld.flash.objects
 			if (state.compare( _current ))
 			{
 				snap( state );
-				smooth( );
+				smooth( );				
 			}
+			
+			logger.info("current: " + _current.position.x);
 		}
 
-		override public function update(/*event : ClockEvent = null*/) : void
-		{				
+		override public function update() : void
+		{			
+			/*behaviour.getSteering( output );
+			
+			logger.info("before: " + _current.position.x );
+			
+			_current.velocity = output.linear;
+			_current.position.plusEq( output.linear );
+			_current.orientation = output.angular;
+			
+			logger.info("after: " + _current.position.x );*/
+				
 			if (updating)
-			{
-				super.update( /*event*/ );
+			{				
+				super.update( );
 			}
 		}
 	}

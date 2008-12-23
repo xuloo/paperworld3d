@@ -33,7 +33,7 @@ package com.paperworld.flash.behaviours
 	 */
 	public class SimpleAvatarBehaviour2D extends SteeringBehaviour 
 	{
-		public var logger : Logger = LoggerContext.getLogger( SimpleAvatarBehaviour2D );
+		private var logger : Logger = LoggerContext.getLogger( SimpleAvatarBehaviour2D );
 
 		public var moveForwardAmount : Number = 1;
 
@@ -54,10 +54,10 @@ package com.paperworld.flash.behaviours
 			if (input != null) 
 			{
 				if (input.getForward( ))
-					output.linear.y += moveForwardAmount;
+					output.linear.z += moveForwardAmount;
 
 				if (input.getBack( ))
-					output.linear.y -= moveBackAmount;
+					output.linear.z -= moveBackAmount;
 
 				if (input.getMoveRight( ))
 					output.linear.x += moveRightAmount;
