@@ -15,7 +15,7 @@
 		description="builds all the paperworld libraries and generates documentation" />
 	
 	<target name="retrieve" unless="library.installed" description="Retrieves the libraries if needed">
-		<ivy:retrieve pattern="../lib/[artifact].swc"/>
+		<ivy:retrieve pattern="${basedir}/../lib/[artifact].swc"/>
 	</target>
 		
 	<target name="build-flash" depends="retrieve" description="builds the multiplayer paperworld client library swc.">
