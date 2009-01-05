@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+
+	<bean id="multiplayer.service"
+		class="com.paperworld.multiplayer.connectors.RTMPConnector"
+		singleton="true" init-method="createScheduledJobs">
+
+		<property name="application" ref="web.handler" />
+		<property name="frameRate" value="60" />
+		<property name="clientUpdateRate" value="5" />
+
+	</bean>
+
+	<bean id="default.player"
+		class="com.paperworld.multiplayer.player.Player" singleton="false" />
+
+	<bean id="default.avatar"
+		class="com.paperworld.multiplayer.objects.Avatar" singleton="false">
+		<property name="behaviour" ref="default.behaviour" />
+		<property name="kinematic" ref="default.kinematic" />
+	</bean>
+
+	<bean id="default.kinematic"
+		class="com.brainfarm.java.steering.Kinematic" singleton="false" />
+
+	<bean id="default.behaviour"
+		class="com.paperworld.multiplayer.behaviour.SimpleAvatarBehaviour2D"
+		singleton="false" />
+
+</beans>
