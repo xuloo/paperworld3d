@@ -11,8 +11,7 @@
 		<conf name="eclipse" description="Special dependencies in Eclipse"/>
 	</configurations>
     <dependencies> 
-		<dependency org="red5" name="jedai" rev="" />
-		<dependency org="flashmonkey" name="actionengine-java" rev="0.1" />
-		<dependency org="flashmonkey" name="brainfarm-java" rev="0.1" />
+		<dependency org="com/actionengine" name="actionengine-java" rev="1.0.1" />
+		<dependency org="com/brainfarm" name="brainfarm-java" rev="0.1" />
     </dependencies>
 </ivy-module>
