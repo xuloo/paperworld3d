@@ -64,17 +64,17 @@ package com.paperworld.pv3d.scenes
 			_scene = new Scene3D( );	
 		}
 
-		override public function addChild(child : *) : *
+		override public function addChild(child : *, name : String) : *
 		{			
-			logger.info( "adding " + DisplayObject3D( SynchronisableObject( child ).object ).material );
+			logger.info( "adding " + SynchronisableObject( child ).object );
 			
 			if (child is DisplayObject3D)
 			{
-				return _scene.addChild( child );	
+				return _scene.addChild( child, name );	
 			}
 			else if (child is SynchronisableObject)
 			{
-				return _scene.addChild( SynchronisableObject( child ).object );
+				return _scene.addChild( SynchronisableObject( child ).object, name );
 			}
 			else
 			{

@@ -121,7 +121,7 @@ package com.paperworld.flash.scenes
 
 		public function connect(...args) : void
 		{
-			sceneName = String(args[0]);
+			sceneName = String( args[0] );
 			
 			logger.info( "connecting to " + scene );
 			
@@ -136,18 +136,16 @@ package com.paperworld.flash.scenes
 			{
 				avatar = ISynchronisedAvatar( _context.getObject( 'remote.avatar' ) );
 	
-				logger.info(connector.id + " Handling new Avatar in scene " + data[0]);
+				logger.info( connector.id + " Handling new Avatar in scene " + data[0] );
 	
 				avatar.setInput( data[2] );
 				avatar.setState( data[3] );
 				avatar.setTime( data[1] );
 				
-				addRemoteChild( avatar.getSynchronisedObject( ) );
+				addRemoteChild( avatar.getSynchronisedObject( ), data[0] );
 				
 				avatarsByName[data[0]] = avatar;
 			}
-
-			logger.info("Updating " + (player.getAvatar( ) == avatar) + " " + (player.getAvatar( ).getSynchronisedObject() == avatar.getSynchronisedObject()));
 
 			avatar.synchronise( data[1], data[2], data[3] );	
 		}
@@ -195,7 +193,7 @@ package com.paperworld.flash.scenes
 			avatar.setNext( avatars );
 			avatars = avatar;
 					
-			addRemoteChild( avatar.getSynchronisedObject( ) );
+			addRemoteChild( avatar.getSynchronisedObject( ), connector.id );
 
 			avatar.userInput = connector.input;
 			//connector.addLagListener( avatar );
@@ -210,7 +208,7 @@ package com.paperworld.flash.scenes
 		/**
 		 * Add a simple object to the scene.
 		 */
-		public function addChild(child : *) : *
+		public function addChild(child : *, name : String) : *
 		{
 			// Nothing here, implementation specific to a particular 3D engine in child classes.
 			return child;
@@ -222,7 +220,7 @@ package com.paperworld.flash.scenes
 		 * @param child The object that will be synced across clients and added to the 3D scene.
 		 * @param pov Flags whether or not this object should be used as the 'point of view' for the Level of Detail heuristics.
 		 */
-		public function addRemoteChild(child : ISynchronisedObject, isLocal : Boolean = false) : ISynchronisedObject
+		public function addRemoteChild(child : ISynchronisedObject, name : String, isLocal : Boolean = false) : ISynchronisedObject
 		{
 			
 			// Create a new Avatar to handle synchronisation.
@@ -237,7 +235,7 @@ package com.paperworld.flash.scenes
 			//if (pov) this.pov = avatar;
 			
 			// Finally, add the object to the 3D scene.
-			var c:* = addChild( child );
+			var c : * = addChild( child, name );
 			
 			logger.info( "adding remote child: " + c );
 			

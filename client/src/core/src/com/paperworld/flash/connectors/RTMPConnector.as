@@ -51,6 +51,11 @@ package com.paperworld.flash.connectors
 		protected var _remoteSharedObject : RemoteSharedObject;
 
 		public var clientID : Number = -1;
+		
+		override public function get id() : String
+		{
+			return String(clientID);
+		}
 
 		public var time : int;
 
@@ -151,11 +156,10 @@ package com.paperworld.flash.connectors
 						var data : SyncData = SyncData( _remoteSharedObject._so.data[name] );
 						
 						if (name != String( clientID )) 
-						{								
+						{						
 							dispatchEvent( new ConnectorEvent( ServerEventTypes.REMOTE_AVATAR_SYNC, this, name, data.serverTime, data.input, data.state ) );						}
 						else
 						{
-							logger.info("local server update " + data.state );
 							dispatchEvent( new ConnectorEvent( ServerEventTypes.LOCAL_AVATAR_SYNC, this, name, data.serverTime, data.input, data.state ) );
 						}
 						break;

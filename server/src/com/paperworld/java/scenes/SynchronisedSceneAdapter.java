@@ -64,8 +64,13 @@ public class SynchronisedSceneAdapter extends AbstractSceneAdapter {
 
 		Player player = getPlayerByConnection(connection);
 		String id = player.getContext().getId();
+		
 		avatars.remove(id);
 		players.remove(id);
+		
+		ISharedObject so = getSharedObject("avatars", false);
+		so.removeAttribute(id);
+		
 		player.destroy();
 	}
 	
@@ -74,7 +79,6 @@ public class SynchronisedSceneAdapter extends AbstractSceneAdapter {
 		Avatar avatar = players.get(id).getAvatar();
 
 		avatars.put(id, avatar);
-		System.out.println("avatar " + avatar);
 		
 		return new SyncData(time, 0, avatar.input, avatar.state);
 	}
@@ -166,7 +170,7 @@ public class SynchronisedSceneAdapter extends AbstractSceneAdapter {
 
 			for (String key : avatars.keySet()) {
 				Avatar avatar = avatars.get(key);
-				System.out.println("updating avatar " + avatar);
+				
 				so.setAttribute(key, new SyncData(time, avatar.getInput(), avatar.getState()));
 			}
 

@@ -21,9 +21,9 @@
 	
 	<object id="remote.avatar" class="com.paperworld.flash.objects.RemoteAvatar" lazy-init="true" scope="prototype" singleton="false">
 		<property name="synchronisedObject">
-			<object class="com.paperworld.pv3d.objects.SynchronisableObject">
+			<object class="com.paperworld.pv3d.objects.SynchronisableObject" lazy-init="true" scope="prototype" singleton="false">
 				<property name="displayObject">
-					<object class="ColouredCube">
+					<object class="ColouredCube" lazy-init="true" scope="prototype" singleton="false">
 						<constructor-arg value="0x00CCFF" />
 						<constructor-arg value="100" />	
 						<constructor-arg value="100" />

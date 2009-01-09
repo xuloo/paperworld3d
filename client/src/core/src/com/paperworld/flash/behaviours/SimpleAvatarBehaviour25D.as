@@ -1,9 +1,10 @@
 package com.paperworld.flash.behaviours 
 {
-	import com.actionengine.flash.util.logging.LoggerContext;	
-	import com.actionengine.flash.util.logging.Logger;	
-	import com.brainfarm.flash.steering.SteeringOutput;
-	import com.paperworld.flash.behaviours.SimpleAvatarBehaviour2D;	
+	import com.actionengine.flash.input.Input;
+	import com.actionengine.flash.util.logging.Logger;
+	import com.actionengine.flash.util.logging.LoggerContext;
+	import com.brainfarm.flash.data.State;
+	import com.paperworld.flash.behaviours.SimpleAvatarBehaviour2D;		
 
 	/**
 	 * @author Trevor
@@ -16,32 +17,28 @@ package com.paperworld.flash.behaviours
 		{
 		}
 		
-		override public function getSteering(output : SteeringOutput) : void
-		{
-			output.clear();
-			
+		override public function getSteeringState(state : State, input : Input) : void
+		{			
 			if (input != null) 
 			{
 				if (input.getForward( ))
-					output.linear.z += moveForwardAmount;
+					state.position.z += moveForwardAmount;
 
 				if (input.getBack( ))
-					output.linear.z -= moveBackAmount;
+					state.position.z -= moveBackAmount;
 
 				if (input.getMoveRight( ))
-					output.linear.x += moveRightAmount;
+					state.position.x += moveRightAmount;
 
 				if (input.getMoveLeft( ))
-					output.linear.x -= moveLeftAmount;
+					state.position.x -= moveLeftAmount;
 
 				if (input.getTurnRight( ))
-					output.angular.w += turnRightAmount;
+					state.orientation.w += turnRightAmount;
 
 				if (input.getTurnLeft( ))
-					output.angular.w -= turnLeftAmount;
-			}
-			
-			
+					state.orientation.w -= turnLeftAmount;
+			}			
 		}
 	}
 }

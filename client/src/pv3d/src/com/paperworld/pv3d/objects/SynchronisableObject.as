@@ -62,10 +62,10 @@ package com.paperworld.pv3d.objects
 		}
 
 		public function synchronise(time : int, input : Input, state : State) : void
-		{						
-			this.object.x += state.velocity.x;
-			this.object.y += state.velocity.y;
-			this.object.z += state.velocity.z;
+		{									
+			this.object.x = state.position.x;
+			this.object.y = state.position.y;
+			this.object.z = state.position.z;
 
 			object.localRotationY = state.orientation.w;
 		}

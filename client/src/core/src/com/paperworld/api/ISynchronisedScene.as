@@ -20,10 +20,10 @@ package com.paperworld.api
 
 		function set scene(value : *) : void;
 
-		function addChild(child : *) : *;
+		function addChild(child : *, name : String) : *;
 
 		function removeChild(child : *) : *;
 
-		function addRemoteChild(child : ISynchronisedObject, isLocal : Boolean = false) : ISynchronisedObject;
+		function addRemoteChild(child : ISynchronisedObject, name : String, isLocal : Boolean = false) : ISynchronisedObject;
 	}
 }

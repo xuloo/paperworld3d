@@ -68,11 +68,11 @@ package com.paperworld.flash.objects
 
 			_history.add( move );
 			
-			behaviour.getSteering( output );
+			behaviour.getSteeringState( _current, _input );
 			
-			_current.velocity = output.linear;
-			_current.position.plusEq( output.linear );
-			_current.orientation = output.angular;
+			//_current.velocity = output.linear;
+			//_current.position.plusEq( output.linear );
+			//_current.orientation = output.angular;
 			
 			// update scene
 			super.update( );		

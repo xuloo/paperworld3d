@@ -68,22 +68,10 @@ package com.paperworld.flash.objects
 				snap( state );
 				smooth( );				
 			}
-			
-			logger.info("current: " + _current.position.x);
 		}
 
 		override public function update() : void
 		{			
-			/*behaviour.getSteering( output );
-			
-			logger.info("before: " + _current.position.x );
-			
-			_current.velocity = output.linear;
-			_current.position.plusEq( output.linear );
-			_current.orientation = output.angular;
-			
-			logger.info("after: " + _current.position.x );*/
-				
 			if (updating)
 			{				
 				super.update( );

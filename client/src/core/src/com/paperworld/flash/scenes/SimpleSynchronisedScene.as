@@ -1,12 +1,12 @@
 package com.paperworld.flash.scenes 
 {
-	import flash.display.DisplayObject;
-	import flash.display.Sprite;
-	
 	import com.actionengine.flash.core.interfaces.IInitialisable;
 	import com.actionengine.flash.util.logging.Logger;
 	import com.actionengine.flash.util.logging.LoggerContext;
-	import com.paperworld.flash.objects.SimpleSynchronisableObject;	
+	import com.paperworld.flash.objects.SimpleSynchronisableObject;
+
+	import flash.display.DisplayObject;
+	import flash.display.Sprite;	
 
 	/**
 	 * @author Trevor
@@ -41,7 +41,7 @@ package com.paperworld.flash.scenes
 			super.initialise( );
 		}
 
-		override public function addChild(child : *) : *
+		override public function addChild(child : *, name : String) : *
 		{			
 			if (child is DisplayObject)
 			{
