@@ -42,6 +42,7 @@
        <pathelement location="${basedir}/../lib/jedai.jar"/>
      	<pathelement location="${basedir}/../lib/actionengine-java.jar"/>
        	<pathelement location="${basedir}/../lib/brainfarm-java.jar"/>
+     	<pathelement location="${basedir}/../lib/ape-java.jar"/>
      </path>
 	 
 	 <target name="all" depends="retrieve,build,javadoc,clean" />

@@ -1,7 +1,9 @@
 package  
 {
-	import flash.display.Sprite;
+	import org.cove.ape.APEngine;
 	
+	import flash.display.Sprite;			
+
 	/**
 	 * @author Trevor
 	 */
@@ -9,6 +11,7 @@ package
 	{
 		public function NetworkedPhysicsClient()
 		{
+			APEngine.init(1/4);
 		}
 	}
 }

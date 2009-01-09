@@ -23,10 +23,10 @@ package com.paperworld.flash.behaviours
 {
 	import com.actionengine.flash.util.logging.Logger;
 	import com.actionengine.flash.util.logging.LoggerContext;
+	import com.brainfarm.flash.data.State;
 	import com.brainfarm.flash.steering.SteeringBehaviour;
 	import com.brainfarm.flash.steering.SteeringOutput;
-	import com.brainfarm.flash.util.math.Vector3;
-	import com.paperworld.flash.data.State;	
+	import com.brainfarm.flash.util.math.Vector3;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]

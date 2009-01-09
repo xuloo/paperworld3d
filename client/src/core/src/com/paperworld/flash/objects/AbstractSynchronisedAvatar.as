@@ -29,12 +29,11 @@ package com.paperworld.flash.objects
 	import com.actionengine.flash.util.clock.events.ClockEvent;
 	import com.actionengine.flash.util.logging.Logger;
 	import com.actionengine.flash.util.logging.LoggerContext;
+	import com.brainfarm.flash.data.State;
 	import com.brainfarm.flash.steering.SteeringBehaviour;
 	import com.brainfarm.flash.steering.SteeringOutput;
-	import com.brainfarm.flash.util.math.Vector3;
 	import com.paperworld.api.ISynchronisedAvatar;
-	import com.paperworld.api.ISynchronisedObject;
-	import com.paperworld.flash.data.State;		
+	import com.paperworld.api.ISynchronisedObject;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]

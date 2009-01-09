@@ -155,6 +155,7 @@ package com.paperworld.flash.connectors
 							dispatchEvent( new ConnectorEvent( ServerEventTypes.REMOTE_AVATAR_SYNC, this, name, data.serverTime, data.input, data.state ) );						}
 						else
 						{
+							logger.info("local server update " + data.state );
 							dispatchEvent( new ConnectorEvent( ServerEventTypes.LOCAL_AVATAR_SYNC, this, name, data.serverTime, data.input, data.state ) );
 						}
 						break;

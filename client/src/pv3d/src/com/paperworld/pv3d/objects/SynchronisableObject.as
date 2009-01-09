@@ -21,14 +21,14 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.pv3d.objects 
 {
-	import org.papervision3d.objects.DisplayObject3D;
-	
 	import com.actionengine.flash.core.BaseClass;
 	import com.actionengine.flash.input.Input;
 	import com.actionengine.flash.util.logging.Logger;
 	import com.actionengine.flash.util.logging.LoggerContext;
+	import com.brainfarm.flash.data.State;
 	import com.paperworld.api.ISynchronisedObject;
-	import com.paperworld.flash.data.State;		
+	
+	import org.papervision3d.objects.DisplayObject3D;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]

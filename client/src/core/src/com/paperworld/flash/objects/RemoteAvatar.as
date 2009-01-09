@@ -24,7 +24,7 @@ package com.paperworld.flash.objects
 	import com.actionengine.flash.input.Input;
 	import com.actionengine.flash.util.logging.Logger;
 	import com.actionengine.flash.util.logging.LoggerContext;
-	import com.paperworld.flash.data.State;	
+	import com.brainfarm.flash.data.State;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]

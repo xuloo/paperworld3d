@@ -25,8 +25,8 @@ package com.paperworld.util
 	import com.actionengine.flash.input.Input;
 	import com.actionengine.flash.util.logging.Logger;
 	import com.actionengine.flash.util.logging.LoggerContext;
-	import com.paperworld.api.ISynchronisedAvatar;
-	import com.paperworld.flash.data.State;		
+	import com.brainfarm.flash.data.State;
+	import com.paperworld.api.ISynchronisedAvatar;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]

@@ -25,13 +25,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.actionengine.java.data.Input;
+import com.brainfarm.java.data.State;
 import com.brainfarm.java.steering.AbstractSteeringBehaviour;
 import com.brainfarm.java.steering.SteeringOutput;
 
 public class SimpleAvatarBehaviour2D extends AbstractSteeringBehaviour {
 
-	private static Logger log = LoggerFactory
-			.getLogger(SimpleAvatarBehaviour2D.class);
+	//private static Logger log = LoggerFactory
+			//.getLogger(SimpleAvatarBehaviour2D.class);
 
 	public double moveForwardAmount = 1.0;
 
@@ -53,30 +54,34 @@ public class SimpleAvatarBehaviour2D extends AbstractSteeringBehaviour {
 	public void getSteering(SteeringOutput output) {
 	}
 
-	@Override
 	public void getSteering(SteeringOutput output, Input input) {
 		
-		output.clear();
+		
+	}
+
+	@Override
+	public void getSteering(State state, Input input) {
 
 		if (input != null) {
 			if (input.getForward())
-				output.linear.z += moveForwardAmount;
+				state.position.z += moveForwardAmount;
 
 			if (input.getBack())
-				output.linear.z -= moveBackAmount;
+				state.position.z -= moveBackAmount;
 
 			if (input.getMoveRight())
-				output.linear.x += moveRightAmount;
+				state.position.x += moveRightAmount;
 
 			if (input.getMoveLeft())
-				output.linear.x -= moveLeftAmount;
+				state.position.x -= moveLeftAmount;
 
 			if (input.getTurnRight())
-				output.angular.w += turnRightAmount;
+				state.orientation.w += turnRightAmount;
 
 			if (input.getTurnLeft())
-				output.angular.w -= turnLeftAmount;
+				state.orientation.w -= turnLeftAmount;
 		}
+		
 	}
 
 }

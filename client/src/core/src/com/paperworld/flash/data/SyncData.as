@@ -21,7 +21,8 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.flash.data 
 {
-	import com.actionengine.flash.input.Input;	
+	import com.actionengine.flash.input.Input;
+	import com.brainfarm.flash.data.State;		
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]

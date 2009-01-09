@@ -22,6 +22,7 @@
 package com.paperworld.multiplayer.data;
 
 import com.actionengine.java.data.Input;
+import com.brainfarm.java.data.State;
 
 public class SyncData {
 

@@ -21,13 +21,10 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.flash.connectors 
 {
-	import com.actionengine.flash.core.context.CoreContext;	
-	import com.actionengine.flash.core.EventDispatchingBaseClass;	
+	import jedai.net.rpc.Red5Connection;
 
-	import flash.events.Event;
-	import flash.net.Responder;
-
-	import com.actionengine.flash.core.context.ContextLoader;
+	import com.actionengine.flash.core.EventDispatchingBaseClass;
+	import com.actionengine.flash.core.context.CoreContext;
 	import com.actionengine.flash.input.IUserInput;
 	import com.actionengine.flash.input.IUserInputListener;
 	import com.actionengine.flash.input.events.UserInputEvent;
@@ -37,7 +34,8 @@ package com.paperworld.flash.connectors
 	import com.paperworld.flash.connectors.IConnectorListener;
 	import com.paperworld.flash.player.Player;
 
-	import jedai.net.rpc.Red5Connection;	
+	import flash.events.Event;
+	import flash.net.Responder;		
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]

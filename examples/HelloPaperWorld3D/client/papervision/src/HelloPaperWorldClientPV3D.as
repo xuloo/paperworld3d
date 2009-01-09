@@ -1,9 +1,5 @@
 package  
 {
-	import flash.events.Event;
-	
-	import org.papervision3d.scenes.Scene3D;
-	
 	import com.actionengine.flash.core.context.CoreContext;
 	import com.actionengine.flash.input.BasicKeyboardInput;
 	import com.actionengine.flash.input.IUserInput;
@@ -16,8 +12,10 @@ package
 	import com.paperworld.flash.player.Player;
 	import com.paperworld.pv3d.scenes.SynchronisedScene;
 	import com.paperworld.pv3d.views.ChequerBoardView;
-	
-	import org.papervision3d.view.AbstractView;	
+
+	import org.papervision3d.view.AbstractView;
+
+	import flash.events.Event;	
 
 	/**
 	 * @author Trevor
@@ -48,6 +46,8 @@ package
 
 		override public function initialise() : void
 		{			
+			logger.info( "initialising" );
+			
 			var connector : RTMPConnector = new RTMPConnector( );
 			connector.addEventListener( RTMPEventTypes.CONNECTED_TO_SERVER, onConnectedToServer );
 			

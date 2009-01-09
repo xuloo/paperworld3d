@@ -1,13 +1,13 @@
 package com.paperworld.flash.objects 
 {
-	import flash.display.Sprite;
-
 	import com.actionengine.flash.core.BaseClass;
 	import com.actionengine.flash.input.Input;
 	import com.actionengine.flash.util.logging.Logger;
 	import com.actionengine.flash.util.logging.LoggerContext;
+	import com.brainfarm.flash.data.State;
 	import com.paperworld.api.ISynchronisedObject;
-	import com.paperworld.flash.data.State;	
+	
+	import flash.display.Sprite;	
 
 	/**
 	 * @author Trevor

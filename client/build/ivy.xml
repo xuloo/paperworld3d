@@ -12,7 +12,8 @@
 		<dependency org="org/red5" name="jedai" rev="0.1" />
 		<dependency org="org/pranaframework" name="pranaframework" rev="0.5" />  
 		<dependency org="com/actionengine" name="actionengine-flash" rev="0.1.2" />  
-		<dependency org="com/brainfarm" name="brainfarm-flash" rev="0.1" /> 
+		<dependency org="com/brainfarm" name="brainfarm-flash" rev="0.1.2" /> 
 		<dependency org="com/blitzagency" name="xray" rev="1.0" /> 
+		<dependency org="com/ape" name="ape-flash" rev="0.45" />
     </dependencies>
 </ivy-module>

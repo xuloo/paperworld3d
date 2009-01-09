@@ -1,13 +1,13 @@
 <project name="NetworkedPhysicsClient" default="build-example" basedir=".">
 
-	<property file="../../../../../build/user.properties"/>
-	<property file="../../../../../build/build.properties"/>
+	<property file="../../../../build/user.properties"/>
+	<property file="../../../../build/build.properties"/>
 	<property file="build.properties"/>
 		
-	<taskdef resource="flexTasks.tasks" classpath="${basedir}/../../../../../${build.lib}/flexTasks.jar" />
+	<taskdef resource="flexTasks.tasks" classpath="${basedir}/../../../../${build.lib}/flexTasks.jar" />
 	
 	<target name="build-example" description="builds the example client">
-	<echo>${basedir}/../../../../../client/bin</echo>
+	<echo>${build.lib}</echo>
 			<mxmlc
 				output="../bin/NetworkedPhysicsClient.swf"
 				file="${basedir}/../src/NetworkedPhysicsClient.as"
@@ -17,10 +17,10 @@
 			>
 				
 				<source-path path-element="${basedir}/../src"/>
-				<compiler.library-path dir="../../../../../client/bin">
+				<compiler.library-path dir="../../../../client/bin">
                      <include name="*.swc"/>
                 </compiler.library-path>
-				<compiler.library-path dir="../../../../../client/lib">
+				<compiler.library-path dir="../../../../client/lib">
                      <include name="*.swc"/>
                 </compiler.library-path>
 				<compiler.library-path dir="${FLEX_HOME}/frameworks/libs">

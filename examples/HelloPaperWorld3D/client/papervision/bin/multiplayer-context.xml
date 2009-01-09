@@ -4,17 +4,13 @@
 	<object id="local.avatar" class="com.paperworld.flash.objects.LocalAvatar" lazy-init="true" scope="prototype" singleton="false">
 		<property name="synchronisedObject">
 			<object class="com.paperworld.pv3d.objects.SynchronisableObject">
-				<property name="object">
-				<object class="org.papervision3d.objects.primitives.Plane">
-					<constructor-arg>
-						<object class="org.papervision3d.materials.WireframeMaterial">
-							<constructor-arg value="0xff0000" />
-							<property name="doubleSided" value="true"/>
-						</object>
-					</constructor-arg>
-					<constructor-arg value="100" />	
-					<constructor-arg value="100" />
-				</object>
+				<property name="displayObject">
+					<object class="ColouredCube">
+						<constructor-arg value="0xFFCC00" />
+						<constructor-arg value="100" />	
+						<constructor-arg value="100" />
+						<constructor-arg value="100" />
+					</object>
 				</property>
 			</object>
 		</property>
@@ -26,15 +22,11 @@
 	<object id="remote.avatar" class="com.paperworld.flash.objects.RemoteAvatar" lazy-init="true" scope="prototype" singleton="false">
 		<property name="synchronisedObject">
 			<object class="com.paperworld.pv3d.objects.SynchronisableObject">
-				<property name="object">
-					<object class="org.papervision3d.objects.primitives.Plane">
-						<constructor-arg>
-							<object class="org.papervision3d.materials.WireframeMaterial">
-								<constructor-arg value="0x00ff00" />
-								<property name="doubleSided" value="true"/>
-							</object>
-						</constructor-arg>
+				<property name="displayObject">
+					<object class="ColouredCube">
+						<constructor-arg value="0x00CCFF" />
 						<constructor-arg value="100" />	
+						<constructor-arg value="100" />
 						<constructor-arg value="100" />
 					</object>
 				</property>

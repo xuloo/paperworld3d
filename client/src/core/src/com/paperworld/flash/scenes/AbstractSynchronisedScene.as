@@ -21,28 +21,27 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.flash.scenes 
 {
-	import com.paperworld.api.ISynchronisedScene;	
-
-	import flash.events.Event;
-	import flash.net.registerClassAlias;
-
 	import com.actionengine.flash.core.EventDispatchingBaseClass;
 	import com.actionengine.flash.core.context.CoreContext;
 	import com.actionengine.flash.util.logging.Logger;
 	import com.actionengine.flash.util.logging.LoggerContext;
+	import com.brainfarm.flash.data.State;
 	import com.brainfarm.flash.util.math.Quaternion;
 	import com.brainfarm.flash.util.math.Vector3;
 	import com.paperworld.api.ISynchronisedAvatar;
 	import com.paperworld.api.ISynchronisedObject;
+	import com.paperworld.api.ISynchronisedScene;
 	import com.paperworld.flash.connectors.IConnector;
 	import com.paperworld.flash.connectors.IConnectorListener;
 	import com.paperworld.flash.connectors.ServerEventTypes;
 	import com.paperworld.flash.connectors.events.ConnectorEvent;
-	import com.paperworld.flash.data.State;
 	import com.paperworld.flash.data.SyncData;
 	import com.paperworld.flash.lod.LodConstraint;
 	import com.paperworld.flash.objects.AbstractSynchronisedAvatar;
-	import com.paperworld.flash.player.Player;	
+	import com.paperworld.flash.player.Player;
+	
+	import flash.events.Event;
+	import flash.net.registerClassAlias;		
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
@@ -116,7 +115,7 @@ package com.paperworld.flash.scenes
 			_context = CoreContext.getInstance( );
 			
 			registerClassAlias( 'com.brainfarm.java.util.math.Vector3', Vector3 );				registerClassAlias( 'com.paperworld.multiplayer.data.SyncData', SyncData );	
-			registerClassAlias( 'com.paperworld.multiplayer.data.State', State );
+			registerClassAlias( 'com.brainfarm.java.data.State', State );
 			registerClassAlias( 'com.brainfarm.java.util.math.Quaternion', Quaternion );
 		}
 

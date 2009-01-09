@@ -22,7 +22,7 @@
 package com.paperworld.multiplayer.events;
 
 import com.actionengine.java.data.Input;
-import com.paperworld.multiplayer.data.State;
+import com.brainfarm.java.data.State;
 
 public class SyncEvent {
 

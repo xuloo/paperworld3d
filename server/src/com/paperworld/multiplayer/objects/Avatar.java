@@ -22,23 +22,21 @@
 package com.paperworld.multiplayer.objects;
 
 import org.red5.server.api.so.ISharedObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.actionengine.java.data.Input;
 import com.actionengine.java.util.collections.CircularBuffer;
+import com.brainfarm.java.data.State;
 import com.brainfarm.java.steering.AbstractSteeringBehaviour;
 import com.brainfarm.java.steering.Kinematic;
 import com.brainfarm.java.steering.SteeringOutput;
 import com.paperworld.multiplayer.data.AvatarData;
-import com.paperworld.multiplayer.data.State;
 import com.paperworld.multiplayer.data.SyncData;
 import com.paperworld.multiplayer.data.TimedInput;
 import com.paperworld.multiplayer.player.PlayerContext;
 
 public class Avatar {
 
-	private static Logger log = LoggerFactory.getLogger(Avatar.class);
+	//private static Logger log = LoggerFactory.getLogger(Avatar.class);
 
 	protected Kinematic kinematic;
 
@@ -115,11 +113,11 @@ public class Avatar {
 		 */
 
 		// Update the behaviour.
-		behaviour.getSteering(output, input);
+		behaviour.getSteering(state, input);
 
-		kinematic.velocity = output.linear;
-		kinematic.position.plusEq(output.linear);
-		kinematic.orientation = output.angular;
+		//kinematic.velocity = output.linear;
+		//kinematic.position.plusEq(output.linear);
+		//kinematic.orientation = output.angular;
 		
 		//log.debug("position {}", new Object[] {output.linear, kinematic.position});
 	}
@@ -160,6 +158,14 @@ public class Avatar {
 		updateState();
 
 		return state;
+	}
+	
+	public Input getInput() {
+		return input;
+	}
+	
+	public void setState(State state) {
+		this.state = state;
 	}
 
 	public AvatarData getAvatarData() {

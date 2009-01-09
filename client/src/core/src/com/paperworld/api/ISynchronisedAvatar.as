@@ -2,7 +2,7 @@ package com.paperworld.api
 {
 	import com.actionengine.flash.input.IUserInput;
 	import com.actionengine.flash.input.Input;
-	import com.paperworld.flash.data.State;	
+	import com.brainfarm.flash.data.State;	
 
 	/**
 	 * @author Trevor

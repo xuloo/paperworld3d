@@ -12,6 +12,7 @@
 	</configurations>
     <dependencies> 
 		<dependency org="com/actionengine" name="actionengine-java" rev="1.0.1" />
-		<dependency org="com/brainfarm" name="brainfarm-java" rev="0.1" />
+		<dependency org="com/brainfarm" name="brainfarm-java" rev="0.1.4" />
+		<dependency org="org/cove" name="ape-java" rev="0.2" />
     </dependencies>
 </ivy-module>

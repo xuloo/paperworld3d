@@ -21,16 +21,16 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.flash.objects 
 {
-	import com.actionengine.flash.input.IUserInputListener;	
 	import com.actionengine.flash.input.IUserInput;
+	import com.actionengine.flash.input.IUserInputListener;
 	import com.actionengine.flash.input.Input;
 	import com.actionengine.flash.input.events.UserInputEvent;
 	import com.actionengine.flash.util.logging.Logger;
 	import com.actionengine.flash.util.logging.LoggerContext;
-	import com.paperworld.flash.data.State;
+	import com.brainfarm.flash.data.State;
 	import com.paperworld.flash.objects.AbstractSynchronisedAvatar;
 	import com.paperworld.util.History;
-	import com.paperworld.util.Move;	
+	import com.paperworld.util.Move;		
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
@@ -40,7 +40,7 @@ package com.paperworld.flash.objects
 		protected var _history : History;
 
 		private var logger : Logger = LoggerContext.getLogger( LocalAvatar );
-		
+
 		override public function set userInput(value : IUserInput) : void
 		{
 			value.addListener( this );
@@ -58,7 +58,7 @@ package com.paperworld.flash.objects
 			_history = new History( );
 		}
 
-		override public function update(/*event : ClockEvent = null*/) : void
+		override public function update() : void
 		{						
 			// add to history
 			var move : Move = new Move( );
@@ -75,7 +75,7 @@ package com.paperworld.flash.objects
 			_current.orientation = output.angular;
 			
 			// update scene
-			super.update( /*event*/ );		
+			super.update( );		
 		}
 
 		override public function synchronise(time : int, input : Input, state : State) : void
@@ -87,8 +87,8 @@ package com.paperworld.flash.objects
 			if (original.compare( state ))
             	smooth( );
             	
-            // Handle the server time update.
-            if (time > _time)
+			// Handle the server time update.
+			if (time > _time)
 			{
 				deltaTime = 1.25;
 			}
@@ -101,7 +101,7 @@ package com.paperworld.flash.objects
 				deltaTime = 1.0;
 			}
 		}
-		
+
 		public function onInputUpdate(event : UserInputEvent) : void
 		{
 			_input = event.input;

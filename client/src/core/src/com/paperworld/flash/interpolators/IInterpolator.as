@@ -1,6 +1,6 @@
 package com.paperworld.flash.interpolators 
 {
-	import com.paperworld.flash.data.State;				
+	import com.brainfarm.flash.data.State;					
 
 	/**
 	 * @author Trevor

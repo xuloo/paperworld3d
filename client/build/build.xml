@@ -34,10 +34,7 @@
 				<include name="papervision3D.swc" />
 			</compiler.external-library-path>
 			<compiler.library-path dir="${lib.dir}" append="true">
-				<include name="actionengine-flash.swc" />
-				<include name="brainfarm-flash.swc" />
-				<include name="jedai.swc" />
-				<include name="pranaframework.swc" />
+				<include name="**/*.swc" />
 			</compiler.library-path>
 		</compc>
 		
@@ -75,7 +72,7 @@
 		
 		<exec executable="${asdoc}" failonerror="true" >
 		  <arg line="-doc-sources ../src/core/src ../src/away3d ../src/pv3d" />
-		  <arg line="-external-library-path ../lib/actionengine-flash.swc ../lib/brainfarm-flash.swc ../lib/jedai.swc ../lib/pranaframework.swc ../lib/papervision3D.swc ../lib/Away3D.swc ../lib/xray.swc" />
+		  <arg line="-external-library-path ../lib/actionengine-flash.swc ../lib/brainfarm-flash.swc ../lib/jedai.swc ../lib/pranaframework.swc ../lib/papervision3D.swc ../lib/Away3D.swc ../lib/xray.swc ../lib/ape-flash.swc" />
 		  <arg line="-output ../docs" />
 		  <arg line="-main-title 'PaperWorld3D API Documentation'"/>
 		  <arg line="-window-title 'PaperWorld3D API Documentation'"/>
