@@ -12,9 +12,9 @@ package
 	import com.paperworld.flash.player.Player;
 	import com.paperworld.pv3d.scenes.SynchronisedScene;
 	import com.paperworld.pv3d.views.ChequerBoardView;
-
+	
 	import org.papervision3d.view.AbstractView;
-
+	
 	import flash.events.Event;	
 
 	/**
@@ -28,6 +28,8 @@ package
 
 		public function HelloPaperWorldClientPV3D()
 		{			
+			super();
+			
 			var linkageEnforcer : LinkageEnforcer = new LinkageEnforcer( );
 			
 			var context : CoreContext = CoreContext.getInstance( );
@@ -48,6 +50,10 @@ package
 		{			
 			logger.info( "initialising" );
 			
+			super.initialise( );
+			
+			//floor.y = -50;
+			
 			var connector : RTMPConnector = new RTMPConnector( );
 			connector.addEventListener( RTMPEventTypes.CONNECTED_TO_SERVER, onConnectedToServer );
 			
@@ -60,9 +66,7 @@ package
 			syncScene.connector = connector;
 			syncScene.connect( "test" );
 			
-			player = new Player( );
-			
-			super.initialise( );
+			player = new Player( );			
 		}
 
 		public function onConnectedToServer(event : Event) : void
