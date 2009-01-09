@@ -136,7 +136,7 @@ package com.paperworld.flash.connectors
 
 		/**
 		 * Handles a sync event from the RemoteSharedObject.
-		 * Iterate over the list of avatars in this scene and apply the LOD heuristics.
+		 * TODO: Iterate over the list of avatars in this scene and apply the LOD heuristics.
 		 */
 		public function synchronise(event : SyncEvent) : void
 		{			
@@ -152,11 +152,13 @@ package com.paperworld.flash.connectors
 				switch (changeList[i].code)
 				{
 					case "change":
+						//logger.info( "changeList[" + i + "].code: " + changeList[i].code );
 						
 						var data : SyncData = SyncData( _remoteSharedObject._so.data[name] );
 						
 						if (name != String( clientID )) 
-						{						
+						{				
+							logger.info("remote avatar " + data.state);		
 							dispatchEvent( new ConnectorEvent( ServerEventTypes.REMOTE_AVATAR_SYNC, this, name, data.serverTime, data.input, data.state ) );						}
 						else
 						{
@@ -184,28 +186,6 @@ package com.paperworld.flash.connectors
 						break;	
 				}
 			}
-			
-			/*if (canAct)
-			{
-				// Iterate over heuristics for each avatar to set lod interval.	
-				var nextAvatar : Avatar = avatars;
-				
-				while (nextAvatar)
-				{
-					if (nextAvatar != pov)
-					{
-						var nextConstraint : Action = lodConstraints;
-					
-						while (nextConstraint)
-						{
-							nextConstraint.act( );
-							nextConstraint = nextConstraint.next;
-						}
-					}
-					
-					nextAvatar = nextAvatar.next;
-				}
-			}*/
 		}		
 
 		override public function onInputUpdate(event : UserInputEvent) : void

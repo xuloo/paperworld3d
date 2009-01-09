@@ -50,7 +50,7 @@ package com.paperworld.flash.objects
 		{
 			super( );
 		}
-
+		
 		override public function initialise() : void
 		{
 			super.initialise( );
@@ -60,6 +60,8 @@ package com.paperworld.flash.objects
 
 		override public function update() : void
 		{						
+			behaviour.getSteeringState( _current, _input );
+			
 			// add to history
 			var move : Move = new Move( );
 			move.time = _time;
@@ -68,44 +70,25 @@ package com.paperworld.flash.objects
 
 			_history.add( move );
 			
-			behaviour.getSteeringState( _current, _input );
-			
-			//_current.velocity = output.linear;
-			//_current.position.plusEq( output.linear );
-			//_current.orientation = output.angular;
-			
 			// update scene
 			super.update( );		
 		}
 
 		override public function synchronise(time : int, input : Input, state : State) : void
-		{						
+		{			
 			var original : State = state.clone( );
-
-			_history.correction( this, time, state, input );		
-
+			
 			if (original.compare( state ))
             	smooth( );
             	
-			// Handle the server time update.
-			if (time > _time)
-			{
-				deltaTime = 1.25;
-			}
-			else if (time < _time)
-			{
-				deltaTime = 0.75;
-			}
-			else
-			{
-				deltaTime = 1.0;
-			}
+            _history.correction( this, time, state, input );	
+            	
+			super.synchronise(time, input, state);
 		}
 
 		public function onInputUpdate(event : UserInputEvent) : void
 		{
 			_input = event.input;
-			behaviour.input = event.input;
 		}
 	}
 }

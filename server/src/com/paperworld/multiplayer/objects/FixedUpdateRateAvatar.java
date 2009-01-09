@@ -19,66 +19,37 @@
  * Suite 330, Boston, MA 02111-1307 USA 
  * 
  * -------------------------------------------------------------------------------------- */
-package com.paperworld.multiplayer.behaviour;
+package com.paperworld.multiplayer.objects;
 
-import com.actionengine.java.data.Input;
-import com.brainfarm.java.data.State;
-import com.brainfarm.java.steering.AbstractSteeringBehaviour;
-import com.brainfarm.java.steering.SteeringOutput;
+import com.actionengine.java.util.collections.CircularBuffer;
+import com.brainfarm.java.steering.Kinematic;
+import com.paperworld.multiplayer.data.TimedInput;
 
-public class SimpleAvatarBehaviour2D extends AbstractSteeringBehaviour {
+public class FixedUpdateRateAvatar extends SynchronisedAvatar {
 
-	//private static Logger log = LoggerFactory
-			//.getLogger(SimpleAvatarBehaviour2D.class);
+	public CircularBuffer<TimedInput> buffer;
 
-	public double moveForwardAmount = 1.0;
+	public FixedUpdateRateAvatar() {
+		super();
+	}
 
-	public double moveBackAmount = 1.0;
+	public FixedUpdateRateAvatar(Kinematic kinematic) {
+		super(kinematic);
 
-	public double moveRightAmount = 1.0;
-
-	public double moveLeftAmount = 1.0;
-
-	public double turnLeftAmount = 1.0;
-
-	public double turnRightAmount = 1.0;
-
-	public SimpleAvatarBehaviour2D() {
-
+		initialise();
 	}
 
 	@Override
-	public void getSteering(SteeringOutput output) {
-	}
+	public void initialise() {
+		buffer = new CircularBuffer<TimedInput>(TimedInput.class);
 
-	public void getSteering(SteeringOutput output, Input input) {
-		
-		
-	}
+		super.initialise();
+	}	
 
 	@Override
-	public void getSteering(State state, Input input) {
-
-		if (input != null) {
-			if (input.getForward())
-				state.position.z += moveForwardAmount;
-
-			if (input.getBack())
-				state.position.z -= moveBackAmount;
-
-			if (input.getMoveRight())
-				state.position.x += moveRightAmount;
-
-			if (input.getMoveLeft())
-				state.position.x -= moveLeftAmount;
-
-			if (input.getTurnRight())
-				state.orientation.w += turnRightAmount;
-
-			if (input.getTurnLeft())
-				state.orientation.w -= turnLeftAmount;
-		}
-		
+	public void updateInput(TimedInput move) {
+		buffer.add(move);
+		this.input = move.input;
 	}
 
 }

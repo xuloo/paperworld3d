@@ -164,13 +164,6 @@ package com.paperworld.flash.objects
 		}
 
 		/**
-		 * The amount that this object's time will change by on the next update() call.
-		 */
-		public var deltaTime : Number = 1;
-
-		public var lastTime : int = 0;
-
-		/**
 		 * Flagged true if this object is currently replaying from it's Move history buffer.
 		 */
 		public var _replaying : Boolean;
@@ -188,16 +181,6 @@ package com.paperworld.flash.objects
 		public function update() : void
 		{			
 			_tightness += (defaultTightness - _tightness) * 0.01;
-			_time += deltaTime;
-			
-			var integerTime : int = int( _time ) - lastTime;
-			
-			while (integerTime > 0)
-			{				
-				integerTime -= 1;
-			}
-			
-			lastTime = int( _time );
 					
 			synchronisedObject.synchronise( _time, _input, _current );	
 		}

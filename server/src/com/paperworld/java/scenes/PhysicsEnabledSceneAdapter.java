@@ -4,9 +4,7 @@ import java.util.TimerTask;
 
 import ape.APEngine;
 
-public class PhysicsEnabledSceneAdapter extends SynchronisedSceneAdapter {
-
-	private static APEngine engine;
+public class PhysicsEnabledSceneAdapter extends FixedUpdateSceneAdapter {
 
 	protected int physicsUpdateRate;
 
@@ -22,12 +20,15 @@ public class PhysicsEnabledSceneAdapter extends SynchronisedSceneAdapter {
 				1000 / physicsUpdateRate);
 	}
 
+	public void setPhysicsUpdateRate(int physicsUpdateRate) {
+		this.physicsUpdateRate = physicsUpdateRate;
+	}
+
 	protected class UpdatePhysicsTask extends TimerTask {
 
 		@Override
 		public void run() {
 			APEngine.step();
 		}
-
 	}
 }

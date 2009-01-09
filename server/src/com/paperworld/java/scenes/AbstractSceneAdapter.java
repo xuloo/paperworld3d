@@ -16,6 +16,12 @@ public class AbstractSceneAdapter implements IScene, IApplication, IService {
 	protected ApplicationAdapter application;
 	
 	@Override
+	public void setApplication(ApplicationAdapter application) {
+		this.application = application;
+		application.addListener(this);
+	}
+	
+	@Override
 	public SyncData addPlayer(String id) {
 		// TODO Auto-generated method stub
 		return null;
@@ -97,11 +103,5 @@ public class AbstractSceneAdapter implements IScene, IApplication, IService {
 	public void roomStop(IScope arg0) {
 		// TODO Auto-generated method stub
 
-	}
-
-	@Override
-	public void setApplication(ApplicationAdapter application) {
-		this.application = application;
-		application.addListener(this);
 	}
 }

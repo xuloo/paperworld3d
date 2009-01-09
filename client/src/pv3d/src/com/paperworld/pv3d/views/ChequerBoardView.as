@@ -1,17 +1,20 @@
 package com.paperworld.pv3d.views 
 {
-	import flash.display.Bitmap;
-	import flash.events.MouseEvent;
+	import com.actionengine.flash.core.interfaces.IInitialisable;
+	import com.paperworld.api.ISynchronisedScene;
 
 	import org.papervision3d.core.proto.MaterialObject3D;
 	import org.papervision3d.core.view.IView;
 	import org.papervision3d.materials.BitmapMaterial;
 	import org.papervision3d.objects.DisplayObject3D;
 	import org.papervision3d.objects.primitives.Plane;
+	import org.papervision3d.scenes.Scene3D;
 	import org.papervision3d.view.BasicView;
+	import org.papervision3d.view.Viewport3D;
 
-	import com.actionengine.flash.core.interfaces.IInitialisable;
-	import com.paperworld.api.ISynchronisedScene;	
+	import flash.display.Bitmap;
+	import flash.events.Event;
+	import flash.events.MouseEvent;		
 
 	/**
 	 * @author Trevor
@@ -23,6 +26,10 @@ package com.paperworld.pv3d.views
 		private var ChequerImage : Class; 
 
 		public var syncScene : ISynchronisedScene;
+
+		public var floorScene : Scene3D;
+
+		public var floorViewport : Viewport3D;
 
 		public var floor : DisplayObject3D;
 
@@ -50,6 +57,11 @@ package com.paperworld.pv3d.views
 
 		protected function initialiseFloor() : void 
 		{
+			floorViewport = new Viewport3D( );
+			addChildAt( floorViewport, 0 );
+			
+			floorScene = new Scene3D( );
+			
 			var chequer : Bitmap = new ChequerImage( );
 			var chequerWidth : Number = chequer.width;
 			var chequerHeight : Number = chequer.height;
@@ -59,10 +71,11 @@ package com.paperworld.pv3d.views
 			material.maxU = $width / chequerWidth;
 			material.maxV = $height / chequerHeight;
 			
-			floor = new Plane( material, 500, 500, 4, 4 );
+			floor = new Plane( material, $width, $height, 5, 5 );
+
 			floor.pitch( 90 );
 			
-			scene.addChild( floor );
+			floorScene.addChild( floor );
 		}
 
 		protected function initialiseCamera() : void 
@@ -79,6 +92,13 @@ package com.paperworld.pv3d.views
 		protected function onMouseWheel(event : MouseEvent) : void 
 		{
 			camera.moveForward( event.delta > 0 ? zoomAmount : -zoomAmount );
+		}
+
+		override protected function onRenderTick(event : Event = null) : void
+		{
+			renderer.renderScene( floorScene, _camera, floorViewport );
+			
+			super.onRenderTick( event );
 		}
 	}
 }
