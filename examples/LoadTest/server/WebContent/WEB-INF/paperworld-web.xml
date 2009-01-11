@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+
+	<bean id="multiplayer.service" class="com.paperworld.java.scenes.FixedUpdateSynchronisedScene"
+		singleton="true" init-method="init">
+		<property name="application" ref="web.handler" />
+		<property name="avatarFactory" ref="avatarFactory" />
+		<property name="clientUpdateRate" value="5" />
+		<property name="behaviourUpdateRate" value="60" />
+	</bean>
+
+	<bean id="avatarFactory" class="com.paperworld.java.factory.SpringContextAvatarFactory"
+		singleton="false">
+		<property name="context" ref="web.context" />
+	</bean>
+
+
+	<bean id="default.player" class="com.paperworld.multiplayer.player.Player"
+		singleton="false" />
+
+	<!--
+		Sets up the properties on an object that can add randomly moving
+		objects to the scene.
+	-->
+	<bean id="default.avatar"
+		class="com.paperworld.multiplayer.objects.FixedUpdateRateAvatar"
+		singleton="false">
+		<property name="inputHandler">
+			<bean class="com.paperworld.java.inputhandlers.InputHandler"
+				singleton="false">
+				<property name="behaviours">
+					<bean class="org.springframework.beans.factory.config.ListFactoryBean">
+						<property name="sourceList">
+							<list>
+								<bean
+									class="com.paperworld.multiplayer.behaviour.SimpleAvatarBehaviour2D"
+									singleton="false" />
+								<bean
+									class="com.paperworld.multiplayer.behaviour.InputStateDependentBehaviour"
+									singleton="false">
+									<property name="dependentProperty" value="fire" />
+									<property name="action">
+										<bean class="com.paperworld.java.actions.InjectAvatarAction"
+											singleton="false">
+											<property name="scene" ref="multiplayer.service" />
+											<property name="key" value="random.avatar" />
+										</bean>
+									</property>
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</property>
+			</bean>
+		</property>
+		<property name="kinematic">
+			<bean class="com.brainfarm.java.steering.Kinematic" singleton="false" />
+		</property>
+	</bean>
+
+	<!--
+		Sets up the properties on an object that will move randomly in the
+		scene, mimmicing clients joining the room and sending input, allowing
+		us to test the load on the server and client.
+	-->
+	<bean id="random.avatar"
+		class="com.paperworld.multiplayer.objects.FixedUpdateRateAvatar"
+		singleton="false">
+		<property name="inputHandler">
+			<bean class="com.paperworld.java.inputhandlers.InputHandler"
+				singleton="false">
+				<property name="behaviours">
+					<bean class="org.springframework.beans.factory.config.ListFactoryBean">
+						<property name="sourceList">
+							<list>
+								<bean class="com.paperworld.examples.loadtest.RandomInputBehaviour"
+									singleton="false" />
+								<bean
+									class="com.paperworld.multiplayer.behaviour.SimpleAvatarBehaviour2D"
+									singleton="false" />
+							</list>
+						</property>
+					</bean>
+				</property>
+			</bean>
+		</property>
+		<property name="kinematic">
+			<bean class="com.brainfarm.java.steering.Kinematic" singleton="false" />
+		</property>
+	</bean>
+
+</beans>

@@ -1,4 +1,4 @@
-package com.paperworld.flash.interpolators 
+package com.paperworld.api
 {
 	import com.brainfarm.flash.data.State;					
 

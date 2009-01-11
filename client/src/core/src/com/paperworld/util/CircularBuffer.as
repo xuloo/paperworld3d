@@ -45,7 +45,7 @@ package com.paperworld.util
 			super( );
 		}
 
-		override public function initialise() : void
+		override public function initialise(...args) : void
 		{
 			index = 0;
 

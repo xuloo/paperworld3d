@@ -87,7 +87,7 @@ package com.paperworld.flash.connectors
 			super( );			
 		}
 
-		override public function initialise() : void 
+		override public function initialise(...args) : void 
 		{
 			_context = CoreContext.getInstance( );
 		}

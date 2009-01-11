@@ -34,5 +34,7 @@
 	<bean id="web.handler" 
 	    class="org.red5.core.Application" 
 		singleton="true" />
+		
+	<import resource="paperworld-web.xml" />
  
 </beans>

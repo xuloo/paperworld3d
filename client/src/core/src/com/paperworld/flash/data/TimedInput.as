@@ -43,7 +43,7 @@ package com.paperworld.flash.data
 			this.input = input;
 		}
 		
-		override public function initialise():void 
+		override public function initialise(...args):void 
 		{
 			registerClassAlias( 'com.paperworld.multiplayer.data.TimedInput', TimedInput );
 		}

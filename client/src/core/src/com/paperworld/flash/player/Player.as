@@ -52,7 +52,7 @@ package com.paperworld.flash.player
 			super( this );
 		}
 
-		override public function initialise() : void
+		override public function initialise(...args) : void
 		{
 			//_avatar = new Avatar( );
 		}

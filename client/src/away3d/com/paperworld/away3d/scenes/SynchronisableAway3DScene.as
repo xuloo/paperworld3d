@@ -1,8 +1,8 @@
 package com.paperworld.away3d.scenes 
 {
-	import com.paperworld.flash.scenes.AbstractSynchronisedScene;
+	import away3d.containers.Scene3D;
 
-	import away3d.containers.Scene3D;		
+	import com.paperworld.flash.scenes.AbstractSynchronisedScene;	
 
 	/**
 	 * @author Trevor
@@ -13,10 +13,10 @@ package com.paperworld.away3d.scenes
 		{
 			super( );
 			
-			scene = new Scene3D( init, args );
+			scene = new Scene3D( );
 		}
 
-		override public function addChild(child : *) : *
+		override public function addChild(child : *, name : String) : *
 		{
 			return scene.addChild( child );	
 		}

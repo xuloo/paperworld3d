@@ -22,6 +22,13 @@ package org.red5.core;
 import org.red5.server.adapter.ApplicationAdapter;
 import org.red5.server.api.IConnection;
 import org.red5.server.api.IScope;
+import org.red5.server.api.Red5;
+import org.red5.server.api.service.ServiceUtils;
+import org.red5.server.api.stream.IBroadcastStream;
+import org.red5.server.framework.Client;
+import org.red5.server.framework.ClientManager;
+import org.red5.server.framework.LayoutManager;
+import org.red5.server.framework.StreamManager;
 
 /**
  * Sample application that uses the client manager.
@@ -29,17 +36,90 @@ import org.red5.server.api.IScope;
  * @author The Red5 Project (red5@osflash.org)
  */
 public class Application extends ApplicationAdapter {
-
+	
+	/** Manager for the clients. */
+	private ClientManager clientMgr = new ClientManager("clientlist", false);
+	private StreamManager streamMgr = new StreamManager("streamlist", false);
+	private LayoutManager layoutMgr = new LayoutManager("layoutlist", false);
+	
+	public Application() {
+		System.out.println("LoadTest started");
+	}
+	
 	/** {@inheritDoc} */
     @Override
 	public boolean connect(IConnection conn, IScope scope, Object[] params) {
+		// Check if the user passed valid parameters.
+		if (params == null || params.length == 0) {
+			// NOTE: "rejectClient" terminates the execution of the current method!
+			rejectClient("No username passed.");
+		}
+		System.out.println("connection attempt");
+		// Call original method of parent class.
+		if (!super.connect(conn, scope, params)) {
+			return false;
+		}
+		System.out.println("connected");
+		String username = params[0].toString();
+		String uid = conn.getClient().getId();
+		
+		Client client = new Client();
+		client.setUsername(username);
+		client.setAge(100);
+		client.setUid(uid);
+		
+		// Register the user in the shared object.
+		clientMgr.addClient(scope, client);
+		
+		// Notify client about unique id.
+		ServiceUtils.invokeOnConnection(conn, "setClientID",
+				new Object[] { uid });
 		return true;
 	}
 
 	/** {@inheritDoc} */
     @Override
 	public void disconnect(IConnection conn, IScope scope) {
+		// Get the previously stored username.
+		String uid = conn.getClient().getId();
+		// Unregister user.
+		String username = clientMgr.removeClient(scope, uid);
+		
+		// Call original method of parent class.
 		super.disconnect(conn, scope);
+	}
+
+    @Override
+	public void streamBroadcastClose(IBroadcastStream stream) {
+		// TODO Auto-generated method stub
+		super.streamBroadcastClose(stream);
+		
+		// Get connection and Scope
+		IConnection conn = Red5.getConnectionLocal();
+	    IScope scope = conn.getScope();
+		
+		streamMgr.removeStream(scope, stream.getName());
+		
+	}
+
+	@Override
+	public void streamBroadcastStart(IBroadcastStream stream) {
+		// TODO Auto-generated method stub
+		super.streamBroadcastStart(stream);
+		
+		// Get connection and Scope
+		IConnection conn = Red5.getConnectionLocal();
+	    IScope scope = conn.getScope();
+	    
+	    streamMgr.addStream(scope, stream.getPublishedName(), stream.getName());
+	    
+	}
+
+	@Override
+	public void streamPublishStart(IBroadcastStream stream) {
+		// TODO Auto-generated method stub
+		super.streamPublishStart(stream);
+		
 	}
 
 }

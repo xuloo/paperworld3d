@@ -57,7 +57,7 @@ package com.paperworld.pv3d.scenes
 			_scene = scene;
 		}
 
-		override public function initialise() : void
+		override public function initialise(...args) : void
 		{
 			super.initialise( );
 			

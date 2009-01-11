@@ -114,7 +114,7 @@ package com.paperworld.flash.scenes
 		/**
 		 * Initialise implementation - initialises linked lists.
 		 */
-		override public function initialise() : void
+		override public function initialise(...args) : void
 		{			
 			logger = LoggerContext.getLogger( AbstractSynchronisedScene );
 			

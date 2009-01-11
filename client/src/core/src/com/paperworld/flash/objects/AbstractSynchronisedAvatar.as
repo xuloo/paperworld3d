@@ -212,7 +212,7 @@ package com.paperworld.flash.objects
 		/**
 		 * Initialise implementation. Sets up any required objects/values.
 		 */
-		override public function initialise() : void
+		override public function initialise(...args) : void
 		{
 			_tightness = defaultTightness;	
 			_time = 0;

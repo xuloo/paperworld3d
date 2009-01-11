@@ -47,7 +47,7 @@ package com.paperworld.pv3d.views
 			$height = height;	
 		}
 
-		public function initialise() : void 
+		public function initialise(...args) : void 
 		{
 			initialiseFloor( );
 			initialiseCamera( );
@@ -57,7 +57,7 @@ package com.paperworld.pv3d.views
 
 		protected function initialiseFloor() : void 
 		{
-			floorViewport = new Viewport3D( );
+			floorViewport = new Viewport3D( 640, 480, true, false);
 			addChildAt( floorViewport, 0 );
 			
 			floorScene = new Scene3D( );

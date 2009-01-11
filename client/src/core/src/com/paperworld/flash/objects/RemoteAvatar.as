@@ -42,7 +42,7 @@ package com.paperworld.flash.objects
 			super( );
 		}
 
-		override public function initialise() : void
+		override public function initialise(...args) : void
 		{
 			super.initialise( );
 			

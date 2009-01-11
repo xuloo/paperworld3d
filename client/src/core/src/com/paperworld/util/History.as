@@ -47,7 +47,7 @@ package com.paperworld.util
 			importantMoves.resize( size );
 		}
 
-		override public function initialise() : void
+		override public function initialise(...args) : void
 		{
 			moves = new CircularBuffer( );
 			importantMoves = new CircularBuffer( );	

@@ -34,7 +34,7 @@ package com.paperworld.flash.scenes
 			initialise( );
 		}
 
-		override public function initialise() : void
+		override public function initialise(...args) : void
 		{			
 			_view = new Sprite( );
 			
