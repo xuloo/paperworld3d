@@ -6,27 +6,47 @@ import org.red5.server.api.IClient;
 import org.red5.server.api.IConnection;
 import org.red5.server.api.IScope;
 
+import com.paperworld.java.api.IAvatar;
+import com.paperworld.java.api.IAvatarFactory;
 import com.paperworld.java.api.IScene;
 import com.paperworld.java.api.IService;
+import com.paperworld.java.exceptions.AvatarNotFoundException;
 import com.paperworld.multiplayer.data.SyncData;
 import com.paperworld.multiplayer.data.TimedInput;
 
-public class AbstractSceneAdapter implements IScene, IApplication, IService {
+public class AbstractSynchronisedScene implements IScene, IApplication,
+		IService {
 
 	protected ApplicationAdapter application;
-	
+
+	protected IAvatarFactory factory;
+
 	@Override
 	public void setApplication(ApplicationAdapter application) {
 		this.application = application;
 		application.addListener(this);
 	}
-	
+
+	public void setAvatarFactory(IAvatarFactory factory) {
+		this.factory = factory;
+	}
+
+	@Override
+	public void setAvatar(IAvatar avatar) {
+
+	}
+
+	@Override
+	public void setAvatar(String key) {
+		setAvatar(factory.getAvatar(key));
+	}
+
 	@Override
 	public SyncData addPlayer(String id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 	@Override
 	public SyncData receiveInput(String uid, TimedInput input) {
 		// TODO Auto-generated method stub

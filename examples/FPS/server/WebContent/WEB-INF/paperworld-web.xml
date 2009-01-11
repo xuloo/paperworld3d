@@ -42,7 +42,21 @@
 
 	<bean id="default.avatar"
 		class="com.paperworld.multiplayer.objects.FixedUpdateRateAvatar" singleton="false">
-		<property name="behaviour" ref="default.behaviour" />
+		<property name="inputHandler">
+			<bean class="com.paperworld.java.inputhandlers.AvatarAwareInputHandler" singleton="false">
+				<property name="behaviour">
+					<bean class="com.paperworld.multiplayer.behaviour.InputStateDependentBehaviour" singleton="false">
+						<property name="dependentProperty" value="fire"/>
+						<property name="action">
+							<bean class="com.paperworld.java.actions.InjectAvatarActions" singleton="false">
+								<property name="key" value="bullet"/>
+								<property name="scene" ref="multiplayer.service" />
+							</bean>
+						</property>
+					</bean>
+				</property>
+			</bean>
+		</property>
 		<property name="kinematic" ref="default.kinematic" />
 	</bean>
 
@@ -53,6 +67,9 @@
 		class="com.paperworld.multiplayer.behaviour.SimpleAvatarBehaviour2D"
 		singleton="false" />
 		
-	
+	<bean id="bullet"
+		class="com.paperworld.examples.fps.Bullet" singleton="false">
+
+	</bean>
 
 </beans>

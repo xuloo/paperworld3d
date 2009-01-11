@@ -23,10 +23,11 @@ package com.paperworld.multiplayer.behaviour;
 
 import com.actionengine.java.data.Input;
 import com.brainfarm.java.data.State;
-import com.brainfarm.java.steering.AbstractSteeringBehaviour;
 import com.brainfarm.java.steering.SteeringOutput;
+import com.paperworld.java.api.IAvatar;
+import com.paperworld.java.api.IBehaviour;
 
-public class SimpleAvatarBehaviour2D extends AbstractSteeringBehaviour {
+public class SimpleAvatarBehaviour2D implements IBehaviour {
 
 	//private static Logger log = LoggerFactory
 			//.getLogger(SimpleAvatarBehaviour2D.class);
@@ -48,17 +49,11 @@ public class SimpleAvatarBehaviour2D extends AbstractSteeringBehaviour {
 	}
 
 	@Override
-	public void getSteering(SteeringOutput output) {
-	}
-
-	public void getSteering(SteeringOutput output, Input input) {
+	public void apply(IAvatar avatar) {
 		
+		State state = avatar.getState();
+		Input input = avatar.getInput();
 		
-	}
-
-	@Override
-	public void getSteering(State state, Input input) {
-
 		if (input != null) {
 			if (input.getForward())
 				state.position.z += moveForwardAmount;

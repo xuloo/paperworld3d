@@ -25,5 +25,7 @@ package com.paperworld.api
 		function removeChild(child : *) : *;
 
 		function addRemoteChild(child : ISynchronisedObject, name : String, isLocal : Boolean = false) : ISynchronisedObject;
+
+		function set avatarFactory(factory : IAvatarFactory) : void;
 	}
 }

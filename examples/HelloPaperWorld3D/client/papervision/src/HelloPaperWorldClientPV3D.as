@@ -9,6 +9,7 @@ package
 	import com.actionengine.flash.util.logging.LoggerContext;
 	import com.paperworld.flash.connectors.RTMPConnector;
 	import com.paperworld.flash.connectors.RTMPEventTypes;
+	import com.paperworld.flash.factory.PranaContextAvatarFactory;
 	import com.paperworld.flash.player.Player;
 	import com.paperworld.pv3d.scenes.SynchronisedScene;
 	import com.paperworld.pv3d.views.ChequerBoardView;
@@ -64,6 +65,7 @@ package
 			
 			syncScene = new SynchronisedScene( scene );
 			syncScene.connector = connector;
+			syncScene.avatarFactory = new PranaContextAvatarFactory( );
 			syncScene.connect( "test" );
 			
 			player = new Player( );			

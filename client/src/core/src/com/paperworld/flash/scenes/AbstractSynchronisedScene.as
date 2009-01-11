@@ -28,6 +28,7 @@ package com.paperworld.flash.scenes
 	import com.brainfarm.flash.data.State;
 	import com.brainfarm.flash.util.math.Quaternion;
 	import com.brainfarm.flash.util.math.Vector3;
+	import com.paperworld.api.IAvatarFactory;
 	import com.paperworld.api.ISynchronisedAvatar;
 	import com.paperworld.api.ISynchronisedObject;
 	import com.paperworld.api.ISynchronisedScene;
@@ -39,9 +40,9 @@ package com.paperworld.flash.scenes
 	import com.paperworld.flash.lod.LodConstraint;
 	import com.paperworld.flash.objects.AbstractSynchronisedAvatar;
 	import com.paperworld.flash.player.Player;
-	
+
 	import flash.events.Event;
-	import flash.net.registerClassAlias;		
+	import flash.net.registerClassAlias;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
@@ -72,6 +73,13 @@ package com.paperworld.flash.scenes
 		 * The list of Level of Detail heuristics used in this scene.
 		 */
 		public var lodConstraints : LodConstraint;
+
+		protected var _avatarFactory : IAvatarFactory;
+
+		public function set avatarFactory(value : IAvatarFactory) : void 
+		{
+			_avatarFactory = value;
+		}
 
 		protected var _connector : IConnector;
 
@@ -134,7 +142,7 @@ package com.paperworld.flash.scenes
 
 			if (!avatar)
 			{
-				avatar = ISynchronisedAvatar( _context.getObject( 'remote.avatar' ) );
+				avatar = _avatarFactory.getAvatar( 'remote.avatar' );
 	
 				logger.info( connector.id + " Handling new Avatar in scene " + data[0] );
 	

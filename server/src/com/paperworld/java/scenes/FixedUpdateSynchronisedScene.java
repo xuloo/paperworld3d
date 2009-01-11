@@ -7,8 +7,9 @@ import org.red5.server.api.so.ISharedObject;
 
 import com.paperworld.java.api.IAvatar;
 import com.paperworld.multiplayer.data.SyncData;
+import com.paperworld.multiplayer.data.TimedInput;
 
-public class FixedUpdateSceneAdapter extends SynchronisedSceneAdapter {
+public class FixedUpdateSynchronisedScene extends BasicSynchronisedScene {
 
 	protected int behaviourUpdateRate;
 
@@ -18,7 +19,7 @@ public class FixedUpdateSceneAdapter extends SynchronisedSceneAdapter {
 
 	protected Timer timer = new Timer("Timer", true);
 
-	public FixedUpdateSceneAdapter() {
+	public FixedUpdateSynchronisedScene() {
 	}
 
 	@Override
@@ -30,6 +31,15 @@ public class FixedUpdateSceneAdapter extends SynchronisedSceneAdapter {
 		
 		timer.scheduleAtFixedRate(new UpdateSharedObjectTask(), 0,
 				1000 / clientUpdateRate);
+	}
+	
+	public SyncData receiveInput(String uid, TimedInput input) {
+		IAvatar avatar = players.get(uid).getAvatar();
+
+		avatar.setUserInput(input.getTime(), input.getInput());
+		
+		return new SyncData(avatar.getTime(), input.time, avatar.getInput(),
+				avatar.getState());
 	}
 	
 	@Override

@@ -4,29 +4,33 @@ import org.red5.server.api.so.ISharedObject;
 
 import com.actionengine.java.data.Input;
 import com.brainfarm.java.data.State;
-import com.brainfarm.java.steering.AbstractSteeringBehaviour;
 import com.brainfarm.java.steering.Kinematic;
 import com.paperworld.java.api.IAvatar;
+import com.paperworld.java.api.IBehaviour;
+import com.paperworld.java.api.IInputHandler;
+import com.paperworld.java.api.IScene;
+import com.paperworld.java.inputhandlers.InputHandler;
 import com.paperworld.multiplayer.data.AvatarData;
 import com.paperworld.multiplayer.data.SyncData;
-import com.paperworld.multiplayer.data.TimedInput;
 import com.paperworld.multiplayer.player.PlayerContext;
 
 public class SynchronisedAvatar implements IAvatar {
 
 	protected Kinematic kinematic;
 
+	protected IScene scene;
+
 	protected int time = 0;
 
-	public Input input;
+	protected Input input;
 
-	public State state;
+	protected State state;
 
-	public String ref;
+	protected String ref;
 
 	protected PlayerContext playerContext;
 
-	public AbstractSteeringBehaviour behaviour;
+	protected IInputHandler inputHandler;
 
 	public SynchronisedAvatar() {
 		initialise();
@@ -37,23 +41,23 @@ public class SynchronisedAvatar implements IAvatar {
 	}
 
 	public void initialise() {
+		inputHandler = new InputHandler();
 		input = new Input();
 		state = new State();
 	}
 
 	@Override
 	public void updateBehaviour() {
-		behaviour.getSteering(state, input);
+		inputHandler.handleInput(this, input);
 	}
 
-	@Override
-	public void updateInput(TimedInput input) {
-		while (input.time > time) {
+	public void setUserInput(int time, Input input) {
+		while (time > this.time) {
 			updateBehaviour();
 			time++;
 		}
 
-		this.input = input.getInput();
+		this.input = input;
 	}
 
 	public void updateState() {
@@ -68,6 +72,14 @@ public class SynchronisedAvatar implements IAvatar {
 				getState()));
 	}
 
+	public void setScene(IScene scene) {
+		this.scene = scene;
+	}
+
+	public IScene getScene() {
+		return scene;
+	}
+
 	public Kinematic getKinematic() {
 		return kinematic;
 	}
@@ -76,8 +88,8 @@ public class SynchronisedAvatar implements IAvatar {
 		this.kinematic = kinematic;
 	}
 
-	public void setBehaviour(AbstractSteeringBehaviour behaviour) {
-		this.behaviour = behaviour;
+	public void setBehaviour(IBehaviour behaviour) {
+		inputHandler.addBehaviour(behaviour);
 	}
 
 	public State getState() {
@@ -104,6 +116,11 @@ public class SynchronisedAvatar implements IAvatar {
 
 	public void setPlayerContext(PlayerContext playerContext) {
 		this.playerContext = playerContext;
+	}
+	
+	public void setInputHandler(IInputHandler inputHandler) {
+		System.out.println("setting input handler " + inputHandler);
+		this.inputHandler = inputHandler;
 	}
 
 	public void destroy() {
