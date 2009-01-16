@@ -21,8 +21,7 @@ public class InjectAvatarAction extends Action {
 		setScene(scene);
 		setKey(key);
 	}
-	
-	@Override 
+		
 	public void act() {
 		scene.setAvatar(key);
 	}

@@ -25,6 +25,7 @@ public class InputStateDependentBehaviour extends ActionAwareBehaviour {
 			Class[] types = new Class[] {};
 			Method method = input.getClass().getMethod(mname, types);
 			Object result = method.invoke(input, new Object[0]);
+			System.out.println("RESULT: " + result);
 			if ((Boolean) result) {
 				action.act();
 			}
