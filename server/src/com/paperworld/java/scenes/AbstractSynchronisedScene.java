@@ -14,8 +14,10 @@ import com.paperworld.java.api.ISynchronisedScene;
 import com.paperworld.multiplayer.data.AvatarData;
 import com.paperworld.multiplayer.data.SyncData;
 
-public class AbstractSynchronisedScene implements ISynchronisedScene, IApplication,
-		IService {
+public class AbstractSynchronisedScene implements ISynchronisedScene,
+		IApplication, IService {
+	
+	protected int time;
 
 	protected ApplicationAdapter application;
 
@@ -31,6 +33,10 @@ public class AbstractSynchronisedScene implements ISynchronisedScene, IApplicati
 		this.avatarFactory = avatarFactory;
 	}
 
+	public int getTime() {
+		return 0;
+	}
+	
 	@Override
 	public void setAvatar(ISynchronisedAvatar avatar) {
 
@@ -38,9 +44,11 @@ public class AbstractSynchronisedScene implements ISynchronisedScene, IApplicati
 
 	@Override
 	public void setAvatar(String key) {
-		setAvatar(avatarFactory.getAvatar(key));
+		ISynchronisedAvatar avatar = avatarFactory.getAvatar(key);
+		System.out.println("avatar being injected: " + avatar);
+		setAvatar(avatar);
 	}
-	
+
 	public int getAvatar(String key) {
 		return 0;
 	}

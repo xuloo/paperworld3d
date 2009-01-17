@@ -21,9 +21,9 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.flash.connectors.events 
 {
-	import flash.events.Event;
-
-	import com.paperworld.flash.connectors.IConnector;	
+	import com.paperworld.flash.connectors.IConnector;
+	
+	import flash.events.Event;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
@@ -32,14 +32,11 @@ package com.paperworld.flash.connectors.events
 	{		
 		public var connector : IConnector;
 
-		public var data : Array;
-
-		public function ConnectorEvent(type : String, connector : IConnector, ...data)
+		public function ConnectorEvent(type : String, connector : IConnector)
 		{
 			super( type, false, false );
 			
 			this.connector = connector;
-			this.data = data;
 		}
 	}
 }

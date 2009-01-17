@@ -5,13 +5,9 @@ import java.lang.reflect.Method;
 import com.actionengine.api.IInput;
 import com.paperworld.java.api.ISynchronisedAvatar;
 
-public class InputStateDependentBehaviour extends ActionAwareBehaviour {
-
-	protected String dependentProperty;
-
-	public InputStateDependentBehaviour() {
-
-	}
+public class ActOnceInputStateDependantBehaviour extends InputStateDependentBehaviour {
+	
+	protected boolean isActing = false;
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -27,14 +23,17 @@ public class InputStateDependentBehaviour extends ActionAwareBehaviour {
 			Object result = method.invoke(input, new Object[0]);
 
 			if ((Boolean) result) {
-				action.act();
+				if (!isActing) {
+					isActing = true;
+					action.act();
+				}				
+			} else {
+				if (isActing) {
+					isActing = false;
+				}
 			}
 		} catch (Exception e) {
 
 		}
-	}
-
-	public void setDependentProperty(String dependentProperty) {
-		this.dependentProperty = dependentProperty;
 	}
 }

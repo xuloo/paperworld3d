@@ -23,7 +23,6 @@ package com.paperworld.multiplayer.objects;
 
 import com.actionengine.api.IInput;
 import com.actionengine.java.util.collections.CircularBuffer;
-import com.brainfarm.java.steering.Kinematic;
 import com.paperworld.multiplayer.data.TimedInput;
 
 public class FixedUpdateRateAvatar extends SynchronisedAvatar {
@@ -32,12 +31,6 @@ public class FixedUpdateRateAvatar extends SynchronisedAvatar {
 
 	public FixedUpdateRateAvatar() {
 		super();
-	}
-
-	public FixedUpdateRateAvatar(Kinematic kinematic) {
-		super(kinematic);
-
-		initialise();
 	}
 
 	@Override
@@ -51,11 +44,4 @@ public class FixedUpdateRateAvatar extends SynchronisedAvatar {
 	public void setUserInput(IInput input) {
 		this.input = input;
 	}
-
-	/*@Override
-	public void updateInput(TimedInput move) {
-		buffer.add(move);
-		this.input = move.input;
-	}*/
-
 }

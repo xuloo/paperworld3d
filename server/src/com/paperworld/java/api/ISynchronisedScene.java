@@ -14,5 +14,7 @@ public interface ISynchronisedScene {
 	
 	public int getAvatar(String key);
 	
+	public int getTime();
+	
 	public SyncData receiveInput(String uid, IInput input);
 }

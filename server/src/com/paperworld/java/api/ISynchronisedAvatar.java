@@ -35,9 +35,9 @@ public interface ISynchronisedAvatar {
 
 	public void updateSharedObject(ISharedObject so);
 
-	// public void setScene(ISynchronisedScene scene);
+	public void setScene(ISynchronisedScene scene);
 
-	// public ISynchronisedScene getScene();
+	public ISynchronisedScene getScene();
 
 	// public Kinematic getKinematic();
 

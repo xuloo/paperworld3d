@@ -35,15 +35,16 @@ package com.paperworld.flash.scenes
 	import com.paperworld.flash.connectors.IConnector;
 	import com.paperworld.flash.connectors.IConnectorListener;
 	import com.paperworld.flash.connectors.ServerEventTypes;
+	import com.paperworld.flash.connectors.events.AvatarEvent;
 	import com.paperworld.flash.connectors.events.ConnectorEvent;
+	import com.paperworld.flash.connectors.events.DeleteAvatarEvent;
 	import com.paperworld.flash.data.AvatarData;
 	import com.paperworld.flash.data.SyncData;
 	import com.paperworld.flash.lod.LodConstraint;
 	import com.paperworld.flash.objects.AbstractSynchronisedAvatar;
 	import com.paperworld.flash.player.Player;
-
-	import flash.events.Event;
-	import flash.net.registerClassAlias;	
+	
+	import flash.net.registerClassAlias;		
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
@@ -138,45 +139,56 @@ package com.paperworld.flash.scenes
 			connector.connect( sceneName );			
 		}
 
-		protected function syncAvatar(data : Array) : void 
+		protected function syncAvatar(data : SyncData) : void 
 		{ 
-			var avatar : ISynchronisedAvatar = ISynchronisedAvatar( avatarsByName[data[0]] );
+			var avatarData:AvatarData = data.avatarData;	
+			
+			var avatar : ISynchronisedAvatar = ISynchronisedAvatar( avatarsByName[avatarData.id] );
 			
 			if (avatar)
-				avatar.synchronise( data[1], data[2], data[3] );
+				avatar.synchronise( avatarData.time, avatarData.input, avatarData.state );
+			else
+				addAvatar( data );
 		}
 
-		public function addAvatar(avatarData : AvatarData) : void 
+		public function addAvatar(data : SyncData) : void 
 		{			
-			var avatar : ISynchronisedAvatar = _avatarFactory.getAvatar( avatarData.getKey() );
+			var avatarData:AvatarData = data.avatarData;
 			
-			avatarsByName[avatarData.getId()] = avatar;
+			var avatar : ISynchronisedAvatar = _avatarFactory.getAvatar( avatarData.getKey( ) );
 			
-			addRemoteChild( avatar.getSynchronisedObject( ), avatarData.getId() );
+			avatarsByName[avatarData.getId( )] = avatar;
+			
+			addRemoteChild( avatar.getSynchronisedObject( ), avatarData.getId( ) );
 		}
 
-		protected function handleDelete(data : Array) : void
-		{
-			var avatar : AbstractSynchronisedAvatar = AbstractSynchronisedAvatar( avatarsByName[data[0]] );
+		protected function handleDelete(id : String) : void
+		{			
+			logger.info( "deleting: " + id );
+			
+			for (var i:String in avatarsByName)
+			{
+				logger.info( i + " => " + avatarsByName[i] );
+			}
+			
+			var avatar : AbstractSynchronisedAvatar = AbstractSynchronisedAvatar( avatarsByName[id] );
 			removeRemoteChild( avatar.getSynchronisedObject( ) );
 		}
 
 		public function onConnectorEvent(event : ConnectorEvent) : void
 		{			
-			var data : Array = event.data;
-			
 			switch (event.type)
 			{
 				case ServerEventTypes.INSERT_AVATAR:
-					addAvatar( AvatarData( data[0] ) );
+					addAvatar( AvatarEvent(event).data );
 					break;
 					
 				case ServerEventTypes.AVATAR_SYNC:
-					syncAvatar( data );
+					syncAvatar( AvatarEvent(event).data );
 					break;
 					
 				case ServerEventTypes.AVATAR_DELETE:
-					handleDelete( data );
+					handleDelete( DeleteAvatarEvent(event).id );
 					break;
 			}
 		}

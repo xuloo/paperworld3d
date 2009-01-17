@@ -26,38 +26,32 @@
 	<bean id="default.avatar"
 		class="com.paperworld.multiplayer.objects.FixedUpdateRateAvatar"
 		singleton="false">
-		<property name="inputHandler">
-			<bean class="com.paperworld.java.inputhandlers.InputHandler"
-				singleton="false">
-				<property name="behaviours">
-					<bean class="org.springframework.beans.factory.config.ListFactoryBean">
-						<property name="sourceList">
-							<list>
-								<bean
-									class="com.paperworld.multiplayer.behaviour.SimpleAvatarBehaviour2D"
-									singleton="false" />
-								<bean
-									class="com.paperworld.multiplayer.behaviour.InputStateDependentBehaviour"
+		<property name="behaviours">
+			<bean class="org.springframework.beans.factory.config.ListFactoryBean">
+				<property name="sourceList">
+					<list>
+						<bean
+							class="com.paperworld.multiplayer.behaviour.SimpleAvatarBehaviour2D"
+							singleton="false" />
+						<bean
+							class="com.paperworld.multiplayer.behaviour.ActOnceInputStateDependantBehaviour"
+							singleton="false">
+							<property name="dependentProperty" value="fire" />
+							<property name="action">
+								<bean class="com.paperworld.java.actions.InjectAvatarAction"
 									singleton="false">
-									<property name="dependentProperty" value="fire" />
-									<property name="action">
-										<bean class="com.paperworld.java.actions.InjectAvatarAction"
-											singleton="false">
-											<property name="scene" ref="multiplayer.service" />
-											<property name="key" value="random.avatar" />
-										</bean>
-									</property>
+									<property name="scene" ref="multiplayer.service" />
+									<property name="key" value="random.avatar" />
 								</bean>
-							</list>
-						</property>
-					</bean>
+							</property>
+						</bean>
+					</list>
 				</property>
 			</bean>
 		</property>
-		<property name="kinematic">
-			<bean class="com.brainfarm.java.steering.Kinematic" singleton="false" />
-		</property>
 	</bean>
+	<bean id="null.avatar" class="com.paperworld.multiplayer.objects.NullAvatar"
+		singleton="false" />
 
 	<!--
 		Sets up the properties on an object that will move randomly in the
@@ -67,26 +61,19 @@
 	<bean id="random.avatar"
 		class="com.paperworld.multiplayer.objects.FixedUpdateRateAvatar"
 		singleton="false">
-		<property name="inputHandler">
-			<bean class="com.paperworld.java.inputhandlers.InputHandler"
-				singleton="false">
-				<property name="behaviours">
-					<bean class="org.springframework.beans.factory.config.ListFactoryBean">
-						<property name="sourceList">
-							<list>
-								<bean class="com.paperworld.examples.loadtest.RandomInputBehaviour"
-									singleton="false" />
-								<bean
-									class="com.paperworld.multiplayer.behaviour.SimpleAvatarBehaviour2D"
-									singleton="false" />
-							</list>
-						</property>
-					</bean>
+		<property name="key" value="avatar" />
+		<property name="behaviours">
+			<bean class="org.springframework.beans.factory.config.ListFactoryBean">
+				<property name="sourceList">
+					<list>
+						<bean class="com.paperworld.examples.loadtest.RandomInputBehaviour"
+							singleton="false" />
+						<bean
+							class="com.paperworld.multiplayer.behaviour.SimpleAvatarBehaviour2D"
+							singleton="false" />
+					</list>
 				</property>
 			</bean>
-		</property>
-		<property name="kinematic">
-			<bean class="com.brainfarm.java.steering.Kinematic" singleton="false" />
 		</property>
 	</bean>
 

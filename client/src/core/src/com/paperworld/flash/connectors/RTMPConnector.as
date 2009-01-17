@@ -21,21 +21,22 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.flash.connectors
 {
-	import com.paperworld.flash.data.AvatarData;	
-
 	import jedai.events.Red5Event;
 	import jedai.net.rpc.Red5Connection;
 	import jedai.net.rpc.RemoteSharedObject;
-
+	
 	import com.actionengine.flash.core.context.CoreContext;
 	import com.actionengine.flash.input.events.UserInputEvent;
 	import com.actionengine.flash.util.logging.Logger;
 	import com.actionengine.flash.util.logging.LoggerContext;
 	import com.paperworld.flash.connectors.IConnectorListener;
+	import com.paperworld.flash.connectors.events.AvatarEvent;
 	import com.paperworld.flash.connectors.events.ConnectorEvent;
+	import com.paperworld.flash.connectors.events.DeleteAvatarEvent;
+	import com.paperworld.flash.data.AvatarData;
 	import com.paperworld.flash.data.SyncData;
 	import com.paperworld.flash.player.Player;
-
+	
 	import flash.events.Event;
 	import flash.events.SyncEvent;
 	import flash.net.ObjectEncoding;
@@ -128,7 +129,7 @@ package com.paperworld.flash.connectors
 		public function addPlayerResult(avatar : AvatarData) : void
 		{			
 			logger.info("adding player: " + avatar);
-			dispatchEvent( new ConnectorEvent( ServerEventTypes.INSERT_AVATAR, this, avatar ) );
+			dispatchEvent( new AvatarEvent( ServerEventTypes.INSERT_AVATAR, this, new SyncData(0, avatar) ) );
 		}
 
 		protected function onConnectionDisconnected(event : Red5Event) : void
@@ -161,7 +162,7 @@ package com.paperworld.flash.connectors
 						//if (name != String( clientID )) 
 						//{				
 						//logger.info( "remote avatar " + data.state );		
-						//dispatchEvent( new ConnectorEvent( ServerEventTypes.REMOTE_AVATAR_SYNC, this, name, data.serverTime, data.input, data.state ) );						dispatchEvent( new ConnectorEvent( ServerEventTypes.AVATAR_SYNC, this, name, data.serverTime, data.input, data.state ) );						//}
+						//dispatchEvent( new ConnectorEvent( ServerEventTypes.REMOTE_AVATAR_SYNC, this, name, data.serverTime, data.input, data.state ) );						dispatchEvent( new AvatarEvent( ServerEventTypes.AVATAR_SYNC, this, data ) );						//}
 						//else
 						//{
 						//	dispatchEvent( new ConnectorEvent( ServerEventTypes.LOCAL_AVATAR_SYNC, this, name, data.serverTime, data.input, data.state ) );
@@ -181,7 +182,7 @@ package com.paperworld.flash.connectors
 						
 					case "delete":
 						logger.info( "changeList[" + i + "].code: " + changeList[i].code );
-						dispatchEvent( new ConnectorEvent( ServerEventTypes.AVATAR_DELETE, this, name ) );
+						dispatchEvent( new DeleteAvatarEvent( this, name ) );
 						break;
 							
 					default:
@@ -198,7 +199,7 @@ package com.paperworld.flash.connectors
 
 		public function onResult(data : SyncData) : void
 		{						
-			dispatchEvent( new ConnectorEvent( ServerEventTypes.LOCAL_AVATAR_SYNC, this, String( clientID ), data.serverTime, data.input, data.state ) );
+			dispatchEvent( new AvatarEvent( ServerEventTypes.LOCAL_AVATAR_SYNC, this, data ) );
 		}
 
 		public function onStatus(status : Object) : void

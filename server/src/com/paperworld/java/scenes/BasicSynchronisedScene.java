@@ -12,6 +12,7 @@ import com.paperworld.java.api.ISynchronisedAvatar;
 import com.paperworld.multiplayer.data.AvatarData;
 import com.paperworld.multiplayer.data.SyncData;
 import com.paperworld.multiplayer.data.TimedInput;
+import com.paperworld.multiplayer.objects.SynchronisedAvatar;
 import com.paperworld.multiplayer.player.Player;
 
 public class BasicSynchronisedScene extends AbstractSynchronisedScene {
@@ -92,8 +93,7 @@ public class BasicSynchronisedScene extends AbstractSynchronisedScene {
 
 		avatar.updateSharedObject(getSharedObject());
 
-		return new SyncData(avatar.getTime(), input.getTime(), avatar.getInput(),
-				avatar.getState());
+		return new SyncData(getTime(), avatar.getAvatarData());
 	}
 
 	public Player getPlayerByConnection(IConnection connection) {
@@ -133,6 +133,10 @@ public class BasicSynchronisedScene extends AbstractSynchronisedScene {
 	}
 
 	public void setAvatar(ISynchronisedAvatar avatar) {
+		if (avatar.getId() == null) {
+			avatar.setId("NULL_AVATAR_" + SynchronisedAvatar.COUNT);
+		}
+		avatar.setScene(this);
 		avatars.put(avatar.getId(), avatar);
 	}
 

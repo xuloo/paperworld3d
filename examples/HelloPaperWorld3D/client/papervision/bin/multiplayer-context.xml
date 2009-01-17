@@ -1,36 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <objects>
 
-	<!-- <object id="synchronised.scene" class="com.paperworld.pv3d.scenes.SynchronisedScene">
-		<property name="scene">
-			<object class="
-		</property>
-	</object> -->
-
 	<object id="local.avatar" class="com.paperworld.flash.objects.LocalAvatar"
-		lazy-init="true" scope="prototype" singleton="false" >
-		<property name="synchronisedObject">
-			<ref>local.object</ref>
-		</property>
-	</object>
-
-	<object id="local.object" class="com.paperworld.pv3d.objects.SynchronisableObject">
-		<property name="displayObject">
-			<object class="ColouredCube">
-				<constructor-arg value="0xFFCC00" />
-				<constructor-arg value="100" />
-				<constructor-arg value="100" />
-				<constructor-arg value="100" />
-			</object>
-		</property>
-	</object>
-	
-	<object id="default.avatar" class="com.paperworld.flash.objects.LocalAvatar"
 		lazy-init="true" scope="prototype" singleton="false">
 		<property name="synchronisedObject">
-			<object class="com.paperworld.pv3d.objects.SynchronisableObject">
+			<object id="local.object" class="com.paperworld.pv3d.objects.SynchronisableObject"
+				lazy-init="true" scope="prototype" singleton="false">
 				<property name="displayObject">
-					<object class="ColouredCube">
+					<object class="ColouredCube" lazy-init="true" scope="prototype"
+						singleton="false">
 						<constructor-arg value="0xFFCC00" />
 						<constructor-arg value="100" />
 						<constructor-arg value="100" />

@@ -39,8 +39,7 @@ public class FixedUpdateSynchronisedScene extends BasicSynchronisedScene {
 
 		avatar.setUserInput(input);
 		
-		return new SyncData(avatar.getTime(), input.getTime(), avatar.getInput(),
-				avatar.getState());
+		return new SyncData(getTime(), avatar.getAvatarData());
 	}
 	
 	@Override
@@ -49,7 +48,7 @@ public class FixedUpdateSynchronisedScene extends BasicSynchronisedScene {
 
 		avatar.setId(id);
 		avatar.setKey("avatar");
-		avatars.put(id, avatar);
+		setAvatar(avatar);
 		
 		//return new SyncData(time, 0, avatar.getInput(), avatar.getState());
 		return new AvatarData(avatar);

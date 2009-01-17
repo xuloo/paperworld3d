@@ -11,15 +11,18 @@ import com.brainfarm.java.data.State;
 import com.brainfarm.java.steering.Kinematic;
 import com.paperworld.java.api.IBehaviour;
 import com.paperworld.java.api.ISynchronisedAvatar;
+import com.paperworld.java.api.ISynchronisedScene;
 import com.paperworld.multiplayer.data.AvatarData;
 import com.paperworld.multiplayer.data.SyncData;
 import com.paperworld.multiplayer.player.PlayerContext;
 
 public class SynchronisedAvatar implements ISynchronisedAvatar {
 
+	public static int COUNT = 0;
+
 	protected List<IBehaviour> behaviours = new ArrayList<IBehaviour>();
 
-	//protected ISynchronisedScene scene;
+	protected ISynchronisedScene scene;
 
 	protected int time = 0;
 
@@ -28,7 +31,7 @@ public class SynchronisedAvatar implements ISynchronisedAvatar {
 	protected State state;
 
 	protected String key;
-	
+
 	protected String id;
 
 	protected PlayerContext playerContext;
@@ -45,6 +48,8 @@ public class SynchronisedAvatar implements ISynchronisedAvatar {
 	}
 
 	public void initialise() {
+		COUNT++;
+
 		input = new Input();
 		state = new State();
 	}
@@ -66,46 +71,46 @@ public class SynchronisedAvatar implements ISynchronisedAvatar {
 	}
 
 	public void updateSharedObject(ISharedObject so) {
-		so.setAttribute(playerContext.getId(), new SyncData(time, input,
-				getState()));
+		so
+				.setAttribute(getId(), new SyncData(scene.getTime(),
+						getAvatarData()));
 	}
-	
+
 	public boolean addBehaviour(IBehaviour behaviour) {
 		if (!behaviours.contains(behaviour)) {
 			behaviours.add(behaviour);
 			return true;
 		}
-		
+
 		return false;
 	}
-	
+
 	// GETTERS AND SETTERS
-	
+
 	public void setBehaviour(IBehaviour behaviour) {
 		addBehaviour(behaviour);
 	}
-	
+
 	public void setBehaviours(List<IBehaviour> behaviours) {
-		System.out.println("setting behaviours " + behaviours);
 		this.behaviours = behaviours;
 	}
 
-	/*public void setScene(ISynchronisedScene scene) {
+	public void setScene(ISynchronisedScene scene) {
 		this.scene = scene;
 	}
 
 	public ISynchronisedScene getScene() {
 		return scene;
-	}*/
+	}
 
 	public IInput getInput() {
 		return input;
 	}
-	
+
 	public void setInput(IInput input) {
 		this.input = input;
 	}
-	
+
 	public State getState() {
 		return state;
 	}
@@ -121,11 +126,11 @@ public class SynchronisedAvatar implements ISynchronisedAvatar {
 	public int getTime() {
 		return time;
 	}
-	
+
 	public void setTime(int time) {
 		this.time = time;
 	}
-	
+
 	@Override
 	public String getId() {
 		return id;

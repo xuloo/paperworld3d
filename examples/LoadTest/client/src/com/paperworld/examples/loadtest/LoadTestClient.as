@@ -1,5 +1,6 @@
 package com.paperworld.examples.loadtest 
 {
+	import com.paperworld.flash.factory.RemoteAndLocalAvatarFactory;	
 	import com.actionengine.flash.core.context.CoreContext;
 	import com.actionengine.flash.input.BasicKeyboardInput;
 	import com.actionengine.flash.input.IUserInput;
@@ -67,7 +68,7 @@ package com.paperworld.examples.loadtest
 			
 			syncScene = new SynchronisedScene( scene );
 			syncScene.connector = connector;
-			syncScene.avatarFactory = new PranaContextAvatarFactory( );
+			syncScene.avatarFactory = new RemoteAndLocalAvatarFactory( );
 			syncScene.connect( "test" );
 			
 			player = new Player( );			

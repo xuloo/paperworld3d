@@ -9,6 +9,7 @@
 	<path id="classpath">
 		
     	<pathelement location="${red5.dir}/red5.jar"/>
+		<pathelement location="D:/projects/actionengine/trunk/java/jar/actionengine-java.jar"/>
 		
 		<fileset dir="WebContent/WEB-INF/lib">
         	<include name="**/*.jar"/>

@@ -21,35 +21,20 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.flash.data 
 {
-	import com.actionengine.flash.input.Input;
-	import com.brainfarm.flash.data.State;		
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
 	 */
 	public class SyncData 
 	{
-		public var time : int;
-
 		public var serverTime : int;
 
-		public var input : Input;
+		public var avatarData : AvatarData;
 
-		public var state : State;
-
-		public function SyncData()
+		public function SyncData(serverTime:int = 0, avatarData:AvatarData = null)
 		{
-			
-		}
-
-		public function getTime() : int
-		{
-			return time;
-		}
-
-		public function setTime(time : int) : void
-		{
-			this.time = time;
+			this.serverTime = serverTime;
+			this.avatarData = avatarData;
 		}
 
 		public function getServerTime() : int
@@ -62,29 +47,14 @@ package com.paperworld.flash.data
 			this.serverTime = serverTime;
 		}
 
-		public function getInput() : Input
+		public function getAvatarData() : AvatarData
 		{
-			return input;	
+			return avatarData;	
 		}
 
-		public function setInput(input : Input) : void
+		public function setAvatarData(avatarData : AvatarData) : void
 		{	
-			this.input = input;
-		}
-
-		public function getState() : State
-		{
-			return state;	
-		}
-
-		public function setState(state : State) : void
-		{
-			this.state = state;	
-		}
-
-		public function toString() : String
-		{
-			return 'ServerSyncEvent {\n' + '    time: ' + time + '\n    input: ' + input + '\n    state: ' + state + '\n}';
+			this.avatarData = avatarData;
 		}
 	}
 }

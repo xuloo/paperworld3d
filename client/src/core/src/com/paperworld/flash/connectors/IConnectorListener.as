@@ -21,7 +21,7 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.flash.connectors 
 {
-	import com.paperworld.flash.connectors.events.ConnectorEvent;				
+	import com.paperworld.flash.connectors.events.ConnectorEvent;		
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
