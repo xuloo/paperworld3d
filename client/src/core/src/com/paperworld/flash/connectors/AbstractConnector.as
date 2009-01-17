@@ -142,5 +142,9 @@ package com.paperworld.flash.connectors
 		public function removeListener(listener : IConnectorListener) : void
 		{
 		}
+		
+		public function call(method : String, responder : Responder, arg : *) : void
+		{
+		}
 	}
 }

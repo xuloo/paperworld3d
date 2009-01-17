@@ -7,8 +7,9 @@ import org.red5.server.api.ScopeUtils;
 import org.red5.server.api.so.ISharedObject;
 import org.red5.server.api.so.ISharedObjectService;
 
-import com.paperworld.java.api.IAvatar;
-import com.paperworld.java.exceptions.AvatarNotFoundException;
+import com.actionengine.api.IInput;
+import com.paperworld.java.api.ISynchronisedAvatar;
+import com.paperworld.multiplayer.data.AvatarData;
 import com.paperworld.multiplayer.data.SyncData;
 import com.paperworld.multiplayer.data.TimedInput;
 import com.paperworld.multiplayer.player.Player;
@@ -16,11 +17,11 @@ import com.paperworld.multiplayer.player.Player;
 public class BasicSynchronisedScene extends AbstractSynchronisedScene {
 
 	protected HashMap<String, Player> players;
-	protected HashMap<String, IAvatar> avatars;
+	protected HashMap<String, ISynchronisedAvatar> avatars;
 
 	public BasicSynchronisedScene() {
 		players = new HashMap<String, Player>();
-		avatars = new HashMap<String, IAvatar>();
+		avatars = new HashMap<String, ISynchronisedAvatar>();
 	}
 
 	public void init() {
@@ -37,10 +38,10 @@ public class BasicSynchronisedScene extends AbstractSynchronisedScene {
 
 		player.setName(name);
 		player.setConnection(connection);
-		
-		//IAvatar avatar = factory.getAvatar("default.avatar");
-		IAvatar avatar = (IAvatar) application.getContext().getBean(
-		"default.avatar");
+
+		// IAvatar avatar = factory.getAvatar("default.avatar");
+		ISynchronisedAvatar avatar = (ISynchronisedAvatar) application.getContext().getBean(
+				"default.avatar");
 		System.out.println("AVATAR: " + avatar);
 		player.setAvatar(avatar);
 
@@ -65,23 +66,33 @@ public class BasicSynchronisedScene extends AbstractSynchronisedScene {
 	}
 
 	@Override
-	public SyncData addPlayer(String id) {
-		IAvatar avatar = players.get(id).getAvatar();
-
+	public AvatarData addPlayer(String id) {
+		ISynchronisedAvatar avatar = players.get(id).getAvatar();
+		
+		avatar.setId(id);
+		avatar.setKey("default.avatar");
 		avatars.put(id, avatar);
-
-		return new SyncData(avatar.getTime(), 0, avatar.getInput(), avatar
-				.getState());
+		//System.out.println("adding avatar " + id);
+		//return new SyncData(avatar.getTime(), 0, avatar.getInput(), avatar
+		//		.getState());
+		return new AvatarData(avatar);
 	}
 
-	public SyncData receiveInput(String uid, TimedInput input) {
-		IAvatar avatar = players.get(uid).getAvatar();
+	@Override
+	public int getAvatar(String key) {
+		ISynchronisedAvatar avatar = avatars.get(key);
+		System.out.println("avatar for " + key + " from " + avatars.size() + " == " + avatar);
+		return 0;
+	}
 
-		avatar.setUserInput(input.getTime(), input.getInput());
+	public SyncData receiveInput(String uid, IInput input) {
+		ISynchronisedAvatar avatar = players.get(uid).getAvatar();
+
+		avatar.setUserInput(input);
 
 		avatar.updateSharedObject(getSharedObject());
 
-		return new SyncData(avatar.getTime(), input.time, avatar.getInput(),
+		return new SyncData(avatar.getTime(), input.getTime(), avatar.getInput(),
 				avatar.getState());
 	}
 
@@ -117,15 +128,15 @@ public class BasicSynchronisedScene extends AbstractSynchronisedScene {
 		return players;
 	}
 
-	public HashMap<String, IAvatar> getAvatars() {
+	public HashMap<String, ISynchronisedAvatar> getAvatars() {
 		return avatars;
 	}
 
-	public void setAvatar(IAvatar avatar) {
-		avatars.put(avatar.getAvatarData().getRef(), avatar);
+	public void setAvatar(ISynchronisedAvatar avatar) {
+		avatars.put(avatar.getId(), avatar);
 	}
 
-	public void setAvatars(HashMap<String, IAvatar> avatars) {
+	public void setAvatars(HashMap<String, ISynchronisedAvatar> avatars) {
 		this.avatars = avatars;
 	}
 }

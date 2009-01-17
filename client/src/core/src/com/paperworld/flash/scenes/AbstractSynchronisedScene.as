@@ -36,6 +36,7 @@ package com.paperworld.flash.scenes
 	import com.paperworld.flash.connectors.IConnectorListener;
 	import com.paperworld.flash.connectors.ServerEventTypes;
 	import com.paperworld.flash.connectors.events.ConnectorEvent;
+	import com.paperworld.flash.data.AvatarData;
 	import com.paperworld.flash.data.SyncData;
 	import com.paperworld.flash.lod.LodConstraint;
 	import com.paperworld.flash.objects.AbstractSynchronisedAvatar;
@@ -125,6 +126,7 @@ package com.paperworld.flash.scenes
 			registerClassAlias( 'com.brainfarm.java.util.math.Vector3', Vector3 );				registerClassAlias( 'com.paperworld.multiplayer.data.SyncData', SyncData );	
 			registerClassAlias( 'com.brainfarm.java.data.State', State );
 			registerClassAlias( 'com.brainfarm.java.util.math.Quaternion', Quaternion );
+			registerClassAlias( 'com.paperworld.multiplayer.data.AvatarData', AvatarData );
 		}
 
 		public function connect(...args) : void
@@ -132,35 +134,25 @@ package com.paperworld.flash.scenes
 			sceneName = String( args[0] );
 			
 			logger.info( "connecting to " + scene );
-			
+
 			connector.connect( sceneName );			
 		}
 
-		protected function handleRemoteSync(data : Array) : void
-		{									
+		protected function syncAvatar(data : Array) : void 
+		{ 
 			var avatar : ISynchronisedAvatar = ISynchronisedAvatar( avatarsByName[data[0]] );
-
-			if (!avatar)
-			{
-				avatar = _avatarFactory.getAvatar( 'remote.avatar' );
-	
-				logger.info( connector.id + " Handling new Avatar in scene " + data[0] );
-	
-				avatar.setInput( data[2] );
-				avatar.setState( data[3] );
-				avatar.setTime( data[1] );
-				
-				addRemoteChild( avatar.getSynchronisedObject( ), data[0] );
-				
-				avatarsByName[data[0]] = avatar;
-			}
-
-			avatar.synchronise( data[1], data[2], data[3] );	
+			
+			if (avatar)
+				avatar.synchronise( data[1], data[2], data[3] );
 		}
 
-		protected function handleLocalSync(data : Array) : void
-		{
-			player.getAvatar( ).synchronise( data[1], data[2], data[3] );
+		public function addAvatar(avatarData : AvatarData) : void 
+		{			
+			var avatar : ISynchronisedAvatar = _avatarFactory.getAvatar( avatarData.getKey() );
+			
+			avatarsByName[avatarData.getId()] = avatar;
+			
+			addRemoteChild( avatar.getSynchronisedObject( ), avatarData.getId() );
 		}
 
 		protected function handleDelete(data : Array) : void
@@ -175,12 +167,12 @@ package com.paperworld.flash.scenes
 			
 			switch (event.type)
 			{
-				case ServerEventTypes.LOCAL_AVATAR_SYNC:
-					handleLocalSync( data );
+				case ServerEventTypes.INSERT_AVATAR:
+					addAvatar( AvatarData( data[0] ) );
 					break;
 					
-				case ServerEventTypes.REMOTE_AVATAR_SYNC:
-					handleRemoteSync( data );
+				case ServerEventTypes.AVATAR_SYNC:
+					syncAvatar( data );
 					break;
 					
 				case ServerEventTypes.AVATAR_DELETE:
@@ -192,22 +184,22 @@ package com.paperworld.flash.scenes
 		
 		public function addPlayer(player : Player, isLocal : Boolean = true) : void
 		{
-			var avatar : ISynchronisedAvatar = ISynchronisedAvatar( _context.getObject( 'local.avatar' ) );
+			//var avatar : ISynchronisedAvatar = ISynchronisedAvatar( _context.getObject( 'local.avatar' ) );
 
-			logger.info( "adding player avatar " + avatar );
+			//logger.info( "adding player avatar " + avatar );
 
-			if (isLocal) pov = avatar;
+			//if (isLocal) pov = avatar;
 			
-			avatar.setNext( avatars );
-			avatars = avatar;
+			//avatar.setNext( avatars );
+			//avatars = avatar;
 					
-			addRemoteChild( avatar.getSynchronisedObject( ), connector.id );
+			//addRemoteChild( avatar.getSynchronisedObject( ), connector.id );
 
-			avatar.userInput = connector.input;
+			//avatar.userInput = connector.input;
 			//connector.addLagListener( avatar );
 
-			player.setAvatar( avatar );
-			
+			//player.setAvatar( avatar );
+
 			this.player = player;
 			
 			connector.addPlayer( player );
@@ -245,8 +237,8 @@ package com.paperworld.flash.scenes
 			// Finally, add the object to the 3D scene.
 			var c : * = addChild( child, name );
 			
-			logger.info( "adding remote child: " + c );
-			
+			//logger.info( "adding remote child: " + c );
+
 			return child;
 		}
 

@@ -1,10 +1,10 @@
 package com.paperworld.java.api;
 
-import com.actionengine.java.data.Input;
+import com.actionengine.api.IInput;
 
 public interface IInputHandler {
 
-	public void handleInput(IAvatar avatar, Input input);
+	public void handleInput(ISynchronisedAvatar avatar, IInput input);
 	
 	public boolean addBehaviour(IBehaviour behaviour);
 }

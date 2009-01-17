@@ -23,14 +23,14 @@ package com.paperworld.multiplayer.player;
 
 import org.red5.server.api.IConnection;
 
-import com.paperworld.java.api.IAvatar;
+import com.paperworld.java.api.ISynchronisedAvatar;
 import com.paperworld.multiplayer.objects.FixedUpdateRateAvatar;
 
 public class Player {
 
 	protected PlayerContext context;
 
-	protected IAvatar avatar;
+	protected ISynchronisedAvatar avatar;
 
 	protected String name;
 
@@ -43,11 +43,11 @@ public class Player {
 		context = new PlayerContext(connection);
 	}
 
-	public IAvatar getAvatar() {
+	public ISynchronisedAvatar getAvatar() {
 		return avatar;
 	}
 
-	public void setAvatar(IAvatar avatar) {
+	public void setAvatar(ISynchronisedAvatar avatar) {
 		this.avatar = avatar;
 		this.avatar.setPlayerContext(getContext());
 	}

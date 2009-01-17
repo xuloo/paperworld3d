@@ -21,6 +21,7 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.util 
 {
+	import com.actionengine.flash.api.IInput;
 	import com.actionengine.flash.core.BaseClass;
 	import com.actionengine.flash.input.Input;
 	import com.actionengine.flash.util.logging.Logger;
@@ -76,7 +77,7 @@ package com.paperworld.util
 			moves.add( move );
 		}
 
-		public function correction(avatar : ISynchronisedAvatar, t : int, state : State, input : Input) : void
+		public function correction(avatar : ISynchronisedAvatar, t : int, state : State, input : IInput) : void
 		{
 			// discard out of date important moves 
 			/*if (importantMoves.oldest( ))
@@ -104,7 +105,7 @@ package com.paperworld.util
 				moves.remove( );
 	
 				// save current scene data
-				var	savedInput : Input = avatar.getInput( ).clone( );
+				var	savedInput : IInput = avatar.getInput( ).clone( );
 	
 				// rewind to correction and replay moves
 				avatar.setTime( t );

@@ -21,7 +21,7 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.flash.objects 
 {
-	import com.actionengine.flash.input.Input;
+	import com.actionengine.flash.api.IInput;
 	import com.actionengine.flash.util.logging.Logger;
 	import com.actionengine.flash.util.logging.LoggerContext;
 	import com.brainfarm.flash.data.State;	
@@ -50,7 +50,7 @@ package com.paperworld.flash.objects
 			updating = false;	
 		}
 
-		override public function synchronise(time : int, input : Input, state : State) : void
+		override public function synchronise(time : int, input : IInput, state : State) : void
 		{			
 			// Just ignore any out of order packets...
 			if (time < _lastSyncTime)

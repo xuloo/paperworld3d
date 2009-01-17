@@ -21,6 +21,8 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.flash.objects 
 {
+	import com.paperworld.flash.behaviours.SimpleAvatarBehaviour25D;	
+	import com.actionengine.flash.api.IInput;
 	import com.actionengine.flash.core.BaseClass;
 	import com.actionengine.flash.input.IUserInput;
 	import com.actionengine.flash.input.Input;
@@ -30,10 +32,12 @@ package com.paperworld.flash.objects
 	import com.actionengine.flash.util.logging.Logger;
 	import com.actionengine.flash.util.logging.LoggerContext;
 	import com.brainfarm.flash.data.State;
-	import com.brainfarm.flash.steering.SteeringBehaviour;
 	import com.brainfarm.flash.steering.SteeringOutput;
+	import com.paperworld.api.IBehaviour;
 	import com.paperworld.api.ISynchronisedAvatar;
-	import com.paperworld.api.ISynchronisedObject;	
+	import com.paperworld.api.ISynchronisedObject;
+
+	import flash.net.registerClassAlias;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
@@ -102,19 +106,25 @@ package com.paperworld.flash.objects
 		/**
 		 * The AvatarBehaviour instance used to interpret user input for this SyncObject.
 		 */
-		public var behaviour : SteeringBehaviour;
+		protected var _behaviours : IBehaviour;
+
+		public function setBehaviour(behaviour : IBehaviour) : void
+		{
+			behaviour.next = _behaviours;
+			_behaviours = behaviour;
+		}
 
 		/**
 		 * The current user input state for this object.
 		 */
-		protected var _input : Input;
+		protected var _input : IInput;
 
-		public function getInput() : Input
+		public function getInput() : IInput
 		{
 			return _input;
 		}
 
-		public function setInput(input : Input) : void
+		public function setInput(input : IInput) : void
 		{
 			_input = input;
 		}
@@ -178,6 +188,10 @@ package com.paperworld.flash.objects
 			_replaying = replaying;
 		}
 
+		public function AbstractSynchronisedAvatar() 
+		{
+		}
+
 		public function update() : void
 		{			
 			_tightness += (defaultTightness - _tightness) * 0.01;
@@ -185,7 +199,7 @@ package com.paperworld.flash.objects
 			synchronisedObject.synchronise( _time, _input, _current );	
 		}
 
-		public function synchronise(time : int, input : Input, state : State) : void
+		public function synchronise(time : int, input : IInput, state : State) : void
 		{
 		}
 
@@ -221,6 +235,8 @@ package com.paperworld.flash.objects
 			_input = new Input( );
 			_current = new State( );
 			_previous = new State( );
+			
+			_behaviours = new SimpleAvatarBehaviour25D( );
 			
 			output = new SteeringOutput( );
 			
@@ -259,6 +275,18 @@ package com.paperworld.flash.objects
 		public function toString() : String
 		{
 			return '[Avatar: ' + synchronisedObject + ']';
+		}
+
+		protected var _ref : String;
+
+		public function getRef() : String
+		{
+			return _ref;
+		}
+
+		public function setRef(ref : String) : void
+		{
+			_ref = ref;
 		}
 	}
 }

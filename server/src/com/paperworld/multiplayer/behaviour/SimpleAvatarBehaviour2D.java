@@ -21,10 +21,9 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.multiplayer.behaviour;
 
-import com.actionengine.java.data.Input;
+import com.actionengine.api.IInput;
 import com.brainfarm.java.data.State;
-import com.brainfarm.java.steering.SteeringOutput;
-import com.paperworld.java.api.IAvatar;
+import com.paperworld.java.api.ISynchronisedAvatar;
 import com.paperworld.java.api.IBehaviour;
 
 public class SimpleAvatarBehaviour2D implements IBehaviour {
@@ -49,18 +48,18 @@ public class SimpleAvatarBehaviour2D implements IBehaviour {
 	}
 
 	@Override
-	public void apply(IAvatar avatar) {
+	public void apply(ISynchronisedAvatar avatar) {
 		
 		State state = avatar.getState();
-		Input input = avatar.getInput();
+		IInput input = avatar.getInput();
 		
 		if (input != null) {
-			if (input.getForward())
+			if (input.getMoveForward())
 				state.position.z += moveForwardAmount;
-
-			if (input.getBack())
+				
+			if (input.getMoveBackward())
 				state.position.z -= moveBackAmount;
-
+				
 			if (input.getMoveRight())
 				state.position.x += moveRightAmount;
 

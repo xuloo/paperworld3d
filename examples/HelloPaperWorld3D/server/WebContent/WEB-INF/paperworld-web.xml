@@ -6,7 +6,7 @@
 		singleton="true" init-method="init">
 		<property name="application" ref="web.handler" />
 		<property name="avatarFactory" ref="avatarFactory" />
-		<property name="clientUpdateRate" value="5" />
+		<property name="clientUpdateRate" value="20" />
 		<property name="behaviourUpdateRate" value="60" />
 	</bean>
 
@@ -22,25 +22,16 @@
 	<bean id="default.avatar"
 		class="com.paperworld.multiplayer.objects.FixedUpdateRateAvatar"
 		singleton="false">
-		<property name="inputHandler">
-			<bean id="inputHandler" class="com.paperworld.java.inputhandlers.InputHandler"
-				singleton="false">
-				<property name="behaviours">
-					<bean class="org.springframework.beans.factory.config.ListFactoryBean">
-						<property name="sourceList">
-							<list>
-								<bean
-									class="com.paperworld.multiplayer.behaviour.SimpleAvatarBehaviour2D"
-									singleton="false" />
-							</list>
-						</property>
-					</bean>
+		<property name="behaviours">
+			<bean class="org.springframework.beans.factory.config.ListFactoryBean">
+				<property name="sourceList">
+					<list>
+						<bean
+							class="com.paperworld.multiplayer.behaviour.SimpleAvatarBehaviour2D"
+							singleton="false" />
+					</list>
 				</property>
 			</bean>
-		</property>
-		<property name="kinematic">
-			<bean id="default.kinematic" class="com.brainfarm.java.steering.Kinematic"
-				singleton="false" />
 		</property>
 	</bean>
 

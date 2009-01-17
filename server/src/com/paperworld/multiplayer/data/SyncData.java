@@ -21,26 +21,26 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.multiplayer.data;
 
-import com.actionengine.java.data.Input;
+import com.actionengine.api.IInput;
 import com.brainfarm.java.data.State;
 
 public class SyncData {
 
-	public int t;	
+	public int t;
 
 	protected int serverTime;
 
-	public Input input;
+	public IInput input;
 
 	public State state;
 
-	public SyncData(int serverTime, Input input, State state) {
+	public SyncData(int serverTime, IInput input, State state) {
 		this.serverTime = serverTime;
 		this.input = input;
 		this.state = state;
 	}
-	
-	public SyncData(int serverTime, int time, Input input, State state) {
+
+	public SyncData(int serverTime, int time, IInput input, State state) {
 		this.serverTime = serverTime;
 		t = time;
 		this.input = input;
@@ -54,20 +54,20 @@ public class SyncData {
 	public void setT(int t) {
 		this.t = t;
 	}
-	
+
 	public int getServerTime() {
 		return serverTime;
 	}
-	
+
 	public void setServerTime(int serverTime) {
 		this.serverTime = serverTime;
 	}
 
-	public Input getInput() {
+	public IInput getInput() {
 		return input;
 	}
 
-	public void setInput(Input input) {
+	public void setInput(IInput input) {
 		this.input = input;
 	}
 

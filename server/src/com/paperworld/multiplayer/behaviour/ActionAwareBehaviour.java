@@ -1,7 +1,7 @@
 package com.paperworld.multiplayer.behaviour;
 
 import com.actionengine.java.action.Action;
-import com.paperworld.java.api.IAvatar;
+import com.paperworld.java.api.ISynchronisedAvatar;
 import com.paperworld.java.api.IBehaviour;
 
 public class ActionAwareBehaviour implements IBehaviour {
@@ -17,7 +17,7 @@ public class ActionAwareBehaviour implements IBehaviour {
 	}
 
 	@Override
-	public void apply(IAvatar avatar) {
+	public void apply(ISynchronisedAvatar avatar) {
 		action.act();		
 	}
 

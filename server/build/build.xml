@@ -43,6 +43,7 @@
      	<pathelement location="${basedir}/../lib/actionengine-java.jar"/>
        	<pathelement location="${basedir}/../lib/brainfarm-java.jar"/>
      	<pathelement location="${basedir}/../lib/ape-java.jar"/>
+     	<pathelement location="D:/projects/actionengine/trunk/java/jar/actionengine-java.jar"/>
      </path>
 	 
 	 <target name="all" depends="retrieve,build,javadoc,clean" />

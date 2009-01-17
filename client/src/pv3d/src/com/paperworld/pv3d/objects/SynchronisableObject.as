@@ -21,8 +21,8 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.pv3d.objects 
 {
+	import com.actionengine.flash.api.IInput;
 	import com.actionengine.flash.core.BaseClass;
-	import com.actionengine.flash.input.Input;
 	import com.actionengine.flash.util.logging.Logger;
 	import com.actionengine.flash.util.logging.LoggerContext;
 	import com.brainfarm.flash.data.State;
@@ -61,7 +61,7 @@ package com.paperworld.pv3d.objects
 			return object;
 		}
 
-		public function synchronise(time : int, input : Input, state : State) : void
+		public function synchronise(time : int, input : IInput, state : State) : void
 		{												
 			this.object.x = state.position.x;
 			this.object.y = state.position.y;

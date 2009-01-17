@@ -21,7 +21,7 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.multiplayer.objects;
 
-import com.actionengine.java.data.Input;
+import com.actionengine.api.IInput;
 import com.actionengine.java.util.collections.CircularBuffer;
 import com.brainfarm.java.steering.Kinematic;
 import com.paperworld.multiplayer.data.TimedInput;
@@ -48,7 +48,7 @@ public class FixedUpdateRateAvatar extends SynchronisedAvatar {
 	}	
 	
 	@Override 
-	public void setUserInput(int time, Input input) {
+	public void setUserInput(IInput input) {
 		this.input = input;
 	}
 

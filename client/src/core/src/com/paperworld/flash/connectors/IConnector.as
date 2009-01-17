@@ -21,8 +21,9 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.flash.connectors 
 {
+	import flash.net.Responder;	
 	import flash.events.IEventDispatcher;
-	
+
 	import com.actionengine.flash.input.IUserInput;
 	import com.paperworld.flash.connectors.IConnectorListener;
 	import com.paperworld.flash.player.Player;	
@@ -37,15 +38,17 @@ package com.paperworld.flash.connectors
 		function disconnect() : void
 
 		function set input(value : IUserInput) : void;
-		
+
 		function get input() : IUserInput;
 
 		function get id() : String;
-		
-		function addPlayer(player : Player):void;
+
+		function addPlayer(player : Player) : void;
 
 		function addListener(listener : IConnectorListener) : void;
 
 		function removeListener(listener : IConnectorListener) : void;
+
+		function call(method : String, responder : Responder, arg : *) : void
 	}
 }

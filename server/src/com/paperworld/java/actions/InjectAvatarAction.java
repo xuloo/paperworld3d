@@ -1,11 +1,11 @@
 package com.paperworld.java.actions;
 
 import com.actionengine.java.action.Action;
-import com.paperworld.java.api.IScene;
+import com.paperworld.java.api.ISynchronisedScene;
 
 public class InjectAvatarAction extends Action {
 
-	private IScene scene;
+	private ISynchronisedScene scene;
 	
 	private String key;
 	
@@ -13,11 +13,11 @@ public class InjectAvatarAction extends Action {
 		
 	}
 	
-	public InjectAvatarAction(IScene scene) {
+	public InjectAvatarAction(ISynchronisedScene scene) {
 		setScene(scene);
 	}
 	
-	public InjectAvatarAction(IScene scene, String key) {
+	public InjectAvatarAction(ISynchronisedScene scene, String key) {
 		setScene(scene);
 		setKey(key);
 	}
@@ -26,11 +26,11 @@ public class InjectAvatarAction extends Action {
 		scene.setAvatar(key);
 	}
 	
-	public void setScene(IScene scene) {
+	public void setScene(ISynchronisedScene scene) {
 		this.scene = scene;
 	}
 	
-	public IScene getScene() {
+	public ISynchronisedScene getScene() {
 		return scene;
 	}
 	

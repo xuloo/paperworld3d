@@ -3,8 +3,8 @@ package com.paperworld.java.inputhandlers;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.actionengine.java.data.Input;
-import com.paperworld.java.api.IAvatar;
+import com.actionengine.api.IInput;
+import com.paperworld.java.api.ISynchronisedAvatar;
 import com.paperworld.java.api.IBehaviour;
 import com.paperworld.java.api.IInputHandler;
 
@@ -17,7 +17,7 @@ public class InputHandler implements IInputHandler {
 	}
 	
 	@Override
-	public void handleInput(IAvatar avatar, Input input) {
+	public void handleInput(ISynchronisedAvatar avatar, IInput input) {
 		for (IBehaviour behaviour : behaviours) {
 			behaviour.apply(avatar);
 		}

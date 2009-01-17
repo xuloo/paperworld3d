@@ -21,11 +21,11 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.flash.connectors
 {
-	import flash.events.Event;
-	import flash.events.SyncEvent;
-	import flash.net.ObjectEncoding;
-	import flash.net.Responder;
-	import flash.utils.getTimer;
+	import com.paperworld.flash.data.AvatarData;	
+
+	import jedai.events.Red5Event;
+	import jedai.net.rpc.Red5Connection;
+	import jedai.net.rpc.RemoteSharedObject;
 
 	import com.actionengine.flash.core.context.CoreContext;
 	import com.actionengine.flash.input.events.UserInputEvent;
@@ -34,12 +34,13 @@ package com.paperworld.flash.connectors
 	import com.paperworld.flash.connectors.IConnectorListener;
 	import com.paperworld.flash.connectors.events.ConnectorEvent;
 	import com.paperworld.flash.data.SyncData;
-	import com.paperworld.flash.data.TimedInput;
 	import com.paperworld.flash.player.Player;
 
-	import jedai.events.Red5Event;
-	import jedai.net.rpc.Red5Connection;
-	import jedai.net.rpc.RemoteSharedObject;	
+	import flash.events.Event;
+	import flash.events.SyncEvent;
+	import flash.net.ObjectEncoding;
+	import flash.net.Responder;
+	import flash.utils.getTimer;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
@@ -51,10 +52,10 @@ package com.paperworld.flash.connectors
 		protected var _remoteSharedObject : RemoteSharedObject;
 
 		public var clientID : Number = -1;
-		
+
 		override public function get id() : String
 		{
-			return String(clientID);
+			return String( clientID );
 		}
 
 		public var time : int;
@@ -84,7 +85,7 @@ package com.paperworld.flash.connectors
 			
 			_connection.client = this;
 			
-			logger.info("connecting to uri: " + _connection.rtmpURI);
+			//logger.info( "connecting to uri: " + _connection.rtmpURI );
 			
 			_connection.connect( _connection.rtmpURI, _connection.clientManager.username, _connection.clientManager.password );
 		}
@@ -93,7 +94,7 @@ package com.paperworld.flash.connectors
 		{
 			if (clientID < 0)
 			{
-				logger.info( "setting client id == " + val );
+				//logger.info( "setting client id == " + val );
 			
 				clientID = val;	
 			}
@@ -105,7 +106,7 @@ package com.paperworld.flash.connectors
 		 */
 		protected function onConnectionEstablished(event : Red5Event) : void
 		{
-			logger.info( "connection established" );
+			//logger.info( "connection established" );
 			
 			dispatchEvent( new ConnectorEvent( RTMPEventTypes.CONNECTED_TO_SERVER, this ) );
 			
@@ -124,9 +125,10 @@ package com.paperworld.flash.connectors
 			_connection.call( 'multiplayer.addPlayer', new Responder( addPlayerResult, onResult ), clientID );
 		}
 
-		public function addPlayerResult(data : SyncData) : void
-		{
-			player.getAvatar( ).setTime( data.serverTime );
+		public function addPlayerResult(avatar : AvatarData) : void
+		{			
+			logger.info("adding player: " + avatar);
+			dispatchEvent( new ConnectorEvent( ServerEventTypes.INSERT_AVATAR, this, avatar ) );
 		}
 
 		protected function onConnectionDisconnected(event : Red5Event) : void
@@ -153,17 +155,17 @@ package com.paperworld.flash.connectors
 				{
 					case "change":
 						//logger.info( "changeList[" + i + "].code: " + changeList[i].code );
-						
+
 						var data : SyncData = SyncData( _remoteSharedObject._so.data[name] );
 						
-						if (name != String( clientID )) 
-						{				
-							logger.info("remote avatar " + data.state);		
-							dispatchEvent( new ConnectorEvent( ServerEventTypes.REMOTE_AVATAR_SYNC, this, name, data.serverTime, data.input, data.state ) );						}
-						else
-						{
-							dispatchEvent( new ConnectorEvent( ServerEventTypes.LOCAL_AVATAR_SYNC, this, name, data.serverTime, data.input, data.state ) );
-						}
+						//if (name != String( clientID )) 
+						//{				
+						//logger.info( "remote avatar " + data.state );		
+						//dispatchEvent( new ConnectorEvent( ServerEventTypes.REMOTE_AVATAR_SYNC, this, name, data.serverTime, data.input, data.state ) );						dispatchEvent( new ConnectorEvent( ServerEventTypes.AVATAR_SYNC, this, name, data.serverTime, data.input, data.state ) );						//}
+						//else
+						//{
+						//	dispatchEvent( new ConnectorEvent( ServerEventTypes.LOCAL_AVATAR_SYNC, this, name, data.serverTime, data.input, data.state ) );
+						//}
 						break;
 						
 					case "clear":
@@ -191,7 +193,7 @@ package com.paperworld.flash.connectors
 		override public function onInputUpdate(event : UserInputEvent) : void
 		{			
 			time = getTimer( );
-			_connection.call( 'multiplayer.receiveInput', _responder, clientID, new TimedInput( event.time, event.input ) );
+			_connection.call( 'multiplayer.receiveInput', _responder, clientID, event.input );
 		}
 
 		public function onResult(data : SyncData) : void
@@ -209,6 +211,7 @@ package com.paperworld.flash.connectors
 
 		override public function addListener(listener : IConnectorListener) : void 
 		{
+			addEventListener( ServerEventTypes.INSERT_AVATAR, listener.onConnectorEvent );			addEventListener( ServerEventTypes.AVATAR_SYNC, listener.onConnectorEvent );
 			addEventListener( ServerEventTypes.REMOTE_AVATAR_SYNC, listener.onConnectorEvent );
 			addEventListener( ServerEventTypes.LOCAL_AVATAR_SYNC, listener.onConnectorEvent );
 			addEventListener( ServerEventTypes.AVATAR_DELETE, listener.onConnectorEvent );
@@ -216,9 +219,17 @@ package com.paperworld.flash.connectors
 
 		override public function removeListener(listener : IConnectorListener) : void 
 		{
+			removeEventListener( ServerEventTypes.INSERT_AVATAR, listener.onConnectorEvent );
+			removeEventListener( ServerEventTypes.AVATAR_SYNC, listener.onConnectorEvent );
 			removeEventListener( ServerEventTypes.REMOTE_AVATAR_SYNC, listener.onConnectorEvent );
 			removeEventListener( ServerEventTypes.LOCAL_AVATAR_SYNC, listener.onConnectorEvent );
 			removeEventListener( ServerEventTypes.AVATAR_DELETE, listener.onConnectorEvent );
+		}
+
+		override public function call(method : String, responder : Responder, arg : *) : void
+		{
+			logger.info( "Calling " + method );
+			_connection.call( 'multiplayer.' + method, responder, arg );
 		}
 	}
 }

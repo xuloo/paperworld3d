@@ -21,32 +21,49 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.flash.data 
 {
-	import com.actionengine.flash.core.BaseClass;			
+	import com.paperworld.api.ISynchronisedAvatar;	
+	import com.actionengine.flash.api.IInput;
+	import com.actionengine.flash.core.BaseClass;
+	import com.brainfarm.flash.data.State;		
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
 	 */
 	public class AvatarData extends BaseClass 
 	{
-		public var ref : String;
+		public var id : String;
+
+		public var key : String;
 
 		public var time : int;
 
-		public var id : String;
+		public var input : IInput;
 
-		public function AvatarData()
+		public var state : State;
+
+		public function AvatarData(avatar : ISynchronisedAvatar = null)
 		{
 			super( );
 		}
 
-		public function getRef() : String
+		public function getId() : String 
 		{
-			return ref;
+			return id;
 		}
 
-		public function setRef(ref : String) : void
+		public function setId(id : String) : void 
 		{
-			this.ref = ref;
+			this.id = id;
+		}
+
+		public function getKey() : String
+		{
+			return key;
+		}
+
+		public function setKey(key : String) : void
+		{
+			this.key = key;
 		}
 
 		public function getTime() : int
@@ -59,19 +76,29 @@ package com.paperworld.flash.data
 			this.time = time;
 		}
 
-		public function getId() : String
+		public function getInput() : IInput
 		{
-			return id;
+			return input;
 		}
 
-		public function setId(id : String) : void
+		public function setInput(input : IInput) : void
 		{
-			this.id = id;
+			this.input = input;
+		}
+
+		public function getState() : State 
+		{
+			return state;
+		}
+
+		public function setState(state : State) : void 
+		{
+			this.state = state;
 		}
 
 		public function toString() : String
 		{
-			return 'AvatarData {\n    ref: ' + ref + '\n    time: ' + time + '\n    id: ' + id + '\n}';	
+			return 'AvatarData {\n    id: ' + id + '\n    key: ' + key + '\n}';	
 		}
 	}
 }

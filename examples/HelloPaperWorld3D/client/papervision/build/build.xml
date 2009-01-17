@@ -17,6 +17,8 @@
 			>
 				
 				<source-path path-element="${basedir}/../src"/>
+				<source-path path-element="D:/projects/actionengine/trunk/flash/src"/>
+				<source-path path-element="D:/projects/brainfarm/trunk/flash/src/main/flex"/>
 				<compiler.library-path dir="../../../../../client/bin">
                      <include name="*.swc"/>
                 </compiler.library-path>

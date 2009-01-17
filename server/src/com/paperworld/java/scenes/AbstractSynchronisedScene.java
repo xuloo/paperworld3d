@@ -6,20 +6,20 @@ import org.red5.server.api.IClient;
 import org.red5.server.api.IConnection;
 import org.red5.server.api.IScope;
 
-import com.paperworld.java.api.IAvatar;
+import com.actionengine.api.IInput;
 import com.paperworld.java.api.IAvatarFactory;
-import com.paperworld.java.api.IScene;
 import com.paperworld.java.api.IService;
-import com.paperworld.java.exceptions.AvatarNotFoundException;
+import com.paperworld.java.api.ISynchronisedAvatar;
+import com.paperworld.java.api.ISynchronisedScene;
+import com.paperworld.multiplayer.data.AvatarData;
 import com.paperworld.multiplayer.data.SyncData;
-import com.paperworld.multiplayer.data.TimedInput;
 
-public class AbstractSynchronisedScene implements IScene, IApplication,
+public class AbstractSynchronisedScene implements ISynchronisedScene, IApplication,
 		IService {
 
 	protected ApplicationAdapter application;
 
-	protected IAvatarFactory factory;
+	protected IAvatarFactory avatarFactory;
 
 	@Override
 	public void setApplication(ApplicationAdapter application) {
@@ -27,28 +27,32 @@ public class AbstractSynchronisedScene implements IScene, IApplication,
 		application.addListener(this);
 	}
 
-	public void setAvatarFactory(IAvatarFactory factory) {
-		this.factory = factory;
+	public void setAvatarFactory(IAvatarFactory avatarFactory) {
+		this.avatarFactory = avatarFactory;
 	}
 
 	@Override
-	public void setAvatar(IAvatar avatar) {
+	public void setAvatar(ISynchronisedAvatar avatar) {
 
 	}
 
 	@Override
 	public void setAvatar(String key) {
-		setAvatar(factory.getAvatar(key));
+		setAvatar(avatarFactory.getAvatar(key));
+	}
+	
+	public int getAvatar(String key) {
+		return 0;
 	}
 
 	@Override
-	public SyncData addPlayer(String id) {
+	public AvatarData addPlayer(String id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public SyncData receiveInput(String uid, TimedInput input) {
+	public SyncData receiveInput(String uid, IInput input) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -30,6 +30,12 @@
 			<include-sources dir="${pv3d.src.dir}">
                  <include name="**/*.as"/>
             </include-sources>
+			<include-sources dir="D:/projects/actionengine/trunk/flash/src">
+				<include name="**/*.as"/>
+			</include-sources>
+			<include-sources dir="D:/projects/brainfarm/trunk/flash/src/main/flex">
+				<include name="**/*.as"/>
+			</include-sources>
 			<compiler.external-library-path dir="${lib.dir}" append="true">
 				<include name="papervision3D.swc" />
 			</compiler.external-library-path>

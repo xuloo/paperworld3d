@@ -21,7 +21,7 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.util 
 {
-	import com.actionengine.flash.input.Input;
+	import com.actionengine.flash.api.IInput;
 	import com.brainfarm.flash.data.State;	
 
 	/**
@@ -33,6 +33,6 @@ package com.paperworld.util
 
 		public var state : State;
 
-		public var input : Input;
+		public var input : IInput;
 	}
 }

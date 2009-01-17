@@ -2,8 +2,8 @@ package com.paperworld.multiplayer.behaviour;
 
 import java.lang.reflect.Method;
 
-import com.actionengine.java.data.Input;
-import com.paperworld.java.api.IAvatar;
+import com.actionengine.api.IInput;
+import com.paperworld.java.api.ISynchronisedAvatar;
 
 public class InputStateDependentBehaviour extends ActionAwareBehaviour {
 
@@ -15,8 +15,8 @@ public class InputStateDependentBehaviour extends ActionAwareBehaviour {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public void apply(IAvatar avatar) {
-		Input input = avatar.getInput();
+	public void apply(ISynchronisedAvatar avatar) {
+		IInput input = avatar.getInput();
 
 		try {
 			String prop = Character.toUpperCase(dependentProperty.charAt(0))

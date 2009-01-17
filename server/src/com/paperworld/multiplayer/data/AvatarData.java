@@ -21,30 +21,48 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.multiplayer.data;
 
+import com.actionengine.api.IInput;
+import com.brainfarm.java.data.State;
+import com.paperworld.java.api.ISynchronisedAvatar;
+
 public class AvatarData {
 
-	public String ref;
+	protected String id;
 	
-	public int time;
+	protected String key;
 	
-	public String id;
+	protected int time;
+	
+	protected IInput input;
+	
+	protected State state;
 	
 	public AvatarData() {
 		
 	}
 	
-	public AvatarData(String ref, int time, String id) {
-		this.ref = ref;
-		this.time = time;
+	public AvatarData(ISynchronisedAvatar avatar) {
+		this.id = avatar.getId();
+		this.key = avatar.getKey();
+		this.time = avatar.getTime();
+		this.input = avatar.getInput();
+		this.state = avatar.getState();
+	}
+	
+	public String getId() {
+		return id;
+	}
+	
+	public void setId(String id) {
 		this.id = id;
 	}
 	
-	public String getRef() {
-		return ref;
+	public String getKey() {
+		return key;
 	}
 	
-	public void setRef(String ref) {
-		this.ref = ref;
+	public void setKey(String key) {
+		this.key = key;
 	}
 	
 	public int getTime() {
@@ -55,11 +73,19 @@ public class AvatarData {
 		this.time = time;
 	}
 	
-	public String getId() {
-		return id;
+	public IInput getInput() {
+		return input;
 	}
 	
-	public void setId(String id) {
-		this.id = id;
+	public void setId(IInput input) {
+		this.input = input;
+	}
+	
+	public State getState() {
+		return state;
+	}
+	
+	public void setState(State state) {
+		this.state = state;
 	}
 }

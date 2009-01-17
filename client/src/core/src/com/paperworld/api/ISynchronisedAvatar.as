@@ -1,7 +1,7 @@
 package com.paperworld.api 
 {
+	import com.actionengine.flash.api.IInput;
 	import com.actionengine.flash.input.IUserInput;
-	import com.actionengine.flash.input.Input;
 	import com.brainfarm.flash.data.State;	
 
 	/**
@@ -10,7 +10,7 @@ package com.paperworld.api
 	public interface ISynchronisedAvatar extends ISynchronisable
 	{
 		function set userInput(value : IUserInput) : void
-		
+
 		function getNext() : ISynchronisedAvatar;
 
 		function setNext(value : ISynchronisedAvatar) : void;
@@ -19,13 +19,17 @@ package com.paperworld.api
 
 		function setSynchronisedObject(value : ISynchronisedObject) : void;
 
+		function getRef() : String;
+
+		function setRef(ref : String) : void;
+
 		function getTime() : int;
 
 		function setTime(time : int) : void;
 
-		function getInput() : Input;
+		function getInput() : IInput;
 
-		function setInput(input : Input) : void;
+		function setInput(input : IInput) : void;
 
 		function getState() : State;
 

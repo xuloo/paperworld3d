@@ -1,5 +1,6 @@
 package  
 {
+	import com.paperworld.flash.factory.RemoteAndLocalAvatarFactory;	
 	import com.actionengine.flash.core.context.CoreContext;
 	import com.actionengine.flash.input.BasicKeyboardInput;
 	import com.actionengine.flash.input.IUserInput;
@@ -47,7 +48,7 @@ package
 			initialise( );
 		}
 
-		override public function initialise() : void
+		override public function initialise(...args) : void
 		{			
 			logger.info( "initialising" );
 			
@@ -65,7 +66,7 @@ package
 			
 			syncScene = new SynchronisedScene( scene );
 			syncScene.connector = connector;
-			syncScene.avatarFactory = new PranaContextAvatarFactory( );
+			syncScene.avatarFactory = new RemoteAndLocalAvatarFactory();
 			syncScene.connect( "test" );
 			
 			player = new Player( );			

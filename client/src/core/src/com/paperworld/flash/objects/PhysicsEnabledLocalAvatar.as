@@ -1,9 +1,8 @@
 package com.paperworld.flash.objects 
 {
-	import com.actionengine.flash.input.Input;
+	import com.actionengine.flash.api.IInput;
 	import com.brainfarm.flash.data.State;
-	import com.paperworld.flash.objects.LocalAvatar;
-	import com.paperworld.util.History;	
+	import com.paperworld.flash.objects.LocalAvatar;	
 
 	/**
 	 * @author Trevor
@@ -16,12 +15,12 @@ package com.paperworld.flash.objects
 		public var deltaTime : Number = 1;
 
 		public var lastTime : int = 0;
-		
+
 		public function PhysicsEnabledLocalAvatar()
 		{
 			super( );
 		}
-		
+
 		override public function update() : void
 		{								
 			_time += deltaTime;
@@ -38,8 +37,8 @@ package com.paperworld.flash.objects
 			// update scene
 			super.update( );		
 		}
-		
-		override public function synchronise(time : int, input : Input, state : State) : void
+
+		override public function synchronise(time : int, input : IInput, state : State) : void
 		{            	
 			// Handle the server time update.
 			if (time > _time)

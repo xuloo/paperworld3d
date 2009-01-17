@@ -5,9 +5,10 @@ import java.util.TimerTask;
 
 import org.red5.server.api.so.ISharedObject;
 
-import com.paperworld.java.api.IAvatar;
+import com.actionengine.api.IInput;
+import com.paperworld.java.api.ISynchronisedAvatar;
+import com.paperworld.multiplayer.data.AvatarData;
 import com.paperworld.multiplayer.data.SyncData;
-import com.paperworld.multiplayer.data.TimedInput;
 
 public class FixedUpdateSynchronisedScene extends BasicSynchronisedScene {
 
@@ -33,22 +34,25 @@ public class FixedUpdateSynchronisedScene extends BasicSynchronisedScene {
 				1000 / clientUpdateRate);
 	}
 	
-	public SyncData receiveInput(String uid, TimedInput input) {
-		IAvatar avatar = players.get(uid).getAvatar();
+	public SyncData receiveInput(String uid, IInput input) {
+		ISynchronisedAvatar avatar = players.get(uid).getAvatar();
 
-		avatar.setUserInput(input.getTime(), input.getInput());
+		avatar.setUserInput(input);
 		
-		return new SyncData(avatar.getTime(), input.time, avatar.getInput(),
+		return new SyncData(avatar.getTime(), input.getTime(), avatar.getInput(),
 				avatar.getState());
 	}
 	
 	@Override
-	public SyncData addPlayer(String id) {
-		IAvatar avatar = players.get(id).getAvatar();
+	public AvatarData addPlayer(String id) {
+		ISynchronisedAvatar avatar = players.get(id).getAvatar();
 
+		avatar.setId(id);
+		avatar.setKey("avatar");
 		avatars.put(id, avatar);
 		
-		return new SyncData(time, 0, avatar.getInput(), avatar.getState());
+		//return new SyncData(time, 0, avatar.getInput(), avatar.getState());
+		return new AvatarData(avatar);
 	}
 	
 	public int incrementTime() {
@@ -88,9 +92,9 @@ public class FixedUpdateSynchronisedScene extends BasicSynchronisedScene {
 			so.beginUpdate();
 
 			for (String key : avatars.keySet()) {
-				IAvatar avatar = avatars.get(key);
-				
-				so.setAttribute(key, new SyncData(time, avatar.getInput(), avatar.getState()));
+				ISynchronisedAvatar avatar = avatars.get(key);
+				avatar.updateSharedObject(so);
+				//so.setAttribute(key, new SyncData(time, avatar.getInput(), avatar.getState()));
 			}
 
 			so.endUpdate();			

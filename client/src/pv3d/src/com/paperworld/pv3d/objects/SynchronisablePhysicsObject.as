@@ -1,12 +1,12 @@
 package com.paperworld.pv3d.objects 
 {
-	import com.actionengine.flash.input.Input;
+	import com.actionengine.flash.api.IInput;
 	import com.brainfarm.flash.data.State;
 	import com.paperworld.pv3d.objects.SynchronisableObject;
 	
 	import org.cove.ape.AbstractParticle;
 	import org.cove.ape.Vector;
-	import org.papervision3d.objects.DisplayObject3D;		
+	import org.papervision3d.objects.DisplayObject3D;	
 
 	/**
 	 * @author Trevor
@@ -22,7 +22,7 @@ package com.paperworld.pv3d.objects
 			this.physicsObject = physicsObject;
 		}
 
-		override public function synchronise(time : int, input : Input, state : State) : void
+		override public function synchronise(time : int, input : IInput, state : State) : void
 		{
 			physicsObject.px = state.position.x;
 			physicsObject.py = state.position.y;
