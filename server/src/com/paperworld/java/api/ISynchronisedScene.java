@@ -12,7 +12,7 @@ public interface ISynchronisedScene {
 	
 	public void setAvatar(String key);
 	
-	public int getAvatar(String key);
+	//public int getAvatar(String key);
 	
 	public int getTime();
 	

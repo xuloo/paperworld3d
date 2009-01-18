@@ -21,15 +21,13 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.pv3d.scenes 
 {
-	import com.actionengine.flash.util.logging.LoggerContext;	
-	import com.actionengine.flash.util.logging.Logger;	
-
-	import org.papervision3d.objects.DisplayObject3D;
-	import org.papervision3d.scenes.Scene3D;
-
-	import com.paperworld.flash.connectors.IConnector;
+	import com.actionengine.flash.util.logging.Logger;
+	import com.actionengine.flash.util.logging.LoggerContext;
 	import com.paperworld.flash.scenes.AbstractSynchronisedScene;
-	import com.paperworld.pv3d.objects.SynchronisableObject;	
+	import com.paperworld.pv3d.objects.SynchronisableObject;
+	
+	import org.papervision3d.objects.DisplayObject3D;
+	import org.papervision3d.scenes.Scene3D;		
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
@@ -50,7 +48,7 @@ package com.paperworld.pv3d.scenes
 			_scene = value;
 		}
 
-		public function SynchronisedScene(scene : Scene3D, connector : IConnector = null)
+		public function SynchronisedScene(scene : Scene3D)
 		{
 			super( );
 			

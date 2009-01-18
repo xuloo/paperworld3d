@@ -1,24 +1,24 @@
 package com.paperworld.api 
 {
-	import com.paperworld.flash.connectors.IConnector;	
-	import com.paperworld.flash.player.Player;		
+	import com.actionengine.flash.input.IUserInput;	
+	import com.paperworld.flash.player.Player;
+
+	import flash.events.IEventDispatcher;			
 
 	/**
 	 * @author Trevor
 	 */
-	public interface ISynchronisedScene
+	public interface ISynchronisedScene extends IEventDispatcher
 	{
 		function connect(...args) : void
-
-		function set connector(value : IConnector) : void;
-
-		function get connector() : IConnector;
 
 		function addPlayer(player : Player, isLocal : Boolean = true) : void;
 
 		function get scene() : *;
 
 		function set scene(value : *) : void;
+
+		function set userInput(userInput : IUserInput) : void;
 
 		function addChild(child : *, name : String) : *;
 

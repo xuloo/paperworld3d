@@ -49,9 +49,9 @@ public class AbstractSynchronisedScene implements ISynchronisedScene,
 		setAvatar(avatar);
 	}
 
-	public int getAvatar(String key) {
+	/*public int getAvatar(String key) {
 		return 0;
-	}
+	}*/
 
 	@Override
 	public AvatarData addPlayer(String id) {

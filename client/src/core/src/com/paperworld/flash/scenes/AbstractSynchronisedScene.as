@@ -21,8 +21,14 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.flash.scenes 
 {
+	import jedai.events.Red5Event;
+	import jedai.net.rpc.Red5Connection;
+	import jedai.net.rpc.RemoteSharedObject;
+	
 	import com.actionengine.flash.core.EventDispatchingBaseClass;
 	import com.actionengine.flash.core.context.CoreContext;
+	import com.actionengine.flash.input.IUserInput;
+	import com.actionengine.flash.input.events.UserInputEvent;
 	import com.actionengine.flash.util.logging.Logger;
 	import com.actionengine.flash.util.logging.LoggerContext;
 	import com.brainfarm.flash.data.State;
@@ -32,26 +38,34 @@ package com.paperworld.flash.scenes
 	import com.paperworld.api.ISynchronisedAvatar;
 	import com.paperworld.api.ISynchronisedObject;
 	import com.paperworld.api.ISynchronisedScene;
-	import com.paperworld.flash.connectors.IConnector;
-	import com.paperworld.flash.connectors.IConnectorListener;
-	import com.paperworld.flash.connectors.ServerEventTypes;
-	import com.paperworld.flash.connectors.events.AvatarEvent;
-	import com.paperworld.flash.connectors.events.ConnectorEvent;
-	import com.paperworld.flash.connectors.events.DeleteAvatarEvent;
 	import com.paperworld.flash.data.AvatarData;
 	import com.paperworld.flash.data.SyncData;
 	import com.paperworld.flash.lod.LodConstraint;
-	import com.paperworld.flash.objects.AbstractSynchronisedAvatar;
 	import com.paperworld.flash.player.Player;
 	
-	import flash.net.registerClassAlias;		
+	import flash.events.Event;
+	import flash.events.SyncEvent;
+	import flash.net.ObjectEncoding;
+	import flash.net.Responder;
+	import flash.net.registerClassAlias;
+	import flash.utils.getTimer;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
 	 */
-	public class AbstractSynchronisedScene extends EventDispatchingBaseClass implements ISynchronisedScene, IConnectorListener
+	public class AbstractSynchronisedScene extends EventDispatchingBaseClass implements ISynchronisedScene
 	{
+		protected static const AVATAR_REMOTE_SO_KEY : String = "avatars";
+
+		protected static const PAPERWORLD_SERVICE_PREFIX : String = "multiplayer";
+
+		protected static const RECEIVE_INPUT_METHOD : String = PAPERWORLD_SERVICE_PREFIX + ".receiveInput";
+
+		protected static const ADD_PLAYER_METHOD : String = PAPERWORLD_SERVICE_PREFIX + '.addPlayer';
+
 		private var logger : Logger;
+
+		public var clientID : Number = -1;
 
 		protected var _context : CoreContext;
 
@@ -83,18 +97,20 @@ package com.paperworld.flash.scenes
 			_avatarFactory = value;
 		}
 
-		protected var _connector : IConnector;
+		protected var _connection : Red5Connection;	
 
-		public function set connector(value : IConnector) : void
-		{			
-			_connector = value;
-			_connector.addListener( this );
-		}
+		protected var _remoteSharedObject : RemoteSharedObject;
 
-		public function get connector() : IConnector
+		protected var _userInput : IUserInput;
+
+		public function set userInput(userInput : IUserInput) : void 
 		{
-			return _connector;
+			_userInput = userInput;
 		}
+
+		protected var _responder : Responder;
+
+		public var time : int;
 
 		/**
 		 * Adds a LOD Heuristic to the list. Implicit setter used in order to allow heuristics to be set via prana.
@@ -124,10 +140,16 @@ package com.paperworld.flash.scenes
 			
 			_context = CoreContext.getInstance( );
 			
-			registerClassAlias( 'com.brainfarm.java.util.math.Vector3', Vector3 );				registerClassAlias( 'com.paperworld.multiplayer.data.SyncData', SyncData );	
+			registerClassAliases( );			
+		}
+
+		protected function registerClassAliases() : void 
+		{
 			registerClassAlias( 'com.brainfarm.java.data.State', State );
 			registerClassAlias( 'com.brainfarm.java.util.math.Quaternion', Quaternion );
+			registerClassAlias( 'com.brainfarm.java.util.math.Vector3', Vector3 );				
 			registerClassAlias( 'com.paperworld.multiplayer.data.AvatarData', AvatarData );
+			registerClassAlias( 'com.paperworld.multiplayer.data.SyncData', SyncData );	
 		}
 
 		public function connect(...args) : void
@@ -136,12 +158,47 @@ package com.paperworld.flash.scenes
 			
 			logger.info( "connecting to " + scene );
 
-			connector.connect( sceneName );			
+			_connection = Red5Connection( _context.getObject( "connection" ) );
+			_connection.objectEncoding = ObjectEncoding.AMF3;
+						
+			_connection.addEventListener( Red5Event.CONNECTED, onConnectionEstablished );
+			_connection.addEventListener( Red5Event.DISCONNECTED, onConnectionDisconnected );
+			
+			_connection.client = this;
+			
+			_connection.connect( _connection.rtmpURI, _connection.clientManager.username, _connection.clientManager.password );
+		}
+
+		protected function onConnectionEstablished(event : Red5Event) : void
+		{
+			//logger.info( "connection established" );
+
+			dispatchEvent( new Event( RTMPEventTypes.CONNECTED_TO_SERVER ) );
+			
+			_remoteSharedObject = new RemoteSharedObject( AVATAR_REMOTE_SO_KEY, false, false, _connection );
+			_remoteSharedObject.addEventListener( SyncEvent.SYNC, synchronise );
+			
+			_userInput.addEventListener( UserInputEvent.INPUT_CHANGED, onInputUpdate );
+		}
+
+		public function setClientID(val : Number) : void
+		{
+			if (clientID < 0)
+			{
+				//logger.info( "setting client id == " + val );
+
+				clientID = val;	
+			}
+		}
+
+		protected function onConnectionDisconnected(event : Red5Event) : void
+		{
+			dispatchEvent( new Event( RTMPEventTypes.DISCONNECTED_FROM_SERVER ) );	
 		}
 
 		protected function syncAvatar(data : SyncData) : void 
 		{ 
-			var avatarData:AvatarData = data.avatarData;	
+			var avatarData : AvatarData = data.avatarData;	
 			
 			var avatar : ISynchronisedAvatar = ISynchronisedAvatar( avatarsByName[avatarData.id] );
 			
@@ -151,9 +208,9 @@ package com.paperworld.flash.scenes
 				addAvatar( data );
 		}
 
-		public function addAvatar(data : SyncData) : void 
+		protected function addAvatar(data : SyncData) : void 
 		{			
-			var avatarData:AvatarData = data.avatarData;
+			var avatarData : AvatarData = data.avatarData;
 			
 			var avatar : ISynchronisedAvatar = _avatarFactory.getAvatar( avatarData.getKey( ) );
 			
@@ -163,34 +220,54 @@ package com.paperworld.flash.scenes
 		}
 
 		protected function handleDelete(id : String) : void
-		{			
-			logger.info( "deleting: " + id );
-			
-			for (var i:String in avatarsByName)
-			{
-				logger.info( i + " => " + avatarsByName[i] );
-			}
-			
-			var avatar : AbstractSynchronisedAvatar = AbstractSynchronisedAvatar( avatarsByName[id] );
-			removeRemoteChild( avatar.getSynchronisedObject( ) );
+		{					
+			removeRemoteChild( ISynchronisedAvatar( avatarsByName[id] ).getSynchronisedObject( ) );
 		}
 
-		public function onConnectorEvent(event : ConnectorEvent) : void
+		protected function synchronise(event : SyncEvent) : void
 		{			
-			switch (event.type)
+			var changeList : Array = event.changeList;
+			var length : int = changeList.length;
+			
+			// Iterate over event.changelist to check if this Avatar is in the list.
+			for (var i : int = 0; i < length ; i++)
 			{
-				case ServerEventTypes.INSERT_AVATAR:
-					addAvatar( AvatarEvent(event).data );
-					break;
-					
-				case ServerEventTypes.AVATAR_SYNC:
-					syncAvatar( AvatarEvent(event).data );
-					break;
-					
-				case ServerEventTypes.AVATAR_DELETE:
-					handleDelete( DeleteAvatarEvent(event).id );
-					break;
+				var name : String = changeList[i].name;
+
+				// Decide which action to perform depending on what's happened to the SharedObject.
+				switch (changeList[i].code)
+				{
+					case "change":
+						//logger.info( "changeList[" + i + "].code: " + changeList[i].code );
+						syncAvatar( SyncData( _remoteSharedObject._so.data[name] ) );
+						break;
+						
+					case "clear":
+						break;
+						
+					case "success":
+						logger.info( "changeList[" + i + "].code: " + changeList[i].code );
+						break;
+						
+					case "reject":
+						logger.info( "changeList[" + i + "].code: " + changeList[i].code );
+						break;
+						
+					case "delete":
+						logger.info( "changeList[" + i + "].code: " + changeList[i].code );
+						handleDelete( name );
+						break;
+							
+					default:
+						break;	
+				}
 			}
+		}		
+
+		public function onInputUpdate(event : UserInputEvent) : void
+		{			
+			time = getTimer( );
+			_connection.call( RECEIVE_INPUT_METHOD, _responder, clientID, event.input );
 		}
 
 		
@@ -214,7 +291,21 @@ package com.paperworld.flash.scenes
 
 			this.player = player;
 			
-			connector.addPlayer( player );
+			_connection.call( ADD_PLAYER_METHOD, new Responder( addPlayerResult, onStatus ), clientID );
+		}
+
+		public function addPlayerResult(avatar : AvatarData) : void
+		{			
+			logger.info( "adding player: " + avatar );
+			addAvatar( new SyncData( 0, avatar ) );
+		}
+
+		public function onStatus(status : Object) : void
+		{
+			for (var i:String in status)
+			{
+				logger.info( "status: " + i + " " + status[i] );
+			}
 		}
 
 		/**

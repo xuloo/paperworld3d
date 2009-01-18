@@ -1,4 +1,4 @@
-package com.paperworld.flash.connectors 
+package com.paperworld.flash.scenes
 {
 
 	/**

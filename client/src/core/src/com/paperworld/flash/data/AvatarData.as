@@ -21,10 +21,10 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.flash.data 
 {
-	import com.paperworld.api.ISynchronisedAvatar;	
 	import com.actionengine.flash.api.IInput;
 	import com.actionengine.flash.core.BaseClass;
-	import com.brainfarm.flash.data.State;		
+	import com.brainfarm.flash.data.State;
+	import com.paperworld.api.ISynchronisedAvatar;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
@@ -40,7 +40,7 @@ package com.paperworld.flash.data
 		public var input : IInput;
 
 		public var state : State;
-
+		
 		public function AvatarData(avatar : ISynchronisedAvatar = null)
 		{
 			super( );

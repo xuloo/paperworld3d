@@ -1,25 +1,22 @@
 package com.paperworld.examples.loadtest 
 {
-	import com.paperworld.flash.factory.RemoteAndLocalAvatarFactory;	
 	import com.actionengine.flash.core.context.CoreContext;
 	import com.actionengine.flash.input.BasicKeyboardInput;
-	import com.actionengine.flash.input.IUserInput;
 	import com.actionengine.flash.util.clock.Clock;
 	import com.actionengine.flash.util.clock.events.ClockEvent;
 	import com.actionengine.flash.util.logging.Logger;
 	import com.actionengine.flash.util.logging.LoggerContext;
 	import com.blitzagency.xray.logger.XrayLog;
 	import com.paperworld.flash.behaviours.SimpleAvatarBehaviour25D;
-	import com.paperworld.flash.connectors.RTMPConnector;
-	import com.paperworld.flash.connectors.RTMPEventTypes;
-	import com.paperworld.flash.factory.PranaContextAvatarFactory;
+	import com.paperworld.flash.factory.RemoteAndLocalAvatarFactory;
 	import com.paperworld.flash.objects.LocalAvatar;
 	import com.paperworld.flash.objects.RemoteAvatar;
 	import com.paperworld.flash.player.Player;
+	import com.paperworld.flash.scenes.RTMPEventTypes;
 	import com.paperworld.pv3d.scenes.SynchronisedScene;
 	import com.paperworld.pv3d.views.ChequerBoardView;
-	
-	import flash.events.Event;		
+
+	import flash.events.Event;	
 
 	/**
 	 * @author Trevor
@@ -56,19 +53,10 @@ package com.paperworld.examples.loadtest
 			
 			super.initialise( );
 			
-			//floor.y = -50;
-
-			var connector : RTMPConnector = new RTMPConnector( );
-			connector.addEventListener( RTMPEventTypes.CONNECTED_TO_SERVER, onConnectedToServer );
-			
-			var input : IUserInput = new BasicKeyboardInput( );
-			input.target = stage;
-			
-			connector.input = input;
-			
 			syncScene = new SynchronisedScene( scene );
-			syncScene.connector = connector;
+			syncScene.userInput = new BasicKeyboardInput( stage );
 			syncScene.avatarFactory = new RemoteAndLocalAvatarFactory( );
+			syncScene.addEventListener( RTMPEventTypes.CONNECTED_TO_SERVER, onConnectedToServer );
 			syncScene.connect( "test" );
 			
 			player = new Player( );			

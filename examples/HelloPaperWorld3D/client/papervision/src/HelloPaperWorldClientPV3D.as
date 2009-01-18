@@ -1,6 +1,5 @@
 package  
 {
-	import com.paperworld.flash.factory.RemoteAndLocalAvatarFactory;	
 	import com.actionengine.flash.core.context.CoreContext;
 	import com.actionengine.flash.input.BasicKeyboardInput;
 	import com.actionengine.flash.input.IUserInput;
@@ -8,14 +7,11 @@ package
 	import com.actionengine.flash.util.clock.events.ClockEvent;
 	import com.actionengine.flash.util.logging.Logger;
 	import com.actionengine.flash.util.logging.LoggerContext;
-	import com.paperworld.flash.connectors.RTMPConnector;
-	import com.paperworld.flash.connectors.RTMPEventTypes;
-	import com.paperworld.flash.factory.PranaContextAvatarFactory;
+	import com.paperworld.flash.factory.RemoteAndLocalAvatarFactory;
 	import com.paperworld.flash.player.Player;
+	import com.paperworld.flash.scenes.RTMPEventTypes;
 	import com.paperworld.pv3d.scenes.SynchronisedScene;
 	import com.paperworld.pv3d.views.ChequerBoardView;
-	
-	import org.papervision3d.view.AbstractView;
 	
 	import flash.events.Event;	
 
@@ -54,19 +50,10 @@ package
 			
 			super.initialise( );
 			
-			//floor.y = -50;
-			
-			var connector : RTMPConnector = new RTMPConnector( );
-			connector.addEventListener( RTMPEventTypes.CONNECTED_TO_SERVER, onConnectedToServer );
-			
-			var input : IUserInput = new BasicKeyboardInput( );
-			input.target = stage;
-			
-			connector.input = input;
-			
 			syncScene = new SynchronisedScene( scene );
-			syncScene.connector = connector;
+			syncScene.userInput = new BasicKeyboardInput( stage );
 			syncScene.avatarFactory = new RemoteAndLocalAvatarFactory();
+			syncScene.addEventListener( RTMPEventTypes.CONNECTED_TO_SERVER, onConnectedToServer );
 			syncScene.connect( "test" );
 			
 			player = new Player( );			

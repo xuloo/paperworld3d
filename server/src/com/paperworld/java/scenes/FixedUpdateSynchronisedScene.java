@@ -27,21 +27,21 @@ public class FixedUpdateSynchronisedScene extends BasicSynchronisedScene {
 	public void init() {
 		super.init();
 
-		timer.scheduleAtFixedRate(new UpdateAvatarsTask(), 0, 
+		timer.scheduleAtFixedRate(new UpdateAvatarsTask(), 0,
 				1000 / behaviourUpdateRate);
-		
+
 		timer.scheduleAtFixedRate(new UpdateSharedObjectTask(), 0,
 				1000 / clientUpdateRate);
 	}
-	
+
 	public SyncData receiveInput(String uid, IInput input) {
 		ISynchronisedAvatar avatar = players.get(uid).getAvatar();
 
 		avatar.setUserInput(input);
-		
+
 		return new SyncData(getTime(), avatar.getAvatarData());
 	}
-	
+
 	@Override
 	public AvatarData addPlayer(String id) {
 		ISynchronisedAvatar avatar = players.get(id).getAvatar();
@@ -49,11 +49,10 @@ public class FixedUpdateSynchronisedScene extends BasicSynchronisedScene {
 		avatar.setId(id);
 		avatar.setKey("avatar");
 		setAvatar(avatar);
-		
-		//return new SyncData(time, 0, avatar.getInput(), avatar.getState());
+
 		return new AvatarData(avatar);
 	}
-	
+
 	public int incrementTime() {
 		return time++;
 	}
@@ -61,11 +60,11 @@ public class FixedUpdateSynchronisedScene extends BasicSynchronisedScene {
 	public int getTime() {
 		return time;
 	}
-	
+
 	public void setBehaviourUpdateRate(int behaviourUpdateRate) {
 		this.behaviourUpdateRate = behaviourUpdateRate;
 	}
-	
+
 	public void setClientUpdateRate(int clientUpdateRate) {
 		this.clientUpdateRate = clientUpdateRate;
 	}
@@ -76,12 +75,12 @@ public class FixedUpdateSynchronisedScene extends BasicSynchronisedScene {
 		public void run() {
 			time++;
 
-			for (String key : avatars.keySet()) {
-				avatars.get(key).updateBehaviour();
+			for (ISynchronisedAvatar avatar : avatars) {
+				avatar.updateBehaviour();
 			}
-		}		
+		}
 	}
-	
+
 	protected class UpdateSharedObjectTask extends TimerTask {
 
 		@Override
@@ -90,14 +89,11 @@ public class FixedUpdateSynchronisedScene extends BasicSynchronisedScene {
 
 			so.beginUpdate();
 
-			for (String key : avatars.keySet()) {
-				ISynchronisedAvatar avatar = avatars.get(key);
+			for (ISynchronisedAvatar avatar : avatars) {
 				avatar.updateSharedObject(so);
-				//so.setAttribute(key, new SyncData(time, avatar.getInput(), avatar.getState()));
 			}
 
-			so.endUpdate();			
+			so.endUpdate();
 		}
-		
 	}
 }
