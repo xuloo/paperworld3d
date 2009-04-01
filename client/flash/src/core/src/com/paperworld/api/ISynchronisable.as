@@ -1,14 +1,13 @@
 package com.paperworld.api
 {
-	import com.actionengine.flash.api.IInput;
-	import com.actionengine.flash.core.interfaces.IDestroyable;
-	import com.brainfarm.flash.data.State;	
+	import com.paperworld.flash.data.State;
+	import com.paperworld.flash.input.Input;	
 
 	/**
 	 * @author Trevor
 	 */
-	public interface ISynchronisable extends IDestroyable
+	public interface ISynchronisable
 	{
-		function synchronise(time : int, input : IInput, state : State) : void
+		function synchronise(time : int, input : Input, state : State) : void
 	}
 }

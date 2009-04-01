@@ -1,8 +1,8 @@
 package com.paperworld.api 
 {
-	import com.actionengine.flash.api.IInput;
-	import com.actionengine.flash.input.IUserInput;
-	import com.brainfarm.flash.data.State;	
+	import com.paperworld.flash.data.State;
+	import com.paperworld.flash.input.IUserInput;
+	import com.paperworld.flash.input.Input;	
 
 	/**
 	 * @author Trevor
@@ -27,9 +27,9 @@ package com.paperworld.api
 
 		function setTime(time : int) : void;
 
-		function getInput() : IInput;
+		function getInput() : Input;
 
-		function setInput(input : IInput) : void;
+		function setInput(input : Input) : void;
 
 		function getState() : State;
 
@@ -46,5 +46,7 @@ package com.paperworld.api
 		function snap(state : State) : void;
 
 		function update() : void;
+		
+		function destroy():void;
 	}
 }

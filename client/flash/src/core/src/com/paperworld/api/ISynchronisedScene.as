@@ -1,8 +1,8 @@
 package com.paperworld.api 
 {
-	import com.actionengine.flash.input.IUserInput;	
+	import com.paperworld.flash.input.IUserInput;
 	import com.paperworld.flash.player.Player;
-
+	
 	import flash.events.IEventDispatcher;			
 
 	/**
