@@ -21,10 +21,10 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.flash.objects 
 {
-	import com.actionengine.flash.api.IInput;
-	import com.actionengine.flash.util.logging.Logger;
-	import com.actionengine.flash.util.logging.LoggerContext;
-	import com.brainfarm.flash.data.State;	
+	import com.paperworld.flash.data.State;
+	import com.paperworld.flash.input.Input;
+	import com.paperworld.flash.util.logging.Logger;
+	import com.paperworld.flash.util.logging.LoggerContext;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
@@ -42,7 +42,7 @@ package com.paperworld.flash.objects
 			super( );
 		}
 
-		override public function initialise(...args) : void
+		override public function initialise() : void
 		{
 			super.initialise( );
 			
@@ -50,7 +50,7 @@ package com.paperworld.flash.objects
 			updating = false;	
 		}
 
-		override public function synchronise(time : int, input : IInput, state : State) : void
+		override public function synchronise(time : int, input : Input, state : State) : void
 		{			
 			// Just ignore any out of order packets...
 			if (time < _lastSyncTime)

@@ -21,7 +21,7 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.flash.lod 
 {
-	import com.actionengine.flash.action.Action;
+	import com.paperworld.flash.action.Action;
 	import com.paperworld.api.ISynchronisedAvatar;		
 
 	/**

@@ -1,18 +1,17 @@
 package com.paperworld.flash.objects 
 {
-	import com.actionengine.flash.api.IInput;
-	import com.actionengine.flash.core.BaseClass;
-	import com.actionengine.flash.util.logging.Logger;
-	import com.actionengine.flash.util.logging.LoggerContext;
-	import com.brainfarm.flash.data.State;
 	import com.paperworld.api.ISynchronisedObject;
+	import com.paperworld.flash.data.State;
+	import com.paperworld.flash.input.Input;
+	import com.paperworld.flash.util.logging.Logger;
+	import com.paperworld.flash.util.logging.LoggerContext;
 	
 	import flash.display.Sprite;	
 
 	/**
 	 * @author Trevor
 	 */
-	public class SimpleSynchronisableObject extends BaseClass implements ISynchronisedObject 
+	public class SimpleSynchronisableObject implements ISynchronisedObject 
 	{
 		private var logger : Logger = LoggerContext.getLogger( SimpleSynchronisableObject );
 
@@ -35,7 +34,7 @@ package com.paperworld.flash.objects
 			this.object = object;
 		}
 
-		public function synchronise(time : int, input : IInput, state : State) : void
+		public function synchronise(time : int, input : Input, state : State) : void
 		{
 			this.object.x = state.position.x;
 			this.object.y = state.position.y;
@@ -43,7 +42,7 @@ package com.paperworld.flash.objects
 			object.rotation = state.orientation.w;
 		}
 
-		override public function destroy() : void
+		public function destroy() : void
 		{
 		}
 	}

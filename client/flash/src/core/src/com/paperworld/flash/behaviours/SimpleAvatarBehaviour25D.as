@@ -1,10 +1,11 @@
 package com.paperworld.flash.behaviours 
 {
-	import com.actionengine.flash.api.IInput;
-	import com.actionengine.flash.util.logging.Logger;
-	import com.actionengine.flash.util.logging.LoggerContext;
-	import com.brainfarm.flash.data.State;
-	import com.paperworld.api.ISynchronisedAvatar;		
+	import com.paperworld.api.ISynchronisedAvatar;
+	import com.paperworld.flash.data.State;
+	import com.paperworld.flash.input.Input;
+	import com.paperworld.flash.util.logging.Logger;
+	import com.paperworld.flash.util.logging.LoggerContext;
+			
 
 	/**
 	 * @author Trevor
@@ -31,7 +32,7 @@ package com.paperworld.flash.behaviours
 
 		override public function apply(avatar : ISynchronisedAvatar) : void
 		{		
-			var input : IInput = avatar.getInput( );
+			var input : Input = avatar.getInput( );
 			var state : State = avatar.getState( );
 				
 			if (input != null) 
@@ -39,7 +40,7 @@ package com.paperworld.flash.behaviours
 				if (input.getMoveForward( ))
 					state.position.z += moveForwardAmount;
 					
-				if (input.getMoveBackward( ))
+				if (input.getMoveBack( ))
 					state.position.z -= moveBackAmount;
 
 				if (input.getMoveRight( ))

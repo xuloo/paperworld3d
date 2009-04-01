@@ -1,8 +1,7 @@
 package com.paperworld.flash.scenes 
-{
-	import com.actionengine.flash.core.interfaces.IInitialisable;
-	import com.actionengine.flash.util.logging.Logger;
-	import com.actionengine.flash.util.logging.LoggerContext;
+{	
+	import com.paperworld.flash.util.logging.Logger;
+	import com.paperworld.flash.util.logging.LoggerContext;
 	import com.paperworld.flash.objects.SimpleSynchronisableObject;
 
 	import flash.display.DisplayObject;
@@ -11,7 +10,7 @@ package com.paperworld.flash.scenes
 	/**
 	 * @author Trevor
 	 */
-	public class SimpleSynchronisedScene extends AbstractSynchronisedScene implements IInitialisable
+	public class SimpleSynchronisedScene extends AbstractSynchronisedScene
 	{
 		private var logger : Logger = LoggerContext.getLogger( SimpleSynchronisedScene );
 
@@ -34,7 +33,7 @@ package com.paperworld.flash.scenes
 			initialise( );
 		}
 
-		override public function initialise(...args) : void
+		override public function initialise() : void
 		{			
 			_view = new Sprite( );
 			

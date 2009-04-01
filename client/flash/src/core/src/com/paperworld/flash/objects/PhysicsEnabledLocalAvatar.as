@@ -1,8 +1,7 @@
 package com.paperworld.flash.objects 
 {
-	import com.actionengine.flash.api.IInput;
-	import com.brainfarm.flash.data.State;
-	import com.paperworld.flash.objects.LocalAvatar;	
+	import com.paperworld.flash.data.State;
+	import com.paperworld.flash.input.Input;	
 
 	/**
 	 * @author Trevor
@@ -38,7 +37,7 @@ package com.paperworld.flash.objects
 			super.update( );		
 		}
 
-		override public function synchronise(time : int, input : IInput, state : State) : void
+		override public function synchronise(time : int, input : Input, state : State) : void
 		{            	
 			// Handle the server time update.
 			if (time > _time)

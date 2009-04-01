@@ -1,7 +1,7 @@
 package com.paperworld.flash.interpolators 
 {
-	import com.brainfarm.flash.data.State;
-	import com.paperworld.api.IInterpolator;	
+	import com.paperworld.api.IInterpolator;
+	import com.paperworld.flash.data.State;	
 
 	/**
 	 * @author Trevor

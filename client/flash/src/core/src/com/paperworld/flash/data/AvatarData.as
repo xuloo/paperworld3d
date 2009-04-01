@@ -21,15 +21,13 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.flash.data 
 {
-	import com.actionengine.flash.api.IInput;
-	import com.actionengine.flash.core.BaseClass;
-	import com.brainfarm.flash.data.State;
-	import com.paperworld.api.ISynchronisedAvatar;	
+	import com.paperworld.api.ISynchronisedAvatar;
+	import com.paperworld.flash.input.Input;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
 	 */
-	public class AvatarData extends BaseClass 
+	public class AvatarData
 	{
 		public var id : String;
 
@@ -37,7 +35,7 @@ package com.paperworld.flash.data
 
 		public var time : int;
 
-		public var input : IInput;
+		public var input : Input;
 
 		public var state : State;
 		
@@ -76,12 +74,12 @@ package com.paperworld.flash.data
 			this.time = time;
 		}
 
-		public function getInput() : IInput
+		public function getInput() : Input
 		{
 			return input;
 		}
 
-		public function setInput(input : IInput) : void
+		public function setInput(input : Input) : void
 		{
 			this.input = input;
 		}

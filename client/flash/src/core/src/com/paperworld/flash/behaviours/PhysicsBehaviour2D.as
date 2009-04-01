@@ -1,6 +1,7 @@
 package com.paperworld.flash.behaviours 
 {
-	import com.brainfarm.flash.steering.SteeringBehaviour;
+	import com.paperworld.flash.ai.steering.SteeringBehaviour;
+	
 	
 	/**
 	 * @author Trevor

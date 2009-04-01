@@ -21,39 +21,40 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.flash.scenes 
 {
-	import jedai.events.Red5Event;
-	import jedai.net.rpc.Red5Connection;
-	import jedai.net.rpc.RemoteSharedObject;
-	
-	import com.actionengine.flash.core.EventDispatchingBaseClass;
-	import com.actionengine.flash.core.context.CoreContext;
-	import com.actionengine.flash.input.IUserInput;
-	import com.actionengine.flash.input.events.UserInputEvent;
-	import com.actionengine.flash.util.logging.Logger;
-	import com.actionengine.flash.util.logging.LoggerContext;
-	import com.brainfarm.flash.data.State;
-	import com.brainfarm.flash.util.math.Quaternion;
-	import com.brainfarm.flash.util.math.Vector3;
 	import com.paperworld.api.IAvatarFactory;
 	import com.paperworld.api.ISynchronisedAvatar;
 	import com.paperworld.api.ISynchronisedObject;
 	import com.paperworld.api.ISynchronisedScene;
 	import com.paperworld.flash.data.AvatarData;
+	import com.paperworld.flash.data.State;
 	import com.paperworld.flash.data.SyncData;
+	import com.paperworld.flash.input.IUserInput;
+	import com.paperworld.flash.input.events.UserInputEvent;
 	import com.paperworld.flash.lod.LodConstraint;
 	import com.paperworld.flash.player.Player;
+	import com.paperworld.flash.util.CoreContext;
+	import com.paperworld.flash.util.logging.Logger;
+	import com.paperworld.flash.util.logging.LoggerContext;
+	import com.paperworld.flash.util.number.Vector3;
 	
 	import flash.events.Event;
+	import flash.events.EventDispatcher;
 	import flash.events.SyncEvent;
 	import flash.net.ObjectEncoding;
 	import flash.net.Responder;
 	import flash.net.registerClassAlias;
-	import flash.utils.getTimer;	
+	import flash.utils.getTimer;
+	
+	import jedai.events.Red5Event;
+	import jedai.net.rpc.Red5Connection;
+	import jedai.net.rpc.RemoteSharedObject;
+	
+	import org.papervision3d.core.math.Quaternion;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
 	 */
-	public class AbstractSynchronisedScene extends EventDispatchingBaseClass implements ISynchronisedScene
+	public class AbstractSynchronisedScene extends EventDispatcher implements ISynchronisedScene
 	{
 		protected static const AVATAR_REMOTE_SO_KEY : String = "avatars";
 
@@ -132,7 +133,7 @@ package com.paperworld.flash.scenes
 		/**
 		 * Initialise implementation - initialises linked lists.
 		 */
-		override public function initialise(...args) : void
+		public function initialise() : void
 		{			
 			logger = LoggerContext.getLogger( AbstractSynchronisedScene );
 			
@@ -169,7 +170,7 @@ package com.paperworld.flash.scenes
 			_connection.connect( _connection.rtmpURI, _connection.clientManager.username, _connection.clientManager.password );
 		}
 
-		protected function onConnectionEstablished(event : Red5Event) : void
+		protected function onConnectionEstablished(event : Event) : void
 		{
 			//logger.info( "connection established" );
 
@@ -191,7 +192,7 @@ package com.paperworld.flash.scenes
 			}
 		}
 
-		protected function onConnectionDisconnected(event : Red5Event) : void
+		protected function onConnectionDisconnected(event : Event) : void
 		{
 			dispatchEvent( new Event( RTMPEventTypes.DISCONNECTED_FROM_SERVER ) );	
 		}

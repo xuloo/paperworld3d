@@ -21,15 +21,16 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.flash.player 
 {
-	import com.actionengine.flash.core.EventDispatchingBaseClass;
-	import com.actionengine.flash.util.logging.Logger;
-	import com.actionengine.flash.util.logging.LoggerContext;
-	import com.paperworld.api.ISynchronisedAvatar;		
+	import com.paperworld.api.ISynchronisedAvatar;
+	import com.paperworld.flash.util.logging.Logger;
+	import com.paperworld.flash.util.logging.LoggerContext;
+	
+	import flash.events.EventDispatcher;		
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
 	 */
-	public class Player extends EventDispatchingBaseClass 
+	public class Player extends EventDispatcher
 	{
 		private var logger : Logger = LoggerContext.getLogger( Player );
 
@@ -52,7 +53,7 @@ package com.paperworld.flash.player
 			super( this );
 		}
 
-		override public function initialise(...args) : void
+		public function initialise() : void
 		{
 			//_avatar = new Avatar( );
 		}

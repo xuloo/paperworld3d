@@ -21,28 +21,24 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.flash.objects 
 {
-	import com.paperworld.flash.behaviours.SimpleAvatarBehaviour25D;	
-	import com.actionengine.flash.api.IInput;
-	import com.actionengine.flash.core.BaseClass;
-	import com.actionengine.flash.input.IUserInput;
-	import com.actionengine.flash.input.Input;
-	import com.actionengine.flash.util.clock.Clock;
-	import com.actionengine.flash.util.clock.IClockListener;
-	import com.actionengine.flash.util.clock.events.ClockEvent;
-	import com.actionengine.flash.util.logging.Logger;
-	import com.actionengine.flash.util.logging.LoggerContext;
-	import com.brainfarm.flash.data.State;
-	import com.brainfarm.flash.steering.SteeringOutput;
 	import com.paperworld.api.IBehaviour;
 	import com.paperworld.api.ISynchronisedAvatar;
 	import com.paperworld.api.ISynchronisedObject;
-
-	import flash.net.registerClassAlias;	
+	import com.paperworld.flash.ai.steering.SteeringOutput;
+	import com.paperworld.flash.behaviours.SimpleAvatarBehaviour25D;
+	import com.paperworld.flash.data.State;
+	import com.paperworld.flash.input.IUserInput;
+	import com.paperworld.flash.input.Input;
+	import com.paperworld.flash.util.clock.Clock;
+	import com.paperworld.flash.util.clock.IClockListener;
+	import com.paperworld.flash.util.clock.events.ClockEvent;
+	import com.paperworld.flash.util.logging.Logger;
+	import com.paperworld.flash.util.logging.LoggerContext;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
 	 */
-	public class AbstractSynchronisedAvatar extends BaseClass implements ISynchronisedAvatar, IClockListener
+	public class AbstractSynchronisedAvatar implements ISynchronisedAvatar, IClockListener
 	{
 		private var logger : Logger = LoggerContext.getLogger( AbstractSynchronisedAvatar );
 
@@ -117,14 +113,14 @@ package com.paperworld.flash.objects
 		/**
 		 * The current user input state for this object.
 		 */
-		protected var _input : IInput;
+		protected var _input : Input;
 
-		public function getInput() : IInput
+		public function getInput() : Input
 		{
 			return _input;
 		}
 
-		public function setInput(input : IInput) : void
+		public function setInput(input : Input) : void
 		{
 			_input = input;
 		}
@@ -199,7 +195,7 @@ package com.paperworld.flash.objects
 			synchronisedObject.synchronise( _time, _input, _current );	
 		}
 
-		public function synchronise(time : int, input : IInput, state : State) : void
+		public function synchronise(time : int, input : Input, state : State) : void
 		{
 		}
 
@@ -226,7 +222,7 @@ package com.paperworld.flash.objects
 		/**
 		 * Initialise implementation. Sets up any required objects/values.
 		 */
-		override public function initialise(...args) : void
+		public function initialise() : void
 		{
 			_tightness = defaultTightness;	
 			_time = 0;
@@ -246,7 +242,7 @@ package com.paperworld.flash.objects
 		/**
 		 * Destroy implementation. Clean up and remove references so GC can work correctly.
 		 */
-		override public function destroy() : void 
+		public function destroy() : void 
 		{
 			_time = NaN;
 			_tightness = NaN;

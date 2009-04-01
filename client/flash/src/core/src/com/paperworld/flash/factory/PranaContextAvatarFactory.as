@@ -1,6 +1,5 @@
 package com.paperworld.flash.factory 
 {
-	import com.actionengine.flash.core.context.CoreContext;
 	import com.paperworld.api.IAvatarFactory;
 	import com.paperworld.api.ISynchronisedAvatar;	
 
@@ -11,7 +10,7 @@ package com.paperworld.flash.factory
 	{
 		public function getAvatar(key : String) : ISynchronisedAvatar
 		{
-			return ISynchronisedAvatar( CoreContext.getInstance( ).getObject( key ) );
+			return null;//ISynchronisedAvatar( CoreContext.getInstance( ).getObject( key ) );
 		}
 	}
 }

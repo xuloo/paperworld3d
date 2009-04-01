@@ -21,16 +21,15 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.flash.objects 
 {
-	import com.actionengine.flash.api.IInput;
-	import com.actionengine.flash.input.IUserInput;
-	import com.actionengine.flash.input.IUserInputListener;
-	import com.actionengine.flash.input.events.UserInputEvent;
-	import com.actionengine.flash.util.logging.Logger;
-	import com.actionengine.flash.util.logging.LoggerContext;
-	import com.brainfarm.flash.data.State;
-	import com.paperworld.flash.objects.AbstractSynchronisedAvatar;
-	import com.paperworld.util.History;
-	import com.paperworld.util.Move;	
+	import com.paperworld.flash.data.State;
+	import com.paperworld.flash.input.IUserInput;
+	import com.paperworld.flash.input.IUserInputListener;
+	import com.paperworld.flash.input.Input;
+	import com.paperworld.flash.input.events.UserInputEvent;
+	import com.paperworld.flash.util.History;
+	import com.paperworld.flash.util.Move;
+	import com.paperworld.flash.util.logging.Logger;
+	import com.paperworld.flash.util.logging.LoggerContext;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
@@ -51,7 +50,7 @@ package com.paperworld.flash.objects
 			super( );
 		}
 
-		override public function initialise(...args) : void
+		override public function initialise() : void
 		{
 			super.initialise( );
 			
@@ -74,7 +73,7 @@ package com.paperworld.flash.objects
 			super.update( );		
 		}
 
-		override public function synchronise(time : int, input : IInput, state : State) : void
+		override public function synchronise(time : int, input : Input, state : State) : void
 		{			
 			var original : State = state.clone( );
 			
