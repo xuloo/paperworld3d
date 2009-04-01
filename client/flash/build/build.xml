@@ -1,0 +1,148 @@
+<project name="build-paperworld-client" default="all" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
+
+	<property file="../../build/user.properties"/>
+	<property file="../../build/build.properties"/>
+	<property file="build.properties"/>
+	
+	<taskdef resource="flexTasks.tasks" classpath="${basedir}/../../${build.lib}/flexTasks.jar" />
+	<taskdef classpath="${basedir}/../../${build.lib}/ant-contrib-1.0b3.jar" resource="net/sf/antcontrib/antlib.xml"/>
+
+	<taskdef resource="org/apache/ivy/ant/antlib.xml"
+	         uri="antlib:org.apache.ivy.ant" 
+			 classpath="${basedir}/../../${build.lib}/${ivy.lib}.jar"/>	
+	
+	<target name="all" depends="clean, prepare, retrieve, build-flash, generate-docs" 
+		description="builds all the paperworld libraries and generates documentation" />
+	
+	<target name="retrieve" unless="library.installed" description="Retrieves the libraries if needed">
+		<ivy:retrieve pattern="${basedir}/../lib/[artifact].swc"/>
+	</target>
+		
+	<target name="build-flash" depends="retrieve" description="builds the multiplayer paperworld client library swc.">
+		
+		<compc output="${output.dir}/${output.name}.swc"
+		   optimize="true"
+		   debug="true"
+		>
+			<include-sources dir="${core.src.dir}">
+                 <include name="**/*.as"/>
+            </include-sources>
+			<include-sources dir="${pv3d.src.dir}">
+                 <include name="**/*.as"/>
+            </include-sources>
+			<include-sources dir="D:/projects/actionengine/trunk/flash/src">
+				<include name="**/*.as"/>
+			</include-sources>
+			<include-sources dir="D:/projects/brainfarm/trunk/flash/src/main/flex">
+				<include name="**/*.as"/>
+			</include-sources>
+			<compiler.external-library-path dir="${lib.dir}" append="true">
+				<include name="papervision3D.swc" />
+			</compiler.external-library-path>
+			<compiler.library-path dir="${lib.dir}" append="true">
+				<include name="**/*.swc" />
+			</compiler.library-path>
+		</compc>
+		
+	</target>
+	
+	<target name="build-tests" description="builds the multiplayer paperworld client unit tests.">
+				
+		<mxmlc  
+           output="${test.output.dir}/${output.name}_tests.swf"
+		   file="${basedir}/${src.dir}/test/Test.mxml"
+		   debug="true"
+		>
+			<compiler.source-path path-element="${basedir}/${src.dir}/test"/>
+			<compiler.source-path path-element="${basedir}/${src.dir}/src"/>
+			<compiler.library-path dir="../lib" append="true">
+				<include name="*.swc" />
+			</compiler.library-path>
+			<compiler.library-path dir="${FLEX_HOME}/frameworks/libs" append="true">
+				<include name="framework.swc" />
+			</compiler.library-path>
+			<compiler.external-library-path dir="${FLEX_HOME}/frameworks/libs/player">
+				<include name="playerglobal.swc"/>
+			</compiler.external-library-path>
+		</mxmlc>
+		
+		<copy todir="${test.output.dir}/assets" overwrite="true">
+			<fileset dir="${src.dir}/test/assets">
+		      <include name="*"/>
+		    </fileset>
+		</copy>
+		
+	</target>
+	
+	<target name="generate-docs" depends="clean-docs, prepare-docs" description="creates the asdoc documentation for the project">
+		
+		<exec executable="${asdoc}" failonerror="true" >
+		  <arg line="-doc-sources ../src/core/src ../src/away3d ../src/pv3d" />
+		  <arg line="-external-library-path ../lib/actionengine-flash.swc ../lib/brainfarm-flash.swc ../lib/jedai.swc ../lib/pranaframework.swc ../lib/papervision3D.swc ../lib/Away3D.swc ../lib/xray.swc ../lib/ape-flash.swc" />
+		  <arg line="-output ../docs" />
+		  <arg line="-main-title 'PaperWorld3D API Documentation'"/>
+		  <arg line="-window-title 'PaperWorld3D API Documentation'"/>
+		</exec>
+		
+	</target>
+	
+	<target name="prepare" description="prepares the directory system before a build">
+		
+		<ant target="prepare-output"/>
+		<ant target="prepare-docs"/>
+		<ant target="prepare-tests"/>
+		
+	</target>
+	
+	<target name="prepare-output" description="prepares the output directory">
+		
+		<mkdir dir="${output.dir}"/>
+		
+	</target>
+	
+	<target name="prepare-docs" description="prepares the documentation directory">
+		
+		<mkdir dir="${docs.dir}"/>
+		
+	</target>
+	
+	<target name="prepare-tests" description="prepares the tests directory">
+			
+		<mkdir dir="${test.output.dir}"/>
+		<mkdir dir="${test.output.dir}/assets"/>
+		
+	</target>
+	
+	<target name="clean" description="cleans the directory system of all directories/files created by a build">
+		
+		<ant target="clean-docs"/>
+		<ant target="clean-output"/>
+		<ant target="clean-tests"/>
+		
+	</target>
+	
+	<target name="clean-docs" description="cleans the documentation directory">
+		
+		<delete failonerror="no" includeemptydirs="true">
+			<fileset dir="${docs.dir}" includes="**/*" />
+		</delete>
+		
+	</target>
+	
+	<target name="clean-output" description="cleans the output directory">
+		
+		<delete failonerror="no" includeemptydirs="true">
+			<fileset dir="${output.dir}" includes="**/*" />
+		</delete>
+		
+	</target>
+	
+	<target name="clean-tests" description="cleans the tests directory">
+			
+		<delete failonerror="no" includeemptydirs="true">
+			<fileset dir="${test.output.dir}" includes="**/*" />
+		</delete>
+		
+	</target>
+	
+</project>
