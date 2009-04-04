@@ -1,7 +1,7 @@
 package com.paperworld.api
 {
-	import com.paperworld.flash.data.State;
-	import com.paperworld.flash.input.Input;	
+	import com.paperworld.flash.input.Input;
+	import com.paperworld.flash.multiplayer.data.State;	
 
 	/**
 	 * @author Trevor

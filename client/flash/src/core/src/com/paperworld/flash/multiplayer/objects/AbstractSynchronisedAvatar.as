@@ -19,28 +19,29 @@
  * Suite 330, Boston, MA 02111-1307 USA 
  * 
  * -------------------------------------------------------------------------------------- */
-package com.paperworld.flash.objects 
+package com.paperworld.flash.multiplayer.objects 
 {
 	import com.paperworld.api.IBehaviour;
 	import com.paperworld.api.ISynchronisedAvatar;
 	import com.paperworld.api.ISynchronisedObject;
 	import com.paperworld.flash.ai.steering.SteeringOutput;
-	import com.paperworld.flash.behaviours.SimpleAvatarBehaviour25D;
-	import com.paperworld.flash.data.State;
 	import com.paperworld.flash.input.IUserInput;
 	import com.paperworld.flash.input.Input;
+	import com.paperworld.flash.multiplayer.data.State;
+	import com.paperworld.flash.multiplayer.inputhandlers.SimpleAvatarInputHandler25D;
 	import com.paperworld.flash.util.clock.Clock;
 	import com.paperworld.flash.util.clock.IClockListener;
 	import com.paperworld.flash.util.clock.events.ClockEvent;
-	import com.paperworld.flash.util.logging.Logger;
-	import com.paperworld.flash.util.logging.LoggerContext;	
+	
+	import org.as3commons.logging.ILogger;
+	import org.as3commons.logging.LoggerFactory;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
 	 */
 	public class AbstractSynchronisedAvatar implements ISynchronisedAvatar, IClockListener
 	{
-		private var logger : Logger = LoggerContext.getLogger( AbstractSynchronisedAvatar );
+		private static var logger:ILogger = LoggerFactory.getLogger("Paperworld");
 
 		public function set userInput(value : IUserInput) : void
 		{
@@ -232,7 +233,7 @@ package com.paperworld.flash.objects
 			_current = new State( );
 			_previous = new State( );
 			
-			_behaviours = new SimpleAvatarBehaviour25D( );
+			_behaviours = new SimpleAvatarInputHandler25D( );
 			
 			output = new SteeringOutput( );
 			

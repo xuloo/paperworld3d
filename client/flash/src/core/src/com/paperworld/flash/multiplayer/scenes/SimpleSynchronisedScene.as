@@ -1,18 +1,20 @@
-package com.paperworld.flash.scenes 
+package com.paperworld.flash.multiplayer.scenes 
 {	
-	import com.paperworld.flash.util.logging.Logger;
-	import com.paperworld.flash.util.logging.LoggerContext;
-	import com.paperworld.flash.objects.SimpleSynchronisableObject;
-
+	import com.paperworld.flash.multiplayer.objects.SimpleSynchronisableObject;
+	
 	import flash.display.DisplayObject;
-	import flash.display.Sprite;	
+	import flash.display.Sprite;
+	
+	import org.as3commons.logging.ILogger;
+	import org.as3commons.logging.LoggerFactory;
+		
 
 	/**
 	 * @author Trevor
 	 */
 	public class SimpleSynchronisedScene extends AbstractSynchronisedScene
 	{
-		private var logger : Logger = LoggerContext.getLogger( SimpleSynchronisedScene );
+		private static var logger:ILogger = LoggerFactory.getLogger("Paperworld");
 
 		protected var _view : Sprite;
 

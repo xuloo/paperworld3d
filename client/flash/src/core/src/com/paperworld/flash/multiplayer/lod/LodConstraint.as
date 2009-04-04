@@ -19,7 +19,7 @@
  * Suite 330, Boston, MA 02111-1307 USA 
  * 
  * -------------------------------------------------------------------------------------- */
-package com.paperworld.flash.lod 
+package com.paperworld.flash.multiplayer.lod 
 {
 	import com.paperworld.flash.action.Action;
 	import com.paperworld.api.ISynchronisedAvatar;		

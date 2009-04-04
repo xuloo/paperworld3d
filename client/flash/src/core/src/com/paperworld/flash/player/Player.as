@@ -22,17 +22,18 @@
 package com.paperworld.flash.player 
 {
 	import com.paperworld.api.ISynchronisedAvatar;
-	import com.paperworld.flash.util.logging.Logger;
-	import com.paperworld.flash.util.logging.LoggerContext;
 	
-	import flash.events.EventDispatcher;		
+	import flash.events.EventDispatcher;
+	
+	import org.as3commons.logging.ILogger;
+	import org.as3commons.logging.LoggerFactory;		
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
 	 */
 	public class Player extends EventDispatcher
 	{
-		private var logger : Logger = LoggerContext.getLogger( Player );
+		private static var logger:ILogger = LoggerFactory.getLogger("Paperworld");
 
 		protected var _avatar : ISynchronisedAvatar;		
 

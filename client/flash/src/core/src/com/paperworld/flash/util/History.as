@@ -22,21 +22,22 @@
 package com.paperworld.flash.util
 {
 	import com.paperworld.api.ISynchronisedAvatar;
-	import com.paperworld.flash.data.State;
 	import com.paperworld.flash.input.Input;
-	import com.paperworld.flash.util.logging.Logger;
-	import com.paperworld.flash.util.logging.LoggerContext;
+	import com.paperworld.flash.multiplayer.data.State;
+	
+	import org.as3commons.logging.ILogger;
+	import org.as3commons.logging.LoggerFactory;
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
 	 */
 	public class History
 	{
+		private static var logger:ILogger = LoggerFactory.getLogger("Paperworld");
+		
 		public var moves : CircularBuffer;
 
 		public var importantMoves : CircularBuffer;
-
-		private var logger : Logger = LoggerContext.getLogger( History );
 
 		public function History(size : int = 200)
 		{

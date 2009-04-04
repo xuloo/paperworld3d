@@ -1,7 +1,8 @@
-package com.paperworld.flash.interpolators 
+package com.paperworld.flash.multiplayer.interpolators
 {
 	import com.paperworld.api.IInterpolator;
-	import com.paperworld.flash.data.State;	
+	import com.paperworld.flash.multiplayer.data.State;
+	
 
 	/**
 	 * @author Trevor

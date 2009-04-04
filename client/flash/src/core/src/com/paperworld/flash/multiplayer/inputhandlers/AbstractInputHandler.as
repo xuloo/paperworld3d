@@ -1,4 +1,4 @@
-package com.paperworld.flash.behaviours 
+package com.paperworld.flash.multiplayer.inputhandlers 
 {
 	import com.paperworld.api.IBehaviour;
 	import com.paperworld.api.ISynchronisedAvatar;	
@@ -6,7 +6,7 @@ package com.paperworld.flash.behaviours
 	/**
 	 * @author Trevor
 	 */
-	public class AbstractBehaviour implements IBehaviour 
+	public class AbstractInputHandler implements IBehaviour 
 	{
 		protected var _next : IBehaviour;
 

@@ -1,4 +1,4 @@
-package com.paperworld.flash.data
+package com.paperworld.flash.multiplayer.data
 {
 	import com.paperworld.flash.util.number.Vector3;
 	

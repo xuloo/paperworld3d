@@ -21,15 +21,15 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.flash.util 
 {
-	import com.paperworld.flash.util.logging.LoggerContext;	
-	import com.paperworld.flash.util.logging.Logger;	
+	import org.as3commons.logging.ILogger;
+	import org.as3commons.logging.LoggerFactory;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
 	 */
 	public class CircularBuffer
 	{
-		public var logger : Logger = LoggerContext.getLogger( CircularBuffer );
+		private static var logger:ILogger = LoggerFactory.getLogger("Paperworld");
 
 		public var head : int;
 

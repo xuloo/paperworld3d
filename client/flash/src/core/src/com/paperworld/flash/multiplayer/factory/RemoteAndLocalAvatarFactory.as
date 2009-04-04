@@ -1,4 +1,4 @@
-package com.paperworld.flash.factory 
+package com.paperworld.flash.multiplayer.factory 
 {
 	import com.paperworld.api.IAvatarFactory;
 	import com.paperworld.api.ISynchronisedAvatar;

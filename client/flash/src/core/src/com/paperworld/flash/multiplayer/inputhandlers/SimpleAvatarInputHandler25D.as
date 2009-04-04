@@ -1,18 +1,19 @@
-package com.paperworld.flash.behaviours 
+package com.paperworld.flash.multiplayer.inputhandlers 
 {
 	import com.paperworld.api.ISynchronisedAvatar;
-	import com.paperworld.flash.data.State;
 	import com.paperworld.flash.input.Input;
-	import com.paperworld.flash.util.logging.Logger;
-	import com.paperworld.flash.util.logging.LoggerContext;
+	import com.paperworld.flash.multiplayer.data.State;
+	
+	import org.as3commons.logging.ILogger;
+	import org.as3commons.logging.LoggerFactory;
 			
 
 	/**
 	 * @author Trevor
 	 */
-	public class SimpleAvatarBehaviour25D extends AbstractBehaviour
+	public class SimpleAvatarInputHandler25D extends AbstractInputHandler
 	{
-		private var logger : Logger = LoggerContext.getLogger( SimpleAvatarBehaviour25D );
+		private static var logger:ILogger = LoggerFactory.getLogger("Paperworld");
 
 		public var moveForwardAmount : Number = 1;
 
@@ -26,7 +27,7 @@ package com.paperworld.flash.behaviours
 
 		public var turnRightAmount : Number = 1;		
 
-		public function SimpleAvatarBehaviour25D()
+		public function SimpleAvatarInputHandler25D()
 		{
 		}
 

@@ -1,19 +1,20 @@
-package com.paperworld.flash.objects 
+package com.paperworld.flash.multiplayer.objects 
 {
 	import com.paperworld.api.ISynchronisedObject;
-	import com.paperworld.flash.data.State;
 	import com.paperworld.flash.input.Input;
-	import com.paperworld.flash.util.logging.Logger;
-	import com.paperworld.flash.util.logging.LoggerContext;
+	import com.paperworld.flash.multiplayer.data.State;
 	
-	import flash.display.Sprite;	
+	import flash.display.Sprite;
+	
+	import org.as3commons.logging.ILogger;
+	import org.as3commons.logging.LoggerFactory;	
 
 	/**
 	 * @author Trevor
 	 */
 	public class SimpleSynchronisableObject implements ISynchronisedObject 
 	{
-		private var logger : Logger = LoggerContext.getLogger( SimpleSynchronisableObject );
+		private static var logger:ILogger = LoggerFactory.getLogger("Paperworld");
 
 		public var object : Sprite;
 

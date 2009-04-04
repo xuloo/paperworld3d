@@ -19,22 +19,20 @@
  * Suite 330, Boston, MA 02111-1307 USA 
  * 
  * -------------------------------------------------------------------------------------- */
-package com.paperworld.flash.scenes 
+package com.paperworld.flash.multiplayer.scenes 
 {
 	import com.paperworld.api.IAvatarFactory;
 	import com.paperworld.api.ISynchronisedAvatar;
 	import com.paperworld.api.ISynchronisedObject;
 	import com.paperworld.api.ISynchronisedScene;
-	import com.paperworld.flash.data.AvatarData;
-	import com.paperworld.flash.data.State;
-	import com.paperworld.flash.data.SyncData;
 	import com.paperworld.flash.input.IUserInput;
 	import com.paperworld.flash.input.events.UserInputEvent;
-	import com.paperworld.flash.lod.LodConstraint;
+	import com.paperworld.flash.multiplayer.data.AvatarData;
+	import com.paperworld.flash.multiplayer.data.State;
+	import com.paperworld.flash.multiplayer.data.SyncData;
+	import com.paperworld.flash.multiplayer.lod.LodConstraint;
 	import com.paperworld.flash.player.Player;
 	import com.paperworld.flash.util.CoreContext;
-	import com.paperworld.flash.util.logging.Logger;
-	import com.paperworld.flash.util.logging.LoggerContext;
 	import com.paperworld.flash.util.number.Vector3;
 	
 	import flash.events.Event;
@@ -49,6 +47,8 @@ package com.paperworld.flash.scenes
 	import jedai.net.rpc.Red5Connection;
 	import jedai.net.rpc.RemoteSharedObject;
 	
+	import org.as3commons.logging.ILogger;
+	import org.as3commons.logging.LoggerFactory;
 	import org.papervision3d.core.math.Quaternion;	
 
 	/**
@@ -64,7 +64,7 @@ package com.paperworld.flash.scenes
 
 		protected static const ADD_PLAYER_METHOD : String = PAPERWORLD_SERVICE_PREFIX + '.addPlayer';
 
-		private var logger : Logger;
+		private static var logger:ILogger = LoggerFactory.getLogger("Paperworld");
 
 		public var clientID : Number = -1;
 
@@ -135,8 +135,6 @@ package com.paperworld.flash.scenes
 		 */
 		public function initialise() : void
 		{			
-			logger = LoggerContext.getLogger( AbstractSynchronisedScene );
-			
 			avatarsByName = new Array( );		
 			
 			_context = CoreContext.getInstance( );

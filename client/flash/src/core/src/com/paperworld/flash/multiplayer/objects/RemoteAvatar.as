@@ -19,12 +19,13 @@
  * Suite 330, Boston, MA 02111-1307 USA 
  * 
  * -------------------------------------------------------------------------------------- */
-package com.paperworld.flash.objects 
+package com.paperworld.flash.multiplayer.objects
 {
-	import com.paperworld.flash.data.State;
 	import com.paperworld.flash.input.Input;
-	import com.paperworld.flash.util.logging.Logger;
-	import com.paperworld.flash.util.logging.LoggerContext;	
+	import com.paperworld.flash.multiplayer.data.State;
+	
+	import org.as3commons.logging.ILogger;
+	import org.as3commons.logging.LoggerFactory;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
@@ -35,7 +36,7 @@ package com.paperworld.flash.objects
 
 		public var updating : Boolean;
 
-		private var logger : Logger = LoggerContext.getLogger( RemoteAvatar );
+		private static var logger:ILogger = LoggerFactory.getLogger("Paperworld");
 
 		public function RemoteAvatar()
 		{

@@ -1,4 +1,4 @@
-<project name="build-paperworld-client" default="all" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
+<project name="paperworld-client-flash" default="all" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
 
 	<property file="../../build/user.properties"/>
 	<property file="../../build/build.properties"/>

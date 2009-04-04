@@ -1,4 +1,4 @@
-package com.paperworld.flash.scenes
+package com.paperworld.flash.multiplayer.scenes
 {
 
 	/**
