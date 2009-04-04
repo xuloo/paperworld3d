@@ -25,8 +25,8 @@ package com.paperworld.flash.multiplayer.objects
 	import com.paperworld.api.ISynchronisedAvatar;
 	import com.paperworld.api.ISynchronisedObject;
 	import com.paperworld.flash.ai.steering.SteeringOutput;
-	import com.paperworld.flash.input.IUserInput;
-	import com.paperworld.flash.input.Input;
+	import com.paperworld.flash.core.input.IUserInput;
+	import com.paperworld.flash.core.input.Input;
 	import com.paperworld.flash.multiplayer.data.State;
 	import com.paperworld.flash.multiplayer.inputhandlers.SimpleAvatarInputHandler25D;
 	import com.paperworld.flash.util.clock.Clock;

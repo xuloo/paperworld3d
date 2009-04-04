@@ -1,7 +1,7 @@
 package com.paperworld.api 
 {
-	import com.paperworld.flash.input.IUserInput;
-	import com.paperworld.flash.player.Player;
+	import com.paperworld.flash.core.input.IUserInput;
+	import com.paperworld.flash.core.player.Player;
 	
 	import flash.events.IEventDispatcher;			
 

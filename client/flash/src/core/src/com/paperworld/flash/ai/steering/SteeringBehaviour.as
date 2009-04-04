@@ -11,7 +11,7 @@
  */
 package com.paperworld.flash.ai.steering
 {
-	import com.paperworld.flash.input.Input;		
+	import com.paperworld.flash.core.input.Input;		
 
 	/**
 	 * The steering behaviour is the base class for all dynamic

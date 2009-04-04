@@ -1,7 +1,7 @@
 package com.paperworld.flash.multiplayer.inputhandlers 
 {
 	import com.paperworld.api.ISynchronisedAvatar;
-	import com.paperworld.flash.input.Input;
+	import com.paperworld.flash.core.input.Input;
 	import com.paperworld.flash.multiplayer.data.State;
 	
 	import org.as3commons.logging.ILogger;

@@ -11,8 +11,8 @@
  */
 package com.paperworld.flash.ai.sm.markov 
 {
-	import com.paperworld.flash.action.Action;
-	import com.paperworld.flash.ai.sm.BaseTransition;		
+	import com.paperworld.flash.ai.sm.BaseTransition;
+	import com.paperworld.flash.core.action.Action;		
 
 	/**
 	 * The markov state machine is responsible for keeping track of

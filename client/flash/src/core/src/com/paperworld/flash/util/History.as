@@ -22,7 +22,7 @@
 package com.paperworld.flash.util
 {
 	import com.paperworld.api.ISynchronisedAvatar;
-	import com.paperworld.flash.input.Input;
+	import com.paperworld.flash.core.input.Input;
 	import com.paperworld.flash.multiplayer.data.State;
 	
 	import org.as3commons.logging.ILogger;

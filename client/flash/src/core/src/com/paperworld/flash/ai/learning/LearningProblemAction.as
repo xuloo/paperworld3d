@@ -11,7 +11,7 @@
  */
 package com.paperworld.flash.ai.learning 
 {
-	import com.paperworld.flash.action.Action;	
+	import com.paperworld.flash.core.action.Action;	
 	
 	/**
 	 * An action moves between states of the problem. In our case we

@@ -9,7 +9,7 @@
  * 
  * Actionscript port - Trevor Burton [worldofpaper@googlemail.com]
  */
-package com.paperworld.flash.action 
+package com.paperworld.flash.core.action
 {		
 	/**
 	 * Action is a Base Class that for triggering ANY behaviour, whether visible to the user or internal.

@@ -21,7 +21,7 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.flash.util.keys 
 {
-	import com.paperworld.flash.patterns.command.ICommand;
+	import com.paperworld.flash.core.patterns.command.ICommand;
 	
 	import flash.display.InteractiveObject;
 	import flash.events.KeyboardEvent;

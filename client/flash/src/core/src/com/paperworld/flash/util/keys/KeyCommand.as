@@ -21,8 +21,8 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.flash.util.keys 
 {
-	import com.paperworld.flash.input.IUserInput;
-	import com.paperworld.flash.patterns.command.ICommand;	
+	import com.paperworld.flash.core.input.IUserInput;
+	import com.paperworld.flash.core.patterns.command.ICommand;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]

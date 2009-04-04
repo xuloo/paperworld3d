@@ -1,6 +1,6 @@
-package com.paperworld.flash.input 
+package com.paperworld.flash.core.input 
 {
-	import com.paperworld.flash.input.events.UserInputEvent;		
+	import com.paperworld.flash.core.input.events.UserInputEvent;		
 
 	/**
 	 * @author Trevor

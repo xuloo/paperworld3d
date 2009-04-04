@@ -21,7 +21,7 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.flash.multiplayer.objects
 {
-	import com.paperworld.flash.input.Input;
+	import com.paperworld.flash.core.input.Input;
 	import com.paperworld.flash.multiplayer.data.State;
 	
 	import org.as3commons.logging.ILogger;

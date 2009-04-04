@@ -25,13 +25,13 @@ package com.paperworld.flash.multiplayer.scenes
 	import com.paperworld.api.ISynchronisedAvatar;
 	import com.paperworld.api.ISynchronisedObject;
 	import com.paperworld.api.ISynchronisedScene;
-	import com.paperworld.flash.input.IUserInput;
-	import com.paperworld.flash.input.events.UserInputEvent;
+	import com.paperworld.flash.core.input.IUserInput;
+	import com.paperworld.flash.core.input.events.UserInputEvent;
+	import com.paperworld.flash.core.player.Player;
 	import com.paperworld.flash.multiplayer.data.AvatarData;
 	import com.paperworld.flash.multiplayer.data.State;
 	import com.paperworld.flash.multiplayer.data.SyncData;
 	import com.paperworld.flash.multiplayer.lod.LodConstraint;
-	import com.paperworld.flash.player.Player;
 	import com.paperworld.flash.util.CoreContext;
 	import com.paperworld.flash.util.number.Vector3;
 	

@@ -21,7 +21,7 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.flash.util.keys
 {
-	import com.paperworld.flash.input.IUserInput;		
+	import com.paperworld.flash.core.input.IUserInput;		
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]

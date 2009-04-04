@@ -11,7 +11,7 @@
  */
 package com.paperworld.flash.ai.sm 
 {
-	import com.paperworld.flash.action.Action;	
+	import com.paperworld.flash.core.action.Action;	
 	
 	/**
 	 * The base transition is used for any kind of state machine. It

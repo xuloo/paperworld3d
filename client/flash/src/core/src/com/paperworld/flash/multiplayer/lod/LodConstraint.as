@@ -21,8 +21,8 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.flash.multiplayer.lod 
 {
-	import com.paperworld.flash.action.Action;
-	import com.paperworld.api.ISynchronisedAvatar;		
+	import com.paperworld.api.ISynchronisedAvatar;
+	import com.paperworld.flash.core.action.Action;		
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]

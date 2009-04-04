@@ -19,40 +19,29 @@
  * Suite 330, Boston, MA 02111-1307 USA 
  * 
  * -------------------------------------------------------------------------------------- */
-package com.paperworld.flash.input 
+package com.paperworld.flash.core.input.events
 {
-	import flash.display.Stage;
-	import flash.events.IEventDispatcher;
+	import com.paperworld.flash.core.input.Input;
 	
-	import com.paperworld.flash.util.clock.events.ClockEvent;	
+	import flash.events.Event;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
 	 */
-	public interface IUserInput extends IEventDispatcher
+	public class UserInputEvent extends Event 
 	{
-		function get input() : Input;
-
-		function set target(value : Stage) : void;
-
-		/**
-		 * Returns the mouse x position.
-		 */
-		function get mouseX() : Number 
-
-		/**
-		 * Returns the mouse y position.
-		 */
-		function get mouseY() : Number
-
-		/**
-		 * Called by the <code>GameTimer</code>'s integration event.</br>
-		 * Takes a snapshot of the user's input.
-		 */
-		function update( event : ClockEvent = null ) : void;
-
-		function addListener(listener : IUserInputListener) : void;
-
-		function removeListener(listener : IUserInputListener) : void;
+		public static var INPUT_CHANGED:String = "InputChanged";
+		
+		public var time:int;
+		
+		public var input:Input;
+		
+		public function UserInputEvent(type : String, time:int, input:Input, bubbles : Boolean = false, cancelable : Boolean = false)
+		{
+			super( type, bubbles, cancelable );
+			
+			this.time = time;
+			this.input = input;
+		}
 	}
 }

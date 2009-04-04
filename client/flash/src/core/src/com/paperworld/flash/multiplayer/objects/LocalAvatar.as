@@ -21,10 +21,10 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.flash.multiplayer.objects 
 {
-	import com.paperworld.flash.input.IUserInput;
-	import com.paperworld.flash.input.IUserInputListener;
-	import com.paperworld.flash.input.Input;
-	import com.paperworld.flash.input.events.UserInputEvent;
+	import com.paperworld.flash.core.input.IUserInput;
+	import com.paperworld.flash.core.input.IUserInputListener;
+	import com.paperworld.flash.core.input.Input;
+	import com.paperworld.flash.core.input.events.UserInputEvent;
 	import com.paperworld.flash.multiplayer.data.State;
 	import com.paperworld.flash.util.History;
 	import com.paperworld.flash.util.Move;

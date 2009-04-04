@@ -11,7 +11,7 @@
  */
 package com.paperworld.flash.ai.sm 
 {
-	import com.paperworld.flash.action.Action;	
+	import com.paperworld.flash.core.action.Action;	
 	
 	/**
 	 * @author Trevor

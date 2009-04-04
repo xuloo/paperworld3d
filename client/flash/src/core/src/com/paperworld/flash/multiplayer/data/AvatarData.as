@@ -22,7 +22,7 @@
 package com.paperworld.flash.multiplayer.data 
 {
 	import com.paperworld.api.ISynchronisedAvatar;
-	import com.paperworld.flash.input.Input;	
+	import com.paperworld.flash.core.input.Input;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]

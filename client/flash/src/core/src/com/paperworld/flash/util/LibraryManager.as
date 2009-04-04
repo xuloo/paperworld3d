@@ -1,15 +1,19 @@
 package com.paperworld.flash.util
 {
+	import flash.utils.Dictionary;
+	
 
 	/**
 	 * @author Trevor
 	 */
 	public class LibraryManager
 	{
-		private static var $instance : LibraryManager;
+		private static var _instance : LibraryManager;
 
-		private var $cache : Object;
-
+		private var _cache : Object;
+		
+		private var _assets:Dictionary;
+  
 		public function LibraryManager(singleton : Singleton)
 		{
 			super( );
@@ -17,14 +21,13 @@ package com.paperworld.flash.util
 		
 		public function initialise():void 
 		{
-			$cache = new Object();
-			
-			
+			_assets = new Dictionary(true);
+			_cache = new Object();
 		}
 
 		public static function getInstance() : LibraryManager
 		{
-			return ($instance == null) ? new LibraryManager( new Singleton( ) ) : $instance;
+			return (_instance == null) ? new LibraryManager( new Singleton( ) ) : _instance;
 		}
 	}
 }
