@@ -1,6 +1,6 @@
 package com.paperworld.java.api;
 
-import com.actionengine.api.IInput;
+import com.paperworld.java.api.IInput;
 
 public interface IInputHandler {
 

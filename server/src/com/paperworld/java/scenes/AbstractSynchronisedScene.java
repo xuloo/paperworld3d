@@ -6,13 +6,13 @@ import org.red5.server.api.IClient;
 import org.red5.server.api.IConnection;
 import org.red5.server.api.IScope;
 
-import com.actionengine.api.IInput;
 import com.paperworld.java.api.IAvatarFactory;
+import com.paperworld.java.api.IInput;
 import com.paperworld.java.api.IService;
 import com.paperworld.java.api.ISynchronisedAvatar;
 import com.paperworld.java.api.ISynchronisedScene;
-import com.paperworld.multiplayer.data.AvatarData;
-import com.paperworld.multiplayer.data.SyncData;
+import com.paperworld.java.multiplayer.data.AvatarData;
+import com.paperworld.java.multiplayer.data.SyncData;
 
 public class AbstractSynchronisedScene implements ISynchronisedScene,
 		IApplication, IService {

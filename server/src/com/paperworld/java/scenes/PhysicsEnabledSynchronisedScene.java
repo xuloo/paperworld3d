@@ -2,8 +2,6 @@ package com.paperworld.java.scenes;
 
 import java.util.TimerTask;
 
-import ape.APEngine;
-
 public class PhysicsEnabledSynchronisedScene extends FixedUpdateSynchronisedScene {
 
 	protected int physicsUpdateRate;
@@ -18,7 +16,7 @@ public class PhysicsEnabledSynchronisedScene extends FixedUpdateSynchronisedScen
 
 	@Override
 	public void init() {
-		APEngine.init(numerator / denominator);
+		//APEngine.init(numerator / denominator);
 		
 		super.init();
 
@@ -42,7 +40,7 @@ public class PhysicsEnabledSynchronisedScene extends FixedUpdateSynchronisedScen
 
 		@Override
 		public void run() {
-			APEngine.step();
+			
 		}
 	}
 }

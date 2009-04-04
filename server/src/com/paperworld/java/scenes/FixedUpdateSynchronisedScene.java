@@ -5,10 +5,10 @@ import java.util.TimerTask;
 
 import org.red5.server.api.so.ISharedObject;
 
-import com.actionengine.api.IInput;
+import com.paperworld.java.api.IInput;
 import com.paperworld.java.api.ISynchronisedAvatar;
-import com.paperworld.multiplayer.data.AvatarData;
-import com.paperworld.multiplayer.data.SyncData;
+import com.paperworld.java.multiplayer.data.AvatarData;
+import com.paperworld.java.multiplayer.data.SyncData;
 
 public class FixedUpdateSynchronisedScene extends BasicSynchronisedScene {
 

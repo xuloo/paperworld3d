@@ -1,8 +1,8 @@
 package com.paperworld.java.api;
 
-import com.actionengine.api.IInput;
-import com.paperworld.multiplayer.data.AvatarData;
-import com.paperworld.multiplayer.data.SyncData;
+import com.paperworld.java.multiplayer.data.AvatarData;
+import com.paperworld.java.multiplayer.data.SyncData;
+
 
 public interface ISynchronisedScene {
 	

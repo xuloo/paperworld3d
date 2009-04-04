@@ -2,10 +2,9 @@ package com.paperworld.java.api;
 
 import org.red5.server.api.so.ISharedObject;
 
-import com.actionengine.api.IInput;
-import com.brainfarm.java.data.State;
-import com.paperworld.multiplayer.data.AvatarData;
-import com.paperworld.multiplayer.player.PlayerContext;
+import com.paperworld.java.multiplayer.data.AvatarData;
+import com.paperworld.java.multiplayer.data.State;
+import com.paperworld.java.multiplayer.player.PlayerContext;
 
 public interface ISynchronisedAvatar {
 

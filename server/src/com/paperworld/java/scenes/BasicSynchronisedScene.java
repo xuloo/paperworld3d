@@ -9,12 +9,12 @@ import org.red5.server.api.ScopeUtils;
 import org.red5.server.api.so.ISharedObject;
 import org.red5.server.api.so.ISharedObjectService;
 
-import com.actionengine.api.IInput;
+import com.paperworld.java.api.IInput;
 import com.paperworld.java.api.ISynchronisedAvatar;
-import com.paperworld.multiplayer.data.AvatarData;
-import com.paperworld.multiplayer.data.SyncData;
-import com.paperworld.multiplayer.objects.SynchronisedAvatar;
-import com.paperworld.multiplayer.player.Player;
+import com.paperworld.java.multiplayer.data.AvatarData;
+import com.paperworld.java.multiplayer.data.SyncData;
+import com.paperworld.java.multiplayer.objects.SynchronisedAvatar;
+import com.paperworld.java.multiplayer.player.Player;
 
 public class BasicSynchronisedScene extends AbstractSynchronisedScene {
 
