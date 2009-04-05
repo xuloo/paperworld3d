@@ -24,7 +24,7 @@ package com.paperworld.flash.core.world.parsers
 
 		private function _initialise():void 
 		{
-			addNodeParser(new SpacesNodeParser(this));
+			addNodeParser(new SpacesNodeParser(this, _world));
 		}
 		
 		public function addNodeParser(nodeParser:INodeParser):void 
@@ -46,7 +46,7 @@ package com.paperworld.flash.core.world.parsers
 			{
 				var nodeParser:INodeParser = INodeParser(_nodeParsers[i]);
 				if (nodeParser.canParse(node)) {
-					nodeParser.parse(_world, node);
+					nodeParser.parse(node);
 					break;
 				}
 			}

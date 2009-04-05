@@ -28,7 +28,7 @@ package com.paperworld.flash.util.xml
 	      return this.nodeNames;
 	    }
 
-	    public function parse(world:World, node:XML):Object {
+	    public function parse(node:XML):Object {
 	      throw new IllegalOperationError("parse() is abstract");
 	    }
 	}

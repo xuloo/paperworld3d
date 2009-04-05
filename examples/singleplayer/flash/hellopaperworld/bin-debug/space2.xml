@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<space>
+	<files>
+		<file type="skin" location="skins/skin.swf"/>
+	</files>
+	<scene>
+		<!-- <object id="scene" class="org.papervision3d.scenes.Scene3D">
+			<method-invocation name="addChild">
+				<array>
+					<ref>sceneObject1</ref>
+				</array>
+			</method-invocation>
+		</object>
+		<object id="sceneObject1" class="org.papervision3d.objects.primitives.Plane"/>
+			<constructor-arg>
+				<object id="sceneObject1Material" class="org.papervision3d.materials.ColorMaterial">
+					<constructor-arg value="0xffcc00"/>
+				</object>
+			</constructor-arg>
+			<constructor-arg value="500"/>
+			<constructor-arg value="500"/>
+		</object> -->
+	</scene>
+</space>

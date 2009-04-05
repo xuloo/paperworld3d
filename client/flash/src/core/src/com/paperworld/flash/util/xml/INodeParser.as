@@ -21,7 +21,7 @@ package com.paperworld.flash.util.xml
 	     *
 	     * @return the parsed node
 	     */
-	    function parse(world:World, node:XML):Object;
+	    function parse(node:XML):Object;
 	
 	    /**
 	     * Will add an alias that this node parser will react upon. It has direct influence

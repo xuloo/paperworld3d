@@ -10,6 +10,7 @@ import com.paperworld.java.api.IBehaviour;
 import com.paperworld.java.api.IInput;
 import com.paperworld.java.api.ISynchronisedAvatar;
 import com.paperworld.java.api.ISynchronisedScene;
+import com.paperworld.java.data.Input;
 import com.paperworld.java.multiplayer.data.AvatarData;
 import com.paperworld.java.multiplayer.data.State;
 import com.paperworld.java.multiplayer.data.SyncData;

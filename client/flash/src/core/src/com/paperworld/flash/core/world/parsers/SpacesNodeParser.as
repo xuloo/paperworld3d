@@ -2,17 +2,16 @@ package com.paperworld.flash.core.world.parsers
 {
 	import com.paperworld.flash.core.space.SpaceContext;
 	import com.paperworld.flash.core.world.World;
-	import com.paperworld.flash.util.xml.AbstractNodeParser;
 	import com.paperworld.flash.util.xml.IXMLDefinitionsParser;
 
-	public class SpacesNodeParser extends AbstractNodeParser
+	public class SpacesNodeParser extends AbstractWorldNodeParser
 	{
-		public function SpacesNodeParser(xmlDefinitionsParser:IXMLDefinitionsParser)
+		public function SpacesNodeParser(xmlDefinitionsParser:IXMLDefinitionsParser, world:World)
 		{
-			super(xmlDefinitionsParser, WorldConstants.SPACES_ELEMENT);
+			super(xmlDefinitionsParser, world, WorldConstants.SPACES_ELEMENT);
 		}
 		
-		override public function parse(world:World, node:XML):Object 
+		override public function parse(node:XML):Object 
 		{
 			var defaultSpace:String = (node.@default == undefined) ? null : node.@default;
 			

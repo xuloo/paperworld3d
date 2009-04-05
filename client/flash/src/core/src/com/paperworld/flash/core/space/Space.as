@@ -1,5 +1,7 @@
 package com.paperworld.flash.core.space
 {
+	import com.paperworld.flash.core.space.files.FileDefinition;
+	
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 
@@ -23,7 +25,7 @@ package com.paperworld.flash.core.space
 		
 		public function load():void 
 		{
-			var spaceLoader:SpaceLoader = new SpaceLoader(this);
+			var spaceLoader:SpaceLoader = new SpaceLoader(_context);
 			spaceLoader.addEventListener(Event.COMPLETE, _onSpaceLoadComplete, false, 0, true);
 			spaceLoader.load();
 		}	

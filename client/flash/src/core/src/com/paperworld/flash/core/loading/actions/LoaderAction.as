@@ -2,40 +2,38 @@ package com.paperworld.flash.core.loading.actions
 {
 	import com.paperworld.flash.core.loading.interfaces.ILoadableAction;
 	
+	import flash.display.Loader;
 	import flash.events.Event;
-	import flash.net.URLLoader;
 	import flash.net.URLRequest;
+	
+	import org.as3commons.logging.ILogger;
+	import org.as3commons.logging.LoggerFactory;
 
-	public class URLLoaderAction extends AbstractLoadAction implements ILoadableAction
+	public class LoaderAction extends AbstractLoadAction implements ILoadableAction
 	{		
-		private var _urlLoader:URLLoader;
+		private static var logger:ILogger = LoggerFactory.getLogger("Paperworld(Boot)");
 		
-		public function get urlLoader():URLLoader
+		private var _loader:Loader;
+		
+		public function get loader():*
 		{
-			if (!_urlLoader)
+			if (!_loader)
 			{
-				_urlLoader = new URLLoader(urlRequest);
+				_loader = new Loader();
 				addEventListener(Event.COMPLETE, handleCompleteEvent, false, 0, true);
 			}
 			
-			return _urlLoader;
-		}
-		
-		private var _isComplete:Boolean = false;
-		
-		override public function get isComplete():Boolean 
-		{
-			return _isComplete;
+			return _loader;
 		}
 		
 		override public function get data():*
 		{
-			return urlLoader.data;
+			return loader.contentLoaderInfo.content;
 		}
 		
 		override public function get bytesLoaded():int 
 		{
-			var bytes:int = urlLoader.bytesLoaded;
+			var bytes:int = loader.contentLoaderInfo.bytesLoaded;
 			
 			if (next)
 			{
@@ -47,7 +45,7 @@ package com.paperworld.flash.core.loading.actions
 		
 		override public function get bytesTotal():int 
 		{
-			var bytes:int = urlLoader.bytesTotal;
+			var bytes:int = loader.contentLoaderInfo.bytesTotal;
 			
 			if (next)
 			{
@@ -57,46 +55,40 @@ package com.paperworld.flash.core.loading.actions
 			return bytes;
 		}
 		
-		public function URLLoaderAction(urlRequest:URLRequest)
+		public function LoaderAction(urlRequest:URLRequest)
 		{
 			super(urlRequest);
 		}
 		
-		override public function act():void 
-		{			
-			load();
-			
-			super.act();
-		}
-		
 		override public function load():void 
 		{
-			urlLoader.load(urlRequest);
+			logger.info("loading " + urlRequest.url);
+			loader.load(urlRequest);
 		}
-					
+		
 		override public function addEventListener(type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = false):void
 		{
-			urlLoader.addEventListener(type, listener, useCapture, priority, useWeakReference);
+			loader.addEventListener(type, listener, useCapture, priority, useWeakReference);
 		}
 		
 		override public function dispatchEvent(event:Event):Boolean
 		{
-			return urlLoader.dispatchEvent(event);
+			return loader.dispatchEvent(event);
 		}
 		
 		override public function hasEventListener(type:String):Boolean
 		{
-			return urlLoader.hasEventListener(type);
+			return loader.hasEventListener(type);
 		}
 		
 		override public function removeEventListener(type:String, listener:Function, useCapture:Boolean = false):void
 		{
-			urlLoader.removeEventListener(type, listener, useCapture);
+			loader.removeEventListener(type, listener, useCapture);
 		}
 		
 		override public function willTrigger(type:String):Boolean
 		{
-			return urlLoader.willTrigger(type);
+			return loader.willTrigger(type);
 		}
 	}
 }

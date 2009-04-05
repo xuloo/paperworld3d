@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<world>
+	<spaces default="space2">
+		<space name="space1" location="space1.xml"/>
+		<space name="space2" location="space2.xml"/>
+	</spaces>
+</world>
