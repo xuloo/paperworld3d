@@ -19,30 +19,72 @@
  * Suite 330, Boston, MA 02111-1307 USA 
  * 
  * -------------------------------------------------------------------------------------- */
-package com.paperworld.flash.core.player 
+package com.paperworld.flash.pv3d.scenes 
 {
-	import flash.events.EventDispatcher;
+	import com.paperworld.flash.multiplayer.scenes.AbstractSynchronisedScene;
+	import com.paperworld.flash.pv3d.objects.SynchronisableObject;
 	
 	import org.as3commons.logging.ILogger;
-	import org.as3commons.logging.LoggerFactory;		
+	import org.as3commons.logging.LoggerFactory;
+	import org.papervision3d.objects.DisplayObject3D;
+	import org.papervision3d.scenes.Scene3D;		
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
 	 */
-	public class Player extends EventDispatcher
+	public class SynchronisedScene extends AbstractSynchronisedScene 
 	{
-		private static var logger:ILogger = LoggerFactory.getLogger("Paperworld");
+		private var logger : ILogger = LoggerFactory.getLogger( "Paperworld(PV3D)" );
 
-		public var username : String = "user";		
+		protected var _scene : Scene3D;
 
-		public function Player()
+		override public function get scene() : *
 		{
-			super( this );
+			return _scene;
 		}
 
-		public function initialise() : void
+		override public function set scene(value : *) : void
 		{
-			//_avatar = new Avatar( );
+			_scene = value;
+		}
+
+		public function SynchronisedScene(scene : Scene3D)
+		{
+			super( );
+			
+			_scene = scene;
+		}
+
+		override public function initialise() : void
+		{
+			super.initialise( );
+			
+			_scene = new Scene3D( );	
+		}
+
+		override public function addChild(child : *, name : String) : *
+		{			
+			logger.info( "adding " + SynchronisableObject( child ).object );
+			
+			if (child is DisplayObject3D)
+			{
+				return _scene.addChild( child, name );	
+			}
+			else if (child is SynchronisableObject)
+			{
+				return _scene.addChild( SynchronisableObject( child ).object, name );
+			}
+			else
+			{
+				// error - not a valid type.
+			}
+			
+			return null;	
+		}
+
+		override public function removeChild(child : *) : *
+		{
+			return _scene.removeChild( child );
 		}
 	}
 }

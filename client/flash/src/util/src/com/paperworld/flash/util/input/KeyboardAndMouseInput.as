@@ -19,30 +19,52 @@
  * Suite 330, Boston, MA 02111-1307 USA 
  * 
  * -------------------------------------------------------------------------------------- */
-package com.paperworld.flash.core.player 
+package com.paperworld.flash.util.input 
 {
-	import flash.events.EventDispatcher;
-	
-	import org.as3commons.logging.ILogger;
-	import org.as3commons.logging.LoggerFactory;		
+	import flash.display.Stage;
+	import flash.events.MouseEvent;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
 	 */
-	public class Player extends EventDispatcher
+	public class KeyboardAndMouseInput extends KeyboardInput 
 	{
-		private static var logger:ILogger = LoggerFactory.getLogger("Paperworld");
+		/**
+		 * Sensitivity of the mouse values. The larger this value is the less angular movement
+		 * you'll get with your player's avatar.
+		 */
+		public var sensitivity : Number = 300;
 
-		public var username : String = "user";		
-
-		public function Player()
+		public var threshold : Number = 0;
+		
+		override public function set target(value : Stage) : void
 		{
-			super( this );
+			super.target = value;
+			
+			_target.addEventListener( MouseEvent.MOUSE_MOVE, onMouseMove );
+			_target.addEventListener( MouseEvent.CLICK, onClick );
 		}
-
-		public function initialise() : void
+		
+		public function KeyboardAndMouseInput()
 		{
-			//_avatar = new Avatar( );
+			super( );
+		}
+		
+		/**
+		 * Handles a mouse move. Updates the <code>Input</code> object.
+		 */
+		public function onMouseMove( event : MouseEvent ) : void
+		{						
+			var x : Number = ( event.stageX - ( _target.stageWidth / 2 ) ) / sensitivity;
+			var y : Number = ( event.stageY - ( _target.stageHeight / 2 ) ) / sensitivity;
+			
+			var squareDistance : Number = x * x + y * y;
+			
+			if (squareDistance > threshold)
+			{
+				current.mouseX = x;
+				current.mouseY = y;
+			}
 		}
 	}
 }

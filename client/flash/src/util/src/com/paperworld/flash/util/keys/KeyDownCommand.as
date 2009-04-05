@@ -19,30 +19,23 @@
  * Suite 330, Boston, MA 02111-1307 USA 
  * 
  * -------------------------------------------------------------------------------------- */
-package com.paperworld.flash.core.player 
+package com.paperworld.flash.util.keys
 {
-	import flash.events.EventDispatcher;
-	
-	import org.as3commons.logging.ILogger;
-	import org.as3commons.logging.LoggerFactory;		
+	import com.paperworld.flash.util.input.IUserInput;		
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
 	 */
-	public class Player extends EventDispatcher
+	public class KeyDownCommand extends KeyCommand 
 	{
-		private static var logger:ILogger = LoggerFactory.getLogger("Paperworld");
-
-		public var username : String = "user";		
-
-		public function Player()
+		public function KeyDownCommand(input : IUserInput)
 		{
-			super( this );
+			super( input );
 		}
-
-		public function initialise() : void
-		{
-			//_avatar = new Avatar( );
+		
+		override public function execute():void
+		{	
+			_input.input[_property] = true;
 		}
 	}
 }

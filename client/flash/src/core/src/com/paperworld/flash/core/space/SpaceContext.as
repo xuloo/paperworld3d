@@ -1,7 +1,7 @@
 package com.paperworld.flash.core.space
 {
 	import com.paperworld.flash.core.space.files.FileDefinition;
-	import com.paperworld.flash.core.patterns.iterator.IIterator;
+	import com.paperworld.flash.util.patterns.iterator.IIterator;
 	
 	import flash.utils.Dictionary;
 	
@@ -60,7 +60,7 @@ package com.paperworld.flash.core.space
 	}
 }
 
-import com.paperworld.flash.core.patterns.iterator.IIterator;
+import com.paperworld.flash.util.patterns.iterator.IIterator;
 import flash.utils.Dictionary;
 	
 internal class FilesIterator implements IIterator

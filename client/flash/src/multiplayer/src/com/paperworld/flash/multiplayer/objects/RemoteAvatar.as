@@ -19,30 +19,64 @@
  * Suite 330, Boston, MA 02111-1307 USA 
  * 
  * -------------------------------------------------------------------------------------- */
-package com.paperworld.flash.core.player 
+package com.paperworld.flash.multiplayer.objects
 {
-	import flash.events.EventDispatcher;
+	import com.paperworld.flash.multiplayer.data.State;
+	import com.paperworld.flash.util.input.Input;
 	
 	import org.as3commons.logging.ILogger;
-	import org.as3commons.logging.LoggerFactory;		
+	import org.as3commons.logging.LoggerFactory;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
 	 */
-	public class Player extends EventDispatcher
+	public class RemoteAvatar extends AbstractSynchronisedAvatar 
 	{
+		protected var _lastSyncTime : int;
+
+		public var updating : Boolean;
+
 		private static var logger:ILogger = LoggerFactory.getLogger("Paperworld");
 
-		public var username : String = "user";		
-
-		public function Player()
+		public function RemoteAvatar()
 		{
-			super( this );
+			super( );
 		}
 
-		public function initialise() : void
+		override public function initialise() : void
 		{
-			//_avatar = new Avatar( );
+			super.initialise( );
+			
+			_lastSyncTime = 0;
+			updating = false;	
+		}
+
+		override public function synchronise(time : int, input : Input, state : State) : void
+		{			
+			// Just ignore any out of order packets...
+			if (time < _lastSyncTime)
+            	return;		
+
+			_lastSyncTime = time;
+			updating = true;
+	
+			// set proxy input	
+			_input = input.clone( );
+	
+			// correct if significantly different	
+			if (state.compare( _current ))
+			{
+				snap( state );
+				smooth( );				
+			}
+		}
+
+		override public function update() : void
+		{			
+			if (updating)
+			{				
+				super.update( );
+			}
 		}
 	}
 }

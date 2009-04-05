@@ -19,30 +19,40 @@
  * Suite 330, Boston, MA 02111-1307 USA 
  * 
  * -------------------------------------------------------------------------------------- */
-package com.paperworld.flash.core.player 
+package com.paperworld.flash.util.input 
 {
-	import flash.events.EventDispatcher;
+	import flash.display.Stage;
+	import flash.events.IEventDispatcher;
 	
-	import org.as3commons.logging.ILogger;
-	import org.as3commons.logging.LoggerFactory;		
+	import com.paperworld.flash.util.clock.events.ClockEvent;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
 	 */
-	public class Player extends EventDispatcher
+	public interface IUserInput extends IEventDispatcher
 	{
-		private static var logger:ILogger = LoggerFactory.getLogger("Paperworld");
+		function get input() : Input;
 
-		public var username : String = "user";		
+		function set target(value : Stage) : void;
 
-		public function Player()
-		{
-			super( this );
-		}
+		/**
+		 * Returns the mouse x position.
+		 */
+		function get mouseX() : Number 
 
-		public function initialise() : void
-		{
-			//_avatar = new Avatar( );
-		}
+		/**
+		 * Returns the mouse y position.
+		 */
+		function get mouseY() : Number
+
+		/**
+		 * Called by the <code>GameTimer</code>'s integration event.</br>
+		 * Takes a snapshot of the user's input.
+		 */
+		function update( event : ClockEvent = null ) : void;
+
+		function addListener(listener : IUserInputListener) : void;
+
+		function removeListener(listener : IUserInputListener) : void;
 	}
 }

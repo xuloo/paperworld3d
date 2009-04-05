@@ -19,30 +19,84 @@
  * Suite 330, Boston, MA 02111-1307 USA 
  * 
  * -------------------------------------------------------------------------------------- */
-package com.paperworld.flash.core.player 
+package com.paperworld.flash.multiplayer.data 
 {
-	import flash.events.EventDispatcher;
-	
-	import org.as3commons.logging.ILogger;
-	import org.as3commons.logging.LoggerFactory;		
+	import com.paperworld.flash.multiplayer.api.ISynchronisedAvatar;
+	import com.paperworld.flash.util.input.Input;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
 	 */
-	public class Player extends EventDispatcher
+	public class AvatarData
 	{
-		private static var logger:ILogger = LoggerFactory.getLogger("Paperworld");
+		public var id : String;
 
-		public var username : String = "user";		
+		public var key : String;
 
-		public function Player()
+		public var time : int;
+
+		public var input : Input;
+
+		public var state : State;
+		
+		public function AvatarData(avatar : ISynchronisedAvatar = null)
 		{
-			super( this );
+			super( );
 		}
 
-		public function initialise() : void
+		public function getId() : String 
 		{
-			//_avatar = new Avatar( );
+			return id;
+		}
+
+		public function setId(id : String) : void 
+		{
+			this.id = id;
+		}
+
+		public function getKey() : String
+		{
+			return key;
+		}
+
+		public function setKey(key : String) : void
+		{
+			this.key = key;
+		}
+
+		public function getTime() : int
+		{
+			return time;
+		}
+
+		public function setTime(time : int) : void
+		{
+			this.time = time;
+		}
+
+		public function getInput() : Input
+		{
+			return input;
+		}
+
+		public function setInput(input : Input) : void
+		{
+			this.input = input;
+		}
+
+		public function getState() : State 
+		{
+			return state;
+		}
+
+		public function setState(state : State) : void 
+		{
+			this.state = state;
+		}
+
+		public function toString() : String
+		{
+			return 'AvatarData {\n    id: ' + id + '\n    key: ' + key + '\n}';	
 		}
 	}
 }

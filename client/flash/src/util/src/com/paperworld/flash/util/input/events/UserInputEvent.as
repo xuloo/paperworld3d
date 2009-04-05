@@ -19,30 +19,29 @@
  * Suite 330, Boston, MA 02111-1307 USA 
  * 
  * -------------------------------------------------------------------------------------- */
-package com.paperworld.flash.core.player 
+package com.paperworld.flash.util.input.events
 {
-	import flash.events.EventDispatcher;
+	import com.paperworld.flash.util.input.Input;
 	
-	import org.as3commons.logging.ILogger;
-	import org.as3commons.logging.LoggerFactory;		
+	import flash.events.Event;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
 	 */
-	public class Player extends EventDispatcher
+	public class UserInputEvent extends Event 
 	{
-		private static var logger:ILogger = LoggerFactory.getLogger("Paperworld");
-
-		public var username : String = "user";		
-
-		public function Player()
+		public static var INPUT_CHANGED:String = "InputChanged";
+		
+		public var time:int;
+		
+		public var input:Input;
+		
+		public function UserInputEvent(type : String, time:int, input:Input, bubbles : Boolean = false, cancelable : Boolean = false)
 		{
-			super( this );
-		}
-
-		public function initialise() : void
-		{
-			//_avatar = new Avatar( );
+			super( type, bubbles, cancelable );
+			
+			this.time = time;
+			this.input = input;
 		}
 	}
 }

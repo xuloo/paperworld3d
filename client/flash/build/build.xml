@@ -1,49 +1,130 @@
 <project name="paperworld-client-flash" default="all" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
 
-	<property file="../../build/user.properties"/>
-	<property file="../../build/build.properties"/>
 	<property file="build.properties"/>
 	
-	<taskdef resource="flexTasks.tasks" classpath="${basedir}/../../${build.lib}/flexTasks.jar" />
-	<taskdef classpath="${basedir}/../../${build.lib}/ant-contrib-1.0b3.jar" resource="net/sf/antcontrib/antlib.xml"/>
+	<taskdef resource="flexTasks.tasks" classpath="${lib.dir}/flexTasks.jar" />
+	<taskdef classpath="${lib.dir}/ant-contrib-1.0b3.jar" resource="net/sf/antcontrib/antlib.xml"/>
 
 	<taskdef resource="org/apache/ivy/ant/antlib.xml"
 	         uri="antlib:org.apache.ivy.ant" 
-			 classpath="${basedir}/../../${build.lib}/${ivy.lib}.jar"/>	
+			 classpath="${lib.dir}/${ivy.lib}.jar"/>	
 	
-	<target name="all" depends="clean, prepare, retrieve, build-flash, generate-docs" 
+	<target name="all" depends="clean, prepare, retrieve, build, generate-docs" 
 		description="builds all the paperworld libraries and generates documentation" />
 	
 	<target name="retrieve" unless="library.installed" description="Retrieves the libraries if needed">
 		<ivy:retrieve pattern="${basedir}/../lib/[artifact].swc"/>
 	</target>
 		
-	<target name="build-flash" depends="retrieve" description="builds the multiplayer paperworld client library swc.">
-		
-		<compc output="${output.dir}/${output.name}.swc"
-		   optimize="true"
-		   debug="true"
-		>
+	<target name="build" depends="build-util,build-core,build-ai,build-multiplayer,build-pv3d,build-away3d" description="builds the multiplayer paperworld client library swc.">
+	</target>
+	
+	<target name="build-util">
+		<compc output="${output.dir}/${util.lib.name}.swc"
+				   optimize="true"
+				   debug="true"
+				>
+			<include-sources dir="${util.src.dir}">
+                 <include name="**/*.as"/>
+            </include-sources>
+			<compiler.external-library-path dir="${lib.dir}" append="true">
+				<include name="**/*.swc" />
+			</compiler.external-library-path>
+		</compc>
+	</target>
+	
+	<target name="build-core">
+		<compc output="${output.dir}/${core.lib.name}.swc"
+				   optimize="true"
+				   debug="true"
+				>
 			<include-sources dir="${core.src.dir}">
                  <include name="**/*.as"/>
             </include-sources>
+			<compiler.external-library-path dir="${lib.dir}" append="true">
+				<include name="**/*.swc" />
+			</compiler.external-library-path>
+			<compiler.external-library-path dir="${output.dir}" append="true">
+				<include name="${util.lib.name}.swc" />
+			</compiler.external-library-path>
+		</compc>
+	</target>
+	
+	<target name="build-ai">
+		<compc output="${output.dir}/${ai.lib.name}.swc"
+				   optimize="true"
+				   debug="true"
+				>
+			<include-sources dir="${ai.src.dir}">
+                 <include name="**/*.as"/>
+            </include-sources>
+			<compiler.external-library-path dir="${lib.dir}" append="true">
+				<include name="**/*.swc" />
+			</compiler.external-library-path>
+			<compiler.external-library-path dir="${output.dir}" append="true">
+				<include name="${core.lib.name}.swc" />
+				<include name="${util.lib.name}.swc" />
+			</compiler.external-library-path>
+		</compc>
+	</target>
+	
+	<target name="build-multiplayer">
+		<compc output="${output.dir}/${multiplayer.lib.name}.swc"
+				   optimize="true"
+				   debug="true"
+				>
+			<include-sources dir="${multiplayer.src.dir}">
+                 <include name="**/*.as"/>
+            </include-sources>
+			<compiler.external-library-path dir="${lib.dir}" append="true">
+				<include name="**/*.swc" />
+			</compiler.external-library-path>
+			<compiler.external-library-path dir="${output.dir}" append="true">
+				<include name="${core.lib.name}.swc" />
+				<include name="${util.lib.name}.swc" />
+				<include name="${ai.lib.name}.swc" />
+			</compiler.external-library-path>
+		</compc>
+	</target>
+	
+	<target name="build-pv3d">
+		<compc output="${output.dir}/${pv3d.lib.name}.swc"
+				   optimize="true"
+				   debug="true"
+				>
 			<include-sources dir="${pv3d.src.dir}">
                  <include name="**/*.as"/>
             </include-sources>
-			<include-sources dir="D:/projects/actionengine/trunk/flash/src">
-				<include name="**/*.as"/>
-			</include-sources>
-			<include-sources dir="D:/projects/brainfarm/trunk/flash/src/main/flex">
-				<include name="**/*.as"/>
-			</include-sources>
 			<compiler.external-library-path dir="${lib.dir}" append="true">
-				<include name="papervision3D.swc" />
-			</compiler.external-library-path>
-			<compiler.library-path dir="${lib.dir}" append="true">
 				<include name="**/*.swc" />
-			</compiler.library-path>
+			</compiler.external-library-path>
+			<compiler.external-library-path dir="${output.dir}" append="true">
+				<include name="${core.lib.name}.swc" />
+				<include name="${util.lib.name}.swc" />
+				<include name="${ai.lib.name}.swc" />
+				<include name="${multiplayer.lib.name}.swc" />
+			</compiler.external-library-path>
 		</compc>
-		
+	</target>
+	
+	<target name="build-away3d">
+		<compc output="${output.dir}/${away3d.lib.name}.swc"
+				   optimize="true"
+				   debug="true"
+				>
+			<include-sources dir="${away3d.src.dir}">
+                 <include name="**/*.as"/>
+            </include-sources>
+			<compiler.external-library-path dir="${lib.dir}" append="true">
+				<include name="**/*.swc" />
+			</compiler.external-library-path>
+			<compiler.external-library-path dir="${output.dir}" append="true">
+				<include name="${core.lib.name}.swc" />
+				<include name="${util.lib.name}.swc" />
+				<include name="${ai.lib.name}.swc" />
+				<include name="${multiplayer.lib.name}.swc" />
+			</compiler.external-library-path>
+		</compc>
 	</target>
 	
 	<target name="build-tests" description="builds the multiplayer paperworld client unit tests.">
@@ -77,8 +158,8 @@
 	<target name="generate-docs" depends="clean-docs, prepare-docs" description="creates the asdoc documentation for the project">
 		
 		<exec executable="${asdoc}" failonerror="true" >
-		  <arg line="-doc-sources ../src/core/src ../src/away3d ../src/pv3d" />
-		  <arg line="-external-library-path ../lib/actionengine-flash.swc ../lib/brainfarm-flash.swc ../lib/jedai.swc ../lib/pranaframework.swc ../lib/papervision3D.swc ../lib/Away3D.swc ../lib/xray.swc ../lib/ape-flash.swc" />
+		  <arg line="-doc-sources ../src/core/src ../src/ai/src ../src/away3d/src ../src/multiplayer/src ../src/pv3d/src ../src/util/src" />
+		  <arg line="-external-library-path ../lib/jedai.swc ../lib/spring-actionscript.swc ../lib/Papervision3D.swc ../lib/Away3D.swc" />
 		  <arg line="-output ../docs" />
 		  <arg line="-main-title 'PaperWorld3D API Documentation'"/>
 		  <arg line="-window-title 'PaperWorld3D API Documentation'"/>

@@ -19,30 +19,63 @@
  * Suite 330, Boston, MA 02111-1307 USA 
  * 
  * -------------------------------------------------------------------------------------- */
-package com.paperworld.flash.core.player 
+package com.paperworld.flash.pv3d.objects 
 {
-	import flash.events.EventDispatcher;
+	import com.paperworld.flash.multiplayer.api.ISynchronisedObject;
+	import com.paperworld.flash.multiplayer.data.State;
+	import com.paperworld.flash.util.input.Input;
 	
 	import org.as3commons.logging.ILogger;
-	import org.as3commons.logging.LoggerFactory;		
+	import org.as3commons.logging.LoggerFactory;
+	import org.papervision3d.objects.DisplayObject3D;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
 	 */
-	public class Player extends EventDispatcher
+	public class SynchronisableObject implements ISynchronisedObject
 	{
-		private static var logger:ILogger = LoggerFactory.getLogger("Paperworld");
+		private var logger : ILogger = LoggerFactory.getLogger( "Paperworld(PV3D)" );
 
-		public var username : String = "user";		
-
-		public function Player()
+		public var object : DisplayObject3D;
+		
+		public function get displayObject() : *
 		{
-			super( this );
+			return object;
+		}
+		
+		public function set displayObject(value:*):void
+		{
+			object = value;
 		}
 
-		public function initialise() : void
+		public function SynchronisableObject(object : DisplayObject3D = null)
 		{
-			//_avatar = new Avatar( );
+			super( );
+			
+			this.object = object;
+		}
+
+		public function getObject() : *
+		{
+			return object;
+		}
+
+		public function synchronise(time : int, input : Input, state : State) : void
+		{												
+			this.object.x = state.position.x;
+			this.object.y = state.position.y;
+			this.object.z = state.position.z;
+
+			object.localRotationY = state.orientation.w;
+		}
+
+		public function destroy() : void
+		{
+		}
+		
+		public function toString():String
+		{
+			return '[SynchronisedObject: ' + displayObject + ']';
 		}
 	}
 }

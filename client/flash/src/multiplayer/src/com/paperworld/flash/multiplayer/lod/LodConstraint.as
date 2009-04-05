@@ -19,30 +19,19 @@
  * Suite 330, Boston, MA 02111-1307 USA 
  * 
  * -------------------------------------------------------------------------------------- */
-package com.paperworld.flash.core.player 
+package com.paperworld.flash.multiplayer.lod 
 {
-	import flash.events.EventDispatcher;
-	
-	import org.as3commons.logging.ILogger;
-	import org.as3commons.logging.LoggerFactory;		
+	import com.paperworld.flash.core.action.Action;
+	import com.paperworld.flash.multiplayer.api.ISynchronisedAvatar;		
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
 	 */
-	public class Player extends EventDispatcher
-	{
-		private static var logger:ILogger = LoggerFactory.getLogger("Paperworld");
-
-		public var username : String = "user";		
-
-		public function Player()
+	public class LodConstraint extends Action
+	{		
+		public function testConstraint(pov : ISynchronisedAvatar, other : ISynchronisedAvatar) : int
 		{
-			super( this );
-		}
-
-		public function initialise() : void
-		{
-			//_avatar = new Avatar( );
+			return 0;
 		}
 	}
 }

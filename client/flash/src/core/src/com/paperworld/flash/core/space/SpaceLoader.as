@@ -2,9 +2,9 @@ package com.paperworld.flash.core.space
 {
 	import com.paperworld.flash.core.loading.actions.AbstractLoadAction;
 	import com.paperworld.flash.core.loading.actions.URLLoaderAction;
-	import com.paperworld.flash.core.patterns.iterator.IIterator;
 	import com.paperworld.flash.core.space.files.FileDefinition;
 	import com.paperworld.flash.core.space.parsers.SpaceDefinitionsParser;
+	import com.paperworld.flash.util.patterns.iterator.IIterator;
 	import com.paperworld.flash.util.xml.IXMLDefinitionsParser;
 	
 	import flash.events.Event;
