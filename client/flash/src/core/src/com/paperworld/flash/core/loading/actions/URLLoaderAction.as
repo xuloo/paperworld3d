@@ -3,11 +3,17 @@ package com.paperworld.flash.core.loading.actions
 	import com.paperworld.flash.core.loading.interfaces.ILoadableAction;
 	
 	import flash.events.Event;
+	import flash.events.IOErrorEvent;
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
+	
+	import org.as3commons.logging.ILogger;
+	import org.as3commons.logging.LoggerFactory;
 
 	public class URLLoaderAction extends AbstractLoadAction implements ILoadableAction
 	{		
+		private static var logger:ILogger = LoggerFactory.getLogger("Paperworld(Core)");
+		
 		private var _urlLoader:URLLoader;
 		
 		public function get urlLoader():URLLoader
@@ -15,7 +21,8 @@ package com.paperworld.flash.core.loading.actions
 			if (!_urlLoader)
 			{
 				_urlLoader = new URLLoader(urlRequest);
-				addEventListener(Event.COMPLETE, handleCompleteEvent, false, 0, true);
+				_urlLoader.addEventListener(Event.COMPLETE, handleCompleteEvent, false, 0, true);
+				_urlLoader.addEventListener(IOErrorEvent.IO_ERROR, handleIOError, false, 0, true);
 			}
 			
 			return _urlLoader;
@@ -61,42 +68,11 @@ package com.paperworld.flash.core.loading.actions
 		{
 			super(urlRequest);
 		}
-		
-		override public function act():void 
-		{			
-			load();
-			
-			super.act();
-		}
-		
-		override public function load():void 
+				
+		override protected function load():void 
 		{
+			logger.info("loading: " + urlRequest.url);
 			urlLoader.load(urlRequest);
-		}
-					
-		override public function addEventListener(type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = false):void
-		{
-			urlLoader.addEventListener(type, listener, useCapture, priority, useWeakReference);
-		}
-		
-		override public function dispatchEvent(event:Event):Boolean
-		{
-			return urlLoader.dispatchEvent(event);
-		}
-		
-		override public function hasEventListener(type:String):Boolean
-		{
-			return urlLoader.hasEventListener(type);
-		}
-		
-		override public function removeEventListener(type:String, listener:Function, useCapture:Boolean = false):void
-		{
-			urlLoader.removeEventListener(type, listener, useCapture);
-		}
-		
-		override public function willTrigger(type:String):Boolean
-		{
-			return urlLoader.willTrigger(type);
 		}
 	}
 }

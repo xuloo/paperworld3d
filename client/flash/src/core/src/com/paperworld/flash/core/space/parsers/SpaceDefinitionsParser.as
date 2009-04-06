@@ -9,6 +9,7 @@ package com.paperworld.flash.core.space.parsers
 	
 	import org.as3commons.logging.ILogger;
 	import org.as3commons.logging.LoggerFactory;
+	import org.springextensions.actionscript.context.support.XMLApplicationContext;
 
 	public class SpaceDefinitionsParser extends EventDispatcher implements IXMLDefinitionsParser
 	{
@@ -21,6 +22,7 @@ package com.paperworld.flash.core.space.parsers
 		private static const STATE_SCENE_PARSED:int = 4;
 		
 		public static const FILES_PARSE_COMPLETE:String = "FilesParseComplete";
+		public static const SCENE_PARSE_COMPLETE:String = "SceneParseComplete";
 		
 		private var _state:int = STATE_UNPARSED;
 		
@@ -58,6 +60,8 @@ package com.paperworld.flash.core.space.parsers
 			
 			_parse(xml);
 			
+			_state = STATE_FILES_PARSED;
+			
 			dispatchEvent(new Event(FILES_PARSE_COMPLETE));
 		}
 		
@@ -71,6 +75,20 @@ package com.paperworld.flash.core.space.parsers
 		private function _parseScene(xml:XML):void 
 		{
 			_state = STATE_PARSING_SCENE;
+			
+			var sceneXML:XML = xml.scene[0];
+			
+			var context:XMLApplicationContext = new XMLApplicationContext();
+			context.addEventListener(Event.COMPLETE, _onApplicationContextLoadComplete, false, 0, true);
+			context.addConfig(sceneXML);
+			context.load();
+		}
+		
+		private function _onApplicationContextLoadComplete(event:Event):void 
+		{
+			_state = STATE_SCENE_PARSED;
+			
+			dispatchEvent(new Event(SCENE_PARSE_COMPLETE));
 		}
 		
 		private function _clearNodeParsers():void 

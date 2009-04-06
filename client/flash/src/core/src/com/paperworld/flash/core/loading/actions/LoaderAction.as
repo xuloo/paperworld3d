@@ -20,7 +20,7 @@ package com.paperworld.flash.core.loading.actions
 			if (!_loader)
 			{
 				_loader = new Loader();
-				addEventListener(Event.COMPLETE, handleCompleteEvent, false, 0, true);
+				_loader.contentLoaderInfo.addEventListener(Event.COMPLETE, handleCompleteEvent, false, 0, true);
 			}
 			
 			return _loader;
@@ -55,40 +55,18 @@ package com.paperworld.flash.core.loading.actions
 			return bytes;
 		}
 		
-		public function LoaderAction(urlRequest:URLRequest)
+		public function LoaderAction(urlRequest:URLRequest = null)
 		{
 			super(urlRequest);
 		}
 		
-		override public function load():void 
+		override protected function load():void 
 		{
-			logger.info("loading " + urlRequest.url);
-			loader.load(urlRequest);
-		}
-		
-		override public function addEventListener(type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = false):void
-		{
-			loader.addEventListener(type, listener, useCapture, priority, useWeakReference);
-		}
-		
-		override public function dispatchEvent(event:Event):Boolean
-		{
-			return loader.dispatchEvent(event);
-		}
-		
-		override public function hasEventListener(type:String):Boolean
-		{
-			return loader.hasEventListener(type);
-		}
-		
-		override public function removeEventListener(type:String, listener:Function, useCapture:Boolean = false):void
-		{
-			loader.removeEventListener(type, listener, useCapture);
-		}
-		
-		override public function willTrigger(type:String):Boolean
-		{
-			return loader.willTrigger(type);
+			if (urlRequest)
+			{
+				logger.info("loading " + urlRequest.url);
+				loader.load(urlRequest);
+			}
 		}
 	}
 }

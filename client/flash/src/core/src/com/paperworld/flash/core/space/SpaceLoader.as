@@ -1,7 +1,10 @@
 package com.paperworld.flash.core.space
 {
-	import com.paperworld.flash.core.loading.actions.AbstractLoadAction;
+	import com.paperworld.flash.core.action.Action;
+	import com.paperworld.flash.core.action.CompoundAction;
+	import com.paperworld.flash.core.loading.actions.MultiFileLoadAction;
 	import com.paperworld.flash.core.loading.actions.URLLoaderAction;
+	import com.paperworld.flash.core.loading.interfaces.ILoadableAction;
 	import com.paperworld.flash.core.space.files.FileDefinition;
 	import com.paperworld.flash.core.space.parsers.SpaceDefinitionsParser;
 	import com.paperworld.flash.util.patterns.iterator.IIterator;
@@ -9,7 +12,6 @@ package com.paperworld.flash.core.space
 	
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
-	import flash.net.URLLoader;
 	import flash.net.URLRequest;
 	
 	import org.as3commons.logging.ILogger;
@@ -38,6 +40,12 @@ package com.paperworld.flash.core.space
 			return new URLRequest(spaceName + ".xml");
 		}
 		
+		private var _xml:XML;
+		
+		private var _configLoadAction:Action;
+		
+		private var _fileLoadAction:MultiFileLoadAction;
+		
 		public function SpaceLoader(context:SpaceContext)
 		{
 			super(this);
@@ -51,6 +59,7 @@ package com.paperworld.flash.core.space
 		{
 			_parser = new SpaceDefinitionsParser(_context);
 			parser.addEventListener(SpaceDefinitionsParser.FILES_PARSE_COMPLETE, _onFilesParseComplete, false, 0, true);
+			parser.addEventListener(SpaceDefinitionsParser.SCENE_PARSE_COMPLETE, _onSceneParseComplete, false, 0, true);
 		}
 		
 		public function load():void 
@@ -59,50 +68,44 @@ package com.paperworld.flash.core.space
 		}
 		
 		protected function loadConfig():void 
-		{
-			var configLoadAction:URLLoaderAction = new URLLoaderAction(configRequest);
-			configLoadAction.addEventListener(Event.COMPLETE, onConfigLoadComplete, false, 0, true);
-			configLoadAction.load();
+		{			
+			_configLoadAction = new URLLoaderAction(configRequest);
+			_configLoadAction.addEventListener(Event.COMPLETE, onConfigLoadComplete, false, 0, true);
+			_configLoadAction.act();
 		}
 		
 		private function _onFilesParseComplete(event:Event):void 
 		{
-			var loader:AbstractLoadAction;
+			_fileLoadAction = new MultiFileLoadAction();
 			var iterator:IIterator = _context.files;
 
 			while (iterator.hasNext())
 			{
 				var file:FileDefinition = FileDefinition(iterator.next());
-				var loaderAction:AbstractLoadAction = FileDefinition.getFileLoader(file);
-				
-				if (!loader)
-				{
-					loader = loaderAction;
-				}
-				else
-				{
-					loader.subActions.next = loaderAction;
-				}
+				var action:CompoundAction = FileDefinition.getFileLoader(file);
+
+				_fileLoadAction.addLoadAction(action)
 			}
 			
-			loader.addEventListener(Event.COMPLETE, _onFilesLoadComplete, false, 0, true);
-			loader.load();
+			_fileLoadAction.addEventListener(Event.COMPLETE, _onFilesLoadComplete, false, 0, true);
+			_fileLoadAction.act();
 		}
 		
 		private function _onFilesLoadComplete(event:Event):void 
 		{
-			logger.info("files loaded");
+			parser.parse(_xml);
+		}
+		
+		private function _onSceneParseComplete(event:Event):void 
+		{
+			dispatchEvent(new Event(Event.COMPLETE));
 		}
 		
 		protected function onConfigLoadComplete(event:Event):void 
-		{			
-			logger.info("data: " + URLLoader(event.target).data);
-			
-			var xml:XML = new XML(URLLoader(event.target).data);
-			logger.info("parser: " + _parser);
-			_parser.parse(xml);
-			
-			dispatchEvent(new Event(Event.COMPLETE));
+		{		
+			_xml = new XML(ILoadableAction(event.target).data);
+
+			_parser.parse(_xml);
 		}
 	}
 }

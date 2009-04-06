@@ -1,13 +1,20 @@
 package com.paperworld.flash.core.loading.actions
 {
 	import com.paperworld.flash.core.action.CombinationAction;
+	import com.paperworld.flash.core.loading.interfaces.ILoadCompleteHandler;
 	import com.paperworld.flash.core.loading.interfaces.ILoadableAction;
 	
 	import flash.events.Event;
+	import flash.events.IOErrorEvent;
 	import flash.net.URLRequest;
+	
+	import org.as3commons.logging.ILogger;
+	import org.as3commons.logging.LoggerFactory;
 
 	public class AbstractLoadAction extends CombinationAction implements ILoadableAction
 	{
+		private static var logger:ILogger = LoggerFactory.getLogger("Paperworld(Core)");
+		
 		private var _urlRequest:URLRequest;
 		
 		public function get urlRequest():URLRequest
@@ -19,7 +26,7 @@ package com.paperworld.flash.core.loading.actions
 		
 		override public function get isComplete():Boolean 
 		{
-			return _isComplete;
+			return !_isComplete ? false : super.isComplete;
 		}
 		
 		public function get data():*
@@ -37,51 +44,43 @@ package com.paperworld.flash.core.loading.actions
 			return 0;
 		}
 		
-		public function AbstractLoadAction(urlRequest:URLRequest)
+		protected var loadCompleteHandler:ILoadCompleteHandler;
+		
+		public function AbstractLoadAction(urlRequest:URLRequest = null)
 		{
 			super();
 			
 			_urlRequest = urlRequest;
 		}
 		
-		public function load():void
+		override public function act():void 
+		{			
+			load();
+			
+			super.act();
+		}
+		
+		protected function load():void
 		{
 		}
 		
 		protected function handleCompleteEvent(event:Event):void 
 		{
+			logger.info("handleCompleteEvent()");
+			
 			_isComplete = true;
 			
-			onLoadComplete();
-		}
-		
-		protected function onLoadComplete():void 
-		{
+			if (loadCompleteHandler)
+			{
+				loadCompleteHandler.handleLoadComplete(data);
+			}
 			
+			dispatchEvent(new Event(Event.COMPLETE));
 		}
 		
-		public function addEventListener(type:String, listener:Function, useCapture:Boolean=false, priority:int=0, useWeakReference:Boolean=false):void
+		protected function handleIOError(event:IOErrorEvent):void 
 		{
-		}
-		
-		public function removeEventListener(type:String, listener:Function, useCapture:Boolean=false):void
-		{
-		}
-		
-		public function dispatchEvent(event:Event):Boolean
-		{
-			return false;
-		}
-		
-		public function hasEventListener(type:String):Boolean
-		{
-			return false;
-		}
-		
-		public function willTrigger(type:String):Boolean
-		{
-			return false;
-		}
-		
+			throw new Error("IOError while trying to load " + urlRequest.url);
+		}		
 	}
 }

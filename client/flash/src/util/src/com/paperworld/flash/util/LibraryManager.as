@@ -10,6 +10,8 @@ package com.paperworld.flash.util
 	import flash.system.ApplicationDomain;
 	import flash.utils.Dictionary;
 	
+	import org.as3commons.logging.ILogger;
+	import org.as3commons.logging.LoggerFactory;
 	import org.as3commons.reflect.ClassUtils;
 	import org.springextensions.actionscript.utils.DictionaryUtils;
 	
@@ -19,6 +21,8 @@ package com.paperworld.flash.util
 	 */
 	public class LibraryManager
 	{
+		private static var logger:ILogger = LoggerFactory.getLogger("Paperworld(Util)");
+		
 		private static const SKIN_KEY:String = "Skin";
 		private static const SOUND_KEY:String = "Sound";
 		
@@ -31,6 +35,8 @@ package com.paperworld.flash.util
 		public function LibraryManager(singleton : Singleton)
 		{
 			super( );
+			
+			initialise();
 		}
 		
 		public function initialise():void 
@@ -67,6 +73,7 @@ package com.paperworld.flash.util
 		
 		private function _registerFile(loader:Loader, key:String):void 
 		{
+			logger.info("registering " + key + " file");
 			(_assets[key] as Array).push(loader);
 			
 			_createCache(loader);

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <space>
 	<files>
+		<file type="library" location="lib/Papervision3D.swf"/>
+		<file type="library" location="lib/paperworld-pv3d.swf"/>
 		<file type="skin" location="skins/skin.swf"/>
 	</files>
 	<scene>

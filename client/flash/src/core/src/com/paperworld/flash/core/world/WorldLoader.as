@@ -1,7 +1,8 @@
 package com.paperworld.flash.core.world
 {
+	import com.paperworld.flash.core.action.Action;
 	import com.paperworld.flash.core.loading.actions.URLLoaderAction;
-	import com.paperworld.flash.core.world.World;
+	import com.paperworld.flash.core.loading.interfaces.ILoadableAction;
 	import com.paperworld.flash.core.world.parsers.WorldDefinitionParser;
 	import com.paperworld.flash.util.xml.IXMLDefinitionsParser;
 	
@@ -30,7 +31,7 @@ package com.paperworld.flash.core.world
 			return new URLRequest(worldName + ".xml");
 		}
 		
-		private var _worldConfigLoader:URLLoaderAction;
+		private var _worldConfigLoader:Action;
 		
 		public function WorldLoader(world:World)
 		{
@@ -50,12 +51,12 @@ package com.paperworld.flash.core.world
 		{			
 			_worldConfigLoader = new URLLoaderAction(configRequest);
 			_worldConfigLoader.addEventListener(Event.COMPLETE, _onWorldConfigLoadComplete, false, 0, true);
-			_worldConfigLoader.load();
+			_worldConfigLoader.act();
 		}
 		
 		private function _onWorldConfigLoadComplete(event:Event):void 
 		{			
-			var worldXML:XML = new XML(_worldConfigLoader.data);
+			var worldXML:XML = new XML(ILoadableAction(_worldConfigLoader).data);
 					
 			parser.parse(worldXML);
 

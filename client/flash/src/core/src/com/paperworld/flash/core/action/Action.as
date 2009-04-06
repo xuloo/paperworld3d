@@ -9,8 +9,10 @@
  * 
  * Actionscript port - Trevor Burton [worldofpaper@googlemail.com]
  */
-package com.paperworld.flash.core.action
-{		
+package com.paperworld.flash.core.action 
+{	
+	import flash.events.EventDispatcher;
+		
 	/**
 	 * Action is a Base Class that for triggering ANY behaviour, whether visible to the user or internal.
 	 * 
@@ -18,7 +20,7 @@ package com.paperworld.flash.core.action
 	 * 
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
 	 */
-	public class Action
+	public class Action extends EventDispatcher
 	{
 		/**
 		 * The relative priority of this action. This allows actions

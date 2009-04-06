@@ -4,10 +4,14 @@ package com.paperworld.flash.core.space.files
 	
 	import flash.system.ApplicationDomain;
 	
+	import org.as3commons.logging.ILogger;
+	import org.as3commons.logging.LoggerFactory;
 	import org.as3commons.reflect.ClassUtils;
 	
 	public class FileDefinition
 	{
+		private static var logger:ILogger = LoggerFactory.getLogger("Paperworld(Core)");
+		
 		private var _type:FileType;
 		
 		public function get type():FileType 
@@ -37,7 +41,8 @@ package com.paperworld.flash.core.space.files
 		
 		private static function getLoaderClassName(type:String):String
 		{
-			return "com.paperworld.flash.core.loading.actions." + type + "FileLoadAction";
+			logger.info("getting file:" + "com.paperworld.flash.core.loading.actions." + type + "LoadAction");
+			return "com.paperworld.flash.core.loading.actions." + type + "LoadAction";
 		}
 	}
 }

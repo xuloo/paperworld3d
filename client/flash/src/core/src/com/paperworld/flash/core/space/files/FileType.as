@@ -11,9 +11,13 @@ package com.paperworld.flash.core.space.files
 		/** Sound File */
 		public static const FILETYPE_SOUND:FileType = new FileType(FILETYPE_SOUND_NAME);
 		
+		/** Library File */
+		public static const FILETYPE_LIBRARY:FileType = new FileType(FILETYPE_LIBRARY_NAME);
+		
 		/** FileType values */
 		public static const FILETYPE_SKIN_NAME:String				= "Skin";
 		public static const FILETYPE_SOUND_NAME:String 				= "Sound";
+		public static const FILETYPE_LIBRARY_NAME:String			= "Library";
 		
 		private static var _enumCreated:Boolean = false;
 		
@@ -39,6 +43,9 @@ package com.paperworld.flash.core.space.files
 					break;
 				case FILETYPE_SOUND_NAME.toUpperCase():
 					result = FILETYPE_SOUND;
+					break;
+				case FILETYPE_LIBRARY_NAME.toUpperCase():
+					result = FILETYPE_LIBRARY;
 					break;
 				default:
 					break;

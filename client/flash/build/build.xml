@@ -16,7 +16,7 @@
 		<ivy:retrieve pattern="${basedir}/../lib/[artifact].swc"/>
 	</target>
 		
-	<target name="build" depends="build-util,build-core,build-bootstrapper,build-ai,build-multiplayer,build-pv3d,build-away3d" description="builds the multiplayer paperworld client library swc.">
+	<target name="build" depends="build-util,build-core,build-bootstrapper,build-ai,build-multiplayer,build-pv3d-core,build-pv3d-multiplayer,build-away3d" description="builds the multiplayer paperworld client library swc.">
 	</target>
 	
 	<target name="build-util">
@@ -106,12 +106,12 @@
 		</compc>
 	</target>
 	
-	<target name="build-pv3d">
-		<compc output="${output.dir}/${pv3d.lib.name}.swc"
+	<target name="build-pv3d-core">
+		<compc output="${output.dir}/${pv3d-core.lib.name}.swc"
 				   optimize="true"
 				   debug="true"
 				>
-			<include-sources dir="${pv3d.src.dir}">
+			<include-sources dir="${pv3d-core.src.dir}">
                  <include name="**/*.as"/>
             </include-sources>
 			<compiler.external-library-path dir="${lib.dir}" append="true">
@@ -122,6 +122,27 @@
 				<include name="${util.lib.name}.swc" />
 				<include name="${ai.lib.name}.swc" />
 				<include name="${multiplayer.lib.name}.swc" />
+			</compiler.external-library-path>
+		</compc>
+	</target>
+	
+	<target name="build-pv3d-multiplayer">
+		<compc output="${output.dir}/${pv3d-multiplayer.lib.name}.swc"
+				   optimize="true"
+				   debug="true"
+				>
+			<include-sources dir="${pv3d-multiplayer.src.dir}">
+                 <include name="**/*.as"/>
+            </include-sources>
+			<compiler.external-library-path dir="${lib.dir}" append="true">
+				<include name="**/*.swc" />
+			</compiler.external-library-path>
+			<compiler.external-library-path dir="${output.dir}" append="true">
+				<include name="${core.lib.name}.swc" />
+				<include name="${util.lib.name}.swc" />
+				<include name="${ai.lib.name}.swc" />
+				<include name="${multiplayer.lib.name}.swc" />
+				<include name="${pv3d-core.lib.name}.swc" />
 			</compiler.external-library-path>
 		</compc>
 	</target>
