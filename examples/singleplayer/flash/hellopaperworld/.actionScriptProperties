@@ -18,7 +18,7 @@
           <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/automation_agent.swc" useDefaultLinkType="false"/>
         </excludedEntries>
       </libraryPathEntry>
-      <libraryPathEntry kind="3" linkType="1" path="D:/projects/paperworld/branches/reorganising_structure/client/flash/bin/paperworld_reorganisation.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="1" path="lib/paperworld-bootstrapper.swc" useDefaultLinkType="false"/>
     </libraryPath>
     <sourceAttachmentPath/>
   </compiler>

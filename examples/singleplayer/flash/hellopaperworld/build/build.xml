@@ -1,0 +1,30 @@
+<project name="hellopaperworld-singleplayer" default="all" basedir=".">
+
+	<property file="build.properties" />
+	<property file="${core.flash.lib}/build/build.properties" />
+		
+	<target name="all" depends="prepare-libs">
+	</target>
+	
+	<target name="prepare-libs">
+		<prepare-lib lib="core"/>
+		<prepare-lib lib="util"/>
+		<prepare-lib lib="ai"/>
+		
+		<copy file="${core.flash.lib}/bin/${bootstrapper.lib.name}.swc" toFile="../lib/${bootstrapper.lib.base.name}.swc"/>
+
+	</target>
+	
+	<macrodef name="prepare-lib">
+		<attribute name="lib"/>
+		<sequential>
+			<unzip src="${core.flash.lib}/bin/${@{lib}.lib.name}.swc" dest="../bin-debug/lib">
+				<patternset>
+					<include name="**/*.swf"/>
+				</patternset>
+				<mapper type="glob" from="library.swf" to="${@{lib}.lib.base.name}.swf"/>
+			</unzip>
+		</sequential>
+	</macrodef>
+	
+</project>

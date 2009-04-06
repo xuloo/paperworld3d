@@ -30,7 +30,6 @@ package com.paperworld.flash.multiplayer.scenes
 	import com.paperworld.flash.multiplayer.data.State;
 	import com.paperworld.flash.multiplayer.data.SyncData;
 	import com.paperworld.flash.multiplayer.lod.LodConstraint;
-	import com.paperworld.flash.util.CoreContext;
 	import com.paperworld.flash.util.input.IUserInput;
 	import com.paperworld.flash.util.input.events.UserInputEvent;
 	import com.paperworld.flash.util.number.Vector3;
@@ -68,7 +67,7 @@ package com.paperworld.flash.multiplayer.scenes
 
 		public var clientID : Number = -1;
 
-		protected var _context : CoreContext;
+		//protected var _context : CoreContext;
 
 		public var sceneName : String;
 
@@ -137,7 +136,7 @@ package com.paperworld.flash.multiplayer.scenes
 		{			
 			avatarsByName = new Array( );		
 			
-			_context = CoreContext.getInstance( );
+			//_context = CoreContext.getInstance( );
 			
 			registerClassAliases( );			
 		}
@@ -157,7 +156,7 @@ package com.paperworld.flash.multiplayer.scenes
 			
 			logger.info( "connecting to " + scene );
 
-			_connection = Red5Connection( _context.getObject( "connection" ) );
+			//_connection = Red5Connection( _context.getObject( "connection" ) );
 			_connection.objectEncoding = ObjectEncoding.AMF3;
 						
 			_connection.addEventListener( Red5Event.CONNECTED, onConnectionEstablished );
