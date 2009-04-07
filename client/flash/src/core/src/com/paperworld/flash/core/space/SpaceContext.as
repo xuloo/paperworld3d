@@ -1,8 +1,11 @@
 package com.paperworld.flash.core.space
 {
+	import com.paperworld.flash.core.objects.IPaperworldObject;
 	import com.paperworld.flash.core.space.files.FileDefinition;
+	import com.paperworld.flash.core.space.interfaces.ISpaceView;
 	import com.paperworld.flash.util.patterns.iterator.IIterator;
 	
+	import flash.display.Sprite;
 	import flash.utils.Dictionary;
 	
 	public class SpaceContext
@@ -38,6 +41,52 @@ package com.paperworld.flash.core.space
 		public function get files():IIterator 
 		{
 			return new FilesIterator(_files);
+		}
+		
+		private var _views:Dictionary;
+		
+		public function get views():Dictionary
+		{
+			return _views;
+		}
+		
+		public function addView(value:ISpaceView):void 
+		{
+			if (!_views)
+			{
+				_views = new Dictionary();
+			}
+			
+			_views[value.name] = value;
+		}
+		
+		private var _actors:Array;
+		
+		public function get actors():Array 
+		{
+			return _actors;
+		}
+		
+		public function addActor(actor:IPaperworldObject):void 
+		{
+			if (!_actors)
+			{
+				_actors = new Array();
+			}
+			
+			_actors.push(actor);
+		}
+		
+		private var _target:Sprite;
+		
+		public function get target():Sprite 
+		{
+			return _target;
+		}
+		
+		public function set target(value:Sprite):void 
+		{
+			_target = value;
 		}
 		
 		public function SpaceContext(name:String, location:String)

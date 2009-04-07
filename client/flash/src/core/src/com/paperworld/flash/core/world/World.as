@@ -2,7 +2,9 @@ package com.paperworld.flash.core.world
 {
 	import com.paperworld.flash.core.space.Space;
 	import com.paperworld.flash.core.space.SpaceContext;
+	import com.paperworld.flash.core.space.events.SpaceEvent;
 	
+	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.utils.Dictionary;
 	
@@ -11,7 +13,7 @@ package com.paperworld.flash.core.world
 	
 	public class World
 	{
-		private static var logger:ILogger = LoggerFactory.getLogger("Paperworld(Boot)");
+		private static var logger:ILogger = LoggerFactory.getLogger("Paperworld(Core)");
 		
 		private var _worldName:String;
 		
@@ -33,9 +35,12 @@ package com.paperworld.flash.core.world
 			return _worldName;
 		}
 		
-		public function World(worldName:String, autoLoad:Boolean = true)
+		private var _target:Sprite;
+		
+		public function World(worldName:String, target:Sprite, autoLoad:Boolean = true)
 		{
 			_worldName = worldName;
+			_target = target;
 			_spaces = new Dictionary(true);
 			_loadedSpaces = new Dictionary(true);
 			
@@ -66,18 +71,21 @@ package com.paperworld.flash.core.world
 		private function loadSpace(spaceName:String):void 
 		{			
 			var context:SpaceContext = SpaceContext(_spaces[spaceName]);
+			context.target = _target;
 			_currentSpace = new Space(context);
-			_currentSpace.addEventListener(Space.SPACE_READY, _onSpaceLoadComplete);
+			_currentSpace.addEventListener(SpaceEvent.SPACE_READY, _onSpaceLoadComplete);
 			_currentSpace.load();
 		}
 		
-		private function _onSpaceLoadComplete(event:Event):void 
+		private function _onSpaceLoadComplete(event:SpaceEvent):void 
 		{			
-			var loadedSpace:Space = Space(event.target);
+			var loadedSpace:Space = event.space;
 			
 			_loadedSpaces[loadedSpace.name] = loadedSpace;
 			
 			logger.info("space [" + loadedSpace.name + "] is ready for use!");
+			
+			loadedSpace.start();
 		}
 		
 		public function registerSpaceContext(context:SpaceContext):void 

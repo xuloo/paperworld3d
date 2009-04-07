@@ -1,6 +1,10 @@
 package com.paperworld.flash.core.space.parsers
 {
 	import com.paperworld.flash.core.space.SpaceContext;
+	import com.paperworld.flash.core.space.events.ParseEvent;
+	import com.paperworld.flash.core.space.parsers.postprocessors.ActorsPostProcessor;
+	import com.paperworld.flash.core.space.parsers.postprocessors.IPostProcessor;
+	import com.paperworld.flash.core.space.parsers.postprocessors.ViewsPostProcessor;
 	import com.paperworld.flash.util.xml.INodeParser;
 	import com.paperworld.flash.util.xml.IXMLDefinitionsParser;
 	
@@ -18,11 +22,11 @@ package com.paperworld.flash.core.space.parsers
 		private static const STATE_UNPARSED:int = 0;
 		private static const STATE_PARSING_FILES:int = 1;
 		private static const STATE_FILES_PARSED:int = 2;
-		private static const STATE_PARSING_SCENE:int = 3;
-		private static const STATE_SCENE_PARSED:int = 4;
+		private static const STATE_PARSING_OBJECTS:int = 3;
+		private static const STATE_OBJECTS_PARSED:int = 4;
 		
 		public static const FILES_PARSE_COMPLETE:String = "FilesParseComplete";
-		public static const SCENE_PARSE_COMPLETE:String = "SceneParseComplete";
+		public static const OBJECTS_PARSE_COMPLETE:String = "SceneParseComplete";
 		
 		private var _state:int = STATE_UNPARSED;
 		
@@ -30,9 +34,12 @@ package com.paperworld.flash.core.space.parsers
 		
 		private var _nodeParsers:Array/*<INodeParser>*/ = [];
 		
+		private var _postProcessors:Array/*<IPostProcessor>*/ = [];
+		
 		public function SpaceDefinitionsParser(context:SpaceContext)
 		{
 			_context = context;
+			_initPostProcessors();
 		}
 
 		public function parse(xml:XML):void
@@ -44,7 +51,7 @@ package com.paperworld.flash.core.space.parsers
 					break;
 				
 				case STATE_FILES_PARSED:
-					_parseScene(xml);
+					_parseObjects(xml);
 					break;
 					
 				default:
@@ -72,23 +79,35 @@ package com.paperworld.flash.core.space.parsers
 			addNodeParser(new FilesNodeParser(this, _context));
 		}
 		
-		private function _parseScene(xml:XML):void 
+		private function _parseObjects(xml:XML):void 
 		{
-			_state = STATE_PARSING_SCENE;
+			_state = STATE_PARSING_OBJECTS;
 			
-			var sceneXML:XML = xml.scene[0];
-			
+			var objectsXML:XML = xml.objects[0];
+						
 			var context:XMLApplicationContext = new XMLApplicationContext();
-			context.addEventListener(Event.COMPLETE, _onApplicationContextLoadComplete, false, 0, true);
-			context.addConfig(sceneXML);
+			context.addEventListener(Event.COMPLETE, _onObjectsContextLoadComplete, false, 0, true);
+			context.addConfig(objectsXML);
 			context.load();
 		}
 		
-		private function _onApplicationContextLoadComplete(event:Event):void 
-		{
-			_state = STATE_SCENE_PARSED;
+		private function _onObjectsContextLoadComplete(event:Event):void 
+		{			
+			var context:XMLApplicationContext = XMLApplicationContext(event.target);
 			
-			dispatchEvent(new Event(SCENE_PARSE_COMPLETE));
+			_postProcess(context);
+			
+			_state = STATE_OBJECTS_PARSED;
+			
+			dispatchEvent(new ParseEvent(OBJECTS_PARSE_COMPLETE, XMLApplicationContext(event.target)));
+		}
+		
+		private function _postProcess(context:XMLApplicationContext):void 
+		{
+			for each (var postProcessor:IPostProcessor in _postProcessors)
+			{
+				postProcessor.process(_context, context);
+			}
 		}
 		
 		private function _clearNodeParsers():void 
@@ -119,6 +138,17 @@ package com.paperworld.flash.core.space.parsers
 		public function addNodeParser(nodeParser:INodeParser):void 
 		{
 			_nodeParsers.push(nodeParser);
+		}
+		
+		private function _initPostProcessors():void 
+		{
+			addPostProcessor(new ViewsPostProcessor());
+			addPostProcessor(new ActorsPostProcessor());
+		}
+		
+		public function addPostProcessor(postProcessor:IPostProcessor):void 
+		{
+			_postProcessors.push(postProcessor);
 		}
 		
 	}

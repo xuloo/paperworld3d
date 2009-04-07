@@ -8,7 +8,7 @@ package {
 	{		
 		public function hellopaperworld_singleplayer_flash()
 		{
-			Bootstrapper.getInstance().load("hellopaperworld")
+			Bootstrapper.getInstance(this).load("hellopaperworld");
 		}
 	}
 }

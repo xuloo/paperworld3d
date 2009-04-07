@@ -4,6 +4,7 @@ package com.paperworld.flash.core.space
 	import com.paperworld.flash.core.loading.actions.MultiFileLoadAction;
 	import com.paperworld.flash.core.loading.actions.URLLoaderAction;
 	import com.paperworld.flash.core.loading.interfaces.ILoadableAction;
+	import com.paperworld.flash.core.space.events.ParseEvent;
 	import com.paperworld.flash.core.space.files.FileDefinition;
 	import com.paperworld.flash.core.space.parsers.SpaceDefinitionsParser;
 	import com.paperworld.flash.util.patterns.iterator.IIterator;
@@ -58,7 +59,7 @@ package com.paperworld.flash.core.space
 		{
 			_parser = new SpaceDefinitionsParser(_context);
 			parser.addEventListener(SpaceDefinitionsParser.FILES_PARSE_COMPLETE, _onFilesParseComplete, false, 0, true);
-			parser.addEventListener(SpaceDefinitionsParser.SCENE_PARSE_COMPLETE, _onSceneParseComplete, false, 0, true);
+			parser.addEventListener(SpaceDefinitionsParser.OBJECTS_PARSE_COMPLETE, _onSceneParseComplete, false, 0, true);
 		}
 		
 		public function load():void 
@@ -95,9 +96,12 @@ package com.paperworld.flash.core.space
 			parser.parse(_xml);
 		}
 		
-		private function _onSceneParseComplete(event:Event):void 
+		private function _onSceneParseComplete(event:ParseEvent):void 
 		{
-			logger.info("scene parsed " + hasEventListener(Event.COMPLETE));
+			logger.info("scene parsed " + event.context.objectDefinitionNames);
+			
+			
+			
 			dispatchEvent(new Event(Event.COMPLETE));
 		}
 		
