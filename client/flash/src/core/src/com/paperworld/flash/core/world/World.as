@@ -26,6 +26,8 @@ package com.paperworld.flash.core.world
 		
 		private var _defaultSpace:String;
 		
+		private var _currentSpace:Space;
+		
 		public function get worldName():String 
 		{
 			return _worldName;
@@ -64,9 +66,9 @@ package com.paperworld.flash.core.world
 		private function loadSpace(spaceName:String):void 
 		{			
 			var context:SpaceContext = SpaceContext(_spaces[spaceName]);
-			var space:Space = new Space(context);
-			space.addEventListener(Space.SPACE_READY, _onSpaceLoadComplete, false, 0, true);
-			space.load();
+			_currentSpace = new Space(context);
+			_currentSpace.addEventListener(Space.SPACE_READY, _onSpaceLoadComplete);
+			_currentSpace.load();
 		}
 		
 		private function _onSpaceLoadComplete(event:Event):void 

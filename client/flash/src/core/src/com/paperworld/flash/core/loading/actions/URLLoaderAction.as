@@ -21,8 +21,7 @@ package com.paperworld.flash.core.loading.actions
 			if (!_urlLoader)
 			{
 				_urlLoader = new URLLoader(urlRequest);
-				_urlLoader.addEventListener(Event.COMPLETE, handleCompleteEvent, false, 0, true);
-				_urlLoader.addEventListener(IOErrorEvent.IO_ERROR, handleIOError, false, 0, true);
+				configureListeners(_urlLoader);
 			}
 			
 			return _urlLoader;

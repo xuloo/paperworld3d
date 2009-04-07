@@ -1,7 +1,6 @@
 package com.paperworld.flash.core.space
 {
 	import com.paperworld.flash.core.action.Action;
-	import com.paperworld.flash.core.action.CompoundAction;
 	import com.paperworld.flash.core.loading.actions.MultiFileLoadAction;
 	import com.paperworld.flash.core.loading.actions.URLLoaderAction;
 	import com.paperworld.flash.core.loading.interfaces.ILoadableAction;
@@ -82,22 +81,23 @@ package com.paperworld.flash.core.space
 			while (iterator.hasNext())
 			{
 				var file:FileDefinition = FileDefinition(iterator.next());
-				var action:CompoundAction = FileDefinition.getFileLoader(file);
 
-				_fileLoadAction.addLoadAction(action)
+				_fileLoadAction.addFile(file)
 			}
 			
-			_fileLoadAction.addEventListener(Event.COMPLETE, _onFilesLoadComplete, false, 0, true);
+			_fileLoadAction.addEventListener(Event.COMPLETE, _onFilesLoadComplete);
 			_fileLoadAction.act();
 		}
 		
 		private function _onFilesLoadComplete(event:Event):void 
 		{
+			logger.info("files loaded");
 			parser.parse(_xml);
 		}
 		
 		private function _onSceneParseComplete(event:Event):void 
 		{
+			logger.info("scene parsed " + hasEventListener(Event.COMPLETE));
 			dispatchEvent(new Event(Event.COMPLETE));
 		}
 		

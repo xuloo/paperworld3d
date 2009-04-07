@@ -20,7 +20,8 @@ package com.paperworld.flash.core.space.parsers
 		{
 			for each (var xml:XML in node.file)
 			{
-				var fileDefinition:FileDefinition = new FileDefinition(xml.@type, xml.@location);
+				var depends:Array = (xml.@depends == undefined) ? [] : String(xml.@depends).split(",");
+				var fileDefinition:FileDefinition = new FileDefinition(xml.@name, xml.@type, xml.@location, depends);
 
 				space.registerFileDefinition(fileDefinition);
 			}

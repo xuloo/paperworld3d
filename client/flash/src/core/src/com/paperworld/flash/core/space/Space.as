@@ -26,12 +26,14 @@ package com.paperworld.flash.core.space
 		public function load():void 
 		{
 			var spaceLoader:SpaceLoader = new SpaceLoader(_context);
-			spaceLoader.addEventListener(Event.COMPLETE, _onSpaceLoadComplete, false, 0, true);
+			spaceLoader.addEventListener(Event.COMPLETE, _onSpaceLoadComplete);
 			spaceLoader.load();
 		}	
 		
 		private function _onSpaceLoadComplete(event:Event):void 
 		{
+			SpaceLoader(event.target).removeEventListener(Event.COMPLETE, _onSpaceLoadComplete);
+
 			dispatchEvent(new Event(SPACE_READY));
 		}
 	}

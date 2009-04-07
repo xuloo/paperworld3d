@@ -198,7 +198,7 @@
 	<target name="generate-docs" depends="clean-docs, prepare-docs" description="creates the asdoc documentation for the project">
 		
 		<exec executable="${asdoc}" failonerror="true" >
-		  <arg line="-doc-sources ../src/core/src ../src/ai/src ../src/away3d/src ../src/multiplayer/src ../src/pv3d/src ../src/util/src" />
+		  <arg line="-doc-sources ../src/core/src ../src/ai/src ../src/away3d/src ../src/multiplayer/src ../src/pv3d-core/src ../src/pv3d-multiplayer/src ../src/util/src" />
 		  <arg line="-external-library-path ../lib/jedai.swc ../lib/spring-actionscript.swc ../lib/Papervision3D.swc ../lib/Away3D.swc" />
 		  <arg line="-output ../docs" />
 		  <arg line="-main-title 'PaperWorld3D API Documentation'"/>

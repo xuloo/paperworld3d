@@ -5,7 +5,10 @@ package com.paperworld.flash.core.loading.actions
 	import com.paperworld.flash.core.loading.interfaces.ILoadableAction;
 	
 	import flash.events.Event;
+	import flash.events.HTTPStatusEvent;
+	import flash.events.IEventDispatcher;
 	import flash.events.IOErrorEvent;
+	import flash.events.ProgressEvent;
 	import flash.net.URLRequest;
 	
 	import org.as3commons.logging.ILogger;
@@ -21,6 +24,8 @@ package com.paperworld.flash.core.loading.actions
 		{
 			return _urlRequest;
 		}
+		
+		protected var loading:Boolean;
 				
 		private var _isComplete:Boolean = false;
 		
@@ -46,41 +51,73 @@ package com.paperworld.flash.core.loading.actions
 		
 		protected var loadCompleteHandler:ILoadCompleteHandler;
 		
-		public function AbstractLoadAction(urlRequest:URLRequest = null)
+		private var _depends:Array;
+		
+		public function AbstractLoadAction(urlRequest:URLRequest = null, depends:Array = null)
 		{
 			super();
 			
 			_urlRequest = urlRequest;
+			_depends = depends;
 		}
 		
 		override public function act():void 
-		{			
-			load();
+		{		
+			if (!loading)
+			{
+				loading = true;
+				load();
+			}
 			
 			super.act();
 		}
 		
-		protected function load():void
+		protected function load():void 
 		{
+		
 		}
 		
-		protected function handleCompleteEvent(event:Event):void 
-		{
-			logger.info("handleCompleteEvent()");
-			
-			_isComplete = true;
+		protected function configureListeners(dispatcher:IEventDispatcher):void {
+            dispatcher.addEventListener(Event.COMPLETE, completeHandler);
+            dispatcher.addEventListener(HTTPStatusEvent.HTTP_STATUS, httpStatusHandler);
+            dispatcher.addEventListener(Event.INIT, initHandler);
+            dispatcher.addEventListener(IOErrorEvent.IO_ERROR, ioErrorHandler);
+            dispatcher.addEventListener(Event.OPEN, openHandler);
+            dispatcher.addEventListener(ProgressEvent.PROGRESS, progressHandler);
+        }
+
+        protected function completeHandler(event:Event):void {
+            logger.info("completeHandler: " + event);
+            
+            _isComplete = true;
 			
 			if (loadCompleteHandler)
 			{
 				loadCompleteHandler.handleLoadComplete(data);
 			}
 			
+			logger.info("dispatching Event.COMPLETE");
 			dispatchEvent(new Event(Event.COMPLETE));
-		}
-		
-		protected function handleIOError(event:IOErrorEvent):void 
-		{
-			throw new Error("IOError while trying to load " + urlRequest.url);
-		}		
+        }
+
+        protected function httpStatusHandler(event:HTTPStatusEvent):void {
+            logger.info("httpStatusHandler: " + event);
+        }
+
+        protected function initHandler(event:Event):void {
+            logger.info("initHandler: " + event);
+        }
+
+        protected function ioErrorHandler(event:IOErrorEvent):void {
+            logger.info("ioErrorHandler: " + event);
+        }
+
+        protected function openHandler(event:Event):void {
+            logger.info("openHandler: " + event);
+        }
+
+        protected function progressHandler(event:ProgressEvent):void {
+            logger.info("progressHandler: bytesLoaded=" + event.bytesLoaded + " bytesTotal=" + event.bytesTotal);
+        }		
 	}
 }

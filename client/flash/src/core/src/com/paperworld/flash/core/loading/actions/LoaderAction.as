@@ -3,8 +3,10 @@ package com.paperworld.flash.core.loading.actions
 	import com.paperworld.flash.core.loading.interfaces.ILoadableAction;
 	
 	import flash.display.Loader;
-	import flash.events.Event;
 	import flash.net.URLRequest;
+	import flash.system.LoaderContext;
+	
+	import mx.messaging.config.ConfigMap;
 	
 	import org.as3commons.logging.ILogger;
 	import org.as3commons.logging.LoggerFactory;
@@ -20,7 +22,7 @@ package com.paperworld.flash.core.loading.actions
 			if (!_loader)
 			{
 				_loader = new Loader();
-				_loader.contentLoaderInfo.addEventListener(Event.COMPLETE, handleCompleteEvent, false, 0, true);
+				configureListeners(_loader.contentLoaderInfo);
 			}
 			
 			return _loader;
@@ -58,6 +60,11 @@ package com.paperworld.flash.core.loading.actions
 		public function LoaderAction(urlRequest:URLRequest = null)
 		{
 			super(urlRequest);
+		}
+		
+		protected function getLoaderContext():LoaderContext
+		{
+			return null;
 		}
 		
 		override protected function load():void 
