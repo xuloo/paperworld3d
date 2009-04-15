@@ -41,13 +41,13 @@ package com.paperworld.flash.core.action
          * Returns true if all the sub-actions is done. Otherwise the
          * manager keeps scheduling the action.
          */
-		override public function get isComplete() : Boolean
+		override public function isComplete() : Boolean
 		{
 			var next : Action = subActions;
 	        
 			while (next)
 			{
-				if (!next.isComplete) return false;
+				if (!next.isComplete()) return false;
 				next = next.next;
 			}
 	        
@@ -64,7 +64,7 @@ package com.paperworld.flash.core.action
 	        
 			while (next)
 			{
-				if (!next.isComplete) next.act( );
+				if (!next.isComplete()) next.act( );
 				next = next.next;
 			}
 		}

@@ -1,8 +1,5 @@
 package com.paperworld.flash.pv3d.views
-{
-	import com.paperworld.flash.core.space.events.SpaceEvent;
-	import com.paperworld.flash.core.space.interfaces.ISpaceView;
-	
+{	
 	import flash.display.Sprite;
 	import flash.utils.Dictionary;
 	
@@ -12,7 +9,7 @@ package com.paperworld.flash.pv3d.views
 	import org.papervision3d.view.BasicView;
 	import org.papervision3d.view.layer.ViewportLayer;
 
-	public class BasicPaperworldView extends BasicView implements ISpaceView
+	public class BasicPaperworldView extends BasicView
 	{
 		private static var logger:ILogger = LoggerFactory.getLogger("Paperworld(PV3D)");
 		
@@ -50,7 +47,7 @@ package com.paperworld.flash.pv3d.views
 			//ViewportLayer(layers[layer]).addDisplayObject3D(do3d);
 		}
 		
-		public function onSpaceStarted(event:SpaceEvent):void 
+		/*public function onSpaceStarted(event:SpaceEvent):void 
 		{
 			logger.info("starting rendering");
 			startRendering();
@@ -59,6 +56,6 @@ package com.paperworld.flash.pv3d.views
 		public function onSpaceStopped(event:SpaceEvent):void 
 		{
 			stopRendering();
-		}
+		}*/
 	}
 }

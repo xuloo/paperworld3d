@@ -11,8 +11,7 @@
  */
 package com.paperworld.flash.core.action 
 {	
-	import flash.events.EventDispatcher;
-		
+	import flash.events.EventDispatcher;	
 	/**
 	 * Action is a Base Class that for triggering ANY behaviour, whether visible to the user or internal.
 	 * 
@@ -104,7 +103,7 @@ package com.paperworld.flash.core.action
 		 * keeps scheduling the action. The default implementation is
 		 * always done.
 		 */
-		public function get isComplete() : Boolean
+		public function isComplete() : Boolean
 		{
 			return true;
 		}
@@ -112,7 +111,7 @@ package com.paperworld.flash.core.action
 		/**
 		 * Declares whether or not this Action is allowed to act. Defaults to true.
 		 */
-		public function get canAct() : Boolean
+		public function canAct() : Boolean
 		{
 			return true;	
 		}

@@ -1,10 +1,19 @@
 package com.paperworld.java.scenes;
 
+import java.util.AbstractMap;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 import org.red5.server.adapter.ApplicationAdapter;
 import org.red5.server.adapter.IApplication;
 import org.red5.server.api.IClient;
 import org.red5.server.api.IConnection;
 import org.red5.server.api.IScope;
+import org.red5.server.api.ScopeUtils;
+import org.red5.server.api.scheduling.IScheduledJob;
+import org.red5.server.api.scheduling.ISchedulingService;
+import org.red5.server.api.so.ISharedObject;
+import org.red5.server.api.so.ISharedObjectService;
 
 import com.paperworld.java.api.IAvatarFactory;
 import com.paperworld.java.api.IInput;
@@ -17,16 +26,50 @@ import com.paperworld.java.multiplayer.data.SyncData;
 public class AbstractSynchronisedScene implements ISynchronisedScene,
 		IApplication, IService {
 	
-	protected int time;
-
 	protected ApplicationAdapter application;
 
 	protected IAvatarFactory avatarFactory;
 
+	protected int time = 0;
+	
+	protected Map<String, Player> players = new ConcurrentHashMap<String, Player>();
+	
 	@Override
 	public void setApplication(ApplicationAdapter application) {
 		this.application = application;
 		application.addListener(this);
+		
+		application.addScheduledJob(1000, new UpdatePositionsJob());
+	}
+	
+	public ISharedObject getSharedObject(String name, boolean persistent) {
+
+		ISharedObjectService service = (ISharedObjectService) ScopeUtils
+				.getScopeService(application.getScope(),
+						ISharedObjectService.class, false);
+		return service
+				.getSharedObject(application.getScope(), name, persistent);
+	}
+	
+	class UpdatePositionsJob implements IScheduledJob
+	{
+		public void execute(ISchedulingService service)
+				throws CloneNotSupportedException {
+			
+			time++;
+			
+			ISharedObject so = getSharedObject("players", false);
+			
+			so.beginUpdate();
+			
+			for (String key : players.keySet())
+			{
+				Player player = players.get(key);
+				player.update(time, so);
+			}
+			
+			so.endUpdate();
+		}
 	}
 
 	public void setAvatarFactory(IAvatarFactory avatarFactory) {

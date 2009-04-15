@@ -104,7 +104,7 @@ package com.paperworld.flash.core.action
 				next.act( );
 	
 				// Check if we're done with this action
-				if (next.isComplete)
+				if (next.isComplete())
 				{
 					// Remove it from the list
 					previous = next.next;

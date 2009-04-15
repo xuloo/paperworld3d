@@ -1,6 +1,6 @@
 package com.paperworld.flash.bootstrapper
 {	
-	import com.paperworld.flash.core.world.World;
+	//import com.paperworld.flash.core.world.World;
 	
 	import flash.display.Loader;
 	import flash.display.Sprite;
@@ -92,7 +92,7 @@ package com.paperworld.flash.bootstrapper
 		private function _loadWorld(world:String):void 
 		{
 			trace("Loading World: " + world + " " + _target);
-			new World(world, _target);
+			//new World(world, _target);
 		}
 	}
 }

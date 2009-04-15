@@ -45,7 +45,7 @@ package com.paperworld.flash.core.action
 		/**
 		 * Checks to see if enough time has passed since last action.
 		 */
-		override public function get canAct():Boolean
+		override public function canAct():Boolean
 		{
 			if (lastinterpolationTime + interval > time)
 			{
