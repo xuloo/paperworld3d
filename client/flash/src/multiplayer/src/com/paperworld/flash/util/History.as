@@ -21,7 +21,7 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.flash.util
 {
-	import com.paperworld.flash.multiplayer.api.ISynchronisedAvatar;
+	import com.paperworld.flash.api.multiplayer.ISynchronisedAvatar;
 	import com.paperworld.flash.multiplayer.data.State;
 	import com.paperworld.flash.util.input.Input;
 	
@@ -66,7 +66,7 @@ package com.paperworld.flash.util
 			{
 				var previous : Move = moves.newest( );
 
-				important = move.input.notEquivalentTo( previous.input );
+				important = move.input.notEquals( previous.input );
 			}
 	
 			if (important)
@@ -104,15 +104,15 @@ package com.paperworld.flash.util
 				moves.remove( );
 	
 				// save current scene data
-				var	savedInput : Input = avatar.getInput( ).clone( );
+				var	savedInput : Input = avatar.input.clone( );
 	
 				// rewind to correction and replay moves
-				avatar.setTime( t );
-				avatar.setInput( input );
+				avatar.time = t;
+				avatar.input = input;
 
 				avatar.snap( state );
 				
-				avatar.setReplaying( true );
+				avatar.replaying = true;
 	
 				var i : int = moves.tail;
 
@@ -122,13 +122,13 @@ package com.paperworld.flash.util
 
 					if (next)
 					{						
-						while (avatar.getTime( ) < moves.moves[i].time)
+						while (avatar.time < moves.moves[i].time)
 						{
 							avatar.update( );
 						}
 					
-						avatar.setInput( moves.moves[i].input );
-						moves.moves[i].state = avatar.getState( );
+						avatar.input = moves.moves[i].input;
+						moves.moves[i].state = avatar.state;
 					}
 					
 					i++;
@@ -137,10 +137,10 @@ package com.paperworld.flash.util
 
 				//syncObject.update( );
 
-				avatar.setReplaying( false );
+				avatar.replaying = false;
 	
 				// restore saved input
-				avatar.setInput( savedInput );
+				avatar.input = savedInput;
 			}
 		}
 

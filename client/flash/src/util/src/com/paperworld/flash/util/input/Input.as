@@ -26,200 +26,227 @@ package com.paperworld.flash.util.input
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
 	 */
-	public class Input
-	{		
-		public var forward : Boolean;
-
-		public function setMoveForward(forward : Boolean) : void
+	public class Input implements IInput
+	{				
+		private var _moveForward:Boolean;
+		
+		public function get moveForward():Boolean
 		{
-			this.forward = forward;
+			return _moveForward;
+		}
+		
+		public function set moveForward(value:Boolean):void
+		{
+			_moveForward = value;
+		}
+		
+		private var _moveBackward:Boolean;
+		
+		public function get moveBackward():Boolean
+		{
+			return _moveBackward;
+		}
+		
+		public function set moveBackward(value:Boolean):void
+		{
+			_moveBackward = value;
+		}
+		
+		private var _moveLeft:Boolean;
+		
+		public function get moveLeft():Boolean
+		{
+			return _moveLeft;
+		}
+		
+		public function set moveLeft(value:Boolean):void
+		{
+			_moveLeft = value;
+		}
+		
+		private var _moveRight:Boolean;
+		
+		public function get moveRight():Boolean
+		{
+			return _moveRight;
+		}
+		
+		public function set moveRight(value:Boolean):void
+		{
+			_moveRight = value;	
+		}
+		
+		private var _moveUp:Boolean;
+		
+		public function get moveUp():Boolean
+		{
+			return _moveUp;
+		}
+		
+		public function set moveUp(value:Boolean):void
+		{
+			_moveUp = value;
+		}
+		
+		private var _moveDown:Boolean;
+		
+		public function get moveDown():Boolean
+		{
+			return _moveDown;
+		}
+		
+		public function set moveDown(value:Boolean):void
+		{
+			_moveDown = value;
+		}
+		
+		private var _pitchPositive:Boolean;
+		
+		public function get pitchPositive():Boolean
+		{
+			return _pitchPositive;
+		}
+		
+		public function set pitchPositive(value:Boolean):void
+		{
+			_pitchPositive = value;
+		}
+		
+		private var _pitchNegative:Boolean; 
+		
+		public function get pitchNegative():Boolean
+		{
+			return _pitchNegative;
+		}
+		
+		public function set pitchNegative(value:Boolean):void
+		{
+			_pitchNegative = value;
+		}
+		
+		private var _rollPositive:Boolean; 
+		
+		public function get rollPositive():Boolean
+		{
+			return _rollPositive;
+		}
+		
+		public function set rollPositive(value:Boolean):void
+		{
+			_rollPositive = value;
+		}
+		
+		private var _rollNegative:Boolean; 
+		
+		public function get rollNegative():Boolean
+		{
+			return _rollNegative;
+		}
+		
+		public function set rollNegative(value:Boolean):void
+		{
+			_rollNegative = value;
+		}
+		
+		private var _yawPositive:Boolean; 
+		
+		public function get yawPositive():Boolean
+		{
+			return yawPositive;
+		}
+		
+		public function set yawPositive(value:Boolean):void
+		{
+			_yawPositive = value;
+		}
+		
+		private var _yawNegative:Boolean; 
+		
+		public function get yawNegative():Boolean
+		{
+			return _yawNegative;
+		}
+		
+		public function set yawNegative(value:Boolean):void
+		{
+			_yawNegative = value;
+		}
+		
+		private var _fire:Boolean; 
+		
+		public function get fire():Boolean
+		{
+			return _fire;
+		}
+		
+		public function set fire(value:Boolean):void
+		{
+			_fire = value;
+		}
+		
+		private var _jump:Boolean; 
+		
+		public function get jump():Boolean
+		{
+			return _jump;
+		}
+		
+		public function set jump(value:Boolean):void
+		{
+			_jump = value;
+		}
+		
+		private var _mouseX:Number;
+		
+		public function get mouseX():Number
+		{
+			return _mouseX;
+		}
+		
+		public function set mouseX(value:Number):void
+		{
+			_mouseX = value;
+		}
+		
+		private var _mouseY:Number;
+		
+		public function get mouseY():Number
+		{
+			return _mouseY;
+		}
+		
+		public function set mouseY(value:Number):void
+		{
+			_mouseY = value;
 		}
 
-		public function getMoveForward() : Boolean
-		{
-			return forward;
-		}
-
-		public var back : Boolean;
-
-		public function setMoveBack(back : Boolean) : void
-		{
-			this.back = back;
-		}
-
-		public function getMoveBack() : Boolean
-		{
-			return back;
-		}
-
-		public var turnRight : Boolean;
-
-		public function setTurnRight(turnRight : Boolean) : void
-		{
-			this.turnRight = turnRight;
-		}
-
-		public function getTurnRight() : Boolean
-		{
-			return turnRight;
-		}
-
-		public var turnLeft : Boolean;
-
-		public function setTurnLeft(turnLeft : Boolean) : void
-		{
-			this.turnLeft = turnLeft;
-		}
-
-		public function getTurnLeft() : Boolean
-		{
-			return turnLeft;
-		}
-
-		public var moveRight : Boolean;
-
-		public function setMoveRight(moveRight : Boolean) : void
-		{
-			this.moveRight = moveRight;
-		}
-
-		public function getMoveRight() : Boolean
-		{
-			return moveRight;
-		}
-
-		public var moveLeft : Boolean;
-
-		public function setMoveLeft(moveLeft : Boolean) : void
-		{
-			this.moveLeft = moveLeft;
-		}
-
-		public function getMoveLeft() : Boolean
-		{
-			return moveLeft;
-		}
-
-		public var turnUp : Boolean;
-
-		public function setTurnUp(turnUp : Boolean) : void
-		{
-			this.turnUp = turnUp;
-		}
-
-		public function getTurnUp() : Boolean
-		{
-			return turnUp;
-		}
-
-		public var turnDown : Boolean;
-
-		public function setTurnDown(turnDown : Boolean) : void
-		{
-			this.turnDown = turnDown;
-		}
-
-		public function getTurnDown() : Boolean
-		{
-			return turnDown;
-		}
-
-		public var moveUp : Boolean;
-
-		public function setMoveUp(moveUp : Boolean) : void
-		{
-			this.moveUp = moveUp;
-		}
-
-		public function getMoveUp() : Boolean
-		{
-			return moveUp;
-		}
-
-		public var moveDown : Boolean;
-
-		public function setMoveDown(moveDown : Boolean) : void
-		{
-			this.moveDown = moveDown;
-		}
-
-		public function getMoveDown() : Boolean
-		{
-			return moveDown;
-		}
-
-		public var fire : Boolean;
-
-		public function setFire(fire : Boolean) : void
-		{
-			this.fire = fire;
-		}
-
-		public function getFire() : Boolean
-		{
-			return fire;
-		}
-
-		public var jump : Boolean;
-
-		public function setJump(jump : Boolean) : void
-		{
-			this.jump = jump;
-		}
-
-		public function getJump() : Boolean
-		{
-			return jump;
-		}
-
-		public var mouseX : Number;
-
-		public function setMouseX(mouseX : Number) : void
-		{
-			this.mouseX = mouseX;
-		}
-
-		public function getMouseX() : Number
-		{
-			return mouseX;
-		}
-
-		public var mouseY : Number;
-
-		public function setMouseY(mouseY : Number) : void
-		{
-			this.mouseY = mouseY;
-		}
-
-		public function getMouseY() : Number
-		{
-			return mouseY;
-		}
-
-		public function Input(forward : Boolean = false, back : Boolean = false, 
-							  turnRight : Boolean = false, turnLeft : Boolean = false, 
+		public function Input(moveForward : Boolean = false, moveBackward : Boolean = false, 
 							  moveRight : Boolean = false, moveLeft : Boolean = false, 
-							  turnUp : Boolean = false,	turnDown : Boolean = false, 
 							  moveUp : Boolean = false, moveDown : Boolean = false, 
-							  fire : Boolean = false, jump : Boolean = false, 
+							  pitchNegative : Boolean = false,	pitchPositive : Boolean = false,
+							  rollNegative : Boolean = false, rollPositive : Boolean = false,
+							  yawNegative : Boolean = false, yawPositive : Boolean = false, 
+							  fire : Boolean = false, jump : Boolean = false,
 							  mouseX : Number = 0, mouseY : Number = 0)
 		{
 			super();
 						
-			this.forward 	= forward;
-			this.back 		= back;
-			this.turnRight 	= turnRight;
-			this.turnLeft 	= turnLeft;
-			this.moveRight 	= moveRight;
-			this.moveLeft 	= moveLeft;
-			this.turnUp 	= turnUp;
-			this.turnDown 	= turnDown;
-			this.moveUp 	= moveUp;
-			this.moveDown 	= moveDown;
-			this.fire 		= fire;
-			this.jump 		= jump;
-			this.mouseX 	= mouseX;
-			this.mouseY 	= mouseY;
+			_moveForward 		= moveForward;
+			_moveBackward 		= moveBackward;
+			_moveRight 			= moveRight;
+			_moveLeft 			= moveLeft;
+			_moveUp 			= moveUp;
+			_moveDown 			= moveDown;
+			_pitchNegative 		= pitchNegative;
+			_pitchPositive 		= pitchPositive;
+			_rollNegative 		= rollNegative;
+			_rollPositive 		= rollPositive;
+			_yawNegative 		= yawNegative;
+			_yawPositive 		= yawPositive;
+			_fire 				= fire;
+			_jump 				= jump;
+			_mouseX				= mouseX;
+			_mouseY				= mouseY;
 		}
 		
 		public function initialise():void 
@@ -229,7 +256,14 @@ package com.paperworld.flash.util.input
 
 		public function clone() : Input
 		{
-			return new Input( forward, back, turnRight, turnLeft, moveRight, moveLeft, turnUp, turnDown, moveUp, moveDown, fire, jump, mouseX, mouseY);
+			return new Input( _moveForward, _moveBackward, 
+							 _moveRight, _moveLeft, 
+							 _moveUp, _moveDown, 
+							 _pitchNegative, _pitchPositive, 
+						 	 _rollNegative, _rollPositive, 
+							 _yawNegative, _yawPositive, 
+							 _fire, _jump,
+							 _mouseX, _mouseY);
 		}
 
 		public function destroy() : void
@@ -239,69 +273,46 @@ package com.paperworld.flash.util.input
 
 		public function equals(other : Input) : Boolean
 		{
-			return  forward 	== other.forward && 
-					back 		== other.back && 
-					turnRight 	== other.turnRight && 
-					turnLeft 	== other.turnLeft && 
-					moveRight 	== other.moveRight && 
-					moveLeft 	== other.moveLeft && 
-					turnUp 		== other.turnUp && 
-					turnDown 	== other.turnDown && 
-					moveUp 		== other.moveUp && 
-					moveDown 	== other.moveDown && 
-					fire 		== other.fire && 
-					jump 		== other.jump && 
-					mouseX 		== other.mouseX && 
-					mouseY 		== other.mouseY;
+			return  _moveForward 	== other.moveForward && 
+					_moveBackward 	== other.moveBackward && 
+					_moveRight 		== other.moveRight && 
+					_moveLeft 		== other.moveLeft && 
+					_moveUp 		== other.moveUp && 
+					_moveDown 		== other.moveDown && 
+					_pitchNegative 	== other.pitchNegative && 
+					_pitchPositive 	== other.pitchPositive && 
+					_rollNegative 	== other.rollNegative && 
+					_rollPositive 	== other.rollPositive && 
+					_yawNegative 	== other.yawNegative && 
+					_yawPositive 	== other.yawPositive && 
+					_fire 			== other.fire && 
+					_jump 			== other.jump &&
+					_mouseX			== other.mouseX;
 		}
 
 		public function notEquals(other : Input) : Boolean
 		{
 			return !equals( other );	
-		}	
-
-		public function equivalentTo(other : Input) : Boolean
-		{
-			return  forward 	== other.forward || 
-					back 		== other.back || 
-					turnRight 	== other.turnRight || 
-					turnLeft 	== other.turnLeft || 
-					moveRight 	== other.moveRight || 
-					moveLeft 	== other.moveLeft || 
-					turnUp 		== other.turnUp || 
-					turnDown 	== other.turnDown || 
-					moveUp 		== other.moveUp || 
-					moveDown 	== other.moveDown || 
-					fire 		== other.fire || 
-					jump 		== other.jump;
-		}
-		
-		public function notEquivalentTo(other:Input):Boolean
-		{
-			return !equivalentTo(other);	
 		}
 
 		public function copyFrom(other : Input) : void
 		{
-			forward 	= other.forward;
-			back 		= other.back;
-			turnRight 	= other.turnRight;
-			turnLeft 	= other.turnLeft;
-			moveRight 	= other.moveRight;
-			moveLeft 	= other.moveLeft;
-			turnUp 		= other.turnUp;
-			turnDown 	= other.turnDown;
-			moveUp 		= other.moveUp;
-			moveDown 	= other.moveDown;
-			fire 		= other.fire;
-			jump 		= other.jump;			
-			mouseX 		= other.mouseX;
-			mouseY 		= other.mouseY;
-		}
-		
-		public function toString():String
-		{
-			return 'Input {\n' + '    turnLeft: ' + turnLeft + '\n    turnRight: ' + turnRight + '\n}';	
+			_moveForward 	= other.moveForward;
+			_moveBackward 	= other.moveBackward; 
+			_moveRight 		= other.moveRight; 
+			_moveLeft 		= other.moveLeft;
+			_moveUp 		= other.moveUp;
+			_moveDown 		= other.moveDown; 
+			_pitchNegative 	= other.pitchNegative;
+			_pitchPositive 	= other.pitchPositive;
+			_rollNegative 	= other.rollNegative; 
+			_rollPositive 	= other.rollPositive;
+			_yawNegative 	= other.yawNegative; 
+			_yawPositive 	= other.yawPositive; 
+			_fire 			= other.fire; 
+			_jump 			= other.jump;
+			_mouseX			= other.mouseX;
+			_mouseY			= other.mouseY;
 		}
 	}
 }

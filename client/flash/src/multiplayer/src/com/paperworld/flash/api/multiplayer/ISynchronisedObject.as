@@ -19,84 +19,16 @@
  * Suite 330, Boston, MA 02111-1307 USA 
  * 
  * -------------------------------------------------------------------------------------- */
-package com.paperworld.flash.multiplayer.data 
+package com.paperworld.flash.api.multiplayer
 {
-	import com.paperworld.flash.api.multiplayer.ISynchronisedAvatar;
-	import com.paperworld.flash.util.input.Input;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
 	 */
-	public class AvatarData
+	public interface ISynchronisedObject extends ISynchronisable
 	{
-		public var id : String;
+		function get displayObject() : *;
 
-		public var key : String;
-
-		public var time : int;
-
-		public var input : Input;
-
-		public var state : State;
-		
-		public function AvatarData(avatar : ISynchronisedAvatar = null)
-		{
-			super( );
-		}
-
-		public function getId() : String 
-		{
-			return id;
-		}
-
-		public function setId(id : String) : void 
-		{
-			this.id = id;
-		}
-
-		public function getKey() : String
-		{
-			return key;
-		}
-
-		public function setKey(key : String) : void
-		{
-			this.key = key;
-		}
-
-		public function getTime() : int
-		{
-			return time;
-		}
-
-		public function setTime(time : int) : void
-		{
-			this.time = time;
-		}
-
-		public function getInput() : Input
-		{
-			return input;
-		}
-
-		public function setInput(input : Input) : void
-		{
-			this.input = input;
-		}
-
-		public function getState() : State 
-		{
-			return state;
-		}
-
-		public function setState(state : State) : void 
-		{
-			this.state = state;
-		}
-
-		public function toString() : String
-		{
-			return 'AvatarData {\n    id: ' + id + '\n    key: ' + key + '\n}';	
-		}
+		function set displayObject(value : *) : void;
 	}
 }

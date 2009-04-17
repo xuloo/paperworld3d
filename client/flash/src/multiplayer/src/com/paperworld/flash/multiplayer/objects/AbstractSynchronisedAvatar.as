@@ -22,9 +22,10 @@
 package com.paperworld.flash.multiplayer.objects 
 {
 	import com.paperworld.flash.ai.steering.SteeringOutput;
-	import com.paperworld.flash.multiplayer.api.IBehaviour;
-	import com.paperworld.flash.multiplayer.api.ISynchronisedAvatar;
-	import com.paperworld.flash.multiplayer.api.ISynchronisedObject;
+	import com.paperworld.flash.api.multiplayer.IBehaviour;
+	import com.paperworld.flash.api.multiplayer.ISyncManager;
+	import com.paperworld.flash.api.multiplayer.ISynchronisedAvatar;
+	import com.paperworld.flash.api.multiplayer.ISynchronisedObject;
 	import com.paperworld.flash.multiplayer.data.State;
 	import com.paperworld.flash.multiplayer.inputhandlers.SimpleAvatarInputHandler25D;
 	import com.paperworld.flash.util.clock.Clock;
@@ -42,6 +43,18 @@ package com.paperworld.flash.multiplayer.objects
 	public class AbstractSynchronisedAvatar implements ISynchronisedAvatar, IClockListener
 	{
 		private static var logger:ILogger = LoggerFactory.getLogger("Paperworld");
+		
+		private var _syncManager:ISyncManager;
+		
+		public function get syncManager():ISyncManager
+		{
+			return _syncManager;
+		}
+		
+		public function set syncManager(value:ISyncManager):void 
+		{
+			_syncManager = value;
+		}
 
 		public function set userInput(value : IUserInput) : void
 		{
@@ -53,24 +66,24 @@ package com.paperworld.flash.multiplayer.objects
 		 */
 		protected var _next : ISynchronisedAvatar;
 
-		public function getNext() : ISynchronisedAvatar
+		public function get next() : ISynchronisedAvatar
 		{
 			return _next;
 		}
 
-		public function setNext(value : ISynchronisedAvatar) : void
+		public function set next(value : ISynchronisedAvatar) : void
 		{
 			_next = value;
 		}
 
 		public var synchronisedObject : ISynchronisedObject;
 
-		public function getSynchronisedObject() : ISynchronisedObject
+		public function get object() : ISynchronisedObject
 		{
 			return synchronisedObject;
 		}	
 
-		public function setSynchronisedObject(value : ISynchronisedObject) : void
+		public function set object(value : ISynchronisedObject) : void
 		{
 			synchronisedObject = value;
 		}
@@ -90,12 +103,12 @@ package com.paperworld.flash.multiplayer.objects
 		 */
 		protected var _tightness : Number;
 
-		public function getTightness() : Number
+		public function get tightness() : Number
 		{
 			return _tightness;
 		}
 
-		public function setTightness(tightness : Number) : void
+		public function set tightness(tightness : Number) : void
 		{
 			_tightness = tightness;
 		}
@@ -103,12 +116,11 @@ package com.paperworld.flash.multiplayer.objects
 		/**
 		 * The AvatarBehaviour instance used to interpret user input for this SyncObject.
 		 */
-		protected var _behaviours : IBehaviour;
+		protected var _behaviour : IBehaviour;
 
-		public function setBehaviour(behaviour : IBehaviour) : void
+		public function set behaviour(behaviour : IBehaviour) : void
 		{
-			behaviour.next = _behaviours;
-			_behaviours = behaviour;
+			_behaviour = behaviour;
 		}
 
 		/**
@@ -116,12 +128,12 @@ package com.paperworld.flash.multiplayer.objects
 		 */
 		protected var _input : Input;
 
-		public function getInput() : Input
+		public function get input() : Input
 		{
 			return _input;
 		}
 
-		public function setInput(input : Input) : void
+		public function set input(input : Input) : void
 		{
 			_input = input;
 		}
@@ -139,7 +151,7 @@ package com.paperworld.flash.multiplayer.objects
 		/**
 		 * Returns the current State of this object.
 		 */
-		public function getState() : State
+		public function get state() : State
 		{
 			return _current;	
 		}
@@ -147,7 +159,7 @@ package com.paperworld.flash.multiplayer.objects
 		/**
 		 * @private
 		 */
-		public function setState(value : State) : void
+		public function set state(value : State) : void
 		{
 			_previous = _current;
 			_current = value;
@@ -160,12 +172,12 @@ package com.paperworld.flash.multiplayer.objects
 		 */
 		public var _time : Number = 0;
 
-		public function getTime() : int
+		public function get time() : int
 		{
 			return _time;
 		}
 
-		public function setTime(time : int) : void
+		public function set time(time : int) : void
 		{
 			_time = time;
 		}
@@ -175,12 +187,12 @@ package com.paperworld.flash.multiplayer.objects
 		 */
 		public var _replaying : Boolean;
 
-		public function getReplaying() : Boolean
+		public function get replaying() : Boolean
 		{
 			return _replaying;
 		}
 
-		public function setReplaying(replaying : Boolean) : void
+		public function set replaying(replaying : Boolean) : void
 		{
 			_replaying = replaying;
 		}
@@ -233,7 +245,7 @@ package com.paperworld.flash.multiplayer.objects
 			_current = new State( );
 			_previous = new State( );
 			
-			_behaviours = new SimpleAvatarInputHandler25D( );
+			_behaviour = new SimpleAvatarInputHandler25D( );
 			
 			output = new SteeringOutput( );
 			
@@ -260,7 +272,7 @@ package com.paperworld.flash.multiplayer.objects
 		 */
 		public function equals(other : AbstractSynchronisedAvatar) : Boolean
 		{				
-			return  _tightness == other.getTightness( ) && _time == other.getTime( ) && _input.equals( other.getInput( ) ) && _current.equals( other.getState( ) );	
+			return  _tightness == other.tightness && _time == other.time && _input.equals( other.input ) && _current.equals( other.state );	
 		}
 
 		public function onTick(event : ClockEvent) : void
@@ -274,16 +286,16 @@ package com.paperworld.flash.multiplayer.objects
 			return '[Avatar: ' + synchronisedObject + ']';
 		}
 
-		protected var _ref : String;
+		protected var _id : String;
 
-		public function getRef() : String
+		public function get id() : String
 		{
-			return _ref;
+			return _id;
 		}
 
-		public function setRef(ref : String) : void
+		public function set id(value : String) : void
 		{
-			_ref = ref;
+			_id = value;
 		}
 	}
 }

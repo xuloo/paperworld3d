@@ -38,21 +38,21 @@ package com.paperworld.flash.util.input
 		/**
 		 * Returns the mouse x position.
 		 */
-		function get mouseX() : Number 
+		//function get mouseX() : Number 
 
 		/**
 		 * Returns the mouse y position.
 		 */
-		function get mouseY() : Number
+		//function get mouseY() : Number
 
 		/**
 		 * Called by the <code>GameTimer</code>'s integration event.</br>
 		 * Takes a snapshot of the user's input.
 		 */
-		function update( event : ClockEvent = null ) : void;
+		//function update( event : ClockEvent = null ) : void;
 
-		function addListener(listener : IUserInputListener) : void;
+		//function addListener(listener : IUserInputListener) : void;
 
-		function removeListener(listener : IUserInputListener) : void;
+		//function removeListener(listener : IUserInputListener) : void;
 	}
 }

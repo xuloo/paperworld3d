@@ -43,7 +43,7 @@ package com.paperworld.flash.multiplayer.objects
 
 		override public function set userInput(value : IUserInput) : void
 		{
-			value.addListener( this );
+			//value.addListener( this );
 		}
 
 		public function LocalAvatar()
@@ -60,7 +60,7 @@ package com.paperworld.flash.multiplayer.objects
 
 		override public function update() : void
 		{						
-			_behaviours.apply( this );
+			_behaviour.apply( this );
 			
 			// add to history
 			var move : Move = new Move( );
@@ -79,7 +79,9 @@ package com.paperworld.flash.multiplayer.objects
 			var original : State = state.clone( );
 			
 			if (original.compare( state ))
+			{
             	smooth( );
+   			}
             	
 			_history.correction( this, time, state, input );	
             	

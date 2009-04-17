@@ -1,8 +1,8 @@
 package com.paperworld.flash.multiplayer.inputhandlers 
 {
-	import com.paperworld.flash.multiplayer.api.ISynchronisedAvatar;
+	import com.paperworld.flash.api.multiplayer.ISynchronisedAvatar;
 	import com.paperworld.flash.multiplayer.data.State;
-	import com.paperworld.flash.util.input.Input;
+	import com.paperworld.flash.util.input.IInput;
 	
 	import org.as3commons.logging.ILogger;
 	import org.as3commons.logging.LoggerFactory;
@@ -33,27 +33,27 @@ package com.paperworld.flash.multiplayer.inputhandlers
 
 		override public function apply(avatar : ISynchronisedAvatar) : void
 		{		
-			var input : Input = avatar.getInput( );
-			var state : State = avatar.getState( );
+			var input : IInput = avatar.input;
+			var state : State = avatar.state;
 				
 			if (input != null) 
 			{
-				if (input.getMoveForward( ))
+				if (input.moveForward)
 					state.position.z += moveForwardAmount;
 					
-				if (input.getMoveBack( ))
+				if (input.moveBackward)
 					state.position.z -= moveBackAmount;
 
-				if (input.getMoveRight( ))
+				if (input.moveRight)
 					state.position.x += moveRightAmount;
 
-				if (input.getMoveLeft( ))
+				if (input.moveLeft)
 					state.position.x -= moveLeftAmount;
 
-				if (input.getTurnRight( ))
+				if (input.yawPositive)
 					state.orientation.w += turnRightAmount;
 
-				if (input.getTurnLeft( ))
+				if (input.yawNegative)
 					state.orientation.w -= turnLeftAmount;
 			}		
 			

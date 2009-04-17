@@ -1,8 +1,8 @@
 package com.paperworld.flash.multiplayer.objects 
 {
-	import com.paperworld.flash.multiplayer.api.ISynchronisedObject;
+	import com.paperworld.flash.api.multiplayer.ISynchronisedObject;
 	import com.paperworld.flash.multiplayer.data.State;
-	import com.paperworld.flash.util.input.Input;
+	import com.paperworld.flash.util.input.IInput;
 	
 	import flash.display.Sprite;
 	
@@ -35,7 +35,7 @@ package com.paperworld.flash.multiplayer.objects
 			this.object = object;
 		}
 
-		public function synchronise(time : int, input : Input, state : State) : void
+		public function synchronise(time : int, input : IInput, state : State) : void
 		{
 			this.object.x = state.position.x;
 			this.object.y = state.position.y;

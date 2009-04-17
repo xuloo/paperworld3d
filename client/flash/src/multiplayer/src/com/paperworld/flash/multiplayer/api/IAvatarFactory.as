@@ -1,5 +1,7 @@
 package com.paperworld.flash.multiplayer.api 
 {
+	import com.paperworld.flash.api.multiplayer.ISynchronisedAvatar;
+	
 
 	/**
 	 * @author Trevor
