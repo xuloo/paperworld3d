@@ -11,8 +11,10 @@
  */
 package com.paperworld.java.ai.steering.behaviour;
 
+import com.jme.math.Vector3f;
 import com.paperworld.java.ai.steering.AbstractSteeringBehaviour;
 import com.paperworld.java.ai.steering.SteeringOutput;
+import com.paperworld.java.api.IInput;
 
 /**
  * The seek steering behaviour takes a target and aims right for it with maximum
@@ -24,12 +26,12 @@ public class Seek extends AbstractSteeringBehaviour
 	 * The target may be any vector (i.e. it might be something that has no
 	 * orientation, such as a point in space).
 	 */
-	public Vector3	target;
+	public Vector3f	target;
 	
 	/**
 	 * The maximum acceleration that can be used to reach the target.
 	 */
-	public Double	maxAcceleration;
+	public float maxAcceleration;
 	
 	/**
 	 * Works out the desired steering and writes it into the given steering
@@ -39,13 +41,19 @@ public class Seek extends AbstractSteeringBehaviour
 	{
 		// First work out the direction
 		output.linear = target;
-		output.linear.returnSubtraction(character.position);
+		output.linear.subtract(character.position);
 		
 		// If there is no direction, do nothing
-		if (output.linear.getSquareMagnitude() > 0)
+		if (output.linear.lengthSquared() > 0)
 		{
-			output.linear.normalise();
-			output.linear.returnScale(maxAcceleration);
+			output.linear.normalize();
+			output.linear.mult(maxAcceleration);
 		}
+	}
+
+	@Override
+	public void getSteering(SteeringOutput output, IInput input) {
+		// TODO Auto-generated method stub
+		
 	}
 }

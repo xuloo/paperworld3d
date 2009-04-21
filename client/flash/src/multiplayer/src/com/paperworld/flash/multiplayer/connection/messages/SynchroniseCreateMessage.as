@@ -10,7 +10,7 @@ package com.paperworld.flash.multiplayer.connection.messages
 	 * Represents a message from the server telling the client to create a new
 	 * object that will be synchronised with its server-side counterpart.
 	 */
-	public class SynchroniseCreateMessage extends Red5Message
+	public class SynchroniseCreateMessage extends BaseMessage
 	{
 		/**
 		 * @private

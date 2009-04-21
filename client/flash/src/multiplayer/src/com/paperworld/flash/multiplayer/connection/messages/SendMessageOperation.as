@@ -24,19 +24,15 @@ package com.paperworld.flash.multiplayer.connection.messages
 		
 		override public function execute():void 
 		{
-			_message.messageSent();
-			
-			_message.write(_connection);
 			_message.addEventListener(Event.COMPLETE, handleComplete);
 			_message.addEventListener(FaultEvent.FAULT, handleError);
 			
-			_message.messageConfirmed();
-
+			_message.write(_connection);			
 		}
 		
 		override public function get result():*
 		{
-			return _message;
+			return _message.read();
 		}
 		
 	}

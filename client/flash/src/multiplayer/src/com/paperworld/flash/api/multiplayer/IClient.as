@@ -22,5 +22,7 @@ package com.paperworld.flash.api.multiplayer
 		function sendToPlayer(message:IPlayerMessage):IOperation;
 		
 		function sendToGroup(message:IGroupMessage):IOperation;
+		
+		function connect():IOperation;
 	}
 }

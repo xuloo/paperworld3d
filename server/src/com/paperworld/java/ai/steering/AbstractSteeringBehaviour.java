@@ -11,7 +11,7 @@
  */
 package com.paperworld.java.ai.steering;
 
-import com.paperworld.java.data.Input;
+import com.paperworld.java.api.IInput;
 
 
 /**
@@ -24,7 +24,7 @@ abstract public class AbstractSteeringBehaviour {
      */
     protected Kinematic character;
     
-    protected Input input;
+    protected IInput input;
 
     /**
      * Works out the desired steering and writes it into the given
@@ -32,7 +32,7 @@ abstract public class AbstractSteeringBehaviour {
      */
     abstract public void getSteering(SteeringOutput output);
     
-    abstract public void getSteering(SteeringOutput output, Input input);
+    abstract public void getSteering(SteeringOutput output, IInput input);
     
     public void setCharacter(Kinematic character) {
     	this.character = character;
@@ -42,11 +42,11 @@ abstract public class AbstractSteeringBehaviour {
     	return character;
     }
     
-    public void setInput(Input input) {
+    public void setInput(IInput input) {
     	this.input = input;
     }
     
-    public Input getInput() {
+    public IInput getInput() {
     	return input;
     }
 }

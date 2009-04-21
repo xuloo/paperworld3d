@@ -11,6 +11,10 @@ package com.paperworld.flash.api.multiplayer
 		
 		function set client(value:Object):void;
 		
-		function get uri():String;
+		function get rtmpURI():String;
+		
+		function get connected():Boolean;
+		
+		function get connectionArgs():Array;
 	}
 }

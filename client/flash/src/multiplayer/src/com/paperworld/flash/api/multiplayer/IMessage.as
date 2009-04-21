@@ -33,21 +33,5 @@ package com.paperworld.flash.api.multiplayer
 		 * will return the Object that's been sent.
 		 */
 		function read():*;
-
-		/**
-		 * Invoked when this message has been sent to the client
-		 * but before it's written to the connection.
-		 */
-		function messageSent():void;
-		
-		/**
-		 * Invoked when this message has been written to the connection.
-		 */
-		function messageConfirmed():void;
-		
-		/**
-		 * Invoked when the server acknowledges receipt of the message.
-		 */
-		function messageAcknowledged():void;
 	}
 }

@@ -14,6 +14,7 @@ package com.paperworld.java.ai.steering.behaviour;
 import com.jme.math.Vector3f;
 import com.paperworld.java.ai.steering.AbstractSteeringBehaviour;
 import com.paperworld.java.ai.steering.SteeringOutput;
+import com.paperworld.java.api.IInput;
 
 /**
  * The seek steering behaviour takes a target and aims in the opposite direction
@@ -30,7 +31,7 @@ public class Flee extends AbstractSteeringBehaviour
 	/**
 	 * The maximum acceleration that can be used to reach the target.
 	 */
-	public Double	maxAcceleration;
+	public float maxAcceleration;
 	
 	/**
 	 * Works out the desired steering and writes it into the given steering
@@ -48,5 +49,11 @@ public class Flee extends AbstractSteeringBehaviour
 			output.linear.normalize();
 			output.linear = output.linear.mult(maxAcceleration);
 		}
+	}
+
+	@Override
+	public void getSteering(SteeringOutput output, IInput input) {
+		// TODO Auto-generated method stub
+		
 	}
 }

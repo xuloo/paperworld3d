@@ -4,11 +4,16 @@ package com.paperworld.flash.multiplayer.connection.messages
 	import com.paperworld.flash.api.multiplayer.ISynchronisedAvatar;
 	
 
-	public class RequestIdMessage extends Red5Message
+	public class RequestIdMessage extends BaseMessage
 	{		
+		override public function get aliasName():String
+		{
+			return "com.paperworld.java.impl.message.RequestIdMessage";
+		}
+		
 		override public function get command():String 
 		{
-			return "multiplayer.getAvatarId";
+			return "multiplayer.receiveMessage";
 		}
 		
 		private var _uniqueId:String;
@@ -18,14 +23,11 @@ package com.paperworld.flash.multiplayer.connection.messages
 			super();
 		}
 		
-		override public function write(connection:INetConnection):void
-		{
-			connection.call(command, responder, senderId);
-		}
-		
 		override public function onResult(result:Object):void
 		{
 			_uniqueId = String(result);
+			
+			super.onResult(result);
 		}
 		
 		override public function read():* 

@@ -5,6 +5,7 @@ package com.paperworld.flash.multiplayer.connection
 	
 	import flash.events.NetStatusEvent;
 	import flash.net.NetConnection;
+	import flash.net.ObjectEncoding;
 
 	public class Red5Connection extends NetConnection implements INetConnection
 	{
@@ -21,17 +22,42 @@ package com.paperworld.flash.multiplayer.connection
 		
 		private var _connected	: Boolean = false;
 		
+		private var _rtmpURI:String;
+		
+		public function get rtmpURI():String 
+		{
+			return _rtmpURI;
+		}
+		
+		public function set rtmpURI(value:String):void 
+		{
+			_rtmpURI = value;
+		}
+		
 		private var _connectionArgs:Array;
+		
+		public function set connectionArgs(value:Array):void 
+		{
+			_connectionArgs = value;
+		}
+		
+		public function get connectionArgs():Array 
+		{
+			return _connectionArgs;
+		}
 		
 		public function Red5Connection()
 		{
 			super();
+			
+			objectEncoding = ObjectEncoding.AMF3;
 			
 			addEventListener(NetStatusEvent.NET_STATUS, this.onNetStatus);
 		}
 		
 		private function onNetStatus( event:NetStatusEvent ): void
 		{
+			trace("Red5Connection onNetStatus() - " + event.info.code);
 			var infoCode:String = event.info.code;
 			
 			if ( connected && !_connected && infoCode == Red5Connection.CODE_CONNECT_SUCCESS )

@@ -1,11 +1,10 @@
 package com.paperworld.java.action;
 
-import com.paperworld.java.action.Action;
-import com.paperworld.java.api.ISynchronisedScene;
+import com.paperworld.java.api.IPaperworldService;
 
 public class InjectAvatarAction extends Action {
 
-	private ISynchronisedScene scene;
+	private IPaperworldService service;
 	
 	private String key;
 	
@@ -13,25 +12,25 @@ public class InjectAvatarAction extends Action {
 		
 	}
 	
-	public InjectAvatarAction(ISynchronisedScene scene) {
+	public InjectAvatarAction(IPaperworldService scene) {
 		setScene(scene);
 	}
 	
-	public InjectAvatarAction(ISynchronisedScene scene, String key) {
+	public InjectAvatarAction(IPaperworldService scene, String key) {
 		setScene(scene);
 		setKey(key);
 	}
 		
 	public void act() {
-		scene.setAvatar(key);
+		//service.setAvatar(key);
 	}
 	
-	public void setScene(ISynchronisedScene scene) {
-		this.scene = scene;
+	public void setScene(IPaperworldService scene) {
+		this.service = scene;
 	}
 	
-	public ISynchronisedScene getScene() {
-		return scene;
+	public IPaperworldService getScene() {
+		return service;
 	}
 	
 	public void setKey(String key) {

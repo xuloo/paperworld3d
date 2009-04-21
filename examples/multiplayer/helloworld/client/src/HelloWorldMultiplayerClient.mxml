@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" 
+	creationComplete="onCreationComplete()">
+	<mx:Script>
+		<![CDATA[
+			import com.paperworld.flash.multiplayer.connection.messages.BaseMessage;
+			import com.paperworld.flash.api.multiplayer.IMessage;
+			import com.joeberkovitz.moccasin.service.IOperation;
+			import com.paperworld.flash.multiplayer.connection.client.BasicClient;
+			import com.paperworld.flash.multiplayer.connection.Red5Connection;
+			
+			private var client:BasicClient;
+			
+			public function onCreationComplete():void 
+			{
+				trace("Creation Complete");
+				
+				var connection:Red5Connection = new Red5Connection();
+				connection.connectionArgs = ["this","that"];
+				connection.rtmpURI = "rtmp://localhost/HelloWorldMultiplayer";
+				
+				client = new BasicClient(connection);
+				
+				var connect:IOperation = client.connect();
+				connect.addEventListener(Event.COMPLETE, onConnectionEstablished);
+				connect.execute();
+			}
+			
+			private function onNetStatus(e:NetStatusEvent):void 
+			{
+				trace("NetStatus: " + e.info.code);
+			}
+			
+			private function onConnectionEstablished(event:Event):void 
+			{
+				trace("connection established");
+				
+				var message:IMessage = new BaseMessage();
+				
+				var sendOp:IOperation = client.sendToServer(message);
+				sendOp.execute();
+			}
+			
+		]]>
+	</mx:Script>
+</mx:Application>
