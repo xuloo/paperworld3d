@@ -36,6 +36,8 @@ package com.paperworld.flash.util.keys
 		override public function execute():void
 		{	
 			_input.input[_property] = true;
+			
+			super.execute();
 		}
 	}
 }

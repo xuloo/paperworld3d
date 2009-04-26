@@ -45,6 +45,7 @@ package com.paperworld.flash.util.keys
 
 		public function execute() : void
 		{
+			_input.updateListeners();
 		}
 	}
 }

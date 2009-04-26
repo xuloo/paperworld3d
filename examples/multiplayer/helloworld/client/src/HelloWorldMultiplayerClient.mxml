@@ -3,6 +3,8 @@
 	creationComplete="onCreationComplete()">
 	<mx:Script>
 		<![CDATA[
+			import com.paperworld.flash.util.input.BasicKeyboardInput;
+			import com.paperworld.flash.util.input.IUserInput;
 			import com.paperworld.flash.api.multiplayer.ISynchronisedObject;
 			import org.papervision3d.materials.ColorMaterial;
 			import org.papervision3d.objects.primitives.Plane;
@@ -72,6 +74,8 @@
 				
 				object.displayObject = plane;
 				avatar.object = object;
+				
+				avatar.userInput = new BasicKeyboardInput(stage);
 				
 				synchronisationManager.register(avatar);
 			}

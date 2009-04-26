@@ -21,7 +21,7 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.flash.util.input.events
 {
-	import com.paperworld.flash.util.input.Input;
+	import com.paperworld.flash.util.input.IInput;
 	
 	import flash.events.Event;	
 
@@ -34,9 +34,9 @@ package com.paperworld.flash.util.input.events
 		
 		public var time:int;
 		
-		public var input:Input;
+		public var input:IInput;
 		
-		public function UserInputEvent(type : String, time:int, input:Input, bubbles : Boolean = false, cancelable : Boolean = false)
+		public function UserInputEvent(type : String, input:IInput, bubbles : Boolean = false, cancelable : Boolean = false)
 		{
 			super( type, bubbles, cancelable );
 			

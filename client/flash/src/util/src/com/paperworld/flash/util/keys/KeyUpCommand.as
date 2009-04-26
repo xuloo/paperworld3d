@@ -1,9 +1,9 @@
 /* --------------------------------------------------------------------------------------
  * PaperWorld3D - building better worlds
  * --------------------------------------------------------------------------------------
- * Real-Time Multi-User Application Framework for the Flash Platform.
+ * Real-Time Multi-Platform Multi-User Application Framework.
  * --------------------------------------------------------------------------------------
- * Copyright (C) 2008 Trevor Burton [worldofpaper@googlemail.com]
+ * Copyright (C) 2008 Trevor Burton [trevor@flashmonkey.org]
  * --------------------------------------------------------------------------------------
  * 
  * This library is free software; you can redistribute it and/or modify it under the 
@@ -24,7 +24,7 @@ package com.paperworld.flash.util.keys
 	import com.paperworld.flash.util.input.IUserInput;		
 
 	/**
-	 * @author Trevor Burton [worldofpaper@googlemail.com]
+	 * @author Trevor Burton [trevor@flashmonkey.org]
 	 */
 	public class KeyUpCommand extends KeyCommand 
 	{
@@ -36,6 +36,8 @@ package com.paperworld.flash.util.keys
 		override public function execute():void
 		{	
 			_input.input[_property] = false;
+			
+			super.execute();
 		}
 	}
 }

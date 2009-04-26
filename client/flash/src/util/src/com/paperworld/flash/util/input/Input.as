@@ -33,6 +33,8 @@ package com.paperworld.flash.util.input
 	 */
 	public class Input implements IInput, IExternalizable, IRegisteredClass
 	{				
+		public static const MOVE_FORWARD:String = "moveForward";
+		
 		private var _moveForward:Boolean;
 		
 		public function get moveForward():Boolean
@@ -44,6 +46,8 @@ package com.paperworld.flash.util.input
 		{
 			_moveForward = value;
 		}
+		
+		public static const MOVE_BACKWARD:String = "moveBackward";
 		
 		private var _moveBackward:Boolean;
 		
@@ -57,6 +61,8 @@ package com.paperworld.flash.util.input
 			_moveBackward = value;
 		}
 		
+		public static const MOVE_LEFT:String = "moveLeft";
+		
 		private var _moveLeft:Boolean;
 		
 		public function get moveLeft():Boolean
@@ -68,6 +74,8 @@ package com.paperworld.flash.util.input
 		{
 			_moveLeft = value;
 		}
+		
+		public static const MOVE_RIGHT:String = "moveRight";
 		
 		private var _moveRight:Boolean;
 		
@@ -81,6 +89,8 @@ package com.paperworld.flash.util.input
 			_moveRight = value;	
 		}
 		
+		public static const MOVE_UP:String = "moveUp";
+		
 		private var _moveUp:Boolean;
 		
 		public function get moveUp():Boolean
@@ -92,6 +102,8 @@ package com.paperworld.flash.util.input
 		{
 			_moveUp = value;
 		}
+		
+		public static const MOVE_DOWN:String = "moveDown";
 		
 		private var _moveDown:Boolean;
 		
@@ -105,6 +117,8 @@ package com.paperworld.flash.util.input
 			_moveDown = value;
 		}
 		
+		public static const PITCH_POSITIVE:String = "pitchPositive";
+		
 		private var _pitchPositive:Boolean;
 		
 		public function get pitchPositive():Boolean
@@ -116,6 +130,8 @@ package com.paperworld.flash.util.input
 		{
 			_pitchPositive = value;
 		}
+		
+		public static const PITCH_NEGATIVE:String = "pitchNegative";
 		
 		private var _pitchNegative:Boolean; 
 		
@@ -129,6 +145,8 @@ package com.paperworld.flash.util.input
 			_pitchNegative = value;
 		}
 		
+		public static const ROLL_POSITIVE:String = "rollPositive";
+		
 		private var _rollPositive:Boolean; 
 		
 		public function get rollPositive():Boolean
@@ -140,6 +158,8 @@ package com.paperworld.flash.util.input
 		{
 			_rollPositive = value;
 		}
+		
+		public static const ROLL_NEGATIVE:String = "rollNegative";
 		
 		private var _rollNegative:Boolean; 
 		
@@ -153,6 +173,8 @@ package com.paperworld.flash.util.input
 			_rollNegative = value;
 		}
 		
+		public static const YAW_POSITIVE:String = "yawPositive";
+		
 		private var _yawPositive:Boolean; 
 		
 		public function get yawPositive():Boolean
@@ -164,6 +186,8 @@ package com.paperworld.flash.util.input
 		{
 			_yawPositive = value;
 		}
+		
+		public static const YAW_NEGATIVE:String = "yawNegative";
 		
 		private var _yawNegative:Boolean; 
 		
@@ -177,6 +201,8 @@ package com.paperworld.flash.util.input
 			_yawNegative = value;
 		}
 		
+		public static const FIRE:String = "fire";
+		
 		private var _fire:Boolean; 
 		
 		public function get fire():Boolean
@@ -188,6 +214,8 @@ package com.paperworld.flash.util.input
 		{
 			_fire = value;
 		}
+		
+		public static const JUMP:String = "jump";
 		
 		private var _jump:Boolean; 
 		
@@ -302,7 +330,7 @@ package com.paperworld.flash.util.input
 			return !equals( other );	
 		}
 
-		public function copyFrom(other : Input) : void
+		public function copyFrom(other : IInput) : void
 		{
 			_moveForward 	= other.moveForward;
 			_moveBackward 	= other.moveBackward; 

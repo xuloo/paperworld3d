@@ -7,17 +7,24 @@ package com.paperworld.flash.multiplayer.sync
 	import com.paperworld.flash.api.multiplayer.ISynchronisedAvatar;
 	import com.paperworld.flash.api.multiplayer.ISynchronisedScene;
 	import com.paperworld.flash.api.multiplayer.messages.IServerSyncMessage;
+	import com.paperworld.flash.multiplayer.connection.messages.BatchInputMessage;
+	import com.paperworld.flash.multiplayer.connection.messages.PlayerSyncMessage;
 	import com.paperworld.flash.multiplayer.connection.messages.RequestIdMessage;
 	import com.paperworld.flash.multiplayer.connection.messages.ServerSyncMessage;
 	import com.paperworld.flash.multiplayer.connection.messages.SynchroniseCreateMessage;
 	import com.paperworld.flash.util.AbstractProcessor;
 	import com.paperworld.flash.util.input.IInput;
+	import com.paperworld.flash.util.timer.ITimer;
+	import com.paperworld.flash.util.timer.TimerManager;
+	import com.paperworld.flash.util.timer.events.ITimerEvent;
 	
 	import flash.events.Event;
 	import flash.utils.Dictionary;
 	
 	public class SynchronisationManager extends AbstractProcessor implements ISyncManager	
 	{		
+		private static const SEND_INPUT_TIMER:String = "SendInputTimer";
+		
 		private var _client:IClient;
 		
 		private var _scene:ISynchronisedScene;
@@ -39,6 +46,8 @@ package com.paperworld.flash.multiplayer.sync
 		
 		private var _avatars:Dictionary = new Dictionary();
 		
+		private var _sendInputTimer:ITimer;
+		
 		public function set client(value:IClient):void
 		{
 			_client = value;
@@ -47,6 +56,10 @@ package com.paperworld.flash.multiplayer.sync
 		public function SynchronisationManager()
 		{
 			super([SynchroniseCreateMessage, ServerSyncMessage]);
+			
+			_sendInputTimer = TimerManager.instance.startAccurateIntervalTimer(200, 10000, SEND_INPUT_TIMER);
+			_sendInputTimer.addEventListener(ITimerEvent.TICK, _onSendInputTimerTick);
+			_sendInputTimer.start();
 		}
 		
 		/**
@@ -100,6 +113,7 @@ package com.paperworld.flash.multiplayer.sync
 			delete _waitingForId[operation];
 			
 			_avatars[avatar.id] = avatar;
+			avatar.syncManager = this;
 			_scene.addAvatar(avatar);
 				
 			// Now that we have a custom id for this avatar we 
@@ -133,13 +147,12 @@ package com.paperworld.flash.multiplayer.sync
 		
 		public function handleAvatarMove(id:String, input:IInput):void
 		{
-			
+			trace("handling avatar move");
+			_batchedMoves.push(new PlayerSyncMessage(id, input));
 		}
 		
 		override public function process(object:*):void
 		{
-			trace("processing: " + object);
-			
 			// If we're receiving a synchronise create message
 			// then another client has joined the game and 
 			// we need to create an avatar that represents them.
@@ -149,10 +162,29 @@ package com.paperworld.flash.multiplayer.sync
 			}
 			else if (object is ServerSyncMessage)
 			{
-				trace("processing ServerSyncMessage");
 				var message:IServerSyncMessage = IServerSyncMessage(object);
 				var avatar:ISynchronisedAvatar = ISynchronisedAvatar(_avatars[message.objectId]);
+				
 				avatar.synchronise(message.time, message.input, message.state);
+			}
+		}
+		
+		private function _onSendInputTimerTick(e:ITimerEvent):void 
+		{
+			// We only need to send input to the server if there's input to send.
+			if (_batchedMoves.length > 0)
+			{
+				trace("sending input " + _batchedMoves.length);
+				// Create a new BatchInputMessage and give it the list
+				// batched messages we're currently holding onto.
+				var batchMessage:BatchInputMessage = new BatchInputMessage();
+				batchMessage.messages = _batchedMoves.concat();
+				
+				// Clear the batched moves array so we can catch more.
+				_batchedMoves = [];
+				
+				// Send the batch to the server.
+				_client.sendToServer(batchMessage).execute();
 			}
 		}
 	}

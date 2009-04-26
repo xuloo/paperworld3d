@@ -1,70 +1,35 @@
 package com.paperworld.flash.util.timer 
 {
-	import flash.utils.clearInterval;	import flash.utils.setInterval;    
-	public class AbstractTimer implements Timer
+	import flash.events.EventDispatcher;
+	import flash.events.TimerEvent;
+	import flash.utils.Timer;    
+	public class AbstractTimer extends EventDispatcher implements ITimer
     {
-        /**
-         * The timerId.
-         */
-        private var timerId:Number;
-
-        /**
-         * The listener object to call back when the timer is complete.
-         */
-        protected var listener:Object;
-
-        /**
-         * The callback method for when the timer is complete.
-         */
-        private var method:Function;
-
+    	private var _timer:Timer;
+    	
+    	protected function get timer():Timer 
+    	{
+    		return _timer;	
+    	}
+    	
         /**
          * Constructor, private to prevent direct instantiation.
          */
-        public function AbstractTimer()
+        public function AbstractTimer(delay:int, repeatCount:int = 0)
         {
-        }	
-
-        /**
-         * Callback the listener via the supplied callback method.
-         */	
-        protected function callBack():void
-        {
-            method.call(listener);
+        	_timer = new Timer(delay, repeatCount);
+        	_timer.addEventListener(TimerEvent.TIMER, _timerTick);
+        	_timer.addEventListener(TimerEvent.TIMER_COMPLETE, _timerComplete);
         }
-
-        /**
-         * Start the timer.
-         * Return the timer id.
-         * All sub-classes must implement an update method to receive the timer event.
-         */
-        public function startTimer(milliseconds:Number, listener:Object, method:Function):Number
+        
+        public function start():void 
         {
-            this.listener = listener;
-            this.method = method;		
-			
-            // Check if the end time has been reached at reqular intervals.
-            timerId = setInterval(update, milliseconds);
-            return timerId;
+        	_timer.start();
         }
-
-        /**
-         * Stop the timer before it would otherwise genuinely expire.
-         * Remove the reference to the timerId from the TimerManager singleton.
-         * Use as a destroy.
-         */	 
-        public function stopTimer():void
-        {		
-            clearInterval(timerId);
-            TimerManager.getInstance().removeTimer(timerId.toString());
-            timerId = NaN;
-        }
-
-        /**
-         * Required implentation.
-         */
-        public function update():void
+        
+        public function stop():void 
         {
+        	_timer.stop();
         }
 
         /**
@@ -72,8 +37,17 @@ package com.paperworld.flash.util.timer
          */
         public function destroy():void
         {		
-            listener = null;
-            method = null;
+        	stop();
+        }
+        
+        protected function _timerTick(e:TimerEvent) : void 
+        {
+        	
+        }
+        
+        protected function _timerComplete(e:TimerEvent):void 
+        {
+        	
         }
     }
 }

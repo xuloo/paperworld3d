@@ -1,14 +1,14 @@
 package com.paperworld.flash.util.timer 
 { 
 
-	public class CountdownTimer extends AccurateTimer
+	public class CountdownTimer extends AccurateIntervalTimer
 	{
 		/**
 		 * Constructor.
 		 */
-		public function CountdownTimer()
+		public function CountdownTimer(duration:int, rate:int)
 		{
-			super();
+			super(0, 0);
 		}
 	
 		/**
@@ -17,7 +17,7 @@ package com.paperworld.flash.util.timer
 		 */
 		public function synchroniseTimer(milliseconds:Number):void
 		{
-			setEndTime(milliseconds);
+			//setEndTime(milliseconds);
 			update();
 		}
 	
@@ -26,10 +26,10 @@ package com.paperworld.flash.util.timer
 		 * Inform listener of time remaining.
 		 * Forward to parent class to check against endtime.
 		 */
-		override public function update():void
+		public function update():void
 		{
-			CountdownTimerListener(listener).updateTime(getTimeRemaining());
-			super.update();
+			//CountdownTimerListener(listener).updateTime(getTimeRemaining());
+			//super.update();
 		}
 	}
 }

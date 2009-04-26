@@ -43,7 +43,7 @@ package com.paperworld.flash.multiplayer.objects
 
 		override public function set userInput(value : IUserInput) : void
 		{
-			//value.addListener( this );
+			value.addEventListener(UserInputEvent.INPUT_CHANGED, onInputUpdate);
 		}
 
 		public function LocalAvatar()
@@ -71,7 +71,6 @@ package com.paperworld.flash.multiplayer.objects
 
 		override public function synchronise(time : int, input : IInput, state : State) : void
 		{			
-			trace("synchronsing avatar");
 			/*var original : State = state.clone( );
 			
 			if (original.compare( state ))
@@ -86,7 +85,8 @@ package com.paperworld.flash.multiplayer.objects
 
 		public function onInputUpdate(event : UserInputEvent) : void
 		{
-			_input = event.input;
+			trace("input update " + syncManager);
+			syncManager.handleAvatarMove(id, _input.clone());
 		}
 	}
 }

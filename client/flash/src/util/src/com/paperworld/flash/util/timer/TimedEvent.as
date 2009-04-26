@@ -1,6 +1,6 @@
 package com.paperworld.flash.util.timer 
 {
-    public class TimedEvent extends AccurateTimer
+    public class TimedEvent extends AccurateIntervalTimer
     {
         /**
          * The event to be passed to the listener when the timer has expired.
@@ -10,19 +10,11 @@ package com.paperworld.flash.util.timer
         /**
          * Constructor.
          */
-        public function TimedEvent(event:Object)
+        public function TimedEvent(delay:int, repeatCount:int = 0, event:Object = null)
         {
-            super();
+            super(delay, repeatCount);
             this.event = event;
         }	
-
-        /**
-         * Overrides the AbstractTimer callback method.
-         */
-        override protected function callBack():void
-        {
-            TimedEventListener(listener).notify(event);
-        }
 
         /**
          * Overrides the AbstractTimer destroy method.

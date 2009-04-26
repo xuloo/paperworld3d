@@ -23,87 +23,89 @@ package com.paperworld.flash.util.input
 {
 	import com.paperworld.flash.util.keys.KeyDefinitions;
 	import com.paperworld.flash.util.keys.KeyDownCommand;
-	import com.paperworld.flash.util.keys.KeyUpCommand;	
+	import com.paperworld.flash.util.keys.KeyUpCommand;
+	
+	import flash.display.Stage;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
 	 */
 	public class BasicKeyboardInput extends KeyboardInput 
 	{
-		public function BasicKeyboardInput()
+		public function BasicKeyboardInput(stage:Stage = null)
 		{
-			super( );
+			super( stage );
+			
+			initialise();
 		}
 		
-		override public function initialise():void
-		{
-			super.initialise();
-			
+		public function initialise():void
+		{			
 			// Handle Forward Key Press - mapped to 'w' key.
 			var forwardKeyUpCommand : KeyUpCommand = new KeyUpCommand(this );
-			forwardKeyUpCommand.property = 'forward';
+			forwardKeyUpCommand.property = Input.MOVE_FORWARD;
 			
 			var forwardKeyDownCommand : KeyDownCommand = new KeyDownCommand(this );
-			forwardKeyDownCommand.property = 'forward';
+			forwardKeyDownCommand.property = Input.MOVE_FORWARD;
 			
 			_keyUpCommands[KeyDefinitions.W] = forwardKeyUpCommand;
 			_keyDownCommands[KeyDefinitions.W] = forwardKeyDownCommand;
 			
 			// Handle Back Key Press - mapped to 's' key.
 			var backKeyUpCommand : KeyUpCommand = new KeyUpCommand(this );
-			backKeyUpCommand.property = 'back';
+			backKeyUpCommand.property = Input.MOVE_BACKWARD;
 			
 			var backKeyDownCommand : KeyDownCommand = new KeyDownCommand(this );
-			backKeyDownCommand.property = 'back';
+			backKeyDownCommand.property = Input.MOVE_BACKWARD;
 			
 			_keyUpCommands[KeyDefinitions.S] = backKeyUpCommand;
 			_keyDownCommands[KeyDefinitions.S] = backKeyDownCommand;
 			
 			// Handle Right Key Press - mapped to 'd' key.
 			var rightKeyUpCommand : KeyUpCommand = new KeyUpCommand(this );
-			rightKeyUpCommand.property = 'moveRight';
+			rightKeyUpCommand.property = Input.MOVE_RIGHT;
 			
 			var rightKeyDownCommand : KeyDownCommand = new KeyDownCommand(this );
-			rightKeyDownCommand.property = 'moveRight';
+			rightKeyDownCommand.property = Input.MOVE_RIGHT;
 			
 			_keyUpCommands[KeyDefinitions.D] = rightKeyUpCommand;
 			_keyDownCommands[KeyDefinitions.D] = rightKeyDownCommand;
 			
 			// Handle Left Key Press - mapped to 'a' key.
 			var leftKeyUpCommand : KeyUpCommand = new KeyUpCommand(this );
-			leftKeyUpCommand.property = 'moveLeft';
+			leftKeyUpCommand.property = Input.MOVE_LEFT;
 			
 			var leftKeyDownCommand : KeyDownCommand = new KeyDownCommand(this );
-			leftKeyDownCommand.property = 'moveLeft';
+			leftKeyDownCommand.property = Input.MOVE_LEFT;
 			
 			_keyUpCommands[KeyDefinitions.A] = leftKeyUpCommand;
 			_keyDownCommands[KeyDefinitions.A] = leftKeyDownCommand;
 			
 			// Handle Right Arrow Key Press - mapped to '->' key.
 			var turnRightKeyUpCommand : KeyUpCommand = new KeyUpCommand(this );
-			turnRightKeyUpCommand.property = 'turnRight';
+			turnRightKeyUpCommand.property = Input.YAW_POSITIVE;
 			
 			var turnRightKeyDownCommand : KeyDownCommand = new KeyDownCommand(this );
-			turnRightKeyDownCommand.property = 'turnRight';
+			turnRightKeyDownCommand.property = Input.YAW_POSITIVE;
 			
 			_keyUpCommands[KeyDefinitions.RIGHT_ARROW] = turnRightKeyUpCommand;
 			_keyDownCommands[KeyDefinitions.RIGHT_ARROW] = turnRightKeyDownCommand;
 			
 			// Handle Left Arrow Key Press - mapped to '<-' key.
 			var turnLeftKeyUpCommand : KeyUpCommand = new KeyUpCommand(this );
-			turnLeftKeyUpCommand.property = 'turnLeft';
+			turnLeftKeyUpCommand.property = Input.YAW_NEGATIVE;
 			
 			var turnLeftKeyDownCommand : KeyDownCommand = new KeyDownCommand(this );
-			turnLeftKeyDownCommand.property = 'turnLeft';
+			turnLeftKeyDownCommand.property = Input.YAW_NEGATIVE;
 			
 			_keyUpCommands[KeyDefinitions.LEFT_ARROW] = turnLeftKeyUpCommand;
 			_keyDownCommands[KeyDefinitions.LEFT_ARROW] = turnLeftKeyDownCommand;
 			
 			var fireDownCommand : KeyDownCommand = new KeyDownCommand( this );
-			fireDownCommand.property = 'fire';
+			fireDownCommand.property = Input.FIRE;
 			
 			var fireUpCommand : KeyUpCommand = new KeyUpCommand( this );
-			fireUpCommand.property = 'fire';
+			fireUpCommand.property = Input.FIRE;
 			
 			_keyUpCommands[KeyDefinitions.SPACEBAR] = fireUpCommand;			_keyDownCommands[KeyDefinitions.SPACEBAR] = fireDownCommand;
 		}

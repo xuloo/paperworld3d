@@ -21,8 +21,6 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.flash.util.input 
 {
-	import com.paperworld.flash.util.clock.Clock;
-	import com.paperworld.flash.util.clock.events.ClockEvent;
 	import com.paperworld.flash.util.input.events.UserInputEvent;
 	
 	import flash.display.Stage;
@@ -36,12 +34,19 @@ package com.paperworld.flash.util.input
 		/**
 		 * The state of the user's input in the current timestep.
 		 */
-		public var current : Input;
+		private var _current : IInput = new Input();
+		
+		private var _previous : IInput = new Input();
 
-		/**
-		 * The state of the user's input in the previous timestep.
-		 */
-		public var previous : Input;
+		public function get input():IInput
+		{
+			return _current;
+		}
+		
+		public function set input(value:IInput):void 
+		{
+			_current = value;
+		}
 
 		protected var _target : Stage;
 
@@ -50,35 +55,22 @@ package com.paperworld.flash.util.input
 			_target = value;
 		}
 
-		protected var _commands : Array;
+		protected var _commands : Array = [];
 
 		public function AbstractUserInput()
 		{
 			super( this );
 		}
 
-		public function initialise() : void
+		public function updateListeners() : void
 		{
-			current = new Input( );
-			previous = new Input( );
-			
-			_commands = new Array( );
-			
-			Clock.getInstance( ).addEventListener( ClockEvent.TIMESTEP, update );
-		}
-
-		public function get input() : Input
-		{
-			return current;
-		}
-
-		public function update(event : ClockEvent = null) : void
-		{			
-			if (current.notEquals( previous ))
+			trace("updating listeners")
+			if (_current.notEquals(_previous))
 			{
-				dispatchEvent( new UserInputEvent( UserInputEvent.INPUT_CHANGED, event.time, current ) );
+				trace("input has changed");
+				_previous.copyFrom(_current);
 				
-				previous.copyFrom( current );
+				dispatchEvent( new UserInputEvent( UserInputEvent.INPUT_CHANGED, _current ) );
 			}
 		}
 

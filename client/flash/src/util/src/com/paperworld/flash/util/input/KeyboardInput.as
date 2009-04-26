@@ -32,7 +32,7 @@ package com.paperworld.flash.util.input
 	 */
 	public class KeyboardInput extends AbstractUserInput 
 	{		
-		protected var _keyUpCommands:Array;
+		protected var _keyUpCommands:Array = [];
 		
 		public function get keyUpCommands():Array 
 		{
@@ -44,7 +44,7 @@ package com.paperworld.flash.util.input
 			_keyUpCommands = value;
 		}
 
-		protected var _keyDownCommands:Array;
+		protected var _keyDownCommands:Array = [];
 
 		public function get keyDownCommands():Array 
 		{
@@ -64,20 +64,17 @@ package com.paperworld.flash.util.input
 			_target.addEventListener( KeyboardEvent.KEY_UP, onKeyUp );
 		}
 
-		public function KeyboardInput()
+		public function KeyboardInput(stage:Stage = null)
 		{
 			super( );
-		}
-
-		override public function initialise() : void
-		{
-			super.initialise();
 			
-			_keyUpCommands = new Array();
-			_keyDownCommands = new Array();
+			if (stage) 
+			{
+				target = stage;
+			}
 			
 			_commands[0] = _keyUpCommands;
-			_commands[1] = _keyDownCommands;	
+			_commands[1] = _keyDownCommands;
 		}
 
 		public function onClick(event : MouseEvent) : void

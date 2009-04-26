@@ -22,18 +22,20 @@
 package com.paperworld.flash.util.input 
 {
 	import flash.display.Stage;
-	import flash.events.IEventDispatcher;
-	
-	import com.paperworld.flash.util.clock.events.ClockEvent;	
+	import flash.events.IEventDispatcher;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
 	 */
 	public interface IUserInput extends IEventDispatcher
 	{
-		function get input() : Input;
+		function get input() : IInput;
+		
+		function set input(value:IInput):void;
 
 		function set target(value : Stage) : void;
+		
+		function updateListeners():void;
 
 		/**
 		 * Returns the mouse x position.

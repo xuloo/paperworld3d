@@ -71,5 +71,7 @@ package com.paperworld.flash.util.input
 		function notEquals(other:IInput):Boolean;
 		
 		function clone():IInput;
+		
+		function copyFrom(other:IInput):void;
 	}
 }

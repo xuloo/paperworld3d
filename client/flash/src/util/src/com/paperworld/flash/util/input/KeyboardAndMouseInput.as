@@ -62,8 +62,10 @@ package com.paperworld.flash.util.input
 			
 			if (squareDistance > threshold)
 			{
-				current.mouseX = x;
-				current.mouseY = y;
+				input.mouseX = x;
+				input.mouseY = y;
+				
+				updateListeners();
 			}
 		}
 	}

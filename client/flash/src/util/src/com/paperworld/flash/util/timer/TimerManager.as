@@ -1,77 +1,78 @@
 package com.paperworld.flash.util.timer 
 {
-	import org.springextensions.actionscript.collections.IMap;
-	import org.springextensions.actionscript.collections.Map;
+	import de.polygonal.ds.HashMap;
 
 	public class TimerManager
     {
+    	private var idArray:Array = [];
+    	
+    	public static const TIMER_PREFIX:String = "__timer";
+    	
         /**
          * The TimerManager instance.
          */
-        private static var tm:TimerManager;
+        private static var _instance:TimerManager;
 
         /**
          * Hashtable containing timer id's.
          */
-        private static var timers : IMap;
+        private var _timers : HashMap;
 
 		/**
          * Constructor, private to prevent instantiation.
          */
         public function TimerManager()
         {
-            timers = new Map();
+            _timers = new HashMap();
 		}
 
         /**
          * Return the singleton instance of the TimerManager class.
          */
-        public static function getInstance():TimerManager
+        public static function get instance():TimerManager
         {
-            if (tm == null)
-            {
-                tm = new TimerManager();
-            }
-	
-            return tm;
+            return _instance = (_instance == null) ? new TimerManager() : _instance;
         }
 
         /**
          * Add a new timer, return the timer id.
          */
-        private function startTimer(timer:Timer, listener:Object, method:Function, rate:Number):Number
+        private function registerTimer(timer:ITimer, name:String = null):ITimer
         {
-            var timerId:Number = timer.startTimer(rate, listener, method);
-            timers.put(timerId.toString(), timer);
-            return timerId;
+        	if (name == null || name.length > 0)
+        	{
+        		name = TIMER_PREFIX + nextId();
+        	}
+
+            _timers.insert(name, timer);
+            
+            return timer;
         }
 
         /**
          * Start a simple timer.
          */
-        public function startSimpleTimer(listener:Object, method:Function, rate:Number):Number
+        public function startSimpleTimer(delay:int, name:String = null):ITimer
         {
-            var timer:SimpleTimer = new SimpleTimer();
-            return startTimer(timer, listener, method, rate);
+            return startSimpleIntervalTimer(delay, 0, name);
         }
 
         /**
          * Start an accurate timer.
          */
-        public function startAccurateTimer(listener:Object, method:Function, rate:Number):Number
+        public function startAccurateTimer(delay:Number, name:String = null):ITimer
         {
-            var timer:AccurateTimer = new AccurateTimer();
-            return startTimer(timer, listener, method, rate);
+            return startAccurateIntervalTimer(delay, 0, name);
         }
 
         /**
          * A simple timer that calls the supplied listener / method
          * at the specified interval until stopped.
          */
-        public function startSimpleIntervalTimer(listener:Object, method:Function, rate:Number):Number
+        public function startSimpleIntervalTimer(delay:Number, repeatCount:int = 0, name:String = null):ITimer
         {
-            var timer:SimpleIntervalTimer = new SimpleIntervalTimer();
-            return startTimer(timer, listener, method, rate);
+            var timer:SimpleIntervalTimer = new SimpleIntervalTimer(delay, repeatCount);
+            return registerTimer(timer, name);
         }
 
         /**
@@ -79,20 +80,20 @@ package com.paperworld.flash.util.timer
          * Calls the supplied listener / method at the specified
          * interval until stopped.
          */
-        public function startAccurateIntervalTimer(listener:Object, method:Function, rate:Number):Number
+        public function startAccurateIntervalTimer(delay:Number, repeatCount:int = 0, name:String = null):ITimer
         {
-            var timer:AccurateIntervalTimer = new AccurateIntervalTimer();
-            return startTimer(timer, listener, method, rate);
+            var timer:AccurateIntervalTimer = new AccurateIntervalTimer(delay, repeatCount);
+            return registerTimer(timer, name);
         }
 
         /**
          * Start a countdown timer which will continually update
          * the listener.
          */
-        public function startCountdown(listener:CountdownTimerListener, method:Function, rate:Number = 1000):CountdownTimer
+        public function startCountdown(duration:int, rate:int, name:String = null):ITimer
         {
-            var timer:CountdownTimer = new CountdownTimer();
-            startTimer(timer, listener, method, rate);
+            var timer:CountdownTimer = new CountdownTimer(duration, rate);
+            registerTimer(timer, name);
             return timer;
         }
 
@@ -100,34 +101,31 @@ package com.paperworld.flash.util.timer
          * Start a timed event that will call back the listener with the supplied object
          * after the specified period of time.
          */
-        public function startTimedEvent(listener:TimedEventListener, rate:Number, event:Object):Number
+        public function startTimedEvent(delay:int, repeatCount:int, event:Object, name:String = null):ITimer
         {
-            var timer:TimedEvent = new TimedEvent(event);
-            return startTimer(timer, listener, null, rate);
+            var timer:TimedEvent = new TimedEvent(delay, repeatCount, event);
+            return registerTimer(timer, name);
         }
 
         /**
          * Stop a indivtimer with a specific timer id.
          */
-        public function stopTimer(timerId:Number):void
+        public function stopTimerByName(name:String):void
         {
-            var id:String = timerId.toString();
-            /*if (timers.containsKey(id))
-            {
-            	var timer:Timer = Timer(timers.get(id));
-                timer.stopTimer();
-                timer.destroy();
-                timer = null;
-                removeTimer(id);
-            }*/
+        	var timer:ITimer = _timers.find(name);
+        	
+        	if (timer)
+        	{
+        		timer.stop();
+        	}	
         }
 
         /**
          * Remove a timer from the timer id list.
          */
-        public function removeTimer(timerId:String):void
+        public function removeTimerByName(name:String):void
         {
-            timers.remove(timerId);
+            _timers.remove(name);
         }
 
         /**
@@ -142,7 +140,28 @@ package com.paperworld.flash.util.timer
                 stopTimer(timerKeys[i]);
             }*/
 	
-            timers.clear();
+            _timers.clear();
+        }
+        
+        private function nextId():int
+        {
+        	if (idArray.length < 1)
+        	{
+        		return 0;
+        	}
+        	
+        	for (var i:int = 0; i < idArray.length; i++)
+        	{
+        		if (idArray[i] == false)
+        		{
+        			return i;	
+        		}
+        	}
+        	
+        	var index:int = idArray.length;
+        	idArray[index] = true;
+        	
+        	return index;
         }
 
         /**

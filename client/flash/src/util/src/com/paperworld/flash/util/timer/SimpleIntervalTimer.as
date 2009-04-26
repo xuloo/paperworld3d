@@ -5,18 +5,9 @@ package com.paperworld.flash.util.timer
         /**
          * Constructor.
          */
-        public function SimpleIntervalTimer()
+        public function SimpleIntervalTimer(delay:int, repeatCount:int = 0)
         {
-            super();
-        }
-
-        /**
-         * Simply callBack the listener and allow setInterval
-         * to repeat until stopped.
-         */
-        override public function update():void
-        {
-            callBack();
+            super(delay, repeatCount);
         }
     }
 }
