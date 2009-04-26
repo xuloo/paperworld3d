@@ -1,7 +1,9 @@
 package com.paperworld.flash.multiplayer.connection.messages
 {
+	import com.paperworld.flash.api.multiplayer.messages.ISynchroniseCreateMessage;
 	import com.paperworld.flash.multiplayer.data.State;
 	import com.paperworld.flash.util.input.IInput;
+	import com.paperworld.flash.util.input.Input;
 	
 	import flash.utils.IDataInput;
 	import flash.utils.IDataOutput;
@@ -10,8 +12,16 @@ package com.paperworld.flash.multiplayer.connection.messages
 	 * Represents a message from the server telling the client to create a new
 	 * object that will be synchronised with its server-side counterpart.
 	 */
-	public class SynchroniseCreateMessage extends BaseMessage
+	public class SynchroniseCreateMessage extends BaseMessage implements ISynchroniseCreateMessage
 	{
+		/**
+		 * @inheritDoc
+		 */
+		override public function get aliasName():String
+		{
+			return "com.paperworld.java.impl.message.SynchroniseCreateMessage";
+		}
+		
 		/**
 		 * @private
 		 */
@@ -57,7 +67,7 @@ package com.paperworld.flash.multiplayer.connection.messages
 		/**
 		 * @private
 		 */
-		private var _input:IInput;
+		private var _input:IInput = new Input();
 		
 		/**
 		 * The initial input state for the new object.
@@ -78,7 +88,7 @@ package com.paperworld.flash.multiplayer.connection.messages
 		/**
 		 * @private
 		 */
-		private var _state:State;
+		private var _state:State = new State();
 		
 		/**
 		 * The initial state for this object.

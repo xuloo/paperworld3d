@@ -29,6 +29,7 @@ import org.red5.server.api.stream.IStreamAwareScopeHandler;
 import org.red5.server.framework.ClientManager;
 import org.red5.server.framework.LayoutManager;
 import org.red5.server.framework.StreamManager;
+import org.red5.server.framework.Client;
 
 import com.paperworld.java.api.message.IMessage;
 import com.paperworld.java.impl.message.BaseMessage;
@@ -54,30 +55,28 @@ public class Application extends ApplicationAdapter implements IStreamAwareScope
 	/** {@inheritDoc} */
     @Override
 	public boolean connect(IConnection conn, IScope scope, Object[] params) {
-    	System.out.println("user joining 1");
 		// Check if the user passed valid parameters.
 		if (params == null || params.length == 0) {
 			// NOTE: "rejectClient" terminates the execution of the current method!
 			rejectClient("No username passed.");
 		}
-		System.out.println("user joining 2");
+
 		// Call original method of parent class.
 		if (!super.connect(conn, scope, params)) {
 			return false;
 		}
 
-		System.out.println("user joining 3");
 		String username = params[0].toString();
 		String uid = conn.getClient().getId();
-		System.out.println("user joining 4");
-		/*Client client = new Client();
+
+		Client client = new Client();
 		client.setUsername(username);
 		client.setAge(100);
-		client.setUid(uid);*/
-		System.out.println("user joining 5");
+		client.setUid(uid);
+
 		// Register the user in the shared object.
-		//clientMgr.addClient(scope, client);
-		System.out.println("user joining 6");
+		clientMgr.addClient(scope, client);
+
 		// Notify client about unique id.
 		ServiceUtils.invokeOnConnection(conn, "setClientID",
 				new Object[] { uid });

@@ -3,24 +3,41 @@ package com.paperworld.flash.multiplayer.sync
 	import com.joeberkovitz.moccasin.service.IOperation;
 	import com.paperworld.flash.api.multiplayer.IClient;
 	import com.paperworld.flash.api.multiplayer.IMessage;
-	import com.paperworld.flash.api.multiplayer.IMessageHandler;
 	import com.paperworld.flash.api.multiplayer.ISyncManager;
 	import com.paperworld.flash.api.multiplayer.ISynchronisedAvatar;
+	import com.paperworld.flash.api.multiplayer.ISynchronisedScene;
+	import com.paperworld.flash.api.multiplayer.messages.IServerSyncMessage;
 	import com.paperworld.flash.multiplayer.connection.messages.RequestIdMessage;
+	import com.paperworld.flash.multiplayer.connection.messages.ServerSyncMessage;
+	import com.paperworld.flash.multiplayer.connection.messages.SynchroniseCreateMessage;
+	import com.paperworld.flash.util.AbstractProcessor;
 	import com.paperworld.flash.util.input.IInput;
 	
 	import flash.events.Event;
 	import flash.utils.Dictionary;
 	
-	public class SynchronisationManager implements ISyncManager	
-	{
-		private var _messageHandlers:Array;
-		
+	public class SynchronisationManager extends AbstractProcessor implements ISyncManager	
+	{		
 		private var _client:IClient;
+		
+		private var _scene:ISynchronisedScene;
+		
+		public function set scene(value:ISynchronisedScene):void 
+		{
+			_scene = value;
+		}
 		
 		private var _batchedMoves:Array = [];
 		
 		private var _waitingForId:Dictionary = new Dictionary();
+		
+		private var _pending:Dictionary = new Dictionary();
+		
+		private var _queue:Dictionary = new Dictionary();
+		
+		private var _destroying:Dictionary = new Dictionary();
+		
+		private var _avatars:Dictionary = new Dictionary();
 		
 		public function set client(value:IClient):void
 		{
@@ -29,11 +46,7 @@ package com.paperworld.flash.multiplayer.sync
 		
 		public function SynchronisationManager()
 		{
-		}
-		
-		public function registerMessageHandler(messageHandler:IMessageHandler):void 
-		{
-			_messageHandlers.push(messageHandler);
+			super([SynchroniseCreateMessage, ServerSyncMessage]);
 		}
 		
 		/**
@@ -46,16 +59,20 @@ package com.paperworld.flash.multiplayer.sync
 		 */
 		public function register(avatar:ISynchronisedAvatar):void 
 		{
+			trace("registering " + avatar);
+			
 			// Create the message.
 			var message:IMessage = new RequestIdMessage();
 			
-			// Add the avatar to the waiting list, using the message as the key.
-			_waitingForId[message] = avatar;
+			// Create the operation that will send the message.
+			var operation:IOperation = _client.sendToServer(message);
+			operation.addEventListener(Event.COMPLETE, onIdRequestComplete);
+			
+			// Add the avatar to the waiting list, using the operation as the key.
+			_waitingForId[operation] = avatar;
 			
 			// Send the message.
-			var sendOperation:IOperation = _client.sendToServer(message);
-			sendOperation.addEventListener(Event.COMPLETE, onIdRequestComplete);
-			sendOperation.execute();
+			operation.execute();
 		}
 		
 		public function unRegister(avatar:ISynchronisedAvatar):void 
@@ -70,19 +87,73 @@ package com.paperworld.flash.multiplayer.sync
 		 */
 		protected function onIdRequestComplete(event:Event):void 
 		{
+			trace("id request complete");
 			// Get the message from the completed operation.
-			var message:IMessage = IOperation(event.target).result as IMessage;
-			
+			var operation:IOperation = IOperation(event.target);
+			var id:String = operation.result as String;
+
 			// Set the id on the avatar that it was requested for.
-			ISynchronisedAvatar(_waitingForId[message]).id = message.read();
+			var avatar:ISynchronisedAvatar = ISynchronisedAvatar(_waitingForId[operation]);
+			avatar.id = id;
 			
 			// Remove the avatar from the waiting list now that it has a unique id.
-			delete _waitingForId[message];
+			delete _waitingForId[operation];
+			
+			_avatars[avatar.id] = avatar;
+			_scene.addAvatar(avatar);
+				
+			// Now that we have a custom id for this avatar we 
+			// need to inform all the other clients connected to the 
+			// same scene that this avatar has joined. This is done
+			// by sending a SynchroniseCreateMessage.
+			var message:IMessage = _createSynchroniseCreateMessage(avatar);
+			var syncOp:IOperation = _client.sendToServer(message);
+			syncOp.addEventListener(Event.COMPLETE, _onSynchroniseCreateMessageComplete);
+			syncOp.execute();
+		}
+		
+		/**
+		 * This method is called when a player on this client has registered
+		 * a new object for synchronisation, a request has been made for a unique
+		 * id and that request has succeeded.
+		 */
+		private function _onSynchroniseCreateMessageComplete(event:Event):void 
+		{
+			trace("synchronise create message complete");
+		}
+		
+		private function _createSynchroniseCreateMessage(avatar:ISynchronisedAvatar):IMessage
+		{
+			var message:SynchroniseCreateMessage = new SynchroniseCreateMessage();
+			message.playerId = _client.id;
+			message.objectId = avatar.id;
+			
+			return message;
 		}
 		
 		public function handleAvatarMove(id:String, input:IInput):void
 		{
 			
+		}
+		
+		override public function process(object:*):void
+		{
+			trace("processing: " + object);
+			
+			// If we're receiving a synchronise create message
+			// then another client has joined the game and 
+			// we need to create an avatar that represents them.
+			if (object is SynchroniseCreateMessage)
+			{
+				
+			}
+			else if (object is ServerSyncMessage)
+			{
+				trace("processing ServerSyncMessage");
+				var message:IServerSyncMessage = IServerSyncMessage(object);
+				var avatar:ISynchronisedAvatar = ISynchronisedAvatar(_avatars[message.objectId]);
+				avatar.synchronise(message.time, message.input, message.state);
+			}
 		}
 	}
 }

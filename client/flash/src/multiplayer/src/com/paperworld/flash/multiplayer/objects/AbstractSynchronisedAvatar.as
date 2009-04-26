@@ -31,6 +31,7 @@ package com.paperworld.flash.multiplayer.objects
 	import com.paperworld.flash.util.clock.Clock;
 	import com.paperworld.flash.util.clock.IClockListener;
 	import com.paperworld.flash.util.clock.events.ClockEvent;
+	import com.paperworld.flash.util.input.IInput;
 	import com.paperworld.flash.util.input.IUserInput;
 	import com.paperworld.flash.util.input.Input;
 	
@@ -126,14 +127,14 @@ package com.paperworld.flash.multiplayer.objects
 		/**
 		 * The current user input state for this object.
 		 */
-		protected var _input : Input;
+		protected var _input : IInput;
 
-		public function get input() : Input
+		public function get input() : IInput
 		{
 			return _input;
 		}
 
-		public function set input(input : Input) : void
+		public function set input(input : IInput) : void
 		{
 			_input = input;
 		}
@@ -208,7 +209,7 @@ package com.paperworld.flash.multiplayer.objects
 			synchronisedObject.synchronise( _time, _input, _current );	
 		}
 
-		public function synchronise(time : int, input : Input, state : State) : void
+		public function synchronise(time : int, input : IInput, state : State) : void
 		{
 		}
 
@@ -262,7 +263,6 @@ package com.paperworld.flash.multiplayer.objects
 			defaultTightness = NaN;
 			smoothTightness = NaN;
 			
-			_input.destroy( );
 			_current.destroy( );	
 			_previous.destroy( );
 		}

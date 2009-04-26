@@ -22,7 +22,7 @@
 package com.paperworld.flash.multiplayer.objects
 {
 	import com.paperworld.flash.multiplayer.data.State;
-	import com.paperworld.flash.util.input.Input;
+	import com.paperworld.flash.util.input.IInput;
 	
 	import org.as3commons.logging.ILogger;
 	import org.as3commons.logging.LoggerFactory;	
@@ -51,7 +51,7 @@ package com.paperworld.flash.multiplayer.objects
 			updating = false;	
 		}
 
-		override public function synchronise(time : int, input : Input, state : State) : void
+		override public function synchronise(time : int, input : IInput, state : State) : void
 		{			
 			// Just ignore any out of order packets...
 			if (time < _lastSyncTime)

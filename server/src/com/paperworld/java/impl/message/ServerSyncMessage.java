@@ -1,5 +1,6 @@
 package com.paperworld.java.impl.message;
 
+import org.red5.annotations.DontSerialize;
 import org.red5.io.amf3.IDataInput;
 import org.red5.io.amf3.IDataOutput;
 
@@ -7,7 +8,7 @@ import com.paperworld.java.api.IInput;
 import com.paperworld.java.api.IState;
 import com.paperworld.java.api.message.IServerSyncMessage;
 
-public class ServerSyncMessage extends PlayerSyncMessage implements IServerSyncMessage{
+public class ServerSyncMessage extends PlayerSyncMessage implements IServerSyncMessage {
 
 	private IState state;
 	
@@ -15,8 +16,8 @@ public class ServerSyncMessage extends PlayerSyncMessage implements IServerSyncM
 		
 	}
 	
-	public ServerSyncMessage(String senderId, int time, IInput input, IState state) {
-		super(senderId, time, input);
+	public ServerSyncMessage(String senderId, String objectId, int time, IInput input, IState state) {
+		super(senderId, objectId, time, input);
 		
 		this.state = state;
 	}
@@ -33,7 +34,7 @@ public class ServerSyncMessage extends PlayerSyncMessage implements IServerSyncM
 	public void readExternal(IDataInput input) {
 		super.readExternal(input);
 
-		this.state = (IState) input.readObject();
+		state = (IState) input.readObject();
 	}
 
 	@Override

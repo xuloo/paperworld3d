@@ -8,19 +8,32 @@ import com.paperworld.java.api.message.IPlayerSyncMessage;
 
 public class PlayerSyncMessage extends BaseMessage implements IPlayerSyncMessage {
 
+	private String objectId = "";
+	
 	private IInput input;
 	
 	private int time;
 	
 	public PlayerSyncMessage() {
-		super(null);
+		super();
 	}
 	
-	public PlayerSyncMessage(String senderId, int time, IInput input) {
+	public PlayerSyncMessage(String senderId, String objectId, int time, IInput input) {
 		super(senderId);
 		
+		this.objectId = objectId;
 		this.time = time;
 		this.input = input;
+	}
+	
+	@Override
+	public String getObjectId() {
+		return objectId;
+	}
+	
+	@Override 
+	public void setObjectId(String objectId) {
+		this.objectId = objectId;
 	}
 	
 	@Override
@@ -47,6 +60,7 @@ public class PlayerSyncMessage extends BaseMessage implements IPlayerSyncMessage
 	public void readExternal(IDataInput input) {
 		super.readExternal(input);
 		
+		objectId = input.readUTF();
 		time = input.readInt();
 		this.input = (IInput) input.readObject();
 	}
@@ -55,6 +69,7 @@ public class PlayerSyncMessage extends BaseMessage implements IPlayerSyncMessage
 	public void writeExternal(IDataOutput output) {
 		super.writeExternal(output);
 		
+		output.writeUTF(objectId);
 		output.writeInt(time);
 		output.writeObject(input);
 	}

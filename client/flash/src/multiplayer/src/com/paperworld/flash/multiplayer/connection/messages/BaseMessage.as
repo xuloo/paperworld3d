@@ -37,7 +37,7 @@ package com.paperworld.flash.multiplayer.connection.messages
 		/**
 		 * @private
 		 */
-		private var _senderId:String;
+		private var _senderId:String = "";
 		
 		/**
 		 * The String id value of the client that originated this message.

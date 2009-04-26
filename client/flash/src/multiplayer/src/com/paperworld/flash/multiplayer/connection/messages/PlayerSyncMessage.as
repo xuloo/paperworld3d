@@ -1,15 +1,30 @@
 package com.paperworld.flash.multiplayer.connection.messages
 {
+	import com.paperworld.flash.api.multiplayer.messages.IPlayerSyncMessage;
+	import com.paperworld.flash.util.Registration;
 	import com.paperworld.flash.util.input.IInput;
+	import com.paperworld.flash.util.input.Input;
 	
 	import flash.utils.IDataInput;
 	import flash.utils.IDataOutput;
 	
-	public class PlayerSyncMessage extends BaseMessage
+	public class PlayerSyncMessage extends BaseMessage implements IPlayerSyncMessage
 	{
 		override public function get aliasName():String
 		{
 			return "com.paperworld.java.impl.message.PlayerSyncMessage";
+		}
+		
+		private var _objectId:String = "";
+		
+		public function get objectId():String
+		{
+			return _objectId;
+		}
+		
+		public function set objectId(value:String):void 
+		{
+			_objectId = value;
 		}
 		
 		private var _time:int;
@@ -24,22 +39,26 @@ package com.paperworld.flash.multiplayer.connection.messages
 			_time = value;
 		}
 		
-		public function PlayerSyncMessage()
-		{
-			super();
-		}
-		
 		private var _input:IInput;
 		
 		public function get input():IInput
 		{
-			return input;
+			return _input;
 		}
 		
 		public function set input(value:IInput):void 
 		{
 			_input = value;
 		}
+		
+		public function PlayerSyncMessage()
+		{
+			super();
+			
+			_input = new Input();
+			
+			Registration.registerClass(this);
+		}		
 		
 		/**
 		 * Handles serialising this object for sending across to the server.
@@ -48,6 +67,7 @@ package com.paperworld.flash.multiplayer.connection.messages
 		{
 			super.writeExternal(output);
 			
+			output.writeUTF(objectId);
 			output.writeInt(time);
 			output.writeObject(input);
 		}
@@ -59,6 +79,7 @@ package com.paperworld.flash.multiplayer.connection.messages
 		{
 			super.readExternal(input);
 			
+			objectId = input.readUTF();
 			time = input.readInt();
 			this.input = input.readObject();
 		}

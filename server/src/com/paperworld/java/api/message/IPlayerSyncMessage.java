@@ -13,11 +13,12 @@ import com.paperworld.java.api.IInput;
  */
 public interface IPlayerSyncMessage extends IMessage {
 
-	public IInput getInput();
+	public String getObjectId();
+	public void setObjectId(String objectId);
 	
+	public IInput getInput();	
 	public void setInput(IInput input);
 	
-	public int getTime();
-	
+	public int getTime();	
 	public void setTime(int time);
 }

@@ -21,8 +21,9 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.flash.pv3d.scenes 
 {
-	import com.paperworld.flash.multiplayer.scenes.AbstractSynchronisedScene;
-	import com.paperworld.flash.pv3d.objects.SynchronisableObject;
+	import com.paperworld.flash.api.multiplayer.ISynchronisedAvatar;
+	import com.paperworld.flash.api.multiplayer.ISynchronisedObject;
+	import com.paperworld.flash.api.multiplayer.ISynchronisedScene;
 	
 	import org.as3commons.logging.ILogger;
 	import org.as3commons.logging.LoggerFactory;
@@ -32,59 +33,57 @@ package com.paperworld.flash.pv3d.scenes
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
 	 */
-	public class SynchronisedScene extends AbstractSynchronisedScene 
+	public class SynchronisedScene implements ISynchronisedScene 
 	{
 		private var logger : ILogger = LoggerFactory.getLogger( "Paperworld(PV3D)" );
 
 		protected var _scene : Scene3D;
 
-		override public function get scene() : *
+		public function get scene() : *
 		{
 			return _scene;
 		}
 
-		override public function set scene(value : *) : void
+		public function set scene(value : *) : void
 		{
 			_scene = value;
 		}
 
-		public function SynchronisedScene(scene : Scene3D)
+		public function SynchronisedScene(scene : Scene3D = null)
 		{
 			super( );
 			
-			_scene = scene;
+			_scene = scene || new Scene3D();
 		}
 
-		override public function initialise() : void
-		{
-			super.initialise( );
-			
-			_scene = new Scene3D( );	
-		}
-
-		override public function addChild(child : *, name : String) : *
+		public function addAvatar(avatar:ISynchronisedAvatar) : ISynchronisedAvatar
 		{			
-			logger.info( "adding " + SynchronisableObject( child ).object );
+			logger.info( "adding " + ISynchronisedObject( avatar.object ).displayObject );
 			
-			if (child is DisplayObject3D)
+			var object:ISynchronisedObject = ISynchronisedObject( avatar.object );
+			
+			if (object && object.displayObject && object.displayObject is DisplayObject3D)
 			{
-				return _scene.addChild( child, name );	
-			}
-			else if (child is SynchronisableObject)
-			{
-				return _scene.addChild( SynchronisableObject( child ).object, name );
-			}
-			else
-			{
-				// error - not a valid type.
+				_scene.addChild(object.displayObject);
+				
+				return avatar;
 			}
 			
 			return null;	
 		}
 
-		override public function removeChild(child : *) : *
+		public function removeAvatar(avatar:ISynchronisedAvatar) : ISynchronisedAvatar
 		{
-			return _scene.removeChild( child );
+			var object:ISynchronisedObject = ISynchronisedObject( avatar.object );
+			
+			if (object && object.displayObject && object.displayObject is DisplayObject3D)
+			{
+				_scene.removeChild( object.displayObject );
+				
+				return avatar;
+			}
+			
+			return null;
 		}
 	}
 }

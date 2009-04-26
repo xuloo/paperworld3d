@@ -2,6 +2,8 @@ package com.paperworld.java.api;
 
 import org.red5.server.api.IConnection;
 
+import com.paperworld.java.api.message.IMessage;
+
 public interface IPlayer {
 
 	public String getId();
@@ -19,4 +21,6 @@ public interface IPlayer {
 	public IConnection getConnection();
 	
 	public void setConnection(IConnection connection);
+	
+	public boolean sendMessage(IMessage message);
 }

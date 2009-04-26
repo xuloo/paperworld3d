@@ -5,17 +5,14 @@ import org.red5.io.amf3.IExternalizable;
 import com.jme.math.Quaternion;
 import com.jme.math.Vector3f;
 
-public interface IState extends IExternalizable{
+public interface IState extends IExternalizable {
 
-	public Vector3f getPosition();
-	
+	public Vector3f getPosition();	
 	public void setPosition(Vector3f position);
 	
-	public Quaternion getOrientation();
-	
+	public Quaternion getOrientation();	
 	public void setOrientation(Quaternion orientation);
 	
-	public int getTime();
-	
+	public int getTime();	
 	public void setTime(int time);
 }

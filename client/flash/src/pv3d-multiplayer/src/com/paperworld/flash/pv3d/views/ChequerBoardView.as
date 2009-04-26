@@ -1,6 +1,7 @@
 package com.paperworld.flash.pv3d.views 
 {
-	import com.paperworld.flash.multiplayer.api.ISynchronisedScene;
+	import com.paperworld.flash.api.multiplayer.ISynchronisedScene;
+	import com.paperworld.flash.pv3d.scenes.SynchronisedScene;
 	
 	import flash.display.Bitmap;
 	import flash.events.Event;
@@ -19,9 +20,8 @@ package com.paperworld.flash.pv3d.views
 	 */
 	public class ChequerBoardView extends BasicView implements IView 
 	{
-
-		//[Embed(source="Chequer.png")] 
-		//private var ChequerImage : Class; 
+		[Embed(source="Chequer.png")] 
+		private var ChequerImage : Class; 
 
 		public var syncScene : ISynchronisedScene;
 
@@ -43,9 +43,13 @@ package com.paperworld.flash.pv3d.views
 			
 			$width = width;
 			$height = height;	
+			
+			syncScene = new SynchronisedScene(scene);
+			
+			initialise();
 		}
 
-		public function initialise(...args) : void 
+		public function initialise() : void 
 		{
 			initialiseFloor( );
 			initialiseCamera( );
@@ -60,7 +64,7 @@ package com.paperworld.flash.pv3d.views
 			
 			floorScene = new Scene3D( );
 			
-			/*var chequer : Bitmap = new ChequerImage( );
+			var chequer : Bitmap = new ChequerImage( );
 			var chequerWidth : Number = chequer.width;
 			var chequerHeight : Number = chequer.height;
 			
@@ -73,7 +77,7 @@ package com.paperworld.flash.pv3d.views
 
 			floor.pitch( 90 );
 			
-			floorScene.addChild( floor );*/
+			floorScene.addChild( floor );
 		}
 
 		protected function initialiseCamera() : void 

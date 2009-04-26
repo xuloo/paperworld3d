@@ -1,7 +1,8 @@
 package com.paperworld.flash.pv3d.objects 
 {
+	import com.paperworld.flash.api.multiplayer.ISynchronisedObject;
 	import com.paperworld.flash.multiplayer.data.State;
-	import com.paperworld.flash.util.input.Input;
+	import com.paperworld.flash.util.input.IInput;
 	import com.paperworld.flash.util.number.Vector3;
 	
 	import org.papervision3d.objects.DisplayObject3D;	
@@ -9,22 +10,30 @@ package com.paperworld.flash.pv3d.objects
 	/**
 	 * @author Trevor
 	 */
-	public class SynchronisablePhysicsObject extends SynchronisableObject 
+	public class SynchronisablePhysicsObject implements ISynchronisedObject
 	{
-		public var physicsObject : *;
-
-		public function SynchronisablePhysicsObject(displayObject : DisplayObject3D = null, physicsObject : * = null) 
+		private var _displayObject : *;
+		
+		public function get displayObject() : *
 		{
-			super( displayObject );
-			
-			this.physicsObject = physicsObject;
+			return _displayObject;
 		}
 
-		override public function synchronise(time : int, input : Input, state : State) : void
+		public function set displayObject(value : *) : void
 		{
-			physicsObject.px = state.position.x;
-			physicsObject.py = state.position.y;
-			physicsObject.velocity = new Vector3( state.velocity.x, state.velocity.z );
+			_displayObject = value;
+		}
+
+		public function SynchronisablePhysicsObject(displayObject : DisplayObject3D = null, physicsObject : * = null) 
+		{			
+			this.displayObject = displayObject;
+		}
+
+		public function synchronise(time : int, input : IInput, state : State) : void
+		{
+			//physicsObject.px = state.position.x;
+			//physicsObject.py = state.position.y;
+			//physicsObject.velocity = new Vector3( state.velocity.x, state.velocity.z );
 			
 			super.synchronise( time, input, state );
 		}

@@ -4,12 +4,12 @@ package com.paperworld.flash.multiplayer.connection.client
 	import com.paperworld.flash.api.multiplayer.IClient;
 	import com.paperworld.flash.api.multiplayer.IGroupMessage;
 	import com.paperworld.flash.api.multiplayer.IMessage;
-	import com.paperworld.flash.api.multiplayer.IMessageHandler;
 	import com.paperworld.flash.api.multiplayer.INetConnection;
 	import com.paperworld.flash.api.multiplayer.IPlayerMessage;
 	import com.paperworld.flash.multiplayer.connection.RemoteSharedObject;
-	import com.paperworld.flash.multiplayer.connection.events.Red5Event;
+	import com.paperworld.flash.multiplayer.connection.handshake.Handshake;
 	import com.paperworld.flash.multiplayer.connection.messages.SendMessageOperation;
+	import com.paperworld.flash.util.AbstractProcessor;
 	
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
@@ -31,9 +31,16 @@ package com.paperworld.flash.multiplayer.connection.client
 		/**
 		 * The unique id assigned to this client's connection by the server.
 		 */
+		public function get id():String 
+		{
+			return _id;
+		}
+		
+		/**
+		 * @private
+		 */
 		public function set id(value:String):void
 		{
-			trace("client id = " + value);
 			_id = value;
 		}
 		
@@ -86,7 +93,7 @@ package com.paperworld.flash.multiplayer.connection.client
 			}
 		}
 		
-		private var messageHandlers:Array = [];
+		private var messageProcessors:Array = [];
 				
 		public function BasicClient(connection:INetConnection = null, sharedObject:RemoteSharedObject = null)
 		{
@@ -105,7 +112,7 @@ package com.paperworld.flash.multiplayer.connection.client
 			trace("BasicClient connecting " + connection.rtmpURI);
 			
 			var handshake:IOperation = new Handshake(this);
-			handshake.addEventListener(Red5Event.CONNECTED, onConnectionEstablished);
+			handshake.addEventListener(Event.COMPLETE, onConnectionEstablished);
 			
 			return handshake;
 		}
@@ -138,7 +145,7 @@ package com.paperworld.flash.multiplayer.connection.client
 		private function _sendMessage(message:IMessage):IOperation 
 		{
 			message.senderId = _id;
-			trace("sending message with id: " + message.senderId);
+
 			return new SendMessageOperation(message, connection);
 		}
 		
@@ -153,11 +160,11 @@ package com.paperworld.flash.multiplayer.connection.client
 		 */
 		public function receiveMessage(message:IMessage):void 
 		{
-			for each (var handler:IMessageHandler in messageHandlers)
+			for each (var processor:AbstractProcessor in messageProcessors)
 			{
-				if (handler.canHandleMessage(message))
+				if (processor.canProcess(message))
 				{
-					handler.handleMessage(message);
+					processor.process(message);
 				}
 			}
 		}
@@ -170,15 +177,20 @@ package com.paperworld.flash.multiplayer.connection.client
 			for (var i:int; i < changeList.length; i++)
 			{
 				var id:String = changeList[i].name;
-				var message:IMessage = IMessage(so.data[id]);
 				
-				receiveMessage(message);
+				var object:Object = so.data[id];
+				var message:IMessage = IMessage(so.data[id]);
+
+				if (message)
+				{
+					receiveMessage(message);
+				}
 			}
 		}
 		
-		public function addMessageHandler(handler:IMessageHandler):void 
+		public function addMessageProcessor(processor:AbstractProcessor):void 
 		{
-			messageHandlers.push(handler);
+			messageProcessors.push(processor);
 		}
 	}
 }

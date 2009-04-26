@@ -1,13 +1,13 @@
 package com.paperworld.flash.api.multiplayer 
 {
 	import com.paperworld.flash.multiplayer.data.State;
-	import com.paperworld.flash.util.input.IUserInput;
-	import com.paperworld.flash.util.input.Input;	
+	import com.paperworld.flash.util.input.IInput;
+	import com.paperworld.flash.util.input.IUserInput;	
 
 	/**
 	 * @author Trevor
 	 */
-	public interface ISynchronisedAvatar
+	public interface ISynchronisedAvatar extends ISynchronisable
 	{
 		function set userInput(value : IUserInput) : void;
 		
@@ -31,9 +31,9 @@ package com.paperworld.flash.api.multiplayer
 
 		function set time(time : int) : void;
 
-		function get input() : Input;
+		function get input() : IInput;
 
-		function set input(input : Input) : void;
+		function set input(input : IInput) : void;
 
 		function get state() : State;
 

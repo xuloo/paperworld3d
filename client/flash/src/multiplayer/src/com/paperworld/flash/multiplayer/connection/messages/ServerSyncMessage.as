@@ -1,11 +1,13 @@
 package com.paperworld.flash.multiplayer.connection.messages
 {
+	import com.paperworld.flash.api.multiplayer.messages.IServerSyncMessage;
 	import com.paperworld.flash.multiplayer.data.State;
+	import com.paperworld.flash.util.Registration;
 	
 	import flash.utils.IDataInput;
 	import flash.utils.IDataOutput;
 	
-	public class ServerSyncMessage extends PlayerSyncMessage
+	public class ServerSyncMessage extends PlayerSyncMessage implements IServerSyncMessage
 	{
 		override public function get aliasName():String
 		{
@@ -27,6 +29,10 @@ package com.paperworld.flash.multiplayer.connection.messages
 		public function ServerSyncMessage()
 		{
 			super();
+			
+			_state = new State();
+			
+			Registration.registerClass(this);
 		}
 		
 		/**

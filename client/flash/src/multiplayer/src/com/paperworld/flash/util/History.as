@@ -23,7 +23,7 @@ package com.paperworld.flash.util
 {
 	import com.paperworld.flash.api.multiplayer.ISynchronisedAvatar;
 	import com.paperworld.flash.multiplayer.data.State;
-	import com.paperworld.flash.util.input.Input;
+	import com.paperworld.flash.util.input.IInput;
 	
 	import org.as3commons.logging.ILogger;
 	import org.as3commons.logging.LoggerFactory;
@@ -35,9 +35,9 @@ package com.paperworld.flash.util
 	{
 		private static var logger:ILogger = LoggerFactory.getLogger("Paperworld");
 		
-		public var moves : CircularBuffer;
+		public var moves : CircularBuffer = new CircularBuffer();
 
-		public var importantMoves : CircularBuffer;
+		public var importantMoves : CircularBuffer = new CircularBuffer();
 
 		public function History(size : int = 200)
 		{
@@ -76,7 +76,7 @@ package com.paperworld.flash.util
 			moves.add( move );
 		}
 
-		public function correction(avatar : ISynchronisedAvatar, t : int, state : State, input : Input) : void
+		public function correction(avatar : ISynchronisedAvatar, t : int, state : State, input : IInput) : void
 		{
 			// discard out of date important moves 
 			/*if (importantMoves.oldest( ))
@@ -104,7 +104,7 @@ package com.paperworld.flash.util
 				moves.remove( );
 	
 				// save current scene data
-				var	savedInput : Input = avatar.input.clone( );
+				var	savedInput : IInput = avatar.input.clone( );
 	
 				// rewind to correction and replay moves
 				avatar.time = t;

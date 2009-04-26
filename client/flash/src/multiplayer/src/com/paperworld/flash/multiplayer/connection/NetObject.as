@@ -11,7 +11,7 @@ package com.paperworld.flash.multiplayer.connection
 	{
 		public function get aliasName():String
 		{
-			return "";
+			return "com.paperworld.java.impl.NetObject";
 		}
 		
 		public function NetObject()

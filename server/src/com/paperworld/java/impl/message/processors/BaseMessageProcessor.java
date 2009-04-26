@@ -7,9 +7,13 @@ public class BaseMessageProcessor extends AbstractProcessor {
 
 	private IPaperworldService service;
 	
-	public BaseMessageProcessor(IPaperworldService messageService, Class<?> type) {
-		this.service = messageService;
+	public BaseMessageProcessor(IPaperworldService service, Class<?> type) {
+		this(service);
 		addProcessable(type);
+	}
+	
+	public BaseMessageProcessor(IPaperworldService service) {
+		this.service = service;
 	}
 	
 	@Override

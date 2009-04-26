@@ -4,29 +4,29 @@ import org.red5.io.amf3.IExternalizable;
 
 public interface IInput extends IExternalizable {
 
-	public boolean getForward();
+	public boolean getMoveForward();
 	
-	public void setForward(boolean forward);
+	public void setMoveForward(boolean forward);
 
-	public boolean getBackward();
+	public boolean getMoveBackward();
 	
-	public void setBackward(boolean backward);
+	public void setMoveBackward(boolean backward);
 
-	public boolean getRight();
+	public boolean getMoveRight();
 	
-	public void setRight(boolean right);
+	public void setMoveRight(boolean right);
 
-	public boolean getLeft();
+	public boolean getMoveLeft();
 	
-	public void setLeft(boolean left);
+	public void setMoveLeft(boolean left);
 
-	public boolean getUp();
+	public boolean getMoveUp();
 	
-	public void setUp(boolean up);
+	public void setMoveUp(boolean up);
 
-	public boolean getDown();
+	public boolean getMoveDown();
 	
-	public void setDown(boolean down);
+	public void setMoveDown(boolean down);
 
 	public boolean getPitchPositive();
 	
@@ -59,4 +59,12 @@ public interface IInput extends IExternalizable {
 	public boolean getJump();
 	
 	public void setJump(boolean jump);
+	
+	public float getMouseX();
+	
+	public void setMouseX(float mouseX);
+	
+	public float getMouseY();
+	
+	public void setMouseY(float mouseY);
 }

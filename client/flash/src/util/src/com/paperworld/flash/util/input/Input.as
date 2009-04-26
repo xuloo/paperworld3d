@@ -21,12 +21,17 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.flash.util.input 
 {
-	import flash.net.registerClassAlias;
+	import com.paperworld.flash.util.IRegisteredClass;
+	import com.paperworld.flash.util.Registration;
+	
+	import flash.utils.IDataInput;
+	import flash.utils.IDataOutput;
+	import flash.utils.IExternalizable;
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
 	 */
-	public class Input implements IInput
+	public class Input implements IInput, IExternalizable, IRegisteredClass
 	{				
 		private var _moveForward:Boolean;
 		
@@ -152,7 +157,7 @@ package com.paperworld.flash.util.input
 		
 		public function get yawPositive():Boolean
 		{
-			return yawPositive;
+			return _yawPositive;
 		}
 		
 		public function set yawPositive(value:Boolean):void
@@ -219,6 +224,11 @@ package com.paperworld.flash.util.input
 		{
 			_mouseY = value;
 		}
+		
+		public function get aliasName():String 
+		{
+			return "com.paperworld.java.impl.BasicInput";
+		}
 
 		public function Input(moveForward : Boolean = false, moveBackward : Boolean = false, 
 							  moveRight : Boolean = false, moveLeft : Boolean = false, 
@@ -247,14 +257,11 @@ package com.paperworld.flash.util.input
 			_jump 				= jump;
 			_mouseX				= mouseX;
 			_mouseY				= mouseY;
-		}
-		
-		public function initialise():void 
-		{
-			registerClassAlias( 'com.actionengine.java.data.Input', Input );
+			
+			Registration.registerClass(this);
 		}
 
-		public function clone() : Input
+		public function clone() : IInput
 		{
 			return new Input( _moveForward, _moveBackward, 
 							 _moveRight, _moveLeft, 
@@ -268,10 +275,10 @@ package com.paperworld.flash.util.input
 
 		public function destroy() : void
 		{
-			initialise( );
+
 		}
 
-		public function equals(other : Input) : Boolean
+		public function equals(other : IInput) : Boolean
 		{
 			return  _moveForward 	== other.moveForward && 
 					_moveBackward 	== other.moveBackward && 
@@ -290,7 +297,7 @@ package com.paperworld.flash.util.input
 					_mouseX			== other.mouseX;
 		}
 
-		public function notEquals(other : Input) : Boolean
+		public function notEquals(other : IInput) : Boolean
 		{
 			return !equals( other );	
 		}
@@ -313,6 +320,49 @@ package com.paperworld.flash.util.input
 			_jump 			= other.jump;
 			_mouseX			= other.mouseX;
 			_mouseY			= other.mouseY;
+		}
+		
+		public function writeExternal(output:IDataOutput):void
+		{
+			output.writeBoolean(_moveForward);
+			output.writeBoolean(_moveBackward);
+			output.writeBoolean(_moveRight);
+			output.writeBoolean(_moveLeft);
+			output.writeBoolean(_moveUp);
+			output.writeBoolean(_moveDown);
+			output.writeBoolean(_pitchNegative);
+			output.writeBoolean(_pitchPositive);
+			output.writeBoolean(_rollNegative);
+			output.writeBoolean(_rollPositive);
+			output.writeBoolean(_yawNegative);
+			output.writeBoolean(_yawPositive);
+			output.writeBoolean(_fire);
+			output.writeBoolean(_jump);
+			output.writeFloat(_mouseX);
+			output.writeFloat(_mouseY);
+		}
+		
+		/**
+		 * @inheritDoc
+		 */
+		public function readExternal(input:IDataInput):void
+		{
+			_moveForward = input.readBoolean();
+			_moveBackward = input.readBoolean();
+			_moveRight = input.readBoolean();
+			_moveLeft = input.readBoolean();
+			_moveUp = input.readBoolean();
+			_moveDown = input.readBoolean();
+			_pitchNegative = input.readBoolean();
+			_pitchPositive = input.readBoolean();
+			_rollNegative = input.readBoolean();
+			_rollPositive = input.readBoolean();
+			_yawNegative = input.readBoolean();
+			_yawPositive = input.readBoolean();
+			_fire = input.readBoolean();
+			_jump = input.readBoolean();
+			_mouseX = input.readFloat();
+			_mouseY = input.readFloat();
 		}
 	}
 }

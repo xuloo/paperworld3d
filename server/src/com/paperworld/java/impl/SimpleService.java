@@ -5,9 +5,13 @@ import org.red5.server.api.scheduling.IScheduledJob;
 import org.red5.server.api.scheduling.ISchedulingService;
 import org.red5.server.api.so.ISharedObject;
 
+import com.paperworld.java.api.IAvatar;
 import com.paperworld.java.api.IPlayer;
 import com.paperworld.java.api.message.IServerSyncMessage;
+import com.paperworld.java.api.message.ISynchroniseCreateMessage;
 import com.paperworld.java.impl.message.ServerSyncMessage;
+import com.paperworld.java.impl.message.processors.RequestIdMessageProcessor;
+import com.paperworld.java.impl.message.processors.SynchroniseCreateMessageProcessor;
 
 public class SimpleService extends AbstractPaperworldService {
 
@@ -16,7 +20,12 @@ public class SimpleService extends AbstractPaperworldService {
 	}
 
 	public void init() {
+		super.init();
+
 		application.addScheduledJob(200, new UpdateConnectionsJob());
+
+		addMessageProcessor(new RequestIdMessageProcessor(this));
+		addMessageProcessor(new SynchroniseCreateMessageProcessor(this));
 	}
 
 	@Override
@@ -30,7 +39,24 @@ public class SimpleService extends AbstractPaperworldService {
 	}
 
 	protected IPlayer createPlayer(String username, IConnection connection) {
-		return new BasicPlayer(username, connection);
+		return new BasicPlayer(this, username, connection);
+	}
+
+	public void processSynchroniseCreateMessage(
+			ISynchroniseCreateMessage message) {
+		IPlayer player = players.get(message.getPlayerId());
+		
+		IAvatar avatar = player.getAvatar();
+		avatar.setId(message.getObjectId());
+		avatar.setOwner(player);
+		avatars.add(avatar);
+
+		message.setInput(player.getInput());
+		message.setState(avatar.getState());
+	}
+
+	public IAvatar getAvatarForPlayer(IPlayer player) {
+		return new BasicAvatar();
 	}
 
 	private class UpdateConnectionsJob implements IScheduledJob {
@@ -43,12 +69,17 @@ public class SimpleService extends AbstractPaperworldService {
 
 			so.beginUpdate();
 
-			for (String key : players.keySet()) {
-				IPlayer player = players.get(key);
-				String id = player.getId();
-				IServerSyncMessage syncMessage = new ServerSyncMessage(id, 0,
-						player.getInput(), player.getAvatar().getState());
-				so.setAttribute(id, syncMessage);
+			for (IAvatar avatar : avatars) {
+				try {
+					IPlayer player = avatar.getOwner();
+					String id = player.getId();
+					IServerSyncMessage syncMessage = new ServerSyncMessage(id, avatar.getId(),
+							0, player.getInput(), avatar.getState());
+
+					so.setAttribute(id, syncMessage);
+				} catch (Exception e) {
+
+				}
 			}
 
 			so.endUpdate();

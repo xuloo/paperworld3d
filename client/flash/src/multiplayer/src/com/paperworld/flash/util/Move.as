@@ -22,7 +22,7 @@
 package com.paperworld.flash.util
 {
 	import com.paperworld.flash.multiplayer.data.State;
-	import com.paperworld.flash.util.input.Input;	
+	import com.paperworld.flash.util.input.IInput;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
@@ -33,6 +33,6 @@ package com.paperworld.flash.util
 
 		public var state : State;
 
-		public var input : Input;
+		public var input : IInput;
 	}
 }

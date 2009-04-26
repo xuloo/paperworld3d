@@ -11,6 +11,7 @@ public class RequestIdMessageProcessor extends BaseMessageProcessor {
 	
 	@Override
 	public Object process(Object object) {
+		System.out.println("Processing RequestIdMessage");
 		RequestIdMessage message = (RequestIdMessage) object;
 		
 		String uniqueId = getService().getNextId(message.getSenderId());

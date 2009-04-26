@@ -1,10 +1,13 @@
 package {
 	import com.joeberkovitz.moccasin.service.IOperation;
 	import com.paperworld.flash.api.multiplayer.IClient;
-	import com.paperworld.flash.api.multiplayer.IMessage;
 	import com.paperworld.flash.multiplayer.connection.Red5Connection;
+	import com.paperworld.flash.multiplayer.connection.RemoteSharedObject;
 	import com.paperworld.flash.multiplayer.connection.client.BasicClient;
-	import com.paperworld.flash.multiplayer.connection.messages.BaseMessage;
+	import com.paperworld.flash.multiplayer.connection.messages.ServerSyncMessage;
+	import com.paperworld.flash.multiplayer.data.State;
+	import com.paperworld.flash.multiplayer.sync.SynchronisationManager;
+	import com.paperworld.flash.util.input.Input;
 	
 	import flash.display.Sprite;
 	import flash.events.Event;
@@ -15,6 +18,8 @@ package {
 	{
 		private var client:IClient;
 		
+		private var syncManager:SynchronisationManager;
+		
 		public function HelloPaperworldFlashClient()
 		{
 			trace("Creation Complete");
@@ -24,7 +29,13 @@ package {
 			connection.rtmpURI = "rtmp://localhost/HelloWorldMultiplayer";
 			
 			client = new BasicClient(connection);
+			client.sharedObject = new RemoteSharedObject("avatars", connection);
 			
+			syncManager = new SynchronisationManager();
+			syncManager.client = client;
+			
+			client.addMessageProcessor(syncManager);
+						
 			var connect:IOperation = client.connect();
 			connect.addEventListener(Event.COMPLETE, onConnectionEstablished);
 			connect.execute();
@@ -39,10 +50,16 @@ package {
 		{
 			trace("connection established");
 			
-			var message:IMessage = new BaseMessage();
-
-			var sendOp:IOperation = client.sendToServer(message);
-			sendOp.execute();
+			var message:ServerSyncMessage = new ServerSyncMessage();
+			message.senderId = "ME!";
+			//var op:IOperation = client.sendToServer(message);
+			//op.execute();
+			
+			client.connection.call("multiplayer.receiveMessage", new Responder(onResponse, onFault), new Input());
+			client.connection.call("multiplayer.receiveMessage", new Responder(onResponse, onFault), new State());
+			client.connection.call("multiplayer.receiveMessage", new Responder(onResponse, onFault), message);
+			//var localAvatar:ISynchronisedAvatar = new LocalAvatar();
+			//syncManager.register(localAvatar);
 		}
 		
 		private function onResponse(response:Object):void 

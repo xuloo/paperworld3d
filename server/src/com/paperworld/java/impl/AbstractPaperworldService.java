@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 import org.red5.server.adapter.MultiThreadedApplicationAdapter;
 import org.red5.server.api.IClient;
@@ -14,13 +15,14 @@ import org.red5.server.api.ScopeUtils;
 import org.red5.server.api.so.ISharedObject;
 import org.red5.server.api.so.ISharedObjectService;
 
+import com.paperworld.java.api.IAvatar;
 import com.paperworld.java.api.IPaperworldService;
 import com.paperworld.java.api.IPlayer;
 import com.paperworld.java.api.message.IMessage;
 import com.paperworld.java.impl.message.processors.BroadcastMessageProcessor;
 import com.paperworld.java.util.AbstractProcessor;
 
-public abstract class AbstractPaperworldService implements IPaperworldService {
+public abstract class AbstractPaperworldService extends BaseService implements IPaperworldService {
 
 	protected MultiThreadedApplicationAdapter application;
 	
@@ -28,13 +30,19 @@ public abstract class AbstractPaperworldService implements IPaperworldService {
 	 * A Map of IPlayer objects currently using this service keyed
 	 * by the Player's connection id.
 	 */
-	protected final Map<String, IPlayer> players = new ConcurrentHashMap<String, IPlayer>();
+	protected final ConcurrentMap<String, IPlayer> players = new ConcurrentHashMap<String, IPlayer>();
 	
-	protected List<AbstractProcessor> messageProcessors = Collections.synchronizedList(new ArrayList<AbstractProcessor>());
+	protected final List<IAvatar> avatars = Collections.synchronizedList(new ArrayList<IAvatar>());
+	
+	protected final List<AbstractProcessor> messageProcessors = Collections.synchronizedList(new ArrayList<AbstractProcessor>());
 
 	protected Map<String, Integer> idMap = new ConcurrentHashMap<String, Integer>();
 	
 	public AbstractPaperworldService() {
+		
+	}
+	
+	public void init() {
 		addMessageProcessor(new BroadcastMessageProcessor(this));
 	}
 	
@@ -120,12 +128,11 @@ public abstract class AbstractPaperworldService implements IPaperworldService {
 		System.out.println("receiving message: " + message);
 		for (AbstractProcessor processor : messageProcessors) {
 			if (processor.canProcess(message.getClass())) {
-				processor.process(message);
-				return true;
+				return processor.process(message);
 			}
 		}
 		
-		return false;
+		return null;
 	}
 	
 	public Map<String, IPlayer> getPlayers() {
@@ -146,6 +153,11 @@ public abstract class AbstractPaperworldService implements IPaperworldService {
 		idMap.put(id, currentId + 1);
 		
 		return id + "_" + currentId;
+	}
+	
+	public Object echo(Object object) {
+		System.out.println("echoing " + object);
+		return object;
 	}
 
 }

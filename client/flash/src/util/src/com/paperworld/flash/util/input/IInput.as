@@ -65,5 +65,11 @@ package com.paperworld.flash.util.input
 		function get mouseY():Number;
 		
 		function set mouseY(value:Number):void;
+		
+		function equals(other:IInput):Boolean;
+		
+		function notEquals(other:IInput):Boolean;
+		
+		function clone():IInput;
 	}
 }

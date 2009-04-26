@@ -1,26 +1,52 @@
 package com.paperworld.flash.multiplayer.data
 {
+	import com.paperworld.flash.util.IRegisteredClass;
+	import com.paperworld.flash.util.Registration;
 	import com.paperworld.flash.util.number.Vector3;
 	
-	import org.papervision3d.core.math.Matrix3D;
+	import flash.utils.IDataInput;
+	import flash.utils.IDataOutput;
+	import flash.utils.IExternalizable;
+	
 	import org.papervision3d.core.math.Quaternion;
 	
-	public class State
+	public class State implements IExternalizable, IRegisteredClass
 	{
-		public var transform:Matrix3D;
+		public var _position:Vector3;
 		
-		public var position:Vector3;
+		public function get position():Vector3
+		{
+			return _position;
+		}
 		
-		public var orientation:Quaternion;
+		public function set position(value:Vector3):void 
+		{
+			_position = position;
+		}
 		
-		public var velocity:Vector3;
+		private var _orientation:Quaternion;
 		
-		public var rotation:Number;
+		public function get orientation():Quaternion
+		{
+			return _orientation;
+		}
 		
-		public var forces:Vector3;
+		public function set orientation(value:Quaternion):void
+		{
+			_orientation = value;
+		}
+		
+		public function get aliasName():String 
+		{
+			return "com.paperworld.java.impl.BasicState";
+		}
 		
 		public function State()
 		{
+			_position = new Vector3();
+			_orientation = new Quaternion();
+			
+			Registration.registerClass(this);
 		}
 		
 		public function clone():State
@@ -38,66 +64,6 @@ package com.paperworld.flash.multiplayer.data
 			return false;
 		}
 		
-		public function getTransform():Matrix3D
-		{
-			return transform;
-		}
-		
-		public function setTransform(transform:Matrix3D):void 
-		{
-			this.transform = transform;
-		}
-		
-		public function getPosition():Vector3
-		{
-			return position;
-		}
-		
-		public function setPosition(position:Vector3):void 
-		{
-			this.position = position;
-		}
-		
-		public function getOrientation():Quaternion
-		{
-			return orientation;
-		}
-		
-		public function setOrientation(orientation:Quaternion):void
-		{
-			this.orientation = orientation;
-		}
-		
-		public function getVelocity():Vector3
-		{
-			return velocity;
-		}
-		
-		public function setVelocity(velocity:Vector3):void
-		{
-			this.velocity = velocity;
-		}
-		
-		public function getRotation():Number 
-		{
-			return rotation;
-		}
-		
-		public function setRotation(rotation:Number):void 
-		{
-			this.rotation = rotation;
-		}
-		
-		public function getForces():Vector3
-		{
-			return forces;
-		}
-		
-		public function setForces(forces:Vector3):void 
-		{
-			this.forces = forces;
-		}
-		
 		public function equals(other:State):Boolean
 		{
 			return false;
@@ -106,6 +72,31 @@ package com.paperworld.flash.multiplayer.data
 		public function notEquals(other:State):Boolean
 		{
 			return !equals(other);
+		}
+		
+		public function writeExternal(output:IDataOutput):void
+		{
+			output.writeFloat(_position.x);
+			output.writeFloat(_position.y);
+			output.writeFloat(_position.z);
+			output.writeFloat(_orientation.w);
+			output.writeFloat(_orientation.x);
+			output.writeFloat(_orientation.y);
+			output.writeFloat(_orientation.z);
+		}
+		
+		/**
+		 * @inheritDoc
+		 */
+		public function readExternal(input:IDataInput):void
+		{
+			_position.x = input.readFloat();
+			_position.y = input.readFloat();
+			_position.z = input.readFloat();
+			_orientation.w = input.readFloat();
+			_orientation.x = input.readFloat();
+			_orientation.y = input.readFloat();
+			_orientation.z = input.readFloat();
 		}
 	}
 }

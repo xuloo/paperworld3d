@@ -24,9 +24,9 @@ package com.paperworld.flash.multiplayer.objects
 	import com.paperworld.flash.multiplayer.data.State;
 	import com.paperworld.flash.util.History;
 	import com.paperworld.flash.util.Move;
+	import com.paperworld.flash.util.input.IInput;
 	import com.paperworld.flash.util.input.IUserInput;
 	import com.paperworld.flash.util.input.IUserInputListener;
-	import com.paperworld.flash.util.input.Input;
 	import com.paperworld.flash.util.input.events.UserInputEvent;
 	
 	import org.as3commons.logging.ILogger;
@@ -37,7 +37,7 @@ package com.paperworld.flash.multiplayer.objects
 	 */
 	public class LocalAvatar extends AbstractSynchronisedAvatar implements IUserInputListener
 	{
-		protected var _history : History;
+		protected var _history : History = new History( );
 
 		private static var logger:ILogger = LoggerFactory.getLogger("Paperworld");
 
@@ -49,13 +49,8 @@ package com.paperworld.flash.multiplayer.objects
 		public function LocalAvatar()
 		{
 			super( );
-		}
-
-		override public function initialise() : void
-		{
-			super.initialise( );
 			
-			_history = new History( );
+			initialise();
 		}
 
 		override public function update() : void
@@ -74,14 +69,15 @@ package com.paperworld.flash.multiplayer.objects
 			super.update( );		
 		}
 
-		override public function synchronise(time : int, input : Input, state : State) : void
+		override public function synchronise(time : int, input : IInput, state : State) : void
 		{			
-			var original : State = state.clone( );
+			trace("synchronsing avatar");
+			/*var original : State = state.clone( );
 			
 			if (original.compare( state ))
 			{
             	smooth( );
-   			}
+   			}*/
             	
 			_history.correction( this, time, state, input );	
             	

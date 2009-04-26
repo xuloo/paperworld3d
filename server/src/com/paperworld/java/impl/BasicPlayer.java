@@ -1,10 +1,13 @@
 package com.paperworld.java.impl;
 
 import org.red5.server.api.IConnection;
+import org.red5.server.api.service.ServiceUtils;
 
 import com.paperworld.java.api.IAvatar;
 import com.paperworld.java.api.IInput;
+import com.paperworld.java.api.IPaperworldService;
 import com.paperworld.java.api.IPlayer;
+import com.paperworld.java.api.message.IMessage;
 
 public class BasicPlayer implements IPlayer {
 
@@ -16,6 +19,13 @@ public class BasicPlayer implements IPlayer {
 	
 	protected IConnection connection;
 	
+	protected IPaperworldService service;
+	
+	public BasicPlayer(IPaperworldService service, String name, IConnection connection) {
+		this(name, connection);
+		this.service = service;
+	}
+	
 	public BasicPlayer(String name, IConnection connection) {
 		this(name);
 		setConnection(connection);
@@ -23,15 +33,26 @@ public class BasicPlayer implements IPlayer {
 	
 	public BasicPlayer(String name) {
 		setName(name);
+		
+		input = new BasicInput();
+	}
+	
+	public boolean sendMessage(IMessage message) {
+		return ServiceUtils.invokeOnConnection(getConnection(),
+				"receiveMessage", new Object[] { message });
 	}
 	
 	@Override
-	public IAvatar getAvatar() {
+	public IAvatar getAvatar() {		
+		if (avatar == null) {
+			avatar = service.getAvatarForPlayer(this);
+		}
+		
 		return avatar;
 	}
 
 	@Override
-	public String getName() {
+	public String getName() {		
 		return name;
 	}
 

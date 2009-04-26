@@ -2,7 +2,7 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 <beans>
 
-	<bean id="multiplayer.service" class="com.paperworld.java.adaptor.jmonkey.JMService">
+	<bean id="multiplayer.service" class="com.paperworld.java.adaptor.jmonkey.JMService" init-method="init">
 		<property name="application" ref="web.handler" />
 	</bean>
 

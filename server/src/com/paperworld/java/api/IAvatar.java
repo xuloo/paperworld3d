@@ -13,4 +13,10 @@ public interface IAvatar {
 	public IConnection getConnection();
 	
 	public IState getState();
+	
+	public String getId();
+	public void setId(String id);
+	
+	public IPlayer getOwner();
+	public void setOwner(IPlayer owner);
 }

@@ -1,7 +1,7 @@
 package com.paperworld.flash.multiplayer.objects 
 {
 	import com.paperworld.flash.multiplayer.data.State;
-	import com.paperworld.flash.util.input.Input;	
+	import com.paperworld.flash.util.input.IInput;	
 
 	/**
 	 * @author Trevor
@@ -37,7 +37,7 @@ package com.paperworld.flash.multiplayer.objects
 			super.update( );		
 		}
 
-		override public function synchronise(time : int, input : Input, state : State) : void
+		override public function synchronise(time : int, input : IInput, state : State) : void
 		{            	
 			// Handle the server time update.
 			if (time > _time)

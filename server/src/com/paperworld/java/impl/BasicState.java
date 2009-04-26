@@ -1,5 +1,6 @@
 package com.paperworld.java.impl;
 
+import org.red5.annotations.DontSerialize;
 import org.red5.io.amf3.IDataInput;
 import org.red5.io.amf3.IDataOutput;
 
@@ -9,11 +10,14 @@ import com.paperworld.java.api.IState;
 
 public class BasicState implements IState {
 
-	protected Vector3f position;
+	@DontSerialize
+	private Vector3f position;
 	
-	protected Quaternion orientation;
+	@DontSerialize
+	private Quaternion orientation;
 	
-	protected int time;
+	@DontSerialize
+	private int time;
 	
 	public BasicState() {
 		this(new Vector3f(), new Quaternion(), 0);
@@ -57,11 +61,23 @@ public class BasicState implements IState {
 
 	@Override
 	public void readExternal(IDataInput input) {
-
+		position.x = input.readFloat();
+		position.y = input.readFloat();
+		position.z = input.readFloat();
+		orientation.w = input.readFloat();
+		orientation.x = input.readFloat();
+		orientation.y = input.readFloat();
+		orientation.z = input.readFloat();
 	}
 
 	@Override
 	public void writeExternal(IDataOutput output) {
-
+		output.writeFloat(position.x);
+		output.writeFloat(position.y);
+		output.writeFloat(position.z);
+		output.writeFloat(orientation.w);
+		output.writeFloat(orientation.x);
+		output.writeFloat(orientation.y);
+		output.writeFloat(orientation.z);
 	}
 }

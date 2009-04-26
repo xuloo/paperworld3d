@@ -7,79 +7,79 @@ import com.paperworld.java.api.IInput;
 
 public class BasicInput implements IInput {
 
-	protected boolean forward;
+	private boolean moveForward;
 
 	@Override
-	public boolean getForward() {
-		return forward;
+	public boolean getMoveForward() {
+		return moveForward;
 	}
 	
 	@Override
-	public void setForward(boolean forward) {
-		this.forward = forward;
+	public void setMoveForward(boolean forward) {
+		this.moveForward = forward;
 	}
 	
-	protected boolean backward;
+	private boolean moveBackward;
 	
 	@Override
-	public boolean getBackward() {
-		return backward;
+	public boolean getMoveBackward() {
+		return moveBackward;
 	}
 	
 	@Override
-	public void setBackward(boolean backward) {
-		this.backward = backward;
+	public void setMoveBackward(boolean backward) {
+		this.moveBackward = backward;
 	}
 	
-	protected boolean left;
+	private boolean moveLeft;
 
 	@Override
-	public boolean getLeft() {
-		return left;
+	public boolean getMoveLeft() {
+		return moveLeft;
 	}
 	
 	@Override
-	public void setLeft(boolean left) {
-		this.left = left;
+	public void setMoveLeft(boolean left) {
+		this.moveLeft = left;
 	}
 	
-	protected boolean right;
+	private boolean moveRight;
 
 	@Override
-	public boolean getRight() {
-		return right;
+	public boolean getMoveRight() {
+		return moveRight;
 	}
 	
 	@Override
-	public void setRight(boolean right) {
-		this.right = right;
+	public void setMoveRight(boolean right) {
+		this.moveRight = right;
 	}
 	
-	protected boolean up;
+	private boolean moveUp;
 
 	@Override
-	public boolean getUp() {
-		return up;
+	public boolean getMoveUp() {
+		return moveUp;
 	}
 	
 	@Override
-	public void setUp(boolean up) {
-		this.up = up;
+	public void setMoveUp(boolean up) {
+		this.moveUp = up;
 	}
 	
-	protected boolean down;
+	private boolean moveDown;
 
 	@Override
-	public boolean getDown() {
-		return down;
+	public boolean getMoveDown() {
+		return moveDown;
 	}
 	
 	@Override
-	public void setDown(boolean down) {
-		this.down = down;
+	public void setMoveDown(boolean down) {
+		this.moveDown = down;
 	}
 	
-	protected boolean pitchPositive;
+	private boolean pitchPositive;
 
 	@Override
 	public boolean getPitchPositive() {
@@ -91,7 +91,7 @@ public class BasicInput implements IInput {
 		this.pitchPositive = pitchPositive;
 	}	
 	
-	protected boolean pitchNegative;
+	private boolean pitchNegative;
 
 	@Override
 	public boolean getPitchNegative() {
@@ -103,7 +103,7 @@ public class BasicInput implements IInput {
 		this.pitchNegative = pitchNegative;
 	}
 	
-	protected boolean rollPositive;
+	private boolean rollPositive;
 
 	@Override
 	public boolean getRollPositive() {
@@ -115,7 +115,7 @@ public class BasicInput implements IInput {
 		this.rollPositive = rollPositive;
 	}
 
-	protected boolean rollNegative;
+	private boolean rollNegative;
 	
 	@Override
 	public boolean getRollNegative() {
@@ -127,7 +127,7 @@ public class BasicInput implements IInput {
 		this.rollNegative = rollNegative;
 	}
 
-	protected boolean yawPositive;
+	private boolean yawPositive;
 
 	@Override
 	public boolean getYawPositive() {
@@ -139,7 +139,7 @@ public class BasicInput implements IInput {
 		this.yawPositive = yawPositive;
 	}
 	
-	protected boolean yawNegative;
+	private boolean yawNegative;
 	
 	@Override
 	public boolean getYawNegative() {
@@ -151,7 +151,7 @@ public class BasicInput implements IInput {
 		this.yawNegative = yawNegative;
 	}
 
-	protected boolean fire;
+	private boolean fire;
 
 	@Override
 	public boolean getFire() {
@@ -163,7 +163,7 @@ public class BasicInput implements IInput {
 		this.fire = fire;
 	}
 
-	protected boolean jump;
+	private boolean jump;
 
 	@Override
 	public boolean getJump() {
@@ -174,15 +174,43 @@ public class BasicInput implements IInput {
 	public void setJump(boolean jump) {
 		this.jump = jump;
 	}
-
+	
+	private float mouseX;
+	
+	@Override
+	public float getMouseX() {
+		return mouseX;
+	}
+	
+	@Override
+	public void setMouseX(float mouseX) {
+		this.mouseX = mouseX;
+	}
+	
+	private float mouseY;
+	
+	@Override
+	public float getMouseY() {
+		return mouseY;
+	}
+	
+	@Override
+	public void setMouseY(float mouseY) {
+		this.mouseY = mouseY;
+	}
+	
+	public BasicInput() {
+		
+	}
+	
 	@Override
 	public void readExternal(IDataInput input) {
-		forward = input.readBoolean();
-		backward = input.readBoolean();
-		right = input.readBoolean();
-		left = input.readBoolean();
-		up = input.readBoolean();
-		down = input.readBoolean();
+		moveForward = input.readBoolean();
+		moveBackward = input.readBoolean();
+		moveRight = input.readBoolean();
+		moveLeft = input.readBoolean();
+		moveUp = input.readBoolean();
+		moveDown = input.readBoolean();
 		pitchPositive = input.readBoolean();
 		pitchNegative = input.readBoolean();		
 		rollPositive = input.readBoolean();
@@ -191,16 +219,18 @@ public class BasicInput implements IInput {
 		yawNegative = input.readBoolean();		
 		fire = input.readBoolean();
 		jump = input.readBoolean();
+		mouseX = input.readFloat();
+		mouseY = input.readFloat();
 	}
 
 	@Override
 	public void writeExternal(IDataOutput output) {
-		output.writeBoolean(forward);
-		output.writeBoolean(backward);
-		output.writeBoolean(right);
-		output.writeBoolean(left);
-		output.writeBoolean(up);
-		output.writeBoolean(down);
+		output.writeBoolean(moveForward);
+		output.writeBoolean(moveBackward);
+		output.writeBoolean(moveRight);
+		output.writeBoolean(moveLeft);
+		output.writeBoolean(moveUp);
+		output.writeBoolean(moveDown);
 		output.writeBoolean(pitchPositive);
 		output.writeBoolean(pitchNegative);
 		output.writeBoolean(rollPositive);
@@ -209,6 +239,8 @@ public class BasicInput implements IInput {
 		output.writeBoolean(yawNegative);
 		output.writeBoolean(fire);
 		output.writeBoolean(jump);
+		output.writeFloat(mouseX);
+		output.writeFloat(mouseY);
 	}
 
 }
