@@ -7,7 +7,7 @@ package com.paperworld.flash.multiplayer.sync
 	import com.paperworld.flash.api.multiplayer.ISynchronisedAvatar;
 	import com.paperworld.flash.api.multiplayer.ISynchronisedScene;
 	import com.paperworld.flash.api.multiplayer.messages.IServerSyncMessage;
-	import com.paperworld.flash.multiplayer.connection.messages.BatchInputMessage;
+	import com.paperworld.flash.multiplayer.connection.messages.BatchedInputMessage;
 	import com.paperworld.flash.multiplayer.connection.messages.PlayerSyncMessage;
 	import com.paperworld.flash.multiplayer.connection.messages.RequestIdMessage;
 	import com.paperworld.flash.multiplayer.connection.messages.ServerSyncMessage;
@@ -21,9 +21,14 @@ package com.paperworld.flash.multiplayer.sync
 	import flash.events.Event;
 	import flash.utils.Dictionary;
 	
+	import org.as3commons.logging.ILogger;
+	import org.as3commons.logging.LoggerFactory;
+	
 	public class SynchronisationManager extends AbstractProcessor implements ISyncManager	
 	{		
 		private static const SEND_INPUT_TIMER:String = "SendInputTimer";
+		
+		private static var log:ILogger = LoggerFactory.getLogger("SynchronisationManager");
 		
 		private var _client:IClient;
 		
@@ -72,8 +77,6 @@ package com.paperworld.flash.multiplayer.sync
 		 */
 		public function register(avatar:ISynchronisedAvatar):void 
 		{
-			trace("registering " + avatar);
-			
 			// Create the message.
 			var message:IMessage = new RequestIdMessage();
 			
@@ -100,7 +103,6 @@ package com.paperworld.flash.multiplayer.sync
 		 */
 		protected function onIdRequestComplete(event:Event):void 
 		{
-			trace("id request complete");
 			// Get the message from the completed operation.
 			var operation:IOperation = IOperation(event.target);
 			var id:String = operation.result as String;
@@ -145,10 +147,9 @@ package com.paperworld.flash.multiplayer.sync
 			return message;
 		}
 		
-		public function handleAvatarMove(id:String, input:IInput):void
+		public function handleAvatarMove(id:String, time:int, input:IInput):void
 		{
-			trace("handling avatar move");
-			_batchedMoves.push(new PlayerSyncMessage(id, input));
+			_batchedMoves.push(new PlayerSyncMessage(id, time, input));
 		}
 		
 		override public function process(object:*):void
@@ -164,7 +165,7 @@ package com.paperworld.flash.multiplayer.sync
 			{
 				var message:IServerSyncMessage = IServerSyncMessage(object);
 				var avatar:ISynchronisedAvatar = ISynchronisedAvatar(_avatars[message.objectId]);
-				
+				log.debug("STATE: " + message.state.pz);// + " " + message.state.py + " " + message.state.pz);
 				avatar.synchronise(message.time, message.input, message.state);
 			}
 		}
@@ -174,10 +175,9 @@ package com.paperworld.flash.multiplayer.sync
 			// We only need to send input to the server if there's input to send.
 			if (_batchedMoves.length > 0)
 			{
-				trace("sending input " + _batchedMoves.length);
 				// Create a new BatchInputMessage and give it the list
 				// batched messages we're currently holding onto.
-				var batchMessage:BatchInputMessage = new BatchInputMessage();
+				var batchMessage:BatchedInputMessage = new BatchedInputMessage();
 				batchMessage.messages = _batchedMoves.concat();
 				
 				// Clear the batched moves array so we can catch more.

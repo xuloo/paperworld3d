@@ -8,8 +8,6 @@ public interface IPlayer {
 
 	public String getId();
 	
-	public IInput getInput();
-	
 	public String getName();
 	
 	public void setName(String name);

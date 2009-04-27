@@ -3,11 +3,11 @@ package com.paperworld.flash.multiplayer.connection.messages
 	import flash.utils.IDataInput;
 	import flash.utils.IDataOutput;
 	
-	public class BatchInputMessage extends BaseMessage
+	public class BatchedInputMessage extends BaseMessage
 	{
 		override public function get aliasName():String
 		{
-			return "com.paperworld.java.impl.message.BatchInputMessage";
+			return "com.paperworld.java.impl.message.BatchedInputMessage";
 		}
 		
 		private var _messages:Array = [];
@@ -15,9 +15,13 @@ package com.paperworld.flash.multiplayer.connection.messages
 		public function set messages(value:Array):void 
 		{
 			_messages = value;
+			
+			for each (var message:PlayerSyncMessage in _messages) {
+				trace(message.input.moveForward);
+			}
 		}
 		
-		public function BatchInputMessage()
+		public function BatchedInputMessage()
 		{
 			super();
 		}

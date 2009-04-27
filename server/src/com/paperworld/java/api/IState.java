@@ -12,7 +12,4 @@ public interface IState extends IExternalizable {
 	
 	public Quaternion getOrientation();	
 	public void setOrientation(Quaternion orientation);
-	
-	public int getTime();	
-	public void setTime(int time);
 }

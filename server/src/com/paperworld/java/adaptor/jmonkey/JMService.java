@@ -1,5 +1,7 @@
 package com.paperworld.java.adaptor.jmonkey;
 
+import com.paperworld.java.api.IAvatar;
+import com.paperworld.java.api.IPlayer;
 import com.paperworld.java.api.IScene;
 import com.paperworld.java.impl.SimpleService;
 
@@ -15,5 +17,10 @@ public class JMService extends SimpleService {
 	
 	public JMService() {
 		
+	}
+	
+	@Override
+	public IAvatar getAvatarForPlayer(IPlayer player) {
+		return new JMAvatar();
 	}
 }

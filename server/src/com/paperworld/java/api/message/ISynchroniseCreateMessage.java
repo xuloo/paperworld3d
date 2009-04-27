@@ -2,6 +2,7 @@ package com.paperworld.java.api.message;
 
 import com.paperworld.java.api.IInput;
 import com.paperworld.java.api.IState;
+import com.paperworld.java.impl.BasicState;
 
 public interface ISynchroniseCreateMessage {
 
@@ -14,6 +15,6 @@ public interface ISynchroniseCreateMessage {
 	public IInput getInput();
 	public void setInput(IInput input);
 	
-	public IState getState();
-	public void setState(IState state);
+	public BasicState getState();
+	public void setState(BasicState state);
 }

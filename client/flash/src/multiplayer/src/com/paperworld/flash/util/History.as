@@ -25,6 +25,9 @@ package com.paperworld.flash.util
 	import com.paperworld.flash.multiplayer.data.State;
 	import com.paperworld.flash.util.input.IInput;
 	
+	import de.polygonal.ds.Iterator;
+	import de.polygonal.ds.SLinkedList;
+	
 	import org.as3commons.logging.ILogger;
 	import org.as3commons.logging.LoggerFactory;
 
@@ -34,23 +37,14 @@ package com.paperworld.flash.util
 	public class History
 	{
 		private static var logger:ILogger = LoggerFactory.getLogger("Paperworld");
-		
-		public var moves : CircularBuffer = new CircularBuffer();
+				
+		public var moves : SLinkedList = new CircularBuffer();
 
-		public var importantMoves : CircularBuffer = new CircularBuffer();
+		public var importantMoves : SLinkedList = new CircularBuffer();
 
-		public function History(size : int = 200)
+		public function History()
 		{
 			super( );
-			
-			moves.resize( size );
-			importantMoves.resize( size );
-		}
-
-		public function initialise() : void
-		{
-			moves = new CircularBuffer( );
-			importantMoves = new CircularBuffer( );	
 		}
 
 		public function destroy() : void
@@ -62,18 +56,20 @@ package com.paperworld.flash.util
 			// determine if important move
 			var important : Boolean = true;
 
-			if (!moves.empty( ))
+			if (moves.size > 0)
 			{
-				var previous : Move = moves.newest( );
+				var previous : Move = moves.head.data;
 
 				important = move.input.notEquals( previous.input );
 			}
 	
 			if (important)
-	            importantMoves.add( move );
+			{
+	            importantMoves.prepend( move );
+	  		}
 	
 			// add move to history
-			moves.add( move );
+			moves.prepend( move );
 		}
 
 		public function correction(avatar : ISynchronisedAvatar, t : int, state : State, input : IInput) : void
@@ -85,23 +81,22 @@ package com.paperworld.flash.util
 			importantMoves.remove( );
 			}*/
 
-			try 
+			while (moves.size > 0 && Move(moves.tail.data).time < t)
 			{
-				while (moves.oldest( ).time < t && !moves.empty( ))
-	           			moves.remove( );
-			}
-			catch( e : Error ) 
+           		moves.removeHead();
+   			}
+			
+			if (moves.size == 0)
 			{
-			}
-
-			if (moves.empty( ))
 	            return;
-	
+	  		}
+			trace("size " + moves.size);
 			// compare correction state with move history state
-			if (state.notEquals( moves.oldest( ).state ))
+			if (state.notEquals( Move(moves.tail.data).state ))
 			{				
+				//trace("states not equal");
 				// discard corrected move
-				moves.remove( );
+				moves.removeHead();
 	
 				// save current scene data
 				var	savedInput : IInput = avatar.input.clone( );
@@ -111,10 +106,25 @@ package com.paperworld.flash.util
 				avatar.input = input;
 
 				avatar.snap( state );
-				
+
 				avatar.replaying = true;
+				
+				var iterator:Iterator = moves.getIterator();
+				
+				while (iterator.hasNext())
+				{
+					var next : Move = Move(iterator.next());
+					trace("updating at " + next.time);
+					while (avatar.time < next.time)
+					{
+						avatar.update();
+					}
+					
+					avatar.input = next.input;
+					next.state = avatar.state;
+				}
 	
-				var i : int = moves.tail;
+				/*var i : int = moves.tail;
 
 				while (i != moves.head)
 				{
@@ -133,7 +143,7 @@ package com.paperworld.flash.util
 					
 					i++;
 					if (i > 1000) i = 0;
-				}
+				}*/
 
 				//syncObject.update( );
 
@@ -146,17 +156,7 @@ package com.paperworld.flash.util
 
 		public function importantMoveArray(array : Array) : void
 		{
-			var size : int = importantMoves.size;
-	
-			array = new Array( size );
-	
-			var i : int = importantMoves.tail;
-	
-			for (var j : int = 0; j < size ; j++)
-			{
-				array[j] = importantMoves[i];
-				importantMoves.next( i );
-			}
+			array = importantMoves.toArray();
 		}
 	}
 }

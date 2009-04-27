@@ -51,14 +51,13 @@ package com.paperworld.flash.multiplayer.connection.messages
 			_input = value;
 		}
 		
-		public function PlayerSyncMessage(objectId:String = null, input:IInput = null)
+		public function PlayerSyncMessage(objectId:String = null, time:int = 0, input:IInput = null)
 		{
 			super();
 			
 			_objectId = objectId || "";
+			_time = time;
 			_input = input || new Input();
-			
-			Registration.registerClass(this);
 		}		
 		
 		/**

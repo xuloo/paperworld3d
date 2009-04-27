@@ -57,11 +57,11 @@ package com.paperworld.flash.pv3d.objects
 
 		public function synchronise(time : int, input : IInput, state : State) : void
 		{												
-			_displayObject.x = state.position.x;
-			_displayObject.y = state.position.y;
-			_displayObject.z = state.position.z;
+			_displayObject.x = state.px;
+			//_displayObject.y = state.py;
+			//_displayObject.z = state.pz;
 
-			_displayObject.localRotationY = state.orientation.w;
+			//_displayObject.localRotationY = state.ow;
 		}
 
 		public function destroy() : void

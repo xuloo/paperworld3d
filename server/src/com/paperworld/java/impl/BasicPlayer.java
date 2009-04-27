@@ -79,9 +79,4 @@ public class BasicPlayer implements IPlayer {
 	public String getId() {
 		return getConnection().getClient().getId();
 	}
-
-	@Override
-	public IInput getInput() {
-		return input;
-	}
 }

@@ -21,108 +21,43 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.flash.util
 {
+	import de.polygonal.ds.SLinkedList;
+	import de.polygonal.ds.SListNode;
+	
 	import org.as3commons.logging.ILogger;
 	import org.as3commons.logging.LoggerFactory;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
 	 */
-	public class CircularBuffer
+	public class CircularBuffer extends SLinkedList
 	{
 		private static var logger:ILogger = LoggerFactory.getLogger("Paperworld");
 
-		public var head : int;
+		private var _maxSize:int;
 
-		public var tail : int;
-
-		public var index : int;
-
-		public var moves : Array;
-
-		public function CircularBuffer()
+		public function CircularBuffer(size:int = 1000)
 		{
 			super( );
-		}
-
-		public function initialise() : void
-		{
-			index = 0;
-
-			resize( 200 );
-		}
-
-		public function resize(size : int) : void
-		{
-			head = 0;
-			tail = 0;
-			moves = new Array( size );
-		}
-
-		public function get size() : int
-		{
-			var count : int = head - tail;
 			
-			if (count < 0) count += moves.length;
-                
-			return count;
+			_maxSize = size;
 		}
-
-		public function add(move : Move) : void
+		
+		override public function append(obj:*):SListNode
 		{
-			moves[head] = move;
-
-			head++;
-			if (head >= moves.length) 
-                head -= moves.length;
+			var result:SListNode = super.append(obj);
+			
+			validateSize();
+			
+			return result;
 		}
-
-		public function remove() : void
+		
+		private function validateSize():void 
 		{
-			if (!empty( ))
+			while (size > _maxSize)
 			{
-				tail++;
-				if (tail >= moves.length) 
-                	tail -= moves.length;
+				removeTail();
 			}
-		}
-
-		public function oldest() : Move
-		{
-			//logger.info("oldest: " + moves[tail]);
-			return moves[tail];
-		}
-
-		public function newest() : Move
-		{
-			//Assert.state( !empty( ), "Expecting CircularBuffer to contain Moves." );
-			var index : int = head - 1;
-			if (index == -1)
-                index = moves.length - 1;
-			return moves[index];
-		}
-
-		public function empty() : Boolean
-		{
-			return head == tail;
-		}
-
-		public function next(index : int) : void
-		{
-			index++;
-			if (index >= moves.length) 
-                index -= moves.length;
-		}
-
-		public function previous(index : int) : void
-		{
-			index--;
-			if (index < 0)
-                index += moves.length;
-		}
-
-		public function toString() : String
-		{
-			return 'CBuffer[size = ' + size + ']';
 		}
 	}
 }

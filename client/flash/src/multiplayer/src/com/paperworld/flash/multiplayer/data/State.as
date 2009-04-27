@@ -11,30 +11,64 @@ package com.paperworld.flash.multiplayer.data
 	import org.papervision3d.core.math.Quaternion;
 	
 	public class State implements IExternalizable, IRegisteredClass
-	{
-		public var _position:Vector3;
+	{		
+		public var px:Number = 10.0;
+		public var py:Number = 10.0;
+		public var pz:Number = 10.0;
+		public var ox:Number = 10.0;
+		public var oy:Number = 10.0;
+		public var oz:Number = 10.0;
+		public var ow:Number = 10.0;
+		
+		/*private var py:Number = 0.0;
+		
+		private var pz:Number = 0.0;
+		
+		private var _position:Vector3 = new Vector3();
 		
 		public function get position():Vector3
 		{
+			_position.x = px;
+			_position.y = py;
+			_position.z = pz;
+			
 			return _position;
 		}
 		
 		public function set position(value:Vector3):void 
 		{
-			_position = position;
+			px = value.x;
+			py = value.y;
+			pz = value.z;
 		}
 		
-		private var _orientation:Quaternion;
+		private var ow:Number = 1.0;
+		
+		private var ox:Number = 0.0;
+		
+		private var oy:Number = 0.0;
+		
+		private var oz:Number = 0.0;
+		
+		private var _orientation:Quaternion = new Quaternion();
 		
 		public function get orientation():Quaternion
 		{
+			_orientation.x = ox;
+			_orientation.y = oy;
+			_orientation.z = oz;
+			_orientation.w = ow;
+			
 			return _orientation;
 		}
 		
 		public function set orientation(value:Quaternion):void
 		{
-			_orientation = value;
-		}
+			ox = value.x;
+			oy = value.y;
+			oz = value.z;
+			ow = value.w;
+		}*/
 		
 		public function get aliasName():String 
 		{
@@ -42,16 +76,17 @@ package com.paperworld.flash.multiplayer.data
 		}
 		
 		public function State()
-		{
-			_position = new Vector3();
-			_orientation = new Quaternion();
-			
+		{			
 			Registration.registerClass(this);
 		}
 		
 		public function clone():State
 		{
-			return null;
+			var state:State = new State();
+			//state.position = Vector3(_position.clone());
+			//state.orientation = _orientation.clone();
+			
+			return state;
 		}
 		
 		public function destroy():void 
@@ -76,27 +111,29 @@ package com.paperworld.flash.multiplayer.data
 		
 		public function writeExternal(output:IDataOutput):void
 		{
-			output.writeFloat(_position.x);
-			output.writeFloat(_position.y);
-			output.writeFloat(_position.z);
-			output.writeFloat(_orientation.w);
-			output.writeFloat(_orientation.x);
-			output.writeFloat(_orientation.y);
-			output.writeFloat(_orientation.z);
+			output.writeFloat(px);
+			output.writeFloat(py);
+			output.writeFloat(pz);
+			
+			output.writeFloat(ow);
+			output.writeFloat(ox);
+			output.writeFloat(oy);
+			output.writeFloat(oz);
 		}
 		
 		/**
 		 * @inheritDoc
 		 */
 		public function readExternal(input:IDataInput):void
-		{
-			_position.x = input.readFloat();
-			_position.y = input.readFloat();
-			_position.z = input.readFloat();
-			_orientation.w = input.readFloat();
-			_orientation.x = input.readFloat();
-			_orientation.y = input.readFloat();
-			_orientation.z = input.readFloat();
+		{			
+			px = input.readFloat();
+			py = input.readFloat();
+			pz = input.readFloat();
+									
+			ow = input.readFloat();
+			ox = input.readFloat();
+			oy = input.readFloat();
+			oz = input.readFloat();
 		}
 	}
 }

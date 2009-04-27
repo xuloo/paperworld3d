@@ -29,6 +29,8 @@ package com.paperworld.flash.multiplayer.objects
 	import com.paperworld.flash.util.input.IUserInputListener;
 	import com.paperworld.flash.util.input.events.UserInputEvent;
 	
+	import flash.events.Event;
+	
 	import org.as3commons.logging.ILogger;
 	import org.as3commons.logging.LoggerFactory;	
 
@@ -39,10 +41,11 @@ package com.paperworld.flash.multiplayer.objects
 	{
 		protected var _history : History = new History( );
 
-		private static var logger:ILogger = LoggerFactory.getLogger("Paperworld");
+		private static var log:ILogger = LoggerFactory.getLogger("PW-Multiplayer");
 
 		override public function set userInput(value : IUserInput) : void
 		{
+			value.input = input;
 			value.addEventListener(UserInputEvent.INPUT_CHANGED, onInputUpdate);
 		}
 
@@ -53,10 +56,15 @@ package com.paperworld.flash.multiplayer.objects
 			initialise();
 		}
 
-		override public function update() : void
-		{						
+		override public function update(e:Event = null) : void
+		{	
+			//trace("STATE: " + state);
+			//
+								
 			_behaviour.apply( this );
 			
+			//trace("updating LocalAvatar " + state.position.x + " " + state.position.y + " " + state.position.z);
+						
 			// add to history
 			var move : Move = new Move( );
 			move.time = _time;
@@ -77,16 +85,16 @@ package com.paperworld.flash.multiplayer.objects
 			{
             	smooth( );
    			}*/
+			trace("synchronising local avatar " + state.px);// + " " + state.py + " " + state.pz);
+			snap(state);
+			//_history.correction( this, time, state, input );	
             	
-			_history.correction( this, time, state, input );	
-            	
-			super.synchronise( time, input, state );
+			//super.synchronise( time, input, state );
 		}
 
 		public function onInputUpdate(event : UserInputEvent) : void
 		{
-			trace("input update " + syncManager);
-			syncManager.handleAvatarMove(id, _input.clone());
+			syncManager.handleAvatarMove(id, _time, _input.clone());
 		}
 	}
 }

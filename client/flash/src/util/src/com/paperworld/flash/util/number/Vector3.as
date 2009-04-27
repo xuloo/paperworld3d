@@ -73,5 +73,10 @@ package com.paperworld.flash.util.number
 		{
 			return false;
 		}
+		
+		override public function clone():Number3D
+		{
+			return new Vector3(x, y, z);
+		}
 	}
 }

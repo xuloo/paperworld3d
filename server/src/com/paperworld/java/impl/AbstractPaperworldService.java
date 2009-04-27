@@ -32,7 +32,7 @@ public abstract class AbstractPaperworldService extends BaseService implements I
 	 */
 	protected final ConcurrentMap<String, IPlayer> players = new ConcurrentHashMap<String, IPlayer>();
 	
-	protected final List<IAvatar> avatars = Collections.synchronizedList(new ArrayList<IAvatar>());
+	protected final ConcurrentMap<String, IAvatar> avatars = new ConcurrentHashMap<String, IAvatar>();
 	
 	protected final List<AbstractProcessor> messageProcessors = Collections.synchronizedList(new ArrayList<AbstractProcessor>());
 
@@ -157,6 +157,11 @@ public abstract class AbstractPaperworldService extends BaseService implements I
 	
 	public Object echo(Object object) {
 		System.out.println("echoing " + object);
+		
+		if (object instanceof FuckingTestObject) {
+			FuckingTestObject state = (FuckingTestObject) object;
+			System.out.println("state.px = " + state.px);
+		}
 		return object;
 	}
 

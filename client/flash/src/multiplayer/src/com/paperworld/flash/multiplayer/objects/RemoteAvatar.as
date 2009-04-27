@@ -24,6 +24,8 @@ package com.paperworld.flash.multiplayer.objects
 	import com.paperworld.flash.multiplayer.data.State;
 	import com.paperworld.flash.util.input.IInput;
 	
+	import flash.events.Event;
+	
 	import org.as3commons.logging.ILogger;
 	import org.as3commons.logging.LoggerFactory;	
 
@@ -71,7 +73,7 @@ package com.paperworld.flash.multiplayer.objects
 			}
 		}
 
-		override public function update() : void
+		override public function update(e:Event = null) : void
 		{			
 			if (updating)
 			{				

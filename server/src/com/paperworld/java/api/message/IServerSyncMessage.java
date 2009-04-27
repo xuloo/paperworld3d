@@ -1,6 +1,6 @@
 package com.paperworld.java.api.message;
 
-import com.paperworld.java.api.IState;
+import com.paperworld.java.impl.BasicState;
 
 /**
  * This is a synchronisation message sent FROM the server TO the player.
@@ -12,7 +12,7 @@ import com.paperworld.java.api.IState;
  */
 public interface IServerSyncMessage extends IPlayerSyncMessage {
 	
-	public IState getState();
+	public BasicState getState();
 	
-	public void setState(IState state);
+	public void setState(BasicState state);
 }

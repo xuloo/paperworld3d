@@ -3,11 +3,11 @@ package com.paperworld.java.impl.message;
 import org.red5.io.amf3.IDataInput;
 import org.red5.io.amf3.IDataOutput;
 
-public class BatchInputMessage extends BaseMessage {
+public class BatchedInputMessage extends BaseMessage {
 
 	private PlayerSyncMessage[] messages;
 	
-	public BatchInputMessage() {
+	public BatchedInputMessage() {
 		
 	}
 	

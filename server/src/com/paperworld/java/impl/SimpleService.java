@@ -10,6 +10,7 @@ import com.paperworld.java.api.IPlayer;
 import com.paperworld.java.api.message.IServerSyncMessage;
 import com.paperworld.java.api.message.ISynchroniseCreateMessage;
 import com.paperworld.java.impl.message.ServerSyncMessage;
+import com.paperworld.java.impl.message.processors.BatchedInputMessageProcessor;
 import com.paperworld.java.impl.message.processors.RequestIdMessageProcessor;
 import com.paperworld.java.impl.message.processors.SynchroniseCreateMessageProcessor;
 
@@ -23,9 +24,11 @@ public class SimpleService extends AbstractPaperworldService {
 		super.init();
 
 		application.addScheduledJob(200, new UpdateConnectionsJob());
+		application.addScheduledJob(100, new UpdateAvatarsJob());
 
 		addMessageProcessor(new RequestIdMessageProcessor(this));
 		addMessageProcessor(new SynchroniseCreateMessageProcessor(this));
+		addMessageProcessor(new BatchedInputMessageProcessor(this));
 	}
 
 	@Override
@@ -45,18 +48,23 @@ public class SimpleService extends AbstractPaperworldService {
 	public void processSynchroniseCreateMessage(
 			ISynchroniseCreateMessage message) {
 		IPlayer player = players.get(message.getPlayerId());
-		
+
 		IAvatar avatar = player.getAvatar();
 		avatar.setId(message.getObjectId());
 		avatar.setOwner(player);
-		avatars.add(avatar);
+		avatars.put(avatar.getId(), avatar);
 
-		message.setInput(player.getInput());
+		message.setInput(avatar.getInput());
 		message.setState(avatar.getState());
 	}
 
 	public IAvatar getAvatarForPlayer(IPlayer player) {
 		return new BasicAvatar();
+	}
+
+	@Override
+	public IAvatar getAvatar(String objectId) {
+		return avatars.get(objectId);
 	}
 
 	private class UpdateConnectionsJob implements IScheduledJob {
@@ -69,12 +77,16 @@ public class SimpleService extends AbstractPaperworldService {
 
 			so.beginUpdate();
 
-			for (IAvatar avatar : avatars) {
+			for (String key : avatars.keySet()) {
+				IAvatar avatar = avatars.get(key);
 				try {
 					IPlayer player = avatar.getOwner();
 					String id = player.getId();
-					IServerSyncMessage syncMessage = new ServerSyncMessage(id, avatar.getId(),
-							0, player.getInput(), avatar.getState());
+					BasicState state = avatar.getState();
+					System.out.println(avatar + " position" + state.px + " " + state.py + " " + state.pz);
+					IServerSyncMessage syncMessage = new ServerSyncMessage(id,
+							avatar.getId(), avatar.getTime(), avatar.getInput(), avatar
+									.getState());
 
 					so.setAttribute(id, syncMessage);
 				} catch (Exception e) {
@@ -85,5 +97,16 @@ public class SimpleService extends AbstractPaperworldService {
 			so.endUpdate();
 		}
 
+	}
+	
+	private class UpdateAvatarsJob implements IScheduledJob {
+
+		@Override
+		public void execute(ISchedulingService service)
+				throws CloneNotSupportedException {
+			for (String key : avatars.keySet()) {
+				avatars.get(key).update();
+			}
+		}		
 	}
 }

@@ -2,7 +2,9 @@ package com.paperworld.flash.api.multiplayer
 {
 	import com.paperworld.flash.multiplayer.data.State;
 	import com.paperworld.flash.util.input.IInput;
-	import com.paperworld.flash.util.input.IUserInput;	
+	import com.paperworld.flash.util.input.IUserInput;
+	
+	import flash.events.Event;	
 
 	/**
 	 * @author Trevor
@@ -49,7 +51,7 @@ package com.paperworld.flash.api.multiplayer
 
 		function snap(state : State) : void;
 
-		function update() : void;
+		function update(e:Event = null) : void;
 		
 		function destroy():void;
 	}

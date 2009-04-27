@@ -28,12 +28,14 @@ package com.paperworld.flash.multiplayer.objects
 	import com.paperworld.flash.api.multiplayer.ISynchronisedObject;
 	import com.paperworld.flash.multiplayer.data.State;
 	import com.paperworld.flash.multiplayer.inputhandlers.SimpleAvatarInputHandler25D;
-	import com.paperworld.flash.util.clock.Clock;
-	import com.paperworld.flash.util.clock.IClockListener;
-	import com.paperworld.flash.util.clock.events.ClockEvent;
 	import com.paperworld.flash.util.input.IInput;
 	import com.paperworld.flash.util.input.IUserInput;
 	import com.paperworld.flash.util.input.Input;
+	import com.paperworld.flash.util.timer.ITimer;
+	import com.paperworld.flash.util.timer.TimerManager;
+	import com.paperworld.flash.util.timer.events.ITimerEvent;
+	
+	import flash.events.Event;
 	
 	import org.as3commons.logging.ILogger;
 	import org.as3commons.logging.LoggerFactory;	
@@ -41,9 +43,11 @@ package com.paperworld.flash.multiplayer.objects
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
 	 */
-	public class AbstractSynchronisedAvatar implements ISynchronisedAvatar, IClockListener
+	public class AbstractSynchronisedAvatar implements ISynchronisedAvatar
 	{
 		private static var logger:ILogger = LoggerFactory.getLogger("Paperworld");
+		
+		public static const AVATAR_UPDATE_TIMER:String = "AvatarUpdateTimer";
 		
 		private var _syncManager:ISyncManager;
 		
@@ -154,7 +158,7 @@ package com.paperworld.flash.multiplayer.objects
 		 */
 		public function get state() : State
 		{
-			return _current;	
+			return _current.clone();	
 		}
 
 		/**
@@ -184,7 +188,8 @@ package com.paperworld.flash.multiplayer.objects
 		}
 
 		/**
-		 * Flagged true if this object is currently replaying from it's Move history buffer.
+		 * Flagged true if this object is currently 
+		 * replaying from it's Move history buffer.
 		 */
 		public var _replaying : Boolean;
 
@@ -202,8 +207,10 @@ package com.paperworld.flash.multiplayer.objects
 		{
 		}
 
-		public function update() : void
-		{			
+		public function update(e:Event = null) : void
+		{	
+			_time++;		
+			
 			_tightness += (defaultTightness - _tightness) * 0.01;
 					
 			synchronisedObject.synchronise( _time, _input, _current );	
@@ -211,6 +218,7 @@ package com.paperworld.flash.multiplayer.objects
 
 		public function synchronise(time : int, input : IInput, state : State) : void
 		{
+			_tightness = defaultTightness;
 		}
 
 		/**
@@ -222,6 +230,8 @@ package com.paperworld.flash.multiplayer.objects
 		{
 			_previous = _current.clone( );
 			_current = state.clone( );
+			
+			synchronisedObject.synchronise( _time, _input, _current );
 		}
 
 		/**
@@ -250,7 +260,10 @@ package com.paperworld.flash.multiplayer.objects
 			
 			output = new SteeringOutput( );
 			
-			Clock.getInstance( ).addListener( this );
+			trace("TimerManager registering update");
+			var timer:ITimer = TimerManager.instance.getTimerByName(AVATAR_UPDATE_TIMER);
+			trace("TIMER: " + timer);
+			timer.addEventListener(ITimerEvent.TICK, update);
 		}
 
 		/**
@@ -273,12 +286,6 @@ package com.paperworld.flash.multiplayer.objects
 		public function equals(other : AbstractSynchronisedAvatar) : Boolean
 		{				
 			return  _tightness == other.tightness && _time == other.time && _input.equals( other.input ) && _current.equals( other.state );	
-		}
-
-		public function onTick(event : ClockEvent) : void
-		{
-			if (event.type == ClockEvent.TIMESTEP)
-				update( );
 		}
 
 		public function toString() : String

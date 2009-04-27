@@ -3,6 +3,8 @@
 	creationComplete="onCreationComplete()">
 	<mx:Script>
 		<![CDATA[
+			import com.paperworld.flash.multiplayer.objects.AbstractSynchronisedAvatar;
+			import com.paperworld.flash.util.timer.TimerManager;
 			import com.paperworld.flash.util.input.BasicKeyboardInput;
 			import com.paperworld.flash.util.input.IUserInput;
 			import com.paperworld.flash.api.multiplayer.ISynchronisedObject;
@@ -30,6 +32,8 @@
 			public function onCreationComplete():void 
 			{
 				trace("Creation Complete");
+				
+				TimerManager.instance.startAccurateIntervalTimer(50, 10000, AbstractSynchronisedAvatar.AVATAR_UPDATE_TIMER).start();
 				
 				var connection:Red5Connection = new Red5Connection();
 				connection.connectionArgs = ["this","that"];

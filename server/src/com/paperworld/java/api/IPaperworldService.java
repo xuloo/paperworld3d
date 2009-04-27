@@ -23,4 +23,6 @@ public interface IPaperworldService extends IService {
 	public void processSynchroniseCreateMessage(ISynchroniseCreateMessage message);
 	
 	public IAvatar getAvatarForPlayer(IPlayer player);
+	
+	public IAvatar getAvatar(String objectId);
 }

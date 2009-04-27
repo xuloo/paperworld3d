@@ -9,6 +9,7 @@ package com.paperworld.flash.multiplayer.connection.client
 	import com.paperworld.flash.multiplayer.connection.RemoteSharedObject;
 	import com.paperworld.flash.multiplayer.connection.handshake.Handshake;
 	import com.paperworld.flash.multiplayer.connection.messages.SendMessageOperation;
+	import com.paperworld.flash.multiplayer.connection.messages.ServerSyncMessage;
 	import com.paperworld.flash.util.AbstractProcessor;
 	
 	import flash.events.Event;

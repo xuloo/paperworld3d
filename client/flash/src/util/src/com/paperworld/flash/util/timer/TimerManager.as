@@ -38,8 +38,8 @@ package com.paperworld.flash.util.timer
          * Add a new timer, return the timer id.
          */
         private function registerTimer(timer:ITimer, name:String = null):ITimer
-        {
-        	if (name == null || name.length > 0)
+        {        	
+        	if (name == null || name.length == 0)
         	{
         		name = TIMER_PREFIX + nextId();
         	}
@@ -71,8 +71,9 @@ package com.paperworld.flash.util.timer
          */
         public function startSimpleIntervalTimer(delay:Number, repeatCount:int = 0, name:String = null):ITimer
         {
-            var timer:SimpleIntervalTimer = new SimpleIntervalTimer(delay, repeatCount);
-            return registerTimer(timer, name);
+        	var timer:ITimer = getTimerByName(name);
+        	
+            return timer == null ? registerTimer(new SimpleIntervalTimer(delay, repeatCount), name) : timer;
         }
 
         /**
@@ -82,8 +83,9 @@ package com.paperworld.flash.util.timer
          */
         public function startAccurateIntervalTimer(delay:Number, repeatCount:int = 0, name:String = null):ITimer
         {
-            var timer:AccurateIntervalTimer = new AccurateIntervalTimer(delay, repeatCount);
-            return registerTimer(timer, name);
+        	var timer:ITimer = getTimerByName(name);
+        	
+            return timer == null ? registerTimer(new AccurateIntervalTimer(delay, repeatCount), name) : timer;
         }
 
         /**
@@ -118,6 +120,16 @@ package com.paperworld.flash.util.timer
         	{
         		timer.stop();
         	}	
+        }
+        
+        public function getTimerByName(name:String):ITimer 
+        {
+        	if (name == null)
+        	{
+        		return null;
+        	}
+        	trace("Getting timer: " + name + " " + _timers.find(name));
+        	return ITimer(_timers.find(name));
         }
 
         /**

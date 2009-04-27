@@ -2,7 +2,6 @@ package com.paperworld.flash.multiplayer.connection.messages
 {
 	import com.paperworld.flash.api.multiplayer.messages.IServerSyncMessage;
 	import com.paperworld.flash.multiplayer.data.State;
-	import com.paperworld.flash.util.Registration;
 	
 	import flash.utils.IDataInput;
 	import flash.utils.IDataOutput;
@@ -14,7 +13,7 @@ package com.paperworld.flash.multiplayer.connection.messages
 			return "com.paperworld.java.impl.message.ServerSyncMessage";
 		}
 		
-		private var _state:State;
+		private var _state:State = new State();
 		
 		public function get state():State
 		{
@@ -29,10 +28,6 @@ package com.paperworld.flash.multiplayer.connection.messages
 		public function ServerSyncMessage()
 		{
 			super();
-			
-			_state = new State();
-			
-			Registration.registerClass(this);
 		}
 		
 		/**

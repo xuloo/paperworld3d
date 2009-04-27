@@ -38,23 +38,23 @@ package com.paperworld.flash.multiplayer.inputhandlers
 				
 			if (input != null) 
 			{
-				if (input.moveForward)
-					state.position.z += moveForwardAmount;
+				/*if (input.moveForward)
+					state.pz += moveForwardAmount;
 					
 				if (input.moveBackward)
-					state.position.z -= moveBackAmount;
+					state.pz -= moveBackAmount;
 
 				if (input.moveRight)
-					state.position.x += moveRightAmount;
+					state.px += moveRightAmount;
 
 				if (input.moveLeft)
-					state.position.x -= moveLeftAmount;
+					state.px -= moveLeftAmount;
 
 				if (input.yawPositive)
-					state.orientation.w += turnRightAmount;
+					state.ow += turnRightAmount;
 
 				if (input.yawNegative)
-					state.orientation.w -= turnLeftAmount;
+					state.ow -= turnLeftAmount;*/
 			}		
 			
 			super.apply( avatar );

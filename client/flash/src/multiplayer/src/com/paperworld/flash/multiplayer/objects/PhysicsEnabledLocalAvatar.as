@@ -1,7 +1,9 @@
 package com.paperworld.flash.multiplayer.objects 
 {
 	import com.paperworld.flash.multiplayer.data.State;
-	import com.paperworld.flash.util.input.IInput;	
+	import com.paperworld.flash.util.input.IInput;
+	
+	import flash.events.Event;	
 
 	/**
 	 * @author Trevor
@@ -20,7 +22,7 @@ package com.paperworld.flash.multiplayer.objects
 			super( );
 		}
 
-		override public function update() : void
+		override public function update(e:Event = null) : void
 		{								
 			_time += deltaTime;
 				

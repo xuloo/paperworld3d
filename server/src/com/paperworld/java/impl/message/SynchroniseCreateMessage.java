@@ -6,6 +6,7 @@ import org.red5.io.amf3.IDataOutput;
 import com.paperworld.java.api.IInput;
 import com.paperworld.java.api.IState;
 import com.paperworld.java.api.message.ISynchroniseCreateMessage;
+import com.paperworld.java.impl.BasicState;
 
 public class SynchroniseCreateMessage extends BaseMessage implements
 		ISynchroniseCreateMessage {
@@ -16,7 +17,7 @@ public class SynchroniseCreateMessage extends BaseMessage implements
 	
 	private IInput input;
 	
-	private IState state;
+	private BasicState state;
 	
 	public SynchroniseCreateMessage() {
 		
@@ -53,12 +54,12 @@ public class SynchroniseCreateMessage extends BaseMessage implements
 	}
 
 	@Override
-	public IState getState() {
+	public BasicState getState() {
 		return state;
 	}	
 
 	@Override
-	public void setState(IState state) {
+	public void setState(BasicState state) {
 		this.state = state;
 	}
 	
@@ -70,7 +71,7 @@ public class SynchroniseCreateMessage extends BaseMessage implements
 		objectId = input.readUTF();
 		
 		this.input = (IInput) input.readObject();
-		state = (IState) input.readObject();
+		state = (BasicState) input.readObject();
 	}
 
 	@Override

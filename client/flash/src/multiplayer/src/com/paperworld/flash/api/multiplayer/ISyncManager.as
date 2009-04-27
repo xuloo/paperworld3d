@@ -8,6 +8,6 @@ package com.paperworld.flash.api.multiplayer
 		
 		function unRegister(avatar:ISynchronisedAvatar):void;
 		
-		function handleAvatarMove(id:String, input:IInput):void;
+		function handleAvatarMove(id:String, time:int, input:IInput):void;
 	}
 }

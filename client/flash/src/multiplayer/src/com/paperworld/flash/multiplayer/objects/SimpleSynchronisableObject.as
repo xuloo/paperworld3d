@@ -37,10 +37,10 @@ package com.paperworld.flash.multiplayer.objects
 
 		public function synchronise(time : int, input : IInput, state : State) : void
 		{
-			this.object.x = state.position.x;
-			this.object.y = state.position.y;
+			this.object.x = state.px;
+			//this.object.y = state.py;
 
-			object.rotation = state.orientation.w;
+			//object.rotation = state.ow;
 		}
 
 		public function destroy() : void

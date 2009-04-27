@@ -10,11 +10,13 @@ import com.paperworld.java.api.IState;
 
 public class BasicAvatar implements IAvatar {
 	
+	protected int time = 0;
+	
 	protected String id;
 	
 	protected IInput input;
 	
-	protected IState state;
+	protected BasicState state;
 	
 	protected IBehaviour behaviour;
 	
@@ -26,16 +28,17 @@ public class BasicAvatar implements IAvatar {
 		this(new BasicInput(), new BasicState());
 	}
 	
-	public BasicAvatar(IInput input, IState state) {
+	public BasicAvatar(IInput input, BasicState state) {
 		this.input = input;
 		this.state = state;
 	}
 	
 	@Override
 	public void updateUserInput(int time, IInput input) {
-		if (time > state.getTime()) {
+		//if (time > state.getTime()) {
+			this.time = time;
 			this.input = input;
-		}
+		//}
 	}
 
 	@Override
@@ -53,7 +56,7 @@ public class BasicAvatar implements IAvatar {
 		this.connection = connection;
 	}
 	
-	public IState getState() {
+	public BasicState getState() {
 		return state;
 	}
 
@@ -75,5 +78,26 @@ public class BasicAvatar implements IAvatar {
 	@Override
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	@Override
+	public IInput getInput() {
+		return input;
+	}
+
+	@Override
+	public void setInput(IInput input) {
+		this.input = input;
+	}
+	
+	@Override 
+	public void update() {
+		time++;
+		behaviour.update(time, input, state);
+	}
+	
+	@Override
+	public int getTime() {
+		return time;
 	}
 }

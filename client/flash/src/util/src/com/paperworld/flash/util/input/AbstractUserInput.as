@@ -64,10 +64,8 @@ package com.paperworld.flash.util.input
 
 		public function updateListeners() : void
 		{
-			trace("updating listeners")
 			if (_current.notEquals(_previous))
 			{
-				trace("input has changed");
 				_previous.copyFrom(_current);
 				
 				dispatchEvent( new UserInputEvent( UserInputEvent.INPUT_CHANGED, _current ) );
