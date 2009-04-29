@@ -14,7 +14,7 @@ package com.paperworld.flash.ai.steering.pipeline.constraints
 	import com.paperworld.flash.ai.steering.Kinematic;
 	import com.paperworld.flash.ai.steering.pipeline.SteeringConstraint;
 	import com.paperworld.flash.ai.steering.pipeline.SteeringUtils;
-	import com.paperworld.flash.util.number.Vector3;	
+	import com.paperworld.flash.util.math.Vector3f;	
 
 	/**
 	 * @author Trevor
@@ -57,23 +57,23 @@ package com.paperworld.flash.ai.steering.pipeline.constraints
                                     tOffset : Number = 0) : void
 		{
 			// Predator's position at nearest approach time
-			var prediction : Vector3 = agent.velocity; 
-			prediction.multiplyEq( time );
-			prediction.plusEq( agent.position );
+			var prediction : Vector3f = agent.velocity; 
+			prediction.multLocalScalar( time );
+			prediction.addLocal( agent.position );
 			suggestedGoal.position = prediction;
-			suggestedGoal.position.minusEq( actor.position );
+			suggestedGoal.position.subtractLocal( actor.position );
 	
 			// If prediction is behind, place suggested goal on other side of us.
 			if (suggestedGoal.position.dot( actor.velocity ) < 0) 
 			{
-				suggestedGoal.position.multiplyEq( -1 );
+				suggestedGoal.position.multLocalScalar( -1 );
 			} 
 			else 
 			{
 				// Otherwise place suggested goal on other side of our path.
-				var sgl : Number = suggestedGoal.position.magnitude;
+				var sgl : Number = suggestedGoal.position.length();
 				suggestedGoal.position = suggestedGoal.position.cross( actor.velocity );
-				var sina : Number = suggestedGoal.position.magnitude / steering.getSpeed( ) / sgl;
+				var sina : Number = suggestedGoal.position.length() / steering.getSpeed( ) / sgl;
 	
 				// But, if prediction is roughly ahead, turn right.
 				if (Math.abs( sina ) < .1)
@@ -87,9 +87,9 @@ package com.paperworld.flash.ai.steering.pipeline.constraints
 			}
 	
 			suggestedGoal.position.setMagnitude( margin );
-			suggestedGoal.position.plusEq( prediction );
+			suggestedGoal.position.addLocal( prediction );
 			suggestedGoal.velocity = suggestedGoal.position;
-			suggestedGoal.velocity.minusEq( actor.position );
+			suggestedGoal.velocity.subtractLocal( actor.position );
 			suggestedGoal.velocity.setMagnitude( steering.getActuator( ).maxSpeed );
 			suggestedGoal.orientation = Math.atan2( suggestedGoal.velocity.y, suggestedGoal.velocity.x );
 		}
@@ -146,8 +146,8 @@ package com.paperworld.flash.ai.steering.pipeline.constraints
 	            else
 				{   					// Move the agent forward by tOffset
 					var pseudoAgent : Kinematic = new Kinematic( agent.velocity, NaN, agent.velocity );
-					pseudoAgent.position.multiplyEq( tOffset );
-					pseudoAgent.position.plusEq( agent.position );
+					pseudoAgent.position.multLocalScalar( tOffset );
+					pseudoAgent.position.addLocal( agent.position );
 					time = SteeringUtils.timeToAgent( pt1, pseudoAgent, safetyMargin );
 					if (time < pt1.position.distance( steering.currentGoal.position ) / steering.getSpeed( ))
 					{
@@ -162,7 +162,7 @@ package com.paperworld.flash.ai.steering.pipeline.constraints
 				var currentGoal : Kinematic = steering.currentGoal;
 				pt1 = actor;
 				pt1.velocity = currentGoal.position;
-				pt1.velocity.minusEq( pt1.position );
+				pt1.velocity.subtractLocal( pt1.position );
 				pt1.velocity.setMagnitude( steering.getSpeed( ) );
 				time = SteeringUtils.timeToAgent( pt1, agent, safetyMargin );
 				if (time < pt1.position.distance( steering.currentGoal.position ) / steering.getSpeed( ))

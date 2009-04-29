@@ -1,8 +1,8 @@
 package com.paperworld.flash.connection.handshake
 {
 	import com.joeberkovitz.moccasin.service.AbstractOperation;
-	import com.paperworld.flash.api.multiplayer.IClient;
-	import com.paperworld.flash.api.multiplayer.INetConnection;
+	import com.paperworld.flash.api.connection.IClient;
+	import com.paperworld.flash.api.connection.INetConnection;
 	import com.paperworld.flash.connection.messages.BaseMessage;
 	import com.paperworld.flash.connection.messages.PlayerSyncMessage;
 	import com.paperworld.flash.connection.messages.ServerSyncMessage;

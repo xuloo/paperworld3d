@@ -1,8 +1,8 @@
 package com.paperworld.flash.multiplayer.sync
 {
 	import com.joeberkovitz.moccasin.service.IOperation;
-	import com.paperworld.flash.api.multiplayer.IClient;
-	import com.paperworld.flash.api.multiplayer.IMessage;
+	import com.paperworld.flash.api.connection.IClient;
+	import com.paperworld.flash.api.connection.IMessage;
 	import com.paperworld.flash.api.multiplayer.ISyncManager;
 	import com.paperworld.flash.api.multiplayer.ISynchronisedAvatar;
 	import com.paperworld.flash.api.multiplayer.ISynchronisedScene;

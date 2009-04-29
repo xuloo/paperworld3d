@@ -18,6 +18,8 @@ package com.paperworld.flash.util.math
 	public class Quaternion {
 	    private static var log:ILogger = LoggerFactory.getLogger("Quaternion");
 		
+		public static const HALF_PI:Number = Math.PI * 0.5;
+		
 	    public var x:Number;
 	    public var y:Number;
 	    public var z:Number;
@@ -119,13 +121,13 @@ package com.paperworld.flash.util.math
 	    
 	    /**
 	     * @return true if this Quaternion is {0,0,0,1}
-	     *//*
+	     */
 	    public function isIdentity():Boolean {
 	        if (x == 0 && y == 0 && z == 0 && w == 1) 
 	            return true;
 	        else
 	            return false;
-	    }*/
+	    }
 	    
 	    /**
 	     * <code>fromAngles</code> builds a quaternion from the Euler rotation
@@ -133,14 +135,14 @@ package com.paperworld.flash.util.math
 	     *
 	     * @param angles
 	     *            the Euler angles of rotation (in radians).
-	     *//*
+	     */
 	    public function fromAnglesArray(angles:Array):Quaternion {
 	        if (angles.length != 3)
 	            throw new Error(
 	                    "Angles array must have three elements");
 	
-	        fromAngles(angles[0], angles[1], angles[2]);
-	    }*/
+	        return fromAngles(angles[0], angles[1], angles[2]);
+	    }
 	
 		/**
 		 * <code>fromAngles</code> builds a Quaternion from the Euler rotation
@@ -157,7 +159,7 @@ package com.paperworld.flash.util.math
 		 * @param pitch
 		 *            the Euler pitch of rotation (in radians). (aka Attitude, often
 		 *            rot around z)
-		 *//*
+		 */
 	    public function fromAngles(yaw:Number, roll:Number, pitch:Number):Quaternion {
 	        var angle:Number;
 	        var sinRoll:Number;
@@ -189,7 +191,7 @@ package com.paperworld.flash.util.math
 	        
 	        normalise();
 	        return this;
-	    }*/
+	    }
 	    
 	    /**
 		 * <code>toAngles</code> returns this quaternion converted to Euler
@@ -200,7 +202,7 @@ package com.paperworld.flash.util.math
 		 *            the float[] in which the angles should be stored, or null if
 		 *            you want a new float[] to be created
 		 * @return the float[] in which the angles are stored.
-		 *//*
+		 */
 		public function toAngles(angles:Array):Array {
 			if (angles == null)
 				angles = new Array(3);
@@ -211,16 +213,16 @@ package com.paperworld.flash.util.math
 			var sqx:Number = x * x;
 			var sqy:Number = y * y;
 			var sqz:Number = z * z;
-			var uni:Numbert = sqx + sqy + sqz + sqw; // if normalized is one, otherwise
+			var unit:Number = sqx + sqy + sqz + sqw; // if normalized is one, otherwise
 												// is correction factor
 			var test:Number = x * y + z * w;
 			if (test > 0.499 * unit) { // singularity at north pole
 				angles[1] = 2 * Math.atan2(x, w);
-				angles[2] = FastMath.HALF_PI;
+				angles[2] = HALF_PI;
 				angles[0] = 0;
 			} else if (test < -0.499 * unit) { // singularity at south pole
 				angles[1] = -2 * Math.atan2(x, w);
-				angles[2] = -FastMath.HALF_PI;
+				angles[2] = -HALF_PI;
 				angles[0] = 0;
 			} else {
 				angles[1] = Math.atan2(2 * y * w - 2 * x * z, sqx - sqy - sqz + sqw); // roll or heading 
@@ -228,7 +230,7 @@ package com.paperworld.flash.util.math
 				angles[0] = Math.atan2(2 * x * w - 2 * y * z, -sqx + sqy - sqz + sqw); // yaw or bank
 			}
 			return angles;
-		}*/
+		}
 	
 	    /**
 		 * 
@@ -237,7 +239,7 @@ package com.paperworld.flash.util.math
 		 * 
 		 * @param matrix
 		 *            the matrix that defines the rotation.
-		 *//*
+		 */
 	    public function fromRotationMatrix(matrix:Matrix3f):Quaternion {
 	        return fromRotationMatrixComponents(matrix.m00, matrix.m01, matrix.m02, matrix.m10,
 	                matrix.m11, matrix.m12, matrix.m20, matrix.m21, matrix.m22);
@@ -253,17 +255,18 @@ package com.paperworld.flash.util.math
 	        // the trace is the sum of the diagonal elements; see
 	        // http://mathworld.wolfram.com/MatrixTrace.html
 	        var t:Number = m00 + m11 + m22;
-	
+			var s:Number;
+			
 	        // we protect the division by s by ensuring that s>=1
 	        if (t >= 0) { // |w| >= .5
-	            var s:Number = Math.sqrt(t+1); // |s|>=1 ...
+	            s = Math.sqrt(t+1); // |s|>=1 ...
 	            w = 0.5 * s;
 	            s = 0.5 / s;                 // so this division isn't bad
 	            x = (m21 - m12) * s;
 	            y = (m02 - m20) * s;
 	            z = (m10 - m01) * s;
 	        } else if ((m00 > m11) && (m00 > m22)) {
-	            var s:Number = Math
+	            s = Math
 	                    .sqrt(1.0 + m00 - m11 - m22); // |s|>=1
 	            x = s * 0.5; // |x| >= .5
 	            s = 0.5 / s;
@@ -271,7 +274,7 @@ package com.paperworld.flash.util.math
 	            z = (m02 + m20) * s;
 	            w = (m21 - m12) * s;
 	        } else if (m11 > m22) {
-	            var s:Number = Math
+	            s = Math
 	                    .sqrt(1.0 + m11 - m00 - m22); // |s|>=1
 	            y = s * 0.5; // |y| >= .5
 	            s = 0.5 / s;
@@ -279,7 +282,7 @@ package com.paperworld.flash.util.math
 	            z = (m21 + m12) * s;
 	            w = (m02 - m20) * s;
 	        } else {
-	            var s:Number = Math
+	            s = Math
 	                    .sqrt(1.0 + m22 - m00 - m11); // |s|>=1
 	            z = s * 0.5; // |z| >= .5
 	            s = 0.5 / s;
@@ -289,7 +292,7 @@ package com.paperworld.flash.util.math
 	        }
 	        
 	        return this;
-	    }*/
+	    }
 	
 	    /**
 	     * <code>toRotationMatrix</code> converts this quaternion to a rotational
@@ -298,7 +301,7 @@ package com.paperworld.flash.util.math
 	     * @param result
 	     *            The Matrix3f to store the result in.
 	     * @return the rotation matrix representation of this quaternion.
-	     *//*
+	     */
 	    public function toRotationMatrix3(result:Matrix3f = null):Matrix3f {
 			if (result == null) result = new Matrix3f();
 	        var norm:Number = norm();
@@ -333,7 +336,7 @@ package com.paperworld.flash.util.math
 	        result.m22  = 1 - ( xx + yy );
 	
 	        return result;
-	    }*/
+	    }
 	
 	    /**
 	     * <code>toRotationMatrix</code> converts this quaternion to a rotational
@@ -343,7 +346,7 @@ package com.paperworld.flash.util.math
 	     * @param result
 	     *            The Matrix4f to store the result in.
 	     * @return the rotation matrix representation of this quaternion.
-	     *//*
+	     */
 	    public function toRotationMatrix4(result:Matrix4f):Matrix4f {
 	
 	        var norm:Number = norm();
@@ -378,7 +381,7 @@ package com.paperworld.flash.util.math
 	        result.m22  = 1 - ( xx + yy );
 	
 	        return result;
-	    }*/
+	    }
 	
 	    /**
 	     * <code>getRotationColumn</code> returns one of three columns specified
@@ -391,7 +394,7 @@ package com.paperworld.flash.util.math
 	     *            the vector object to store the result in. if null, a new one
 	     *            is created.
 	     * @return the column specified by the index.
-	     *//*
+	     */
 	    public function getRotationColumn(i:int, store:Vector3f = null):Vector3f {
 	        if (store == null)
 	            store = new Vector3f();
@@ -428,12 +431,12 @@ package com.paperworld.flash.util.math
 	                store.z  = 1 - 2 * ( xx + yy );
 	                break;
 	            default:
-	                logger.warning("Invalid column index.");
-	                throw new JmeException("Invalid column index. " + i);
+	                log.warn("Invalid column index.");
+	                throw new Error("Invalid column index. " + i);
 	        }
 	
 	        return store;
-	    }*/
+	    }
 	
 	    /**
 	     * <code>fromAngleAxis</code> sets this quaternion to the values specified
@@ -445,12 +448,12 @@ package com.paperworld.flash.util.math
 	     * @param axis
 	     *            the axis of rotation.
 	     * @return this quaternion
-	     *//*
-	    public Quaternion fromAngleAxis(float angle, Vector3f axis) {
-	        Vector3f normAxis = axis.normalize();
+	     */
+	    public function fromAngleAxis(angle:Number, axis:Vector3f):Quaternion {
+	        var normAxis:Vector3f = axis.normalise();
 	        fromAngleNormalAxis(angle, normAxis);
 	        return this;
-	    }*/
+	    }
 	
 	    /**
 	     * <code>fromAngleNormalAxis</code> sets this quaternion to the values
@@ -460,20 +463,20 @@ package com.paperworld.flash.util.math
 	     *            the angle to rotate (in radians).
 	     * @param axis
 	     *            the axis of rotation (already normalized).
-	     *//*
-	    public Quaternion fromAngleNormalAxis(float angle, Vector3f axis) {
+	     */
+	    public function fromAngleNormalAxis(angle:Number, axis:Vector3f):Quaternion {
 	    	if (axis.x == 0 && axis.y == 0 && axis.z == 0) {
 	    		loadIdentity();
 	    	} else {
-		        float halfAngle = 0.5f * angle;
-		        float sin = FastMath.sin(halfAngle);
-		        w = FastMath.cos(halfAngle);
+		        var halfAngle:Number = 0.5 * angle;
+		        var sin:Number = Math.sin(halfAngle);
+		        w = Math.cos(halfAngle);
 		        x = sin * axis.x;
 		        y = sin * axis.y;
 		        z = sin * axis.z;
 	    	}
 	        return this;
-	    }*/
+	    }
 	
 	    /**
 	     * <code>toAngleAxis</code> sets a given angle and axis to that
@@ -484,21 +487,21 @@ package com.paperworld.flash.util.math
 	     * @param axisStore
 	     *            the object we'll store the computed axis in.
 	     * @return the angle of rotation in radians.
-	     *//*
-	    public float toAngleAxis(Vector3f axisStore) {
-	        float sqrLength = x * x + y * y + z * z;
-	        float angle;
-	        if (sqrLength == 0.0f) {
-	            angle = 0.0f;
+	     */
+	    public function toAngleAxis(axisStore:Vector3f = null):Number {
+	        var sqrLength:Number = x * x + y * y + z * z;
+	        var angle:Number;
+	        if (sqrLength == 0.0) {
+	            angle = 0.0;
 	            if (axisStore != null) {
-	                axisStore.x = 1.0f;
-	                axisStore.y = 0.0f;
-	                axisStore.z = 0.0f;
+	                axisStore.x = 1.0;
+	                axisStore.y = 0.0;
+	                axisStore.z = 0.0;
 	            }
 	        } else {
-	            angle = (2.0f * FastMath.acos(w));
+	            angle = (2.0 * Math.acos(w));
 	            if (axisStore != null) {
-	                float invLength = (1.0f / FastMath.sqrt(sqrLength));
+	                var invLength:Number = (1.0 / Math.sqrt(sqrLength));
 	                axisStore.x = x * invLength;
 	                axisStore.y = y * invLength;
 	                axisStore.z = z * invLength;
@@ -506,7 +509,7 @@ package com.paperworld.flash.util.math
 	        }
 	
 	        return angle;
-	    }*/
+	    }
 	
 	    /**
 	     * <code>slerp</code> sets this quaternion's value as an interpolation
@@ -518,18 +521,18 @@ package com.paperworld.flash.util.math
 	     *            the second quaternion.
 	     * @param t
 	     *            the amount to interpolate between the two quaternions.
-	     *//*
-	    public Quaternion slerp(Quaternion q1, Quaternion q2, float t) {
+	     */
+	    public function slerpFromTo(q1:Quaternion, q2:Quaternion, t:Number):Quaternion {
 	        // Create a local quaternion to store the interpolated quaternion
 	        if (q1.x == q2.x && q1.y == q2.y && q1.z == q2.z && q1.w == q2.w) {
-	            this.set(q1);
+	            setQuaternion(q1);
 	            return this;
 	        }
 	
-	        float result = (q1.x * q2.x) + (q1.y * q2.y) + (q1.z * q2.z)
+	        var result:Number = (q1.x * q2.x) + (q1.y * q2.y) + (q1.z * q2.z)
 	                + (q1.w * q2.w);
 	
-	        if (result < 0.0f) {
+	        if (result < 0.0) {
 	            // Negate the second quaternion and the result of the dot product
 	            q2.x = -q2.x;
 	            q2.y = -q2.y;
@@ -539,20 +542,20 @@ package com.paperworld.flash.util.math
 	        }
 	
 	        // Set the first and second scale for the interpolation
-	        float scale0 = 1 - t;
-	        float scale1 = t;
+	        var scale0:Number = 1 - t;
+	        var scale1:Number = t;
 	
 	        // Check if the angle between the 2 quaternions was big enough to
 	        // warrant such calculations
-	        if ((1 - result) > 0.1f) {// Get the angle between the 2 quaternions,
+	        if ((1 - result) > 0.1) {// Get the angle between the 2 quaternions,
 	            // and then store the sin() of that angle
-	            float theta = FastMath.acos(result);
-	            float invSinTheta = 1f / FastMath.sin(theta);
+	            var theta:Number = Math.acos(result);
+	            var invSinTheta:Number = 1 / Math.sin(theta);
 	
 	            // Calculate the scale for q1 and q2, according to the angle and
 	            // it's sine value
-	            scale0 = FastMath.sin((1 - t) * theta) * invSinTheta;
-	            scale1 = FastMath.sin((t * theta)) * invSinTheta;
+	            scale0 = Math.sin((1 - t) * theta) * invSinTheta;
+	            scale1 = Math.sin((t * theta)) * invSinTheta;
 	        }
 	
 	        // Calculate the x, y, z and w values for the quaternion by using a
@@ -565,7 +568,7 @@ package com.paperworld.flash.util.math
 	
 	        // Return the interpolated quaternion
 	        return this;
-	    }*/
+	    }
 	
 	    /**
 	     * Sets the values of this quaternion to the slerp from itself to q2 by
@@ -575,17 +578,17 @@ package com.paperworld.flash.util.math
 	     *            Final interpolation value
 	     * @param changeAmnt
 	     *            The amount diffrence
-	     *//*
-	    public void slerp(Quaternion q2, float changeAmnt) {
+	     */
+	    public function slerpTo(q2:Quaternion, changeAmnt:Number):void {
 	        if (this.x == q2.x && this.y == q2.y && this.z == q2.z
 	                && this.w == q2.w) {
 	            return;
 	        }
 	
-	        float result = (this.x * q2.x) + (this.y * q2.y) + (this.z * q2.z)
+	        var result:Number = (this.x * q2.x) + (this.y * q2.y) + (this.z * q2.z)
 	                + (this.w * q2.w);
 	
-	        if (result < 0.0f) {
+	        if (result < 0.0) {
 	            // Negate the second quaternion and the result of the dot product
 	            q2.x = -q2.x;
 	            q2.y = -q2.y;
@@ -595,21 +598,21 @@ package com.paperworld.flash.util.math
 	        }
 	
 	        // Set the first and second scale for the interpolation
-	        float scale0 = 1 - changeAmnt;
-	        float scale1 = changeAmnt;
+	        var scale0:Number = 1 - changeAmnt;
+	        var scale1:Number = changeAmnt;
 	
 	        // Check if the angle between the 2 quaternions was big enough to
 	        // warrant such calculations
-	        if ((1 - result) > 0.1f) {
+	        if ((1 - result) > 0.1) {
 	            // Get the angle between the 2 quaternions, and then store the sin()
 	            // of that angle
-	            float theta = FastMath.acos(result);
-	            float invSinTheta = 1f / FastMath.sin(theta);
+	            var theta:Number = Math.acos(result);
+	            var invSinTheta:Number = 1 / Math.sin(theta);
 	
 	            // Calculate the scale for q1 and q2, according to the angle and
 	            // it's sine value
-	            scale0 = FastMath.sin((1 - changeAmnt) * theta) * invSinTheta;
-	            scale1 = FastMath.sin((changeAmnt * theta)) * invSinTheta;
+	            scale0 = Math.sin((1 - changeAmnt) * theta) * invSinTheta;
+	            scale1 = Math.sin((changeAmnt * theta)) * invSinTheta;
 	        }
 	
 	        // Calculate the x, y, z and w values for the quaternion by using a
@@ -619,7 +622,7 @@ package com.paperworld.flash.util.math
 	        this.y = (scale0 * this.y) + (scale1 * q2.y);
 	        this.z = (scale0 * this.z) + (scale1 * q2.z);
 	        this.w = (scale0 * this.w) + (scale1 * q2.w);
-	    }*/
+	    }
 	
 	    /**
 	     * <code>add</code> adds the values of this quaternion to those of the
@@ -628,10 +631,10 @@ package com.paperworld.flash.util.math
 	     * @param q
 	     *            the quaternion to add to this.
 	     * @return the new quaternion.
-	     *//*
-	    public Quaternion add(Quaternion q) {
+	     */
+	    public function add(q:Quaternion):Quaternion {
 	        return new Quaternion(x + q.x, y + q.y, z + q.z, w + q.w);
-	    }*/
+	    }
 	
 	    /**
 	     * <code>add</code> adds the values of this quaternion to those of the
@@ -640,14 +643,14 @@ package com.paperworld.flash.util.math
 	     * @param q
 	     *            the quaternion to add to this.
 	     * @return This Quaternion after addition.
-	     *//*
-	    public Quaternion addLocal(Quaternion q) {
+	     */
+	    public function addLocal(q:Quaternion):Quaternion {
 	        this.x += q.x;
 	        this.y += q.y;
 	        this.z += q.z;
 	        this.w += q.w;
 	        return this;
-	    }*/
+	    }
 	
 	    /**
 	     * <code>subtract</code> subtracts the values of the parameter quaternion
@@ -657,10 +660,10 @@ package com.paperworld.flash.util.math
 	     * @param q
 	     *            the quaternion to subtract from this.
 	     * @return the new quaternion.
-	     *//*
-	    public Quaternion subtract(Quaternion q) {
+	     */
+	    public function subtract(q:Quaternion):Quaternion {
 	        return new Quaternion(x - q.x, y - q.y, z - q.z, w - q.w);
-	    }*/
+	    }
 	
 		/**
 		 * <code>subtract</code> subtracts the values of the parameter quaternion
@@ -669,27 +672,14 @@ package com.paperworld.flash.util.math
 		 * @param q
 		 *            the quaternion to subtract from this.
 		 * @return This Quaternion after subtraction.
-		 *//*
-		public Quaternion subtractLocal(Quaternion q) {
+		 */
+		public function subtractLocal(q:Quaternion):Quaternion {
 			this.x -= q.x;
 			this.y -= q.y;
 			this.z -= q.z;
 			this.w -= q.w;
 			return this;
 		}
-	*/
-		/**
-	     * <code>mult</code> multiplies this quaternion by a parameter quaternion.
-	     * The result is returned as a new quaternion. It should be noted that
-	     * quaternion multiplication is not cummulative so q * p != p * q.
-	     *
-	     * @param q
-	     *            the quaternion to multiply this quaternion by.
-	     * @return the new quaternion.
-	     *//*
-	    public Quaternion mult(Quaternion q) {
-	        return mult(q, null);
-	    }*/
 	
 	    /**
 	     * <code>mult</code> multiplies this quaternion by a parameter quaternion.
@@ -703,17 +693,20 @@ package com.paperworld.flash.util.math
 	     * @param res
 	     *            the quaternion to store the result in.
 	     * @return the new quaternion.
-	     *//*
-	    public Quaternion mult(Quaternion q, Quaternion res) {
+	     */
+	    public function mult(q:Quaternion, res:Quaternion = null):Quaternion {
 	        if (res == null)
 	            res = new Quaternion();
-	        float qw = q.w, qx = q.x, qy = q.y, qz = q.z;
+	        var qw:Number = q.w;
+	        var qx:Number = q.x;
+	        var qy:Number = q.y;
+	        var qz:Number = q.z;
 	        res.x = x * qw + y * qz - z * qy + w * qx;
 	        res.y = -x * qz + y * qw + z * qx + w * qy;
 	        res.z = x * qy - y * qx + z * qw + w * qz;
 	        res.w = -x * qx - y * qy - z * qz + w * qw;
 	        return res;
-	    }*/
+	    }
 	
 	    /**
 	     * <code>apply</code> multiplies this quaternion by a parameter matrix
@@ -721,17 +714,23 @@ package com.paperworld.flash.util.math
 	     *
 	     * @param matrix
 	     *            the matrix to apply to this quaternion.
-	     *//*
-	    public void apply(Matrix3f matrix) {
-	        float oldX = x, oldY = y, oldZ = z, oldW = w;
+	     */
+	    public function apply(matrix:Matrix3f):void {
+	        var oldX:Number = x;
+	        var oldY:Number = y;
+	        var oldZ:Number = z;
+	        var oldW:Number = w;
 	        fromRotationMatrix(matrix);
-	        float tempX = x, tempY = y, tempZ = z, tempW = w;
+	        var tempX:Number = x;
+	        var tempY:Number = y;
+	        var tempZ:Number = z;
+	        var tempW:Number = w;
 	
 	        x = oldX * tempW + oldY * tempZ - oldZ * tempY + oldW * tempX;
 	        y = -oldX * tempZ + oldY * tempW + oldZ * tempX + oldW * tempY;
 	        z = oldX * tempY - oldY * tempX + oldZ * tempW + oldW * tempZ;
 	        w = -oldX * tempX - oldY * tempY - oldZ * tempZ + oldW * tempW;
-	    }*/
+	    }
 	
 	    /**
 	     *
@@ -744,13 +743,13 @@ package com.paperworld.flash.util.math
 	     * @param axis
 	     *            the array containing the three vectors representing the
 	     *            coordinate system.
-	     *//*
-	    public Quaternion fromAxes(Vector3f[] axis) {
+	     */
+	    public function fromAxesArray(axis:Array):Quaternion {
 	        if (axis.length != 3)
-	            throw new IllegalArgumentException(
+	            throw new Error(
 	                    "Axis array must have three elements");
 	        return fromAxes(axis[0], axis[1], axis[2]);
-	    }*/
+	    }
 	
 	    /**
 	     *
@@ -763,11 +762,11 @@ package com.paperworld.flash.util.math
 	     * @param xAxis vector representing the x-axis of the coordinate system.
 	     * @param yAxis vector representing the y-axis of the coordinate system.
 	     * @param zAxis vector representing the z-axis of the coordinate system.
-	     *//*
-	    public Quaternion fromAxes(Vector3f xAxis, Vector3f yAxis, Vector3f zAxis) {
-	        return fromRotationMatrix(xAxis.x, yAxis.x, zAxis.x, xAxis.y, yAxis.y,
+	     */
+	    public function fromAxes(xAxis:Vector3f, yAxis:Vector3f, zAxis:Vector3f):Quaternion {
+	        return fromRotationMatrixComponents(xAxis.x, yAxis.x, zAxis.x, xAxis.y, yAxis.y,
 	                zAxis.y, xAxis.z, yAxis.z, zAxis.z);
-	    }*/
+	    }
 	
 	    /**
 	     *
@@ -777,25 +776,13 @@ package com.paperworld.flash.util.math
 	     *
 	     * @param axis
 	     *            the array of vectors to be filled.
-	     *//*
-	    public void toAxes(Vector3f axis[]) {
-	        Matrix3f tempMat = toRotationMatrix();
+	     */
+	    public function toAxes(axis:Array):void {
+	        var tempMat:Matrix3f = toRotationMatrix3();
 	        axis[0] = tempMat.getColumn(0, axis[0]);
 	        axis[1] = tempMat.getColumn(1, axis[1]);
 	        axis[2] = tempMat.getColumn(2, axis[2]);
-	    }*/
-	
-	    /**
-	     * <code>mult</code> multiplies this quaternion by a parameter vector. The
-	     * result is returned as a new vector.
-	     *
-	     * @param v
-	     *            the vector to multiply this quaternion by.
-	     * @return the new vector.
-	     *//*
-	    public Vector3f mult(Vector3f v) {
-	        return mult(v, null);
-	    }*/
+	    }
 	
 	    /**
 	     * <code>mult</code> multiplies this quaternion by a parameter vector. The
@@ -804,9 +791,10 @@ package com.paperworld.flash.util.math
 	     * @param v
 	     *            the vector to multiply this quaternion by.
 	     * @return v
-	     *//*
-	    public Vector3f multLocal(Vector3f v) {
-	        float tempX, tempY;
+	     */
+	    public function multLocalVector(v:Vector3f):Vector3f {
+	        var tempX:Number;
+	        var tempY:Number;
 	        tempX = w * w * v.x + 2 * y * w * v.z - 2 * z * w * v.y + x * x * v.x
 	                + 2 * y * x * v.y + 2 * z * x * v.z - z * z * v.x - y * y * v.x;
 	        tempY = 2 * x * y * v.x + y * y * v.y + 2 * z * y * v.z + 2 * w * z
@@ -817,7 +805,7 @@ package com.paperworld.flash.util.math
 	        v.x = tempX;
 	        v.y = tempY;
 	        return v;
-	    }*/
+	    }
 	
 	    /**
 	     * Multiplies this Quaternion by the supplied quaternion. The result is
@@ -827,17 +815,17 @@ package com.paperworld.flash.util.math
 	     * @param q
 	     *            The Quaternion to multiply this one by.
 	     * @return This Quaternion, after multiplication.
-	     *//*
-	    public Quaternion multLocal(Quaternion q) {
-	        float x1 = x * q.w + y * q.z - z * q.y + w * q.x;
-	        float y1 = -x * q.z + y * q.w + z * q.x + w * q.y;
-	        float z1 = x * q.y - y * q.x + z * q.w + w * q.z;
+	     */
+	    public function multLocalQuaternion(q:Quaternion):Quaternion {
+	        var x1:Number = x * q.w + y * q.z - z * q.y + w * q.x;
+	        var y1:Number = -x * q.z + y * q.w + z * q.x + w * q.y;
+	        var z1:Number = x * q.y - y * q.x + z * q.w + w * q.z;
 	        w = -x * q.x - y * q.y - z * q.z + w * q.w;
 	        x = x1;
 	        y = y1;
 	        z = z1;
 	        return this;
-	    }*/
+	    }
 	
 	    /**
 	     * Multiplies this Quaternion by the supplied quaternion. The result is
@@ -854,17 +842,17 @@ package com.paperworld.flash.util.math
 	     *            quat w value
 	     *
 	     * @return This Quaternion, after multiplication.
-	     *//*
-	    public Quaternion multLocal(float qx, float qy, float qz, float qw) {
-	        float x1 = x * qw + y * qz - z * qy + w * qx;
-	        float y1 = -x * qz + y * qw + z * qx + w * qy;
-	        float z1 = x * qy - y * qx + z * qw + w * qz;
+	     */
+	    public function multLocalComponents(qx:Number, qy:Number, qz:Number, qw:Number):Quaternion {
+	        var x1:Number = x * qw + y * qz - z * qy + w * qx;
+	        var y1:Number = -x * qz + y * qw + z * qx + w * qy;
+	        var z1:Number = x * qy - y * qx + z * qw + w * qz;
 	        w = -x * qx - y * qy - z * qz + w * qw;
 	        x = x1;
 	        y = y1;
 	        z = z1;
 	        return this;
-	    }*/
+	    }
 	
 	    /**
 	     * <code>mult</code> multiplies this quaternion by a parameter vector. The
@@ -876,14 +864,16 @@ package com.paperworld.flash.util.math
 	     *            the vector to store the result in. It IS safe for v and store
 	     *            to be the same object.
 	     * @return the result vector.
-	     *//*
-	    public Vector3f mult(Vector3f v, Vector3f store) {
+	     */
+	    public function multVector(v:Vector3f, store:Vector3f = null):Vector3f {
 	        if (store == null)
 	            store = new Vector3f();
 	        if (v.x == 0 && v.y == 0 && v.z == 0) {
-	            store.set(0, 0, 0);
+	            store.setComponents(0, 0, 0);
 	        } else {
-	            float vx = v.x, vy = v.y, vz = v.z;
+	            var vx:Number = v.x;
+	            var vy:Number = v.y; 
+	            var vz:Number = v.z;
 	            store.x = w * w * vx + 2 * y * w * vz - 2 * z * w * vy + x * x
 	                    * vx + 2 * y * x * vy + 2 * z * x * vz - z * z * vx - y
 	                    * y * vx;
@@ -895,7 +885,7 @@ package com.paperworld.flash.util.math
 	                    * w * vz;
 	        }
 	        return store;
-	    }*/
+	    }
 	
 	    /**
 	     * <code>mult</code> multiplies this quaternion by a parameter scalar. The
@@ -904,10 +894,10 @@ package com.paperworld.flash.util.math
 	     * @param scalar
 	     *            the quaternion to multiply this quaternion by.
 	     * @return the new quaternion.
-	     *//*
-	    public Quaternion mult(float scalar) {
+	     */
+	    public function multScalar(scalar:Number):Quaternion {
 	        return new Quaternion(scalar * x, scalar * y, scalar * z, scalar * w);
-	    }*/
+	    }
 	
 	    /**
 	     * <code>mult</code> multiplies this quaternion by a parameter scalar. The
@@ -916,14 +906,14 @@ package com.paperworld.flash.util.math
 	     * @param scalar
 	     *            the quaternion to multiply this quaternion by.
 	     * @return this.
-	     *//*
-	    public Quaternion multLocal(float scalar) {
+	     */
+	    public function multLocalScalar(scalar:Number):Quaternion {
 	        w *= scalar;
 	        x *= scalar;
 	        y *= scalar;
 	        z *= scalar;
 	        return this;
-	    }*/
+	    }
 	
 	    /**
 	     * <code>dot</code> calculates and returns the dot product of this
@@ -932,31 +922,31 @@ package com.paperworld.flash.util.math
 	     * @param q
 	     *            the quaternion to calculate the dot product of.
 	     * @return the dot product of this and the parameter quaternion.
-	     *//*
-	    public float dot(Quaternion q) {
+	     */
+	    public function dot(q:Quaternion):Number {
 	        return w * q.w + x * q.x + y * q.y + z * q.z;
-	    }*/
+	    }
 	
 	    /**
 	     * <code>norm</code> returns the norm of this quaternion. This is the dot
 	     * product of this quaternion with itself.
 	     *
 	     * @return the norm of the quaternion.
-	     *//*
-	    public float norm() {
+	     */
+	    public function norm():Number {
 	        return w * w + x * x + y * y + z * z;
-	    }*/
+	    }
 	
 	    /**
 	     * <code>normalize</code> normalizes the current <code>Quaternion</code>
-	     *//*
-	    public void normalize() {
-	        float n = FastMath.invSqrt(norm());
+	     */
+	    public function normalise():void {
+	        var n:Number = Math.sqrt(1 / norm());
 	        x *= n;
 	        y *= n;
 	        z *= n;
 	        w *= n;
-	    }*/
+	    }
 	
 	    /**
 	     * <code>inverse</code> returns the inverse of this quaternion as a new
@@ -965,17 +955,17 @@ package com.paperworld.flash.util.math
 	     *
 	     * @return the inverse of this quaternion or null if the inverse does not
 	     *         exist.
-	     *//*
-	    public Quaternion inverse() {
-	        float norm = norm();
+	     */
+	    public function inverse():Quaternion {
+	        var norm:Number = norm();
 	        if (norm > 0.0) {
-	            float invNorm = 1.0f / norm;
+	            var invNorm:Number = 1.0 / norm;
 	            return new Quaternion(-x * invNorm, -y * invNorm, -z * invNorm, w
 	                    * invNorm);
 	        } 
 	        // return an invalid result to flag the error
 	        return null;        
-	    }*/
+	    }
 	
 	    /**
 	     * <code>inverse</code> calculates the inverse of this quaternion and
@@ -983,29 +973,29 @@ package com.paperworld.flash.util.math
 	     * not have an inverse (if it's norma is 0 or less), nothing happens
 	     *
 	     * @return the inverse of this quaternion
-	     *//*
-	    public Quaternion inverseLocal() {
-	        float norm = norm();
+	     */
+	    public function inverseLocal():Quaternion {
+	        var norm:Number = norm();
 	        if (norm > 0.0) {
-	            float invNorm = 1.0f / norm;
+	            var invNorm:Number = 1.0 / norm;
 	            x *= -invNorm;
 	            y *= -invNorm;
 	            z *= -invNorm;
 	            w *= invNorm;
 	        }
 	        return this;
-	    }*/
+	    }
 	
 	    /**
 	     * <code>negate</code> inverts the values of the quaternion.
 	     *
-	     *//*
-	    public void negate() {
+	     */
+	    public function negate():void {
 	        x *= -1;
 	        y *= -1;
 	        z *= -1;
 	        w *= -1;
-	    }*/
+	    }
 	
 	    /**
 	     *
@@ -1016,11 +1006,11 @@ package com.paperworld.flash.util.math
 	     *
 	     * @return the string representation of this object.
 	     * @see java.lang.Object#toString()
-	     *//*
-	    public String toString() {
+	     */
+	    public function toString():String {
 	        return "com.jme.math.Quaternion: [x=" + x + " y=" + y + " z=" + z
 	                + " w=" + w + "]";
-	    }*/
+	    }
 	
 	    /**
 	     * <code>equals</code> determines if two quaternions are logically equal,
@@ -1029,23 +1019,18 @@ package com.paperworld.flash.util.math
 	     * @param o
 	     *            the object to compare for equality
 	     * @return true if they are equal, false otherwise.
-	     *//*
-	    public boolean equals(Object o) {
-	        if (!(o instanceof Quaternion) ) {
-	            return false;
-	        }
-	
-	        if (this == o) {
+	     */
+	    public function equals(comp:Quaternion):Boolean {	
+	        if (this == comp) {
 	            return true;
 	        }
 	
-	        Quaternion comp = (Quaternion) o;
-	        if (Float.compare(x,comp.x) != 0) return false;
-	        if (Float.compare(y,comp.y) != 0) return false;
-	        if (Float.compare(z,comp.z) != 0) return false;
-	        if (Float.compare(w,comp.w) != 0) return false;
+	        if (x != comp.x) return false;
+	        if (y != comp.y) return false;
+	        if (z != comp.z) return false;
+	        if (w != comp.w) return false;
 	        return true;
-	    }*/
+	    }
 	
 	    /**
 	     * 
@@ -1066,45 +1051,9 @@ package com.paperworld.flash.util.math
 	
 	    }*/
 	
-	    /**
-	     * <code>readExternal</code> builds a quaternion from an
-	     * <code>ObjectInput</code> object. <br>
-	     * NOTE: Used with serialization. Not to be called manually.
-	     * 
-	     * @param in
-	     *            the ObjectInput value to read from.
-	     * @throws IOException
-	     *             if the ObjectInput value has problems reading a float.
-	     * @see java.io.Externalizable
-	     *//*
-	    public void readExternal(ObjectInput in) throws IOException {
-	        x = in.readFloat();
-	        y = in.readFloat();
-	        z = in.readFloat();
-	        w = in.readFloat();
-	    }*/
-	
-	    /**
-	     * <code>writeExternal</code> writes this quaternion out to a
-	     * <code>ObjectOutput</code> object. NOTE: Used with serialization. Not to
-	     * be called manually.
-	     * 
-	     * @param out
-	     *            the object to write to.
-	     * @throws IOException
-	     *             if writing to the ObjectOutput fails.
-	     * @see java.io.Externalizable
-	     *//*
-	    public void writeExternal(ObjectOutput out) throws IOException {
-	        out.writeFloat(x);
-	        out.writeFloat(y);
-	        out.writeFloat(z);
-	        out.writeFloat(w);
-	    }*/
-	
-	   /* private static final Vector3f tmpYaxis = new Vector3f();
-	    private static final Vector3f tmpZaxis = new Vector3f();
-	    private static final Vector3f tmpXaxis = new Vector3f();*/
+	    private static var tmpYaxis:Vector3f = new Vector3f();
+	    private static var tmpZaxis:Vector3f = new Vector3f();
+	    private static var tmpXaxis:Vector3f = new Vector3f();
 	
 	    /**
 	     * <code>lookAt</code> is a convienence method for auto-setting the
@@ -1117,41 +1066,13 @@ package com.paperworld.flash.util.math
 	     * @param up
 	     *            a vector indicating the local up direction.
 	     *            (typically {0, 1, 0} in jME.)
-	     *//*
-	    public void lookAt(Vector3f direction, Vector3f up ) {
-	        tmpZaxis.set( direction ).normalizeLocal();
-	        tmpXaxis.set( up ).crossLocal( direction ).normalizeLocal();
-	        tmpYaxis.set( direction ).crossLocal( tmpXaxis ).normalizeLocal();
+	     */
+	    public function lookAt(direction:Vector3f, up:Vector3f ):void {
+	        tmpZaxis.set( direction ).normaliseLocal();
+	        tmpXaxis.set( up ).crossLocal( direction ).normaliseLocal();
+	        tmpYaxis.set( direction ).crossLocal( tmpXaxis ).normaliseLocal();
 	        fromAxes( tmpXaxis, tmpYaxis, tmpZaxis );
-	    }*/
-	
-	   /* public void write(JMEExporter e) throws IOException {
-	        OutputCapsule cap = e.getCapsule(this);
-	        cap.write(x, "x", 0);
-	        cap.write(y, "y", 0);
-	        cap.write(z, "z", 0);
-	        cap.write(w, "w", 1);
 	    }
-	
-	    public void read(JMEImporter e) throws IOException {
-	        InputCapsule cap = e.getCapsule(this);
-	        x = cap.readFloat("x", 0);
-	        y = cap.readFloat("y", 0);
-	        z = cap.readFloat("z", 0);
-	        w = cap.readFloat("w", 1);
-	    }
-	    
-	    public Class<? extends Quaternion> getClassTag() {
-	        return this.getClass();
-	    }*/
-	
-	    /**
-	     * @return A new quaternion that describes a rotation that would point you
-	     *         in the exact opposite direction of this Quaternion.
-	     *//*
-	    public Quaternion opposite() {
-	        return opposite(null);
-	    }*/
 	
 	    /**
 	     * FIXME: This seems to have singularity type issues with angle == 0, possibly others such as PI.
@@ -1161,34 +1082,29 @@ package com.paperworld.flash.util.math
 	     * @return The store quaternion (or a new Quaterion, if store is null) that
 	     *         describes a rotation that would point you in the exact opposite
 	     *         direction of this Quaternion.
-	     *//*
-	    public Quaternion opposite(Quaternion store) {
+	     */
+	    public function opposite(store:Quaternion):Quaternion {
 	        if (store == null)
 	            store = new Quaternion();
 	        
-	        Vector3f axis = new Vector3f();
-	        float angle = toAngleAxis(axis);
+	        var axis:Vector3f = new Vector3f();
+	        var angle:Number = toAngleAxis(axis);
 	
-	        store.fromAngleAxis(FastMath.PI + angle, axis);
+	        store.fromAngleAxis(Math.PI + angle, axis);
 	        return store;
-	    }*/
+	    }
 	
 	    /**
 	     * @return This Quaternion, altered to describe a rotation that would point
 	     *         you in the exact opposite direction of where it is pointing
 	     *         currently.
-	     *//*
-	    public Quaternion oppositeLocal() {
+	     */
+	    public function oppositeLocal():Quaternion {
 	        return opposite(this);
-	    }*/
-	/*
-	    @Override
-	    public Quaternion clone() {
-	        try {
-	            return (Quaternion) super.clone();
-	        } catch (CloneNotSupportedException e) {
-	            throw new AssertionError(); // can not happen
-	        }
-	    }*/
+	    }
+
+	    public function clone():Quaternion {
+	        return new Quaternion(this);
+	    }
 	}
 }

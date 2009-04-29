@@ -22,13 +22,13 @@ package com.paperworld.flash.ai.steering.behaviours.kinematic
 		{
 			// First work out the direction
 			output.linear = character.position;
-			output.linear.minusEq( target );
+			output.linear.subtractLocal( target );
 
 			// If there is no direction, do nothing
-			if (output.linear.squareMagnitude > 0)
+			if (output.linear.lengthSquared() > 0)
 			{
 				output.linear.normalise( );
-				output.linear.multiplyEq( maxSpeed );
+				output.linear.multLocalScalar( maxSpeed );
 			}
 		}
 	}

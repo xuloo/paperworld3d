@@ -1,4 +1,4 @@
-package com.paperworld.flash.api.multiplayer
+package com.paperworld.flash.api.connection
 {	
 	import flash.events.IEventDispatcher;
 	import flash.utils.IExternalizable;

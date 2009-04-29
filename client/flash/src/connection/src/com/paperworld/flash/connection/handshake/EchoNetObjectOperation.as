@@ -1,6 +1,6 @@
 package com.paperworld.flash.connection.handshake
 {
-	import com.paperworld.flash.api.multiplayer.INetConnection;
+	import com.paperworld.flash.api.connection.INetConnection;
 	
 	import flash.net.Responder;
 	

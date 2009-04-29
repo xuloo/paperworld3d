@@ -3,7 +3,6 @@ package com.paperworld.flash.pv3d.objects
 	import com.paperworld.flash.api.multiplayer.ISynchronisedObject;
 	import com.paperworld.flash.multiplayer.data.State;
 	import com.paperworld.flash.util.input.IInput;
-	import com.paperworld.flash.util.number.Vector3;
 	
 	import org.papervision3d.objects.DisplayObject3D;	
 

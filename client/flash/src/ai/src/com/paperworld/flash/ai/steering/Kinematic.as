@@ -11,7 +11,7 @@
  */
 package com.paperworld.flash.ai.steering
 {
-	import com.paperworld.flash.util.number.Vector3;
+	import com.paperworld.flash.util.math.Vector3f;
 						
 
 	/**
@@ -30,7 +30,7 @@ package com.paperworld.flash.ai.steering
 		/**
 		 * The linear velocity.
 		 */
-		public var velocity : Vector3;
+		public var velocity : Vector3f;
 
 		/**
 		 * The angular velocity.
@@ -46,8 +46,8 @@ package com.paperworld.flash.ai.steering
 		 * @param velocity The linear velocity of the Kinematic.
 		 * @param rotation The angular velocity of the Kinematic.
 		 */
-		public function Kinematic(position : Vector3 = null, orientation : Number = 0,
-                  velocity : Vector3 = null, rotation : Number = 0)
+		public function Kinematic(position : Vector3f = null, orientation : Number = 0,
+                  velocity : Vector3f = null, rotation : Number = 0)
 		{
 			this.position = position;
 			this.orientation = orientation;
@@ -62,7 +62,7 @@ package com.paperworld.flash.ai.steering
 		{
 			super.clear( );
             
-			velocity.clear( );
+			velocity.zero();
 			rotation = 0.0;
 		}
 
@@ -120,8 +120,8 @@ package com.paperworld.flash.ai.steering
 		 */
 		public function plusEquals(other : Kinematic) : void
 		{
-			position.plusEq( other.position );
-			velocity.plusEq( other.velocity );
+			position.addLocal( other.position );
+			velocity.addLocal( other.velocity );
 			rotation += other.rotation;
 			orientation += other.orientation;
 		}
@@ -132,8 +132,8 @@ package com.paperworld.flash.ai.steering
 		 */
 		public function minusEquals(other : Kinematic) : void
 		{
-			position.minusEq( other.position );
-			velocity.minusEq( other.velocity );
+			position.subtractLocal( other.position );
+			velocity.subtractLocal( other.velocity );
 			rotation -= other.rotation;
 			orientation -= other.orientation;
 		}
@@ -149,8 +149,8 @@ package com.paperworld.flash.ai.steering
 		 */
 		public function timesEquals(f : Number) : void
 		{
-			position.multiplyEq( f );
-			velocity.multiplyEq( f );
+			position.multLocalScalar(f)
+			velocity.multLocalScalar( f );
 			rotation *= f;
 			orientation *= f;
 		}
@@ -246,10 +246,10 @@ package com.paperworld.flash.ai.steering
 		 */
 		public function trimMaxSpeed(speed : Number) : void
 		{
-			if (velocity.isModuloGreaterThan( speed )) 
+			if (velocity.length() > speed) 
 			{
 				velocity.normalise( );
-				velocity.multiplyEq( speed );
+				velocity.multLocalScalar( speed );
 			}
 		}
 
@@ -257,10 +257,10 @@ package com.paperworld.flash.ai.steering
 		 * Sets the orientation of this location so it points along
 		 * its own velocity vector.
 		 */
-		override public function setOrientationFromVelocity(velocity : Vector3) : void
+		override public function setOrientationFromVelocity(velocity : Vector3f) : void
 		{
 			// If we haven't got any velocity, then we can do nothing.
-			if (velocity.squareMagnitude > 0) 
+			if (velocity.lengthSquared() > 0) 
 			{
 				orientation = Math.atan2( velocity.x, velocity.z );
 			}

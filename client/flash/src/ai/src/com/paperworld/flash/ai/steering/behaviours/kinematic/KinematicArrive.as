@@ -38,23 +38,23 @@ package com.paperworld.flash.ai.steering.behaviours.kinematic
 		{
 			// First work out the direction
 			output.linear = target;
-			output.linear.minusEq( character.position );
+			output.linear.subtractLocal( character.position );
 
 			// If there is no direction, do nothing
-			if (output.linear.isModuloLessThan( radius ))
+			if (output.linear.length() < radius)
 			{
-				output.linear.clear( );
+				output.linear.zero();
 			}
         	else
 			{
 				// We'd like to arrive in timeToTarget seconds
-				output.linear.multiplyEq( 1.0 / timeToTarget );
+				output.linear.multLocalScalar( 1.0 / timeToTarget );
 
 				// If that is too fast, then clip the speed
-				if (output.linear.isModuloGreaterThan( maxSpeed ))
+				if (output.linear.length() > maxSpeed)
 				{
 					output.linear.normalise( );
-					output.linear.multiplyEq( maxSpeed );
+					output.linear.multLocalScalar( maxSpeed );
 				}
 			}
 		}

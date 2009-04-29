@@ -11,9 +11,8 @@
  */
 package com.paperworld.flash.ai.steering
 {
-	import com.paperworld.flash.util.number.Vector3;
+	import com.paperworld.flash.util.math.Vector3f;
 	
-	import org.papervision3d.core.math.Number3D;
 	import org.papervision3d.core.math.Quaternion;
 		
 
@@ -34,7 +33,7 @@ package com.paperworld.flash.ai.steering
 		/**
 		 * The linear component of the steering action.
 		 */
-		public var linear : Vector3;
+		public var linear : Vector3f;
 
 		/**
 		 * The angular component of the steering action.
@@ -51,9 +50,9 @@ package com.paperworld.flash.ai.steering
 		 * @param angular The initial angular change to give the
 		 * SteeringOutput.
 		 */
-		public function SteeringOutput(linear : Vector3 = null, angular : Quaternion = null)
+		public function SteeringOutput(linear : Vector3f = null, angular : Quaternion = null)
 		{
-			this.linear = linear || new Vector3( );
+			this.linear = linear || new Vector3f( );
 			this.angular = angular || new Quaternion( );
 		}
 
@@ -62,7 +61,7 @@ package com.paperworld.flash.ai.steering
 		 */
 		public function clear() : void
 		{
-			linear.clear( );
+			linear.zero();
 			angular.x = 0; angular.y = 0; angular.z = 0; angular.w = 0;
 		}
 

@@ -11,7 +11,7 @@
  */
 package com.paperworld.flash.ai.steering.behaviours.kinematic
 {
-	import com.paperworld.flash.util.number.Vector3;
+	import com.paperworld.flash.util.math.Vector3f;
 	
 	/**
 	 * This is a base class that adds a target vector to its parent
@@ -25,6 +25,6 @@ package com.paperworld.flash.ai.steering.behaviours.kinematic
          * The target may be any vector (i.e. it might be something
          * that has no orientation, such as a point in space).
          */
-        public var target : Vector3;
+        public var target : Vector3f;
 	}
 }

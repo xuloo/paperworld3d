@@ -32,7 +32,7 @@ package com.paperworld.flash.ai.steering.behaviours.kinematic
 		{
 			// Move forward in the current direction
 			output.linear = character.getOrientationAsVector( );
-			output.linear.multiplyEq( maxSpeed );
+			output.linear.multLocalScalar( maxSpeed );
 
 			// Turn a little
 			var change : Number = RandomUtils.randomBinomial( );

@@ -1,6 +1,6 @@
 package com.paperworld.flash.connection.messages
 {
-	import com.paperworld.flash.api.multiplayer.IPlayerMessage;
+	import com.paperworld.flash.api.connection.IPlayerMessage;
 	
 	import flash.utils.IDataInput;
 	import flash.utils.IDataOutput;

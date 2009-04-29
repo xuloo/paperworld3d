@@ -13,7 +13,7 @@ package com.paperworld.flash.ai.steering.pipeline
 {
 	import com.paperworld.flash.ai.steering.Kinematic;
 	import com.paperworld.flash.ai.steering.SteeringOutput;
-	import com.paperworld.flash.util.number.Vector3;	
+	import com.paperworld.flash.util.math.Vector3f;	
 
 	/**
 	 * Actuators generate forcess and torques that are required to
@@ -148,15 +148,15 @@ package com.paperworld.flash.ai.steering.pipeline
 			var currentGoal : Kinematic = steering.currentGoal;
 			var actor : Kinematic = steering.getActor( );
 			// vector from current position to current goal
-			var p2g : Vector3 = currentGoal.position; 
-			p2g.minusEq( actor.position );
-			var d2 : Number = p2g.squareMagnitude;
+			var p2g : Vector3f = currentGoal.position; 
+			p2g.subtractLocal( actor.position );
+			var d2 : Number = p2g.lengthSquared();
 			var maxAcceleration2 : Number = maxAcceleration * maxAcceleration;
 
 			if (d2 > 0)
 			{
 				var d : Number = Math.sqrt( d2 );
-				p2g.multiplyEq( 1.0 / d ); 
+				p2g.multLocalScalar( 1.0 / d ); 
 				// p2g is now unit magnitude
 
 				// vParallel and vNormal are component vectors of the
@@ -164,25 +164,25 @@ package com.paperworld.flash.ai.steering.pipeline
 				// from the actor towards the goal, and vNormal is normal
 				// to vParallel.
 				var vP : Number = actor.velocity.dot( p2g );
-				var vParallel : Vector3 = p2g; 
-				vParallel.multiplyEq( vP );
-				var vNormal : Vector3 = actor.velocity; 
-				vNormal.minusEq( vParallel );
+				var vParallel : Vector3f = p2g; 
+				vParallel.multLocalScalar( vP );
+				var vNormal : Vector3f = actor.velocity; 
+				vNormal.subtractLocal( vParallel );
 
 				// Apply centripetal linear equal to -vNormal
 				_steer.linear = vNormal;
-				_steer.linear.multiplyEq( -1 );
+				_steer.linear.multLocalScalar( -1 );
 
 				// Calculate the magnitude of propelling linear, after centripetal
 				// linear is subtracted from maxAcceleration.
-				var vN2 : Number = vNormal.squareMagnitude;
+				var vN2 : Number = vNormal.lengthSquared();
 				var fP2 : Number = maxAcceleration2 - vN2;
 
 				// If the centripetal takes all our acceleration budget,
 				// then just crop it.
 				if (fP2 < 0) 
 				{
-					_steer.linear.multiplyEq( maxAcceleration / Math.sqrt( vN2 ) );
+					_steer.linear.multLocalScalar( maxAcceleration / Math.sqrt( vN2 ) );
 				} 
 				else 
 				{
@@ -191,19 +191,19 @@ package com.paperworld.flash.ai.steering.pipeline
 					var brakingDistance : Number = (d * maxAcceleration * 2 + vP * vP - gP * gP) / maxAcceleration / 4;
 
 					// apply a smoothing function around the speed summit
-					p2g.multiplyEq( SteeringUtils.squash( d - brakingDistance, Math.sqrt( fP2 ), sharpness ) );
-					_steer.linear.plusEq( p2g );
+					p2g.multLocalScalar( SteeringUtils.squash( d - brakingDistance, Math.sqrt( fP2 ), sharpness ) );
+					_steer.linear.addLocal( p2g );
 				}
 			}
         	else
 			{   
 				// if we are on target then adjust speed to match goal speed.
 				_steer.linear = currentGoal.velocity;
-				_steer.linear.minusEq( actor.velocity );
-				var linear2 : Number = _steer.linear.squareMagnitude;
+				_steer.linear.subtractLocal( actor.velocity );
+				var linear2 : Number = _steer.linear.lengthSquared();
 				// If the linear is too big then crop it.
 				if (linear2 > maxAcceleration2)
-                _steer.linear.multiplyEq( maxAcceleration / Math.sqrt( linear2 ) );
+                _steer.linear.multLocalScalar( maxAcceleration / Math.sqrt( linear2 ) );
 			}
 
 			// Check if we are not breaking the speed limit
@@ -213,7 +213,7 @@ package com.paperworld.flash.ai.steering.pipeline
 				if (dp > 0)
 				{
 					// remove the forward-pointing component of steer linear
-					_steer.linear.minusEq( actor.velocity.returnScale( (dp / steering.getSpeed2( )) ) );
+					_steer.linear.subtractLocal( actor.velocity.multLocalScalar( (dp / steering.getSpeed2( )) ) );
 				}
 			}
 

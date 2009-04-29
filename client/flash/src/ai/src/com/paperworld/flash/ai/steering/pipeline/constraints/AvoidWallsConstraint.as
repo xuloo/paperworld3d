@@ -14,7 +14,7 @@ package com.paperworld.flash.ai.steering.pipeline.constraints
 	import com.paperworld.flash.ai.collision.ICollisionDetector;
 	import com.paperworld.flash.ai.steering.Kinematic;
 	import com.paperworld.flash.ai.steering.pipeline.SteeringConstraint;
-	import com.paperworld.flash.util.number.Vector3;	
+	import com.paperworld.flash.util.math.Vector3f;	
 
 	/**
 	 * @author Trevor
@@ -69,9 +69,9 @@ package com.paperworld.flash.ai.steering.pipeline.constraints
 		 * Collision point and normal vector returned by the collision
 		 * detector.
 		 */
-		public var cp : Vector3;
+		public var cp : Vector3f;
 
-		public var cv : Vector3;
+		public var cv : Vector3f;
 
 		/**
 		 * Constructor.

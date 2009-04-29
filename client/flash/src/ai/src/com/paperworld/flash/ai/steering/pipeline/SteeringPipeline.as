@@ -12,7 +12,7 @@
 package com.paperworld.flash.ai.steering.pipeline 
 {
 	import com.paperworld.flash.ai.steering.Kinematic;
-	import com.paperworld.flash.util.number.Vector3;	
+	import com.paperworld.flash.util.math.Vector3f;	
 
 	/**
 	 * The steering system, uses a targeter, an actuator and an
@@ -110,7 +110,7 @@ package com.paperworld.flash.ai.steering.pipeline
 		 * are cosine and sine of the actor's orientation
 		 * respectively; the z component is always zero.
 		 */
-		protected var orientation : Vector3;
+		protected var orientation : Vector3f;
 
 		/**
 		 * Called when constraints could not be resolved after a
@@ -233,7 +233,7 @@ package com.paperworld.flash.ai.steering.pipeline
 		 * normalised vector in the XY plane, i.e. x =
 		 * cos(orientation), y = sin(orientation), and z = 0.
 		 */
-		public function getOrientation() : Vector3
+		public function getOrientation() : Vector3f
 		{
 			return orientation;
 		}
@@ -323,8 +323,8 @@ package com.paperworld.flash.ai.steering.pipeline
 		 */
 		public function run() : void
 		{
-			var v : Vector3 = actor.velocity;
-			var speed2 : Number = v.squareMagnitude;
+			var v : Vector3f = actor.velocity;
+			var speed2 : Number = v.lengthSquared();
 			var speed : Number = Math.sqrt(speed2);
 			orientation.x = Math.cos(actor.orientation);
 			orientation.y = Math.sin(actor.orientation);
@@ -368,7 +368,7 @@ package com.paperworld.flash.ai.steering.pipeline
 					if (constraint.violated)
 					{
 						var sg : Kinematic = constraint.suggestedGoal;
-						var w : Vector3 = Vector3.vectorBetween(actor.position, sg.position);
+						var w : Vector3f/* = Vector3f.vectorBetween(actor.position, sg.position)*/;
 						var normFactor : Number = Math.sqrt((v.x * v.x + v.y * v.y) * (w.x * w.x + w.y * w.y));
 						var sine : Number;
 						var cosine : Number;

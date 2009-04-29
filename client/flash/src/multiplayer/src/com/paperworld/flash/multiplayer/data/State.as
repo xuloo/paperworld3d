@@ -2,7 +2,6 @@ package com.paperworld.flash.multiplayer.data
 {
 	import com.paperworld.flash.util.IRegisteredClass;
 	import com.paperworld.flash.util.Registration;
-	import com.paperworld.flash.util.number.Vector3;
 	
 	import flash.utils.IDataInput;
 	import flash.utils.IDataOutput;

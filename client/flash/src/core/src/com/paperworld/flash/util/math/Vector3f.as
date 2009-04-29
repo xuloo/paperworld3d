@@ -92,10 +92,11 @@ package com.paperworld.flash.util.math
 	     *            the vector to copy.
 	     * @return this vector
 	     */
-	    public function set(vect:Vector3f):void {
+	    public function set(vect:Vector3f):Vector3f {
 	        this.x = vect.x;
 	        this.y = vect.y;
 	        this.z = vect.z;
+	        return this;
 	    }
 	
 	    /**
@@ -783,6 +784,16 @@ package com.paperworld.flash.util.math
 	                return;
 	        }
 	    }
+	    
+	    public function isZero():Boolean
+	    {
+	   		return false;
+	    }
+	    
+	   	public function setMagnitude(mag:Number):void 
+	   	{
+	   		
+	   	}
 	}
 
 }

@@ -11,7 +11,7 @@
  */
 package com.paperworld.flash.ai.steering 
 {
-	import com.paperworld.flash.util.number.Vector3;	
+	import com.paperworld.flash.util.math.Vector3f;	
 
 	/**
 	 * @author Trevor
@@ -21,7 +21,7 @@ package com.paperworld.flash.ai.steering
 		/**
 		 * The position in 3 space.
 		 */
-		public var position : Vector3;
+		public var position : Vector3f;
 
 		/**
 		 * The orientation, as a euler angle in radians around the
@@ -32,7 +32,7 @@ package com.paperworld.flash.ai.steering
 		/**
 		 * Creates a location with the given position and orientation.
 		 */
-		public function Location(position : Vector3 = null, orientation : Number = NaN)
+		public function Location(position : Vector3f = null, orientation : Number = NaN)
 		{
 			this.position = position;
 			this.orientation = orientation;
@@ -52,7 +52,7 @@ package com.paperworld.flash.ai.steering
 		 */
 		public function clear() : void
 		{
-			position.clear( );
+			position.zero();
 			orientation = 0.0;
 		}
 
@@ -88,10 +88,10 @@ package com.paperworld.flash.ai.steering
 		 * Sets the orientation of this location so it points along
 		 * the given velocity vector.
 		 */
-		public function setOrientationFromVelocity(velocity : Vector3) : void
+		public function setOrientationFromVelocity(velocity : Vector3f) : void
 		{
 			// If we haven't got any velocity, then we can do nothing.
-			if (velocity.squareMagnitude > 0) 
+			if (velocity.lengthSquared() > 0) 
 			{
 				orientation = Math.atan2( velocity.x, velocity.z );
 			}
@@ -101,9 +101,9 @@ package com.paperworld.flash.ai.steering
 		 * Returns a unit vector in the direction of the current
 		 * orientation.
 		 */
-		public function getOrientationAsVector() : Vector3
+		public function getOrientationAsVector() : Vector3f
 		{
-			return new Vector3( Math.sin( orientation ), 0, Math.cos( orientation ) );
+			return new Vector3f( Math.sin( orientation ), 0, Math.cos( orientation ) );
 		}
 	}
 }
