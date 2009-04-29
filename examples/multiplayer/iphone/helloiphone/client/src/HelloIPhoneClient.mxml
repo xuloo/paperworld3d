@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute"
+	creationComplete="onCreationComplete()">
+
+	<mx:Script>
+		<![CDATA[
+			import com.paperworld.flash.multiplayer.objects.AbstractSynchronisedAvatar;
+			import com.paperworld.flash.util.timer.TimerManager;
+			import com.paperworld.flash.util.input.BasicKeyboardInput;
+			import com.paperworld.flash.util.input.IUserInput;
+			import com.paperworld.flash.api.multiplayer.ISynchronisedObject;
+			import org.papervision3d.materials.ColorMaterial;
+			import org.papervision3d.objects.primitives.Plane;
+			import com.paperworld.flash.pv3d.objects.SynchronisedObject;
+			import com.paperworld.flash.api.multiplayer.ISynchronisedAvatar;
+			import org.papervision3d.view.AbstractView;
+			import com.paperworld.flash.pv3d.views.ChequerBoardView;
+			import org.papervision3d.core.view.IView;
+			import org.papervision3d.view.BasicView;
+			import com.paperworld.flash.multiplayer.objects.LocalAvatar;
+			import com.paperworld.flash.multiplayer.sync.SynchronisationManager;
+			import com.paperworld.flash.multiplayer.connection.RemoteSharedObject;
+			import com.paperworld.flash.multiplayer.connection.messages.BaseMessage;
+			import com.paperworld.flash.api.multiplayer.IMessage;
+			import com.joeberkovitz.moccasin.service.IOperation;
+			import com.paperworld.flash.multiplayer.connection.client.BasicClient;
+			import com.paperworld.flash.multiplayer.connection.Red5Connection;
+			
+			private var client:BasicClient;
+			
+			private var synchronisationManager:SynchronisationManager
+			
+			public function onCreationComplete():void 
+			{
+				trace("Creation Complete");
+				
+				TimerManager.instance.startAccurateIntervalTimer(50, 10000, AbstractSynchronisedAvatar.AVATAR_UPDATE_TIMER).start();
+				
+				var connection:Red5Connection = new Red5Connection();
+				connection.connectionArgs = ["this","that"];
+				connection.rtmpURI = "rtmp://localhost/HelloIPhone";
+				
+				var remoteSharedObject:RemoteSharedObject = new RemoteSharedObject("avatars", connection);
+				
+				client = new BasicClient(connection);
+				client.sharedObject = remoteSharedObject;
+				
+				synchronisationManager = new SynchronisationManager();
+				synchronisationManager.client = client;
+				
+				client.addMessageProcessor(synchronisationManager);
+				
+				var connect:IOperation = client.connect();
+				connect.addEventListener(Event.COMPLETE, onConnectionEstablished);
+				connect.execute();
+			}
+			
+			private function onNetStatus(e:NetStatusEvent):void 
+			{
+				trace("NetStatus: " + e.info.code);
+			}
+			
+			private function onConnectionEstablished(event:Event):void 
+			{
+				trace("connection established");
+				
+				// Create a 3D scene.
+				var view:ChequerBoardView = new ChequerBoardView()
+				rawChildren.addChild(view);
+				view.startRendering();
+				
+				synchronisationManager.scene = view.syncScene;	
+				
+				/*var avatar:ISynchronisedAvatar = new LocalAvatar();
+				var object:ISynchronisedObject = new SynchronisedObject();	
+				
+				var material:ColorMaterial = new ColorMaterial(0xffcc00);
+				var plane:Plane = new Plane(material, 500, 500, 4, 4);
+				
+				object.displayObject = plane;
+				avatar.object = object;
+				
+				avatar.userInput = new BasicKeyboardInput(stage);
+				
+				synchronisationManager.register(avatar);*/
+			}
+			
+		]]>
+	</mx:Script>
+</mx:Application>
