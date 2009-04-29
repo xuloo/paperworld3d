@@ -7,11 +7,11 @@ package com.paperworld.flash.multiplayer.sync
 	import com.paperworld.flash.api.multiplayer.ISynchronisedAvatar;
 	import com.paperworld.flash.api.multiplayer.ISynchronisedScene;
 	import com.paperworld.flash.api.multiplayer.messages.IServerSyncMessage;
-	import com.paperworld.flash.multiplayer.connection.messages.BatchedInputMessage;
-	import com.paperworld.flash.multiplayer.connection.messages.PlayerSyncMessage;
-	import com.paperworld.flash.multiplayer.connection.messages.RequestIdMessage;
-	import com.paperworld.flash.multiplayer.connection.messages.ServerSyncMessage;
-	import com.paperworld.flash.multiplayer.connection.messages.SynchroniseCreateMessage;
+	import com.paperworld.flash.connection.messages.BatchedInputMessage;
+	import com.paperworld.flash.connection.messages.PlayerSyncMessage;
+	import com.paperworld.flash.connection.messages.RequestIdMessage;
+	import com.paperworld.flash.connection.messages.ServerSyncMessage;
+	import com.paperworld.flash.connection.messages.SynchroniseCreateMessage;
 	import com.paperworld.flash.util.AbstractProcessor;
 	import com.paperworld.flash.util.input.IInput;
 	import com.paperworld.flash.util.timer.ITimer;

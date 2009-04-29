@@ -1,7 +1,8 @@
-package com.paperworld.flash.multiplayer.connection
+package com.paperworld.flash.connection
 {
+	import com.paperworld.flash.api.connection.IRemoteSharedObject;
 	import com.paperworld.flash.api.multiplayer.INetConnection;
-	import com.paperworld.flash.multiplayer.connection.events.Red5Event;
+	import com.paperworld.flash.connection.events.Red5Event;
 	
 	import flash.events.AsyncErrorEvent;
 	import flash.events.EventDispatcher;
@@ -10,7 +11,7 @@ package com.paperworld.flash.multiplayer.connection
 	import flash.net.NetConnection;
 	import flash.net.SharedObject;
 
-	public class RemoteSharedObject extends EventDispatcher
+	public class RemoteSharedObject extends EventDispatcher implements IRemoteSharedObject
 	{
 		private var _persistent:Boolean;
 		

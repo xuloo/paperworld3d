@@ -1,7 +1,7 @@
-package com.paperworld.flash.multiplayer.connection.handshake
+package com.paperworld.flash.connection.handshake
 {
 	import com.paperworld.flash.api.multiplayer.INetConnection;
-	import com.paperworld.flash.multiplayer.connection.events.Red5Event;
+	import com.paperworld.flash.connection.events.Red5Event;
 	
 	import org.springextensions.actionscript.mvcs.service.operation.AbstractOperation;
 

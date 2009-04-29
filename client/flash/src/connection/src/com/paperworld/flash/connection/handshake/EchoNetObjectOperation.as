@@ -1,4 +1,4 @@
-package com.paperworld.flash.multiplayer.connection.handshake
+package com.paperworld.flash.connection.handshake
 {
 	import com.paperworld.flash.api.multiplayer.INetConnection;
 	

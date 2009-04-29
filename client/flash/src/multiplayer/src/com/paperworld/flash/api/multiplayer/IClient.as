@@ -1,7 +1,7 @@
 package com.paperworld.flash.api.multiplayer
 {
 	import com.joeberkovitz.moccasin.service.IOperation;
-	import com.paperworld.flash.multiplayer.connection.RemoteSharedObject;
+	import com.paperworld.flash.api.connection.IRemoteSharedObject;
 	
 	public interface IClient extends IMessageProcessingService
 	{
@@ -9,9 +9,9 @@ package com.paperworld.flash.api.multiplayer
 		
 		function set connection(value:INetConnection):void;
 		
-		function get sharedObject():RemoteSharedObject;
+		function get sharedObject():IRemoteSharedObject;
 		
-		function set sharedObject(value:RemoteSharedObject):void;
+		function set sharedObject(value:IRemoteSharedObject):void;
 		
 		function get id():String;
 		

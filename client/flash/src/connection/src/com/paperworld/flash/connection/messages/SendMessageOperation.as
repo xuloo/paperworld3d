@@ -1,4 +1,4 @@
-package com.paperworld.flash.multiplayer.connection.messages
+package com.paperworld.flash.connection.messages
 {
 	import com.joeberkovitz.moccasin.service.AbstractOperation;
 	import com.paperworld.flash.api.multiplayer.IMessage;

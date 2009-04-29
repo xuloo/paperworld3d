@@ -1,15 +1,14 @@
-package com.paperworld.flash.multiplayer.connection.client
+package com.paperworld.flash.connection.client
 {
 	import com.joeberkovitz.moccasin.service.IOperation;
+	import com.paperworld.flash.api.connection.IRemoteSharedObject;
 	import com.paperworld.flash.api.multiplayer.IClient;
 	import com.paperworld.flash.api.multiplayer.IGroupMessage;
 	import com.paperworld.flash.api.multiplayer.IMessage;
 	import com.paperworld.flash.api.multiplayer.INetConnection;
 	import com.paperworld.flash.api.multiplayer.IPlayerMessage;
-	import com.paperworld.flash.multiplayer.connection.RemoteSharedObject;
-	import com.paperworld.flash.multiplayer.connection.handshake.Handshake;
-	import com.paperworld.flash.multiplayer.connection.messages.SendMessageOperation;
-	import com.paperworld.flash.multiplayer.connection.messages.ServerSyncMessage;
+	import com.paperworld.flash.connection.handshake.Handshake;
+	import com.paperworld.flash.connection.messages.SendMessageOperation;
 	import com.paperworld.flash.util.AbstractProcessor;
 	
 	import flash.events.Event;
@@ -72,14 +71,14 @@ package com.paperworld.flash.multiplayer.connection.client
 			}
 		}
 		
-		private var _sharedObject:RemoteSharedObject;
+		private var _sharedObject:IRemoteSharedObject;
 		
-		public function get sharedObject():RemoteSharedObject
+		public function get sharedObject():IRemoteSharedObject
 		{
 			return _sharedObject;
 		}
 		
-		public function set sharedObject(value:RemoteSharedObject):void 
+		public function set sharedObject(value:IRemoteSharedObject):void 
 		{
 			if (value != null)
 			{
@@ -96,7 +95,7 @@ package com.paperworld.flash.multiplayer.connection.client
 		
 		private var messageProcessors:Array = [];
 				
-		public function BasicClient(connection:INetConnection = null, sharedObject:RemoteSharedObject = null)
+		public function BasicClient(connection:INetConnection = null, sharedObject:IRemoteSharedObject = null)
 		{
 			super(this);
 			

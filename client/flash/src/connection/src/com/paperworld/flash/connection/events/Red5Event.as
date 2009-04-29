@@ -1,4 +1,4 @@
-package com.paperworld.flash.multiplayer.connection.events
+package com.paperworld.flash.connection.events
 {
 	import flash.events.Event;
 

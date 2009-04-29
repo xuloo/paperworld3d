@@ -1,4 +1,4 @@
-package com.paperworld.flash.multiplayer.connection
+package com.paperworld.flash.connection
 {
 	import com.paperworld.flash.util.IRegisteredClass;
 	import com.paperworld.flash.util.Registration;

@@ -1,7 +1,7 @@
-package com.paperworld.flash.multiplayer.connection
+package com.paperworld.flash.connection
 {
 	import com.paperworld.flash.api.multiplayer.INetConnection;
-	import com.paperworld.flash.multiplayer.connection.events.Red5Event;
+	import com.paperworld.flash.connection.events.Red5Event;
 	
 	import flash.events.NetStatusEvent;
 	import flash.net.NetConnection;
