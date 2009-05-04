@@ -869,7 +869,7 @@ package com.paperworld.flash.util.math
  	    * @return the string representation of this object.
  	    */
  	   public function toString():String {
- 	       var result = "com.jme.math.Matrix3f\n[\n";
+ 	       var result:String = "com.jme.math.Matrix3f\n[\n";
  	       result += " ";
  	       result += m00;
  	       result += "  ";
@@ -1003,14 +1003,15 @@ package com.paperworld.flash.util.math
  	           c1 = 2.0 / u.dot(u);
  	           c2 = 2.0 / v.dot(v);
  	           c3 = c1 * c2 * u.dot(v);
-	
+			   var val:Number;
+			   
  	           for (i = 0; i < 3; i++) {
  	               for (j = 0; j < 3; j++) {
- 	                   var val:Number = -c1 * u.get(i) * u.get(j) - c2 * v.get(i)
+ 	                   val = -c1 * u.get(i) * u.get(j) - c2 * v.get(i)
  	                           * v.get(j) + c3 * v.get(i) * u.get(j);
  	                   set(i, j, val);
  	               }
- 	               var val:Number = get(i, i);
+ 	               val = get(i, i);
  	               set(i, i, val + 1.0);
  	           }
  	       } else {

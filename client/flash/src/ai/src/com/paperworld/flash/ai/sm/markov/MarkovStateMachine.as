@@ -11,7 +11,7 @@
  */
 package com.paperworld.flash.ai.sm.markov 
 {
-	import com.paperworld.flash.ai.sm.BaseTransition;
+	import com.paperworld.flash.api.ai.sm.ITransition;
 	import com.paperworld.flash.core.action.Action;		
 
 	/**
@@ -71,18 +71,18 @@ package com.paperworld.flash.ai.sm.markov
 			var transition : MarkovTransition;
 
 			// Check through each transition in the current state.
-			var testTransition : BaseTransition = firstTransition;
+			var testTransition : ITransition = firstTransition;
 			
-			while (testTransition) 
+			/*while (testTransition) 
 			{
-				if (testTransition.isTriggered()) 
+				if (testTransition.isTriggered) 
 				{
 					transition = MarkovTransition(testTransition);
 					break;
 				}
 				
 				testTransition = testTransition.next;
-			}
+			}*/
 
 			// Check if we need to run the default transition
 			framesPassed++;
@@ -100,7 +100,7 @@ package com.paperworld.flash.ai.sm.markov
 				updateStateVector(matrix);
 
 				// The actions are those given by the transition
-				actions = transition.getActions();
+				//actions = transition.getActions();
 
 				// Stop the counting
 				framesPassed = 0;

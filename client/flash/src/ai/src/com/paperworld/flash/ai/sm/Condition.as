@@ -11,13 +11,14 @@
  */
 package com.paperworld.flash.ai.sm 
 {
+	import com.paperworld.flash.api.ai.sm.ICondition;	
 
 	/**
 	 * The condition interface offsets the problem of whether
 	 * transitions should fire by having a separate set of condition
 	 * instances that can be combined together with boolean operators.
 	 */
-	public class Condition 
+	public class Condition implements ICondition
 	{
 		/**
 		 * Performs the test for this condition.

@@ -1,11 +1,11 @@
 package com.paperworld.flash.core.game
 {
-	import com.paperworld.flash.api.multiplayer.ISynchronisedAvatar;
+	import com.paperworld.flash.api.IAvatar;
 	
 	public interface IGame
 	{
-		function addAvatar(avatar:ISynchronisedAvatar):void;
+		function addAvatar(avatar:IAvatar):void;
 		
-		function removeAvatar(avatar:ISynchronisedAvatar):void;
+		function removeAvatar(avatar:IAvatar):void;
 	}
 }

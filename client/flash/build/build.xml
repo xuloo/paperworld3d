@@ -16,20 +16,23 @@
 		<ivy:retrieve pattern="${basedir}/../lib/[artifact].swc"/>
 	</target>
 		
-	<target name="build" depends="build-util,build-core,build-bootstrapper,build-ai,build-multiplayer,build-pv3d-core,build-pv3d-multiplayer,build-away3d" description="builds the multiplayer paperworld client library swc.">
+	<target name="build" depends="build-core,build-connection,build-bootstrapper,build-ai,build-multiplayer,build-pv3d-core,build-pv3d-multiplayer,build-away3d" description="builds the multiplayer paperworld client library swc.">
 	</target>
 	
-	<target name="build-util">
-		<compc output="${output.dir}/${util.lib.name}.swc"
+	<target name="build-connection">
+		<compc output="${output.dir}/${connection.lib.name}.swc"
 				   optimize="true"
 				   debug="true"
 				>
-			<include-sources dir="${util.src.dir}">
+			<include-sources dir="${connection.src.dir}">
                  <include name="**/*.as"/>
             </include-sources>
 			<compiler.library-path dir="${lib.dir}" append="true">
 				<include name="**/*.swc" />
 			</compiler.library-path>
+			<compiler.external-library-path dir="${output.dir}" append="true">
+				<include name="${core.lib.name}.swc" />
+			</compiler.external-library-path>
 		</compc>
 	</target>
 	
@@ -45,7 +48,7 @@
 				<include name="**/*.swc" />
 			</compiler.library-path>
 			<compiler.external-library-path dir="${output.dir}" append="true">
-				<include name="${util.lib.name}.swc" />
+				<include name="${connection.lib.name}.swc" />
 			</compiler.external-library-path>
 			
 		</compc>

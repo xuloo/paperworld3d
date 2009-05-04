@@ -27,28 +27,6 @@ package com.paperworld.flash.ai.sm
 	     */
 	    public var next:BaseTransition;
 	    
-	    /**
-		 * The transition needs to decide if it can be triggered or
-		 * not. This will depend on the sub-class of transition we're
-		 * dealing with.
-		 */
-		public function isTriggered() : Boolean
-		{
-			return false;	
-		}
-
-		/**
-		 * The transition can also optionally return a list of actions
-		 * that need to be performed during the transition.
-		 *
-		 * Note that this method should return one or more newly
-		 * created action instances, and the caller of this method
-		 * should be responsible for the deletion. In the default
-		 * implementation, it returns nothing.
-		 */
-		public function getActions() : Action
-		{
-			return null;	
-		}
+	    
 	}
 }

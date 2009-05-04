@@ -11,14 +11,14 @@
  */
 package com.paperworld.flash.ai.sm.markov 
 {
-	import com.paperworld.flash.ai.sm.BaseTransition;			
+	import com.paperworld.flash.ai.sm.Transition;
 
 	/**
 	 * Markov transitions consist of a matrix that is multiplied by
 	 * the current state vector. They can also contain actions like a
 	 * regular transition.
 	 */
-	public class MarkovTransition extends BaseTransition 
+	public class MarkovTransition extends Transition
 	{
 		/**
 		 * Returns the matrix associated with the transition. This

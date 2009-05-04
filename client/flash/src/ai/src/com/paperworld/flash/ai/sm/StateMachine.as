@@ -11,7 +11,12 @@
  */
 package com.paperworld.flash.ai.sm 
 {
-	import com.paperworld.flash.core.action.Action;	
+	import com.paperworld.flash.api.ai.sm.IStateMachineState;
+	import com.paperworld.flash.api.ai.sm.ITransition;
+	import com.paperworld.flash.core.action.Action;
+	
+	import org.springextensions.actionscript.mvcs.service.operation.AsyncOperationSequence;
+	import org.springextensions.actionscript.mvcs.service.operation.IOperation;	
 	
 	/**
 	 * @author Trevor
@@ -21,33 +26,38 @@ package com.paperworld.flash.ai.sm
 		/**
 		 * Holds the initial state (a pointer into the 'state' array).
 		 */
-		public var initialState : StateMachineState;
+		private var _initialState : IStateMachineState;
+		
+		public function set initialState(value:IStateMachineState):void 
+		{
+			_initialState = value;
+		}
 
 		/**
 		 * Holds the current state of the machine.
 		 */
-		public var currentState : StateMachineState;
+		private var _currentState : IStateMachineState;
 
 		/**
 		 * This method runs the state machine - it checks for
 		 * transitions, applies them and returns a list of actions.
 		 */
-		public function update() : Action
+		public function update() : IOperation
 		{
 			// The variable to hold the actions to perform
-			var actions : Action;
+			var operations : AsyncOperationSequence = new AsyncOperationSequence();
 	
 			// First case - we have no current state.
-			if (currentState == null)
+			if (_currentState == null)
 			{
 				// In this case we use the entry action for the initial state.
-				if (initialState != null) 
+				if (_initialState != null) 
 				{	
 					// Transition to the first state
-					currentState = initialState;
+					_currentState = _initialState;
 	
 					// Returns the initial states entry actions
-					actions = currentState.getEntryActions();
+					operations.addOperation(_currentState.entryOperation);
 				}
 			}
 	
@@ -55,56 +65,42 @@ package com.paperworld.flash.ai.sm
 	        else 
 			{
 				// Start off with no transition
-				var transition : Transition;
+				var transition : ITransition;
 	
 				// Check through each transition in the current state.
-				var testTransition : BaseTransition = currentState.firstTransition;
-				
-				while (testTransition) 
+				for each (var t:ITransition in _currentState.transitions)
 				{
-					if (testTransition.isTriggered()) 
+					if (t.isTriggered) 
 					{
-						transition = Transition(testTransition);
+						transition = t;
 						break;
 					}
-					
-					testTransition = testTransition.next;
 				}
 	
 				// Check if we found a transition
 				if (transition) 
 				{
 					// Find our destination
-					var nextState : StateMachineState = transition.getTargetState();
-	
-					// Accumulate our list of actions
-					var tempList : Action;
-					var last : Action;
+					var nextState : IStateMachineState = transition.targetState;
 	
 					// Add each element to the list in turn
-					actions = currentState.getExitActions();
-					last = actions.last;
-	
-					tempList = transition.getActions();
-					last.next = tempList;
-					last = tempList.last;
-	
-					tempList = nextState.getActions();
-					last.next = tempList;
+					operations.addOperation(_currentState.exitOperation);	
+					operations.addOperation(transition.operation);	
+					operations.addOperation(nextState.entryOperation);
 	
 					// Update the change of state
-					currentState = nextState;
+					_currentState = nextState;
 				}
 	
 	            // Otherwise our actions to perform are simply those for the
 	            // current state.
 	            else 
 				{	
-					actions = currentState.getActions();
+					operations.addOperation(_currentState.operation);
 				}
 			}
 	
-			return actions;	
+			return operations;	
 		}
 	}
 }

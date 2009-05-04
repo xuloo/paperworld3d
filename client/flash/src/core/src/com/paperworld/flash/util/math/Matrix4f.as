@@ -1423,7 +1423,7 @@ package com.paperworld.flash.util.math
 	     * @throws JmeException
 	     *             if the size of the Vector3f is not 3.
 	     */
-	    public function inverseTranslateVectVector(data:Vector3f) {
+	    public function inverseTranslateVectVector(data:Vector3f):void {
 	        data.x -= m03;
 	        data.y -= m13;
 	        data.z -= m23;

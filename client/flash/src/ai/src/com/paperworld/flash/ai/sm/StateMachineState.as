@@ -11,19 +11,30 @@
  */
 package com.paperworld.flash.ai.sm 
 {
-	import com.paperworld.flash.core.action.Action;	
+	import com.paperworld.flash.api.ai.sm.IStateMachineState;
+	import com.paperworld.flash.api.ai.sm.ITransition;
+	
+	import org.springextensions.actionscript.mvcs.service.operation.IOperation;	
 	
 	/**
 	 * This represents one internal state a character be in: such as
      * angry, or searching-for-ammo.
      */
-	public class StateMachineState 
+	public class StateMachineState implements IStateMachineState
 	{
+		/**
+		 * The list of transitions that can occur from this state.
+		 */
+		private var _transitions:Array = [];
+		
 		/**
 		 * The first in the sequence of transitions that can leave
 		 * this state.
 		 */
-		public var firstTransition : Transition;
+		public function get transitions() : Array
+		{
+			return null;
+		}
 
 		/**
 		 * Returns the first in a sequence of actions that should be
@@ -34,7 +45,7 @@ package com.paperworld.flash.ai.sm
 		 * should be responsible for the deletion. In the default
 		 * implementation, it returns nothing.
 		 */
-		public function getActions() : Action
+		public function get operation() : IOperation
 		{
 			return null;	
 		}
@@ -48,7 +59,7 @@ package com.paperworld.flash.ai.sm
 		 * should be responsible for the deletion. In the default
 		 * implementation, it returns nothing.
 		 */
-		public function getEntryActions() : Action
+		public function get entryOperation() : IOperation
 		{
 			return null;	
 		}
@@ -62,7 +73,7 @@ package com.paperworld.flash.ai.sm
 		 * should be responsible for the deletion. In the default
 		 * implementation, it returns nothing.
 		 */
-		public function getExitActions() : Action
+		public function get exitOperation() : IOperation
 		{
 			return null;	
 		}
