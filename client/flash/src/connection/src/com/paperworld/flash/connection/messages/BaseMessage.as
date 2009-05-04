@@ -1,7 +1,7 @@
 package com.paperworld.flash.connection.messages
 {
-	import com.paperworld.flash.api.connection.IMessage;
 	import com.paperworld.flash.api.connection.INetConnection;
+	import com.paperworld.flash.api.connection.messages.IMessage;
 	import com.paperworld.flash.util.IRegisteredClass;
 	import com.paperworld.flash.util.Registration;
 	

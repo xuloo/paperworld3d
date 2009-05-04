@@ -1,8 +1,8 @@
 package com.paperworld.flash.connection.messages
 {
 	import com.joeberkovitz.moccasin.service.AbstractOperation;
-	import com.paperworld.flash.api.connection.IMessage;
 	import com.paperworld.flash.api.connection.INetConnection;
+	import com.paperworld.flash.api.connection.messages.IMessage;
 	
 	import flash.events.Event;
 	

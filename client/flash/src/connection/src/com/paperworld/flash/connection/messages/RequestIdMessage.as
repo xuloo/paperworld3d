@@ -1,8 +1,5 @@
 package com.paperworld.flash.connection.messages
 {
-	import com.paperworld.flash.api.multiplayer.ISynchronisedAvatar;
-	
-
 	public class RequestIdMessage extends BaseMessage
 	{		
 		override public function get aliasName():String

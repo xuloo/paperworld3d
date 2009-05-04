@@ -1,12 +1,14 @@
-package com.paperworld.flash.connection.handshake
+package com.paperworld.flash.multiplayer.handshake
 {
 	import com.joeberkovitz.moccasin.service.AbstractOperation;
 	import com.paperworld.flash.api.connection.IClient;
 	import com.paperworld.flash.api.connection.INetConnection;
+	import com.paperworld.flash.connection.handshake.ConnectToServerOperation;
+	import com.paperworld.flash.connection.handshake.EchoNetObjectOperation;
 	import com.paperworld.flash.connection.messages.BaseMessage;
-	import com.paperworld.flash.connection.messages.PlayerSyncMessage;
-	import com.paperworld.flash.connection.messages.ServerSyncMessage;
 	import com.paperworld.flash.multiplayer.data.State;
+	import com.paperworld.flash.multiplayer.messages.PlayerSyncMessage;
+	import com.paperworld.flash.multiplayer.messages.ServerSyncMessage;
 	import com.paperworld.flash.util.input.Input;
 	
 	import org.as3commons.reflect.ClassUtils;

@@ -16,7 +16,7 @@
 		<ivy:retrieve pattern="${basedir}/../lib/[artifact].swc"/>
 	</target>
 		
-	<target name="build" depends="build-core,build-connection,build-bootstrapper,build-ai,build-multiplayer,build-pv3d-core,build-pv3d-multiplayer,build-away3d" description="builds the multiplayer paperworld client library swc.">
+	<target name="build" depends="build-core,build-connection,build-bootstrapper,build-ai,build-multiplayer,build-pv3d-core,build-pv3d-multiplayer" description="builds the multiplayer paperworld client library swc.">
 	</target>
 	
 	<target name="build-connection">
@@ -103,7 +103,7 @@
 			</compiler.external-library-path>
 			<compiler.external-library-path dir="${output.dir}" append="true">
 				<include name="${core.lib.name}.swc" />
-				<include name="${util.lib.name}.swc" />
+				<include name="${connection.lib.name}.swc" />
 				<include name="${ai.lib.name}.swc" />
 			</compiler.external-library-path>
 		</compc>

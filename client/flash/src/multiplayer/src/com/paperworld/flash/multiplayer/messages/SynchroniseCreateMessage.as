@@ -1,6 +1,7 @@
-package com.paperworld.flash.connection.messages
+package com.paperworld.flash.multiplayer.messages
 {
 	import com.paperworld.flash.api.multiplayer.messages.ISynchroniseCreateMessage;
+	import com.paperworld.flash.connection.messages.BaseMessage;
 	import com.paperworld.flash.multiplayer.data.State;
 	import com.paperworld.flash.util.input.IInput;
 	import com.paperworld.flash.util.input.Input;

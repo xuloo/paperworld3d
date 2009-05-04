@@ -1,4 +1,4 @@
-package com.paperworld.flash.connection.messages
+package com.paperworld.flash.multiplayer.messages
 {
 	import com.paperworld.flash.api.multiplayer.messages.IServerSyncMessage;
 	import com.paperworld.flash.multiplayer.data.State;

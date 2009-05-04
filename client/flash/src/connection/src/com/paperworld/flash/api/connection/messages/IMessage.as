@@ -1,7 +1,8 @@
-package com.paperworld.flash.api.connection
+package com.paperworld.flash.api.connection.messages
 {	
+	import com.paperworld.flash.api.connection.INetConnection;
+	
 	import flash.events.IEventDispatcher;
-	import flash.utils.IExternalizable;
 		
 	/**
 	 * All messages sent to the server must implement this interface

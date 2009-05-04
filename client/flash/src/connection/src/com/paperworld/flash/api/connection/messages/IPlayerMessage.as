@@ -1,4 +1,4 @@
-package com.paperworld.flash.api.connection
+package com.paperworld.flash.api.connection.messages
 {
 	public interface IPlayerMessage extends IMessage
 	{

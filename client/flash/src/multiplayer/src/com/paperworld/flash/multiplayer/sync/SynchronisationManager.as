@@ -2,16 +2,16 @@ package com.paperworld.flash.multiplayer.sync
 {
 	import com.joeberkovitz.moccasin.service.IOperation;
 	import com.paperworld.flash.api.connection.IClient;
-	import com.paperworld.flash.api.connection.IMessage;
+	import com.paperworld.flash.api.connection.messages.IMessage;
 	import com.paperworld.flash.api.multiplayer.ISyncManager;
 	import com.paperworld.flash.api.multiplayer.ISynchronisedAvatar;
 	import com.paperworld.flash.api.multiplayer.ISynchronisedScene;
 	import com.paperworld.flash.api.multiplayer.messages.IServerSyncMessage;
-	import com.paperworld.flash.connection.messages.BatchedInputMessage;
-	import com.paperworld.flash.connection.messages.PlayerSyncMessage;
 	import com.paperworld.flash.connection.messages.RequestIdMessage;
-	import com.paperworld.flash.connection.messages.ServerSyncMessage;
-	import com.paperworld.flash.connection.messages.SynchroniseCreateMessage;
+	import com.paperworld.flash.multiplayer.messages.BatchedInputMessage;
+	import com.paperworld.flash.multiplayer.messages.PlayerSyncMessage;
+	import com.paperworld.flash.multiplayer.messages.ServerSyncMessage;
+	import com.paperworld.flash.multiplayer.messages.SynchroniseCreateMessage;
 	import com.paperworld.flash.util.AbstractProcessor;
 	import com.paperworld.flash.util.input.IInput;
 	import com.paperworld.flash.util.timer.ITimer;

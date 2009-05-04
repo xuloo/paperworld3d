@@ -1,7 +1,10 @@
 package com.paperworld.flash.api.connection
 {
 	import com.joeberkovitz.moccasin.service.IOperation;
-	import com.paperworld.flash.api.connection.ISharedObject;
+	import com.paperworld.flash.api.connection.messages.IGroupMessage;
+	import com.paperworld.flash.api.connection.messages.IMessage;
+	import com.paperworld.flash.api.connection.messages.IMessageProcessingService;
+	import com.paperworld.flash.api.connection.messages.IPlayerMessage;
 	
 	public interface IClient extends IMessageProcessingService
 	{
