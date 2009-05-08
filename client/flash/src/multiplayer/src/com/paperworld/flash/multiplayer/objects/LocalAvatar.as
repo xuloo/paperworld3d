@@ -21,10 +21,10 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.flash.multiplayer.objects 
 {
-	import com.paperworld.flash.multiplayer.data.State;
+	import com.paperworld.flash.api.IInput;
+	import com.paperworld.flash.api.IState;
 	import com.paperworld.flash.util.History;
 	import com.paperworld.flash.util.Move;
-	import com.paperworld.flash.util.input.IInput;
 	import com.paperworld.flash.util.input.IUserInput;
 	import com.paperworld.flash.util.input.IUserInputListener;
 	import com.paperworld.flash.util.input.events.UserInputEvent;
@@ -77,7 +77,7 @@ package com.paperworld.flash.multiplayer.objects
 			super.update( );		
 		}
 
-		override public function synchronise(time : int, input : IInput, state : State) : void
+		override public function synchronise(time : int, input : IInput, state : IState) : void
 		{			
 			/*var original : State = state.clone( );
 			
@@ -85,7 +85,7 @@ package com.paperworld.flash.multiplayer.objects
 			{
             	smooth( );
    			}*/
-			trace("synchronising local avatar " + state.px);// + " " + state.py + " " + state.pz);
+			trace("synchronising local avatar " + state.position.x);// + " " + state.py + " " + state.pz);
 			snap(state);
 			//_history.correction( this, time, state, input );	
             	

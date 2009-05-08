@@ -1,10 +1,10 @@
 package {
 	import com.joeberkovitz.moccasin.service.IOperation;
-	import com.paperworld.flash.api.multiplayer.IClient;
-	import com.paperworld.flash.multiplayer.connection.Red5Connection;
-	import com.paperworld.flash.multiplayer.connection.RemoteSharedObject;
-	import com.paperworld.flash.multiplayer.connection.client.BasicClient;
-	import com.paperworld.flash.multiplayer.connection.messages.ServerSyncMessage;
+	import com.paperworld.flash.api.connection.IClient;
+	import com.paperworld.flash.connection.Red5Connection;
+	import com.paperworld.flash.connection.RemoteSharedObject;
+	import com.paperworld.flash.connection.client.BasicClient;
+	import com.paperworld.flash.connection.messages.ServerSyncMessage;
 	import com.paperworld.flash.multiplayer.data.State;
 	import com.paperworld.flash.multiplayer.sync.SynchronisationManager;
 	import com.paperworld.flash.util.input.Input;

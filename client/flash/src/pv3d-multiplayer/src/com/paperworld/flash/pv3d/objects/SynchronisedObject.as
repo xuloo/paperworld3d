@@ -21,9 +21,9 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.flash.pv3d.objects 
 {
-	import com.paperworld.flash.api.multiplayer.ISynchronisedObject;
-	import com.paperworld.flash.multiplayer.data.State;
-	import com.paperworld.flash.util.input.IInput;
+	import com.paperworld.flash.api.IInput;
+	import com.paperworld.flash.api.IPaperworldObject;
+	import com.paperworld.flash.api.IState;
 	
 	import org.as3commons.logging.ILogger;
 	import org.as3commons.logging.LoggerFactory;
@@ -32,7 +32,7 @@ package com.paperworld.flash.pv3d.objects
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
 	 */
-	public class SynchronisedObject implements ISynchronisedObject
+	public class SynchronisedObject implements IPaperworldObject
 	{
 		private var logger : ILogger = LoggerFactory.getLogger( "Paperworld(PV3D)" );
 
@@ -55,9 +55,9 @@ package com.paperworld.flash.pv3d.objects
 			_displayObject = displayObject;
 		}
 
-		public function synchronise(time : int, input : IInput, state : State) : void
+		public function synchronise(time : int, input : IInput, state : IState) : void
 		{												
-			_displayObject.x = state.px;
+			_displayObject.x = state.position.x;
 			//_displayObject.y = state.py;
 			//_displayObject.z = state.pz;
 

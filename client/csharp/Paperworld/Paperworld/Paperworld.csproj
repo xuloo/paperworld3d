@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{13274A00-02A2-4D27-B049-E7E94528583D}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -45,8 +45,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Converter.cs" />
+    <Compile Include="HeaderConverter.cs" />
+    <Compile Include="IExternalisable.cs" />
+    <Compile Include="Input.cs" />
+    <Compile Include="Output.cs" />
+    <Compile Include="UDPHeader.cs" />
     <Compile Include="NetConnection.cs" />
     <Compile Include="NetInterface.cs" />
+    <Compile Include="UDPPacket.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SocketPacket.cs" />
   </ItemGroup>

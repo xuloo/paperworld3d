@@ -157,11 +157,6 @@ public abstract class AbstractPaperworldService extends BaseService implements I
 	
 	public Object echo(Object object) {
 		System.out.println("echoing " + object);
-		
-		if (object instanceof FuckingTestObject) {
-			FuckingTestObject state = (FuckingTestObject) object;
-			System.out.println("state.px = " + state.px);
-		}
 		return object;
 	}
 

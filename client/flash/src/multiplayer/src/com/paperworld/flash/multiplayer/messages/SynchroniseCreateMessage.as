@@ -1,9 +1,10 @@
 package com.paperworld.flash.multiplayer.messages
 {
+	import com.paperworld.flash.api.IInput;
+	import com.paperworld.flash.api.IState;
 	import com.paperworld.flash.api.multiplayer.messages.ISynchroniseCreateMessage;
 	import com.paperworld.flash.connection.messages.BaseMessage;
-	import com.paperworld.flash.multiplayer.data.State;
-	import com.paperworld.flash.util.input.IInput;
+	import com.paperworld.flash.core.objects.State;
 	import com.paperworld.flash.util.input.Input;
 	
 	import flash.utils.IDataInput;
@@ -89,12 +90,12 @@ package com.paperworld.flash.multiplayer.messages
 		/**
 		 * @private
 		 */
-		private var _state:State = new State();
+		private var _state:IState = new State();
 		
 		/**
 		 * The initial state for this object.
 		 */
-		public function get state():State
+		public function get state():IState
 		{
 			return _state;
 		}
@@ -102,7 +103,7 @@ package com.paperworld.flash.multiplayer.messages
 		/**
 		 * @private
 		 */
-		public function set state(value:State):void 
+		public function set state(value:IState):void 
 		{
 			_state = value;
 		}

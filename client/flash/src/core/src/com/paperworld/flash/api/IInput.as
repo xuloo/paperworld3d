@@ -1,4 +1,4 @@
-package com.paperworld.flash.util.input
+package com.paperworld.flash.api
 {
 	public interface IInput
 	{

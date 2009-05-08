@@ -11,10 +11,11 @@
  */
 package com.paperworld.flash.ai.sm 
 {
-	import com.paperworld.flash.api.ai.sm.ICondition;
 	import com.paperworld.flash.api.ai.sm.IStateMachineState;
 	import com.paperworld.flash.api.ai.sm.ITransition;
 	
+	import org.as3commons.logging.ILogger;
+	import org.as3commons.logging.LoggerFactory;
 	import org.springextensions.actionscript.mvcs.service.operation.IOperation;
 	
 
@@ -23,35 +24,11 @@ package com.paperworld.flash.ai.sm
      */
 	public class Transition implements ITransition 
 	{
+		private static var log:ILogger = LoggerFactory.getLogger("Transition");
+		
 		private var _targetState:IStateMachineState;
 		
-		private var _conditions:Array = [];
-		
-		public function Transition()
-		{
-			
-		}
-		
-		public function addCondition(condition:ICondition):void 
-		{
-			if (condition != null)
-			{
-				_conditions.push(condition);
-			}
-		}
-		
-		/**
-		 * The transition returns a target state to transition to.
-		 */
-		public function get targetState() : IStateMachineState
-		{
-			return null;	
-		}
-		
-		public function set targetState(value:IStateMachineState):void 
-		{
-			_targetState = value;
-		}
+		private var _isTriggered:Boolean = false;
 		
 		/**
 		 * The transition needs to decide if it can be triggered or
@@ -60,8 +37,33 @@ package com.paperworld.flash.ai.sm
 		 */
 		public function get isTriggered() : Boolean
 		{
-			return false;	
+			return _isTriggered;
 		}
+		
+		public function set isTriggered(value:Boolean):void 
+		{
+			_isTriggered = value;
+		}
+		
+		public function Transition(targetState:IStateMachineState = null)
+		{
+			_targetState = targetState;			
+		}		
+		
+		/**
+		 * The transition returns a target state to transition to.
+		 */
+		public function get targetState() : IStateMachineState
+		{
+			return _targetState;	
+		}
+		
+		public function set targetState(value:IStateMachineState):void 
+		{
+			_targetState = value;
+		}		
+		
+		private var _operation:IOperation;
 
 		/**
 		 * The transition can also optionally return a list of actions
@@ -74,7 +76,12 @@ package com.paperworld.flash.ai.sm
 		 */
 		public function get operation() : IOperation
 		{
-			return null;	
+			return _operation;	
+		}
+		
+		public function set operation(value:IOperation):void 
+		{
+			_operation = value;
 		}
 	}
 }

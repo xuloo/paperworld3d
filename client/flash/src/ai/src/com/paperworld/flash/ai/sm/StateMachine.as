@@ -13,8 +13,9 @@ package com.paperworld.flash.ai.sm
 {
 	import com.paperworld.flash.api.ai.sm.IStateMachineState;
 	import com.paperworld.flash.api.ai.sm.ITransition;
-	import com.paperworld.flash.core.action.Action;
 	
+	import org.as3commons.logging.ILogger;
+	import org.as3commons.logging.LoggerFactory;
 	import org.springextensions.actionscript.mvcs.service.operation.AsyncOperationSequence;
 	import org.springextensions.actionscript.mvcs.service.operation.IOperation;	
 	
@@ -23,6 +24,8 @@ package com.paperworld.flash.ai.sm
 	 */
 	public class StateMachine 
 	{
+		private static var log:ILogger = LoggerFactory.getLogger("StateMachine");
+		
 		/**
 		 * Holds the initial state (a pointer into the 'state' array).
 		 */
@@ -37,6 +40,11 @@ package com.paperworld.flash.ai.sm
 		 * Holds the current state of the machine.
 		 */
 		private var _currentState : IStateMachineState;
+		
+		public function get currentState():IStateMachineState
+		{
+			return _currentState;
+		}
 
 		/**
 		 * This method runs the state machine - it checks for
@@ -82,7 +90,7 @@ package com.paperworld.flash.ai.sm
 				{
 					// Find our destination
 					var nextState : IStateMachineState = transition.targetState;
-	
+					log.debug(transition + " next state: " + nextState);
 					// Add each element to the list in turn
 					operations.addOperation(_currentState.exitOperation);	
 					operations.addOperation(transition.operation);	

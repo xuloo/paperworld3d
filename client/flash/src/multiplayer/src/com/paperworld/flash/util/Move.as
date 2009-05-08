@@ -21,8 +21,8 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.flash.util
 {
-	import com.paperworld.flash.multiplayer.data.State;
-	import com.paperworld.flash.util.input.IInput;	
+	import com.paperworld.flash.api.IInput;
+	import com.paperworld.flash.api.IState;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
@@ -31,7 +31,7 @@ package com.paperworld.flash.util
 	{
 		public var time : int;
 
-		public var state : State;
+		public var state : IState;
 
 		public var input : IInput;
 	}

@@ -21,9 +21,9 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.flash.util
 {
+	import com.paperworld.flash.api.IInput;
+	import com.paperworld.flash.api.IState;
 	import com.paperworld.flash.api.multiplayer.ISynchronisedAvatar;
-	import com.paperworld.flash.multiplayer.data.State;
-	import com.paperworld.flash.util.input.IInput;
 	
 	import de.polygonal.ds.Iterator;
 	import de.polygonal.ds.SLinkedList;
@@ -72,7 +72,7 @@ package com.paperworld.flash.util
 			moves.prepend( move );
 		}
 
-		public function correction(avatar : ISynchronisedAvatar, t : int, state : State, input : IInput) : void
+		public function correction(avatar : ISynchronisedAvatar, t : int, state : IState, input : IInput) : void
 		{
 			// discard out of date important moves 
 			/*if (importantMoves.oldest( ))

@@ -21,7 +21,7 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.flash.util.input.events
 {
-	import com.paperworld.flash.util.input.IInput;
+	import com.paperworld.flash.api.IInput;
 	
 	import flash.events.Event;	
 

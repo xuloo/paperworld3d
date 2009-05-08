@@ -1,6 +1,7 @@
 package com.paperworld.flash.multiplayer.sync
 {
 	import com.joeberkovitz.moccasin.service.IOperation;
+	import com.paperworld.flash.api.IInput;
 	import com.paperworld.flash.api.connection.IClient;
 	import com.paperworld.flash.api.connection.messages.IMessage;
 	import com.paperworld.flash.api.multiplayer.ISyncManager;
@@ -13,7 +14,6 @@ package com.paperworld.flash.multiplayer.sync
 	import com.paperworld.flash.multiplayer.messages.ServerSyncMessage;
 	import com.paperworld.flash.multiplayer.messages.SynchroniseCreateMessage;
 	import com.paperworld.flash.util.AbstractProcessor;
-	import com.paperworld.flash.util.input.IInput;
 	import com.paperworld.flash.util.timer.ITimer;
 	import com.paperworld.flash.util.timer.TimerManager;
 	import com.paperworld.flash.util.timer.events.ITimerEvent;
@@ -165,7 +165,7 @@ package com.paperworld.flash.multiplayer.sync
 			{
 				var message:IServerSyncMessage = IServerSyncMessage(object);
 				var avatar:ISynchronisedAvatar = ISynchronisedAvatar(_avatars[message.objectId]);
-				log.debug("STATE: " + message.state.pz);// + " " + message.state.py + " " + message.state.pz);
+				log.debug("STATE: " + message.state.position.z);// + " " + message.state.py + " " + message.state.pz);
 				avatar.synchronise(message.time, message.input, message.state);
 			}
 		}

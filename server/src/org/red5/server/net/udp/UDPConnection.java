@@ -46,6 +46,9 @@ public class UDPConnection extends BaseConnection implements
 	 */
 	private ConcurrentMap<Integer, IPendingServiceCall> pendingCalls = new ConcurrentHashMap<Integer, IPendingServiceCall>();
 
+	private int localSequence = 0;
+	
+	private int remoteSequence = 0;
 	
 	public UDPConnection(IoSession ioSession) {
 		super(PERSISTENT, null, null, 0, null, null, null);

@@ -1,5 +1,6 @@
-package com.paperworld.flash.util
+package com.paperworld.flash.util.library
 {
+	import com.paperworld.flash.util.library.LibraryManager;
 	import com.paperworld.flash.util.patterns.iterator.IIterator;
 	
 	import flash.display.Bitmap;
@@ -19,20 +20,17 @@ package com.paperworld.flash.util
 	/**
 	 * @author Trevor
 	 */
-	public class LibraryManager
+	public class ExternalLibraryManager extends LibraryManager
 	{
 		private static var logger:ILogger = LoggerFactory.getLogger("Paperworld(Util)");
-		
-		private static const SKIN_KEY:String = "Skin";
-		private static const SOUND_KEY:String = "Sound";
-		
-		private static var _instance : LibraryManager;
+				
+		private static var _instance : ExternalLibraryManager;
 
 		private var _cache : Dictionary;
 		
-		private var _assets:Dictionary;
+		//private var _assets:Dictionary;
   
-		public function LibraryManager(singleton : Singleton)
+		public function ExternalLibraryManager(singleton : Singleton)
 		{
 			super( );
 			
@@ -41,26 +39,26 @@ package com.paperworld.flash.util
 		
 		public function initialise():void 
 		{
-			_assets = new Dictionary(true);
-			_assets[SKIN_KEY] = [];
-			_assets[SOUND_KEY] = [];
+			assets = new Dictionary(true);
+			assets[SKIN_KEY] = [];
+			assets[SOUND_KEY] = [];
 			
 			_cache = new Dictionary(true);
 		}
 
-		public static function getInstance() : LibraryManager
+		public static function getInstance() : ExternalLibraryManager
 		{
-			return (_instance == null) ? new LibraryManager( new Singleton( ) ) : _instance;
+			return (_instance == null) ? new ExternalLibraryManager( new Singleton( ) ) : _instance;
 		}
 		
 		private function get skins():Array
 		{
-			return _assets[SKIN_KEY] as Array;
+			return assets[SKIN_KEY] as Array;
 		}
 		
 		private function get sounds():Array 
 		{
-			return _assets[SOUND_KEY] as Array;
+			return assets[SOUND_KEY] as Array;
 		}
 		
 		private function _createCache(key:Loader):void 
@@ -74,7 +72,7 @@ package com.paperworld.flash.util
 		private function _registerFile(loader:Loader, key:String):void 
 		{
 			logger.info("registering " + key + " file");
-			(_assets[key] as Array).push(loader);
+			(assets[key] as Array).push(loader);
 			
 			_createCache(loader);
 		}
@@ -89,22 +87,22 @@ package com.paperworld.flash.util
 			_registerFile(loader, SOUND_KEY);
 		}
 		
-		public function getMovieClip(key:String, useCache:Boolean = false):MovieClip 
+		override public function getMovieClip(key:String, useCache:Boolean = false):MovieClip 
 		{		
 			return MovieClip(_getInstance(key, SKIN_KEY, useCache));
 		}
 		
-		public function getBitmap(key:String, useCache:Boolean = false):Bitmap 
+		override public function getBitmap(key:String, useCache:Boolean = false):Bitmap 
 		{
 			return Bitmap(_getInstance(key, SKIN_KEY, useCache));
 		}
 		
-		public function getBitmapData(key:String, useCache:Boolean = false):BitmapData
+		override public function getBitmapData(key:String, useCache:Boolean = false):BitmapData
 		{
 			return BitmapData(_getInstance(key, SKIN_KEY, useCache));
 		}
 		
-		public function getSound(key:String, useCache:Boolean = false):Sound 
+		override public function getSound(key:String, useCache:Boolean = false):Sound 
 		{
 			return Sound(_getInstance(key, SKIN_KEY, useCache));
 		}
@@ -121,7 +119,7 @@ package com.paperworld.flash.util
 				}
 			}
 			
-			var applicationDomain:ApplicationDomain = _getApplicationDomain(key, _assets[type]);
+			var applicationDomain:ApplicationDomain = _getApplicationDomain(key, assets[type]);
 			
 			if (applicationDomain)
 			{
@@ -145,7 +143,7 @@ package com.paperworld.flash.util
 		
 		private function _getLoaderForKey(key:String):Loader 
 		{
-			var iterator:IIterator = new ClassKeysIterator(_assets);
+			var iterator:IIterator = new ClassKeysIterator(assets);
 			
 			while (iterator.hasNext())
 			{

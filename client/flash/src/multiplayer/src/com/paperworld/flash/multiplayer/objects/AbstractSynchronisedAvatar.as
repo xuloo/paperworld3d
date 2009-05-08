@@ -22,13 +22,14 @@
 package com.paperworld.flash.multiplayer.objects 
 {
 	import com.paperworld.flash.ai.steering.SteeringOutput;
-	import com.paperworld.flash.api.multiplayer.IBehaviour;
+	import com.paperworld.flash.api.IBehaviour;
+	import com.paperworld.flash.api.IInput;
+	import com.paperworld.flash.api.IPaperworldObject;
+	import com.paperworld.flash.api.IState;
 	import com.paperworld.flash.api.multiplayer.ISyncManager;
 	import com.paperworld.flash.api.multiplayer.ISynchronisedAvatar;
-	import com.paperworld.flash.api.multiplayer.ISynchronisedObject;
-	import com.paperworld.flash.multiplayer.data.State;
+	import com.paperworld.flash.core.objects.State;
 	import com.paperworld.flash.multiplayer.inputhandlers.SimpleAvatarInputHandler25D;
-	import com.paperworld.flash.util.input.IInput;
 	import com.paperworld.flash.util.input.IUserInput;
 	import com.paperworld.flash.util.input.Input;
 	import com.paperworld.flash.util.timer.ITimer;
@@ -81,14 +82,14 @@ package com.paperworld.flash.multiplayer.objects
 			_next = value;
 		}
 
-		public var synchronisedObject : ISynchronisedObject;
+		public var synchronisedObject : IPaperworldObject;
 
-		public function get object() : ISynchronisedObject
+		public function get object() : IPaperworldObject
 		{
 			return synchronisedObject;
 		}	
 
-		public function set object(value : ISynchronisedObject) : void
+		public function set object(value : IPaperworldObject) : void
 		{
 			synchronisedObject = value;
 		}
@@ -106,7 +107,7 @@ package com.paperworld.flash.multiplayer.objects
 		/**
 		 * The current tightness value for adaptive smoothing.
 		 */
-		protected var _tightness : Number;
+		protected var _tightness : Number = defaultTightness;
 
 		public function get tightness() : Number
 		{
@@ -131,7 +132,7 @@ package com.paperworld.flash.multiplayer.objects
 		/**
 		 * The current user input state for this object.
 		 */
-		protected var _input : IInput;
+		protected var _input : IInput = new Input();
 
 		public function get input() : IInput
 		{
@@ -146,17 +147,17 @@ package com.paperworld.flash.multiplayer.objects
 		/**
 		 * The State of this object in the previous frame.
 		 */
-		protected var _previous : State;
+		protected var _previous : IState = new State();
 
 		/**
 		 * The State of this object in the current frame.
 		 */
-		protected var _current : State;
+		protected var _current : IState = new State();
 
 		/**
 		 * Returns the current State of this object.
 		 */
-		public function get state() : State
+		public function get state() : IState
 		{
 			return _current.clone();	
 		}
@@ -164,7 +165,7 @@ package com.paperworld.flash.multiplayer.objects
 		/**
 		 * @private
 		 */
-		public function set state(value : State) : void
+		public function set state(value : IState) : void
 		{
 			_previous = _current;
 			_current = value;
@@ -216,7 +217,7 @@ package com.paperworld.flash.multiplayer.objects
 			synchronisedObject.synchronise( _time, _input, _current );	
 		}
 
-		public function synchronise(time : int, input : IInput, state : State) : void
+		public function synchronise(time : int, input : IInput, state : IState) : void
 		{
 			_tightness = defaultTightness;
 		}
@@ -226,7 +227,7 @@ package com.paperworld.flash.multiplayer.objects
 		 * cases where the update from the server is showing us that we're wildly 
 		 * out of sync, there's no point in smoothing - so we just 'snap'.
 		 */
-		public function snap(state : State) : void
+		public function snap(state : IState) : void
 		{
 			_previous = _current.clone( );
 			_current = state.clone( );
@@ -247,15 +248,7 @@ package com.paperworld.flash.multiplayer.objects
 		 * Initialise implementation. Sets up any required objects/values.
 		 */
 		public function initialise() : void
-		{
-			_tightness = defaultTightness;	
-			_time = 0;
-			_replaying = false;
-			
-			_input = new Input( );
-			_current = new State( );
-			_previous = new State( );
-			
+		{						
 			_behaviour = new SimpleAvatarInputHandler25D( );
 			
 			output = new SteeringOutput( );
@@ -270,14 +263,9 @@ package com.paperworld.flash.multiplayer.objects
 		 * Destroy implementation. Clean up and remove references so GC can work correctly.
 		 */
 		public function destroy() : void 
-		{
-			_time = NaN;
-			_tightness = NaN;
-			defaultTightness = NaN;
-			smoothTightness = NaN;
-			
-			_current.destroy( );	
-			_previous.destroy( );
+		{			
+			_current = null;	
+			_previous = null;
 		}
 
 		/**

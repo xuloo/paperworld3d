@@ -43,14 +43,20 @@ public class UDPService extends BaseService implements IoHandler {
 
 	@Override
 	public void messageReceived(IoSession session, Object message) throws Exception {
-		if (!connections.containsKey(session))
+		System.out.println("Message Received");
+		/*if (!connections.containsKey(session))
 		{
 			if (pendingConnections.containsKey(session)) {
 				IConnection connection = pendingConnections.remove(session);
 				connections.put(session, connection);
 				application.connect(connection, application.getScope(), new Object[]{"this", "that"});
 			}
-		}
+		}*/
+		ByteBuffer buffer = (ByteBuffer) message;
+		System.out.println("MESSAGE " + buffer);
+		UDPInput input = new UDPInput(buffer);
+		UDPPacket packet = new UDPPacket();
+		packet.readExternal(input);
 	}
 
 	@Override
@@ -69,7 +75,7 @@ public class UDPService extends BaseService implements IoHandler {
 	public void sessionCreated(IoSession session) throws Exception {
 		System.out.println("session created");
 
-		if (!pendingConnections.containsKey(session) && 
+		/*if (!pendingConnections.containsKey(session) && 
 				!connections.containsKey(session)) {
 			IConnection connection = new UDPConnection(session);
 			IClient client = getApplication().getContext().getClientRegistry().newClient(null);
@@ -78,7 +84,7 @@ public class UDPService extends BaseService implements IoHandler {
 			pendingConnections.put(session, connection);
 			
 			System.out.println("scope " + application.getScope());
-		}
+		}*/
 	}
 
 	@Override

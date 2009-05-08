@@ -6,7 +6,7 @@ package com.paperworld.flash.multiplayer.handshake
 	import com.paperworld.flash.connection.handshake.ConnectToServerOperation;
 	import com.paperworld.flash.connection.handshake.EchoNetObjectOperation;
 	import com.paperworld.flash.connection.messages.BaseMessage;
-	import com.paperworld.flash.multiplayer.data.State;
+	import com.paperworld.flash.core.objects.State;
 	import com.paperworld.flash.multiplayer.messages.PlayerSyncMessage;
 	import com.paperworld.flash.multiplayer.messages.ServerSyncMessage;
 	import com.paperworld.flash.util.input.Input;

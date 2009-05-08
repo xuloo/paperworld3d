@@ -1,6 +1,7 @@
 package com.paperworld.flash.core.command
 {
-	import com.paperworld.flash.util.LibraryManager;
+	import com.paperworld.flash.util.library.ExternalLibraryManager;
+	import com.paperworld.flash.util.library.LibraryManager;
 	
 	import flash.display.Loader;
 	
@@ -12,7 +13,7 @@ package com.paperworld.flash.core.command
 		{
 			var loader:Loader = Loader(loadOperation.result);
 			
-			LibraryManager.getInstance().registerSkinFile(loader);
+			(LibraryManager.instance as ExternalLibraryManager).registerSkinFile(loader);
 		}
 	}
 }

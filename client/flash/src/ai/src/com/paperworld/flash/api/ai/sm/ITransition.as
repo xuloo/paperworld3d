@@ -8,6 +8,7 @@ package com.paperworld.flash.api.ai.sm
 		 * The transition returns a target state to transition to.
 		 */
 		function get targetState() : IStateMachineState;
+		function set targetState(value:IStateMachineState):void;
 		
 		/**
 		 * The transition needs to decide if it can be triggered or
@@ -15,6 +16,7 @@ package com.paperworld.flash.api.ai.sm
 		 * dealing with.
 		 */
 		function get isTriggered() : Boolean;
+		function set isTriggered(value:Boolean):void;
 
 		/**
 		 * The transition can also optionally return a list of actions
@@ -26,5 +28,6 @@ package com.paperworld.flash.api.ai.sm
 		 * implementation, it returns nothing.
 		 */
 		function get operation() : IOperation;
+		function set operation(value:IOperation):void;
 	}
 }

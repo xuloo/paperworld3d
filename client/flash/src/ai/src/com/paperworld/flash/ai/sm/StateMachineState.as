@@ -14,6 +14,10 @@ package com.paperworld.flash.ai.sm
 	import com.paperworld.flash.api.ai.sm.IStateMachineState;
 	import com.paperworld.flash.api.ai.sm.ITransition;
 	
+	import flash.utils.Dictionary;
+	
+	import org.as3commons.logging.ILogger;
+	import org.as3commons.logging.LoggerFactory;
 	import org.springextensions.actionscript.mvcs.service.operation.IOperation;	
 	
 	/**
@@ -22,6 +26,8 @@ package com.paperworld.flash.ai.sm
      */
 	public class StateMachineState implements IStateMachineState
 	{
+		private static var log:ILogger = LoggerFactory.getLogger("StateMachineState");
+		
 		/**
 		 * The list of transitions that can occur from this state.
 		 */
@@ -33,9 +39,16 @@ package com.paperworld.flash.ai.sm
 		 */
 		public function get transitions() : Array
 		{
-			return null;
+			return _transitions;
+		}
+		
+		public function addTransition(transition:ITransition):void
+		{
+			_transitions.push(transition);
 		}
 
+		private var _operation:IOperation;
+		
 		/**
 		 * Returns the first in a sequence of actions that should be
 		 * performed while the character is in this state.
@@ -47,8 +60,15 @@ package com.paperworld.flash.ai.sm
 		 */
 		public function get operation() : IOperation
 		{
-			return null;	
+			return _operation;	
 		}
+		
+		public function set operation(value:IOperation):void
+		{
+			_operation = value
+		}
+
+		private var _entryOperation:IOperation;
 
 		/**
 		 * Returns the sequence of actions to perform when arriving in
@@ -61,8 +81,16 @@ package com.paperworld.flash.ai.sm
 		 */
 		public function get entryOperation() : IOperation
 		{
-			return null;	
+			log.debug("Getting entryOperation " + _entryOperation);
+			return _entryOperation;	
 		}
+		
+		public function set entryOperation(value:IOperation) : void
+		{
+			_entryOperation = value;
+		}
+
+		private var _exitOperation:IOperation;
 
 		/**
 		 * Returns the sequence of actions to perform when leaving
@@ -75,7 +103,13 @@ package com.paperworld.flash.ai.sm
 		 */
 		public function get exitOperation() : IOperation
 		{
-			return null;	
+			log.debug("Getting exitOperation " + _exitOperation);
+			return _exitOperation;	
+		}
+		
+		public function set exitOperation(value:IOperation):void
+		{
+			_exitOperation = value;
 		}
 	}
 }

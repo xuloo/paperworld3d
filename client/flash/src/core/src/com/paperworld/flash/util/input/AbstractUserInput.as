@@ -21,6 +21,7 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.flash.util.input 
 {
+	import com.paperworld.flash.api.IInput;
 	import com.paperworld.flash.util.input.events.UserInputEvent;
 	
 	import flash.display.Stage;

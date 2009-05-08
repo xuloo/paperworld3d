@@ -1,7 +1,9 @@
 package com.paperworld.flash.pv3d.objects
 {
+	import com.paperworld.flash.api.IInput;
+	import com.paperworld.flash.api.IPaperworldObject;
+	import com.paperworld.flash.api.IState;
 	import com.paperworld.flash.core.action.Action;
-	import com.paperworld.flash.core.objects.IPaperworldObject;
 	import com.paperworld.flash.pv3d.behaviours.BasePV3DBehaviour;
 	
 	import org.papervision3d.objects.DisplayObject3D;
@@ -37,7 +39,10 @@ package com.paperworld.flash.pv3d.objects
 		{
 		}
 
-		
+		public function synchronise(time : int, input : IInput, state : IState) : void
+		{
+			
+		}
 		
 	}
 }

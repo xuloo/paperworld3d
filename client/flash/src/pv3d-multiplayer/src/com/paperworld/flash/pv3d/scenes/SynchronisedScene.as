@@ -21,8 +21,8 @@
  * -------------------------------------------------------------------------------------- */
 package com.paperworld.flash.pv3d.scenes 
 {
+	import com.paperworld.flash.api.IPaperworldObject;
 	import com.paperworld.flash.api.multiplayer.ISynchronisedAvatar;
-	import com.paperworld.flash.api.multiplayer.ISynchronisedObject;
 	import com.paperworld.flash.api.multiplayer.ISynchronisedScene;
 	
 	import org.as3commons.logging.ILogger;
@@ -58,9 +58,9 @@ package com.paperworld.flash.pv3d.scenes
 
 		public function addAvatar(avatar:ISynchronisedAvatar) : ISynchronisedAvatar
 		{			
-			logger.info( "adding " + ISynchronisedObject( avatar.object ).displayObject );
+			logger.info( "adding " + IPaperworldObject( avatar.object ).displayObject );
 			
-			var object:ISynchronisedObject = ISynchronisedObject( avatar.object );
+			var object:IPaperworldObject = IPaperworldObject( avatar.object );
 			
 			if (object && object.displayObject && object.displayObject is DisplayObject3D)
 			{
@@ -74,7 +74,7 @@ package com.paperworld.flash.pv3d.scenes
 
 		public function removeAvatar(avatar:ISynchronisedAvatar) : ISynchronisedAvatar
 		{
-			var object:ISynchronisedObject = ISynchronisedObject( avatar.object );
+			var object:IPaperworldObject = IPaperworldObject( avatar.object );
 			
 			if (object && object.displayObject && object.displayObject is DisplayObject3D)
 			{

@@ -22,6 +22,7 @@
 package com.paperworld.flash.multiplayer.data 
 {
 	import com.paperworld.flash.api.multiplayer.ISynchronisedAvatar;
+	import com.paperworld.flash.core.objects.State;
 	import com.paperworld.flash.util.input.Input;	
 
 	/**

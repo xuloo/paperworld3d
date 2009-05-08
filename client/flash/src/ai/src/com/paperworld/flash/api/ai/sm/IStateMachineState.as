@@ -1,5 +1,7 @@
 package com.paperworld.flash.api.ai.sm
 {
+	import flash.utils.Dictionary;
+	
 	import org.springextensions.actionscript.mvcs.service.operation.IOperation;
 	
 	public interface IStateMachineState
@@ -9,6 +11,8 @@ package com.paperworld.flash.api.ai.sm
 		 * this state.
 		 */
 		function get transitions() : Array;
+		
+		function addTransition(transition:ITransition):void;
 		
 		/**
 		 * Returns the first in a sequence of actions that should be
@@ -31,6 +35,7 @@ package com.paperworld.flash.api.ai.sm
 		 * implementation, it returns nothing.
 		 */
 		function get entryOperation() : IOperation;
+		function set entryOperation(value:IOperation):void;
 
 		/**
 		 * Returns the sequence of actions to perform when leaving
@@ -42,5 +47,6 @@ package com.paperworld.flash.api.ai.sm
 		 * implementation, it returns nothing.
 		 */
 		function get exitOperation() : IOperation;
+		function set exitOperation(value:IOperation):void;
 	}
 }

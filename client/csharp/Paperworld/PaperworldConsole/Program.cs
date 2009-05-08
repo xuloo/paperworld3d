@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Paperworld;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -33,7 +34,16 @@ namespace PaperworldConsole
         {
             Console.WriteLine("Creating SocketConnection");
 
-            MSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+            NetConnection MNetConnection = new NetConnection("127.0.0.1", 5150);
+            MNetConnection.Connect();
+            Console.WriteLine("connected!");
+
+            UDPPacket Packet = new UDPPacket();
+            Packet.Header = new UDPHeader();
+
+            MNetConnection.Send(Packet);
+
+           /* MSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
             MSocketCallback = new AsyncCallback(OnDataReceived);
             IPEndPoint EndPoint = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 5150);
             MRemoteEndPoint = (EndPoint)EndPoint;
@@ -46,9 +56,9 @@ namespace PaperworldConsole
             Console.WriteLine("Creating SocketConnection");
             Connect();
             WaitForData();
-            Console.WriteLine("Creating SocketConnection");
+            Console.WriteLine("Creating SocketConnection");*/
         }
-
+        /*
         public void Connect()
         {
             Console.WriteLine("Sending Data...");
@@ -73,6 +83,6 @@ namespace PaperworldConsole
             MSocket.EndReceive(Asyn);
 
             WaitForData();
-        }
+        }*/
     }
 }

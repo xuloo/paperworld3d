@@ -1,5 +1,9 @@
 package com.paperworld.flash.util.math
 {
+	import flash.utils.IDataInput;
+	import flash.utils.IDataOutput;
+	import flash.utils.IExternalizable;
+	
 	import org.as3commons.logging.ILogger;
 	import org.as3commons.logging.LoggerFactory;
 	
@@ -12,7 +16,7 @@ package com.paperworld.flash.util.math
 	 * @author Mark Powell
 	 * @author Joshua Slack
 	 */
-	public class Vector3f 
+	public class Vector3f implements IExternalizable
 	{
 	    private static var log:ILogger = LoggerFactory.getLogger("Vector3f");
 	
@@ -794,6 +798,20 @@ package com.paperworld.flash.util.math
 	   	{
 	   		
 	   	}
+	   	
+	   	public function writeExternal(output:IDataOutput):void
+		{
+			output.writeFloat(x);
+			output.writeFloat(y);
+			output.writeFloat(z);
+		}
+
+		public function readExternal(input:IDataInput):void
+		{			
+			x = input.readFloat();
+			y = input.readFloat();
+			z = input.readFloat();
+		}
 	}
 
 }

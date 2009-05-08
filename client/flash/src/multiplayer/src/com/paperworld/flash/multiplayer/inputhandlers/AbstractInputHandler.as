@@ -1,7 +1,7 @@
 package com.paperworld.flash.multiplayer.inputhandlers 
 {
-	import com.paperworld.flash.api.multiplayer.IBehaviour;
-	import com.paperworld.flash.api.multiplayer.ISynchronisedAvatar;	
+	import com.paperworld.flash.api.IAvatar;
+	import com.paperworld.flash.api.IBehaviour;	
 
 	/**
 	 * @author Trevor
@@ -20,7 +20,7 @@ package com.paperworld.flash.multiplayer.inputhandlers
 			_next = behaviour;
 		}
 
-		public function apply(avatar : ISynchronisedAvatar) : void
+		public function apply(avatar : IAvatar) : void
 		{
 			if (next) 
 			{

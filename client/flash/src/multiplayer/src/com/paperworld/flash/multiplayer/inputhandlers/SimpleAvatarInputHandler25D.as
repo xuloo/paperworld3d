@@ -1,8 +1,8 @@
 package com.paperworld.flash.multiplayer.inputhandlers 
 {
-	import com.paperworld.flash.api.multiplayer.ISynchronisedAvatar;
-	import com.paperworld.flash.multiplayer.data.State;
-	import com.paperworld.flash.util.input.IInput;
+	import com.paperworld.flash.api.IAvatar;
+	import com.paperworld.flash.api.IInput;
+	import com.paperworld.flash.api.IState;
 	
 	import org.as3commons.logging.ILogger;
 	import org.as3commons.logging.LoggerFactory;
@@ -31,10 +31,10 @@ package com.paperworld.flash.multiplayer.inputhandlers
 		{
 		}
 
-		override public function apply(avatar : ISynchronisedAvatar) : void
+		override public function apply(avatar : IAvatar) : void
 		{		
 			var input : IInput = avatar.input;
-			var state : State = avatar.state;
+			var state : IState = avatar.state;
 				
 			if (input != null) 
 			{

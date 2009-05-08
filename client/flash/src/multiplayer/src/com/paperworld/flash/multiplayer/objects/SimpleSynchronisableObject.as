@@ -1,8 +1,8 @@
 package com.paperworld.flash.multiplayer.objects 
 {
-	import com.paperworld.flash.api.multiplayer.ISynchronisedObject;
-	import com.paperworld.flash.multiplayer.data.State;
-	import com.paperworld.flash.util.input.IInput;
+	import com.paperworld.flash.api.IInput;
+	import com.paperworld.flash.api.IPaperworldObject;
+	import com.paperworld.flash.api.IState;
 	
 	import flash.display.Sprite;
 	
@@ -12,7 +12,7 @@ package com.paperworld.flash.multiplayer.objects
 	/**
 	 * @author Trevor
 	 */
-	public class SimpleSynchronisableObject implements ISynchronisedObject 
+	public class SimpleSynchronisableObject implements IPaperworldObject 
 	{
 		private static var logger:ILogger = LoggerFactory.getLogger("Paperworld");
 
@@ -35,9 +35,9 @@ package com.paperworld.flash.multiplayer.objects
 			this.object = object;
 		}
 
-		public function synchronise(time : int, input : IInput, state : State) : void
+		public function synchronise(time : int, input : IInput, state : IState) : void
 		{
-			this.object.x = state.px;
+			this.object.x = state.position.x;
 			//this.object.y = state.py;
 
 			//object.rotation = state.ow;

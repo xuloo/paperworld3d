@@ -3,11 +3,14 @@
 	creationComplete="onCreationComplete()">
 	<mx:Script>
 		<![CDATA[
+			import com.paperworld.flash.api.IPaperworldObject;
+			import com.paperworld.flash.connection.RemoteSharedObject;
+			import com.paperworld.flash.connection.Red5Connection;
+			import com.paperworld.flash.connection.client.BasicClient;
 			import com.paperworld.flash.multiplayer.objects.AbstractSynchronisedAvatar;
 			import com.paperworld.flash.util.timer.TimerManager;
 			import com.paperworld.flash.util.input.BasicKeyboardInput;
 			import com.paperworld.flash.util.input.IUserInput;
-			import com.paperworld.flash.api.multiplayer.ISynchronisedObject;
 			import org.papervision3d.materials.ColorMaterial;
 			import org.papervision3d.objects.primitives.Plane;
 			import com.paperworld.flash.pv3d.objects.SynchronisedObject;
@@ -18,12 +21,7 @@
 			import org.papervision3d.view.BasicView;
 			import com.paperworld.flash.multiplayer.objects.LocalAvatar;
 			import com.paperworld.flash.multiplayer.sync.SynchronisationManager;
-			import com.paperworld.flash.multiplayer.connection.RemoteSharedObject;
-			import com.paperworld.flash.multiplayer.connection.messages.BaseMessage;
-			import com.paperworld.flash.api.multiplayer.IMessage;
 			import com.joeberkovitz.moccasin.service.IOperation;
-			import com.paperworld.flash.multiplayer.connection.client.BasicClient;
-			import com.paperworld.flash.multiplayer.connection.Red5Connection;
 			
 			private var client:BasicClient;
 			
@@ -71,7 +69,7 @@
 				synchronisationManager.scene = view.syncScene;	
 				
 				var avatar:ISynchronisedAvatar = new LocalAvatar();
-				var object:ISynchronisedObject = new SynchronisedObject();	
+				var object:IPaperworldObject = new SynchronisedObject();	
 				
 				var material:ColorMaterial = new ColorMaterial(0xffcc00);
 				var plane:Plane = new Plane(material, 500, 500, 4, 4);
