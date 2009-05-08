@@ -1,6 +1,6 @@
 package com.paperworld.flash.api.multiplayer
 {
-	import com.paperworld.flash.util.input.IInput;
+	import com.paperworld.flash.api.IInput;
 	
 	public interface ISyncManager
 	{
