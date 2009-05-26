@@ -1,4 +1,4 @@
-package com.paperworld.java.impl.message.processors;
+package com.paperworld.java.multiplayer.messages.processors;
 
 import com.paperworld.java.api.IPaperworldService;
 import com.paperworld.java.util.AbstractProcessor;

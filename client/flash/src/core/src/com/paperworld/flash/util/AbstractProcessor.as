@@ -1,6 +1,6 @@
 package com.paperworld.flash.util
 {
-	public class AbstractProcessor
+	public class AbstractProcessor implements IProcessor
 	{
 		private var _types:Array = [];
 		

@@ -1,8 +1,8 @@
-package com.paperworld.java.impl.message.processors;
+package com.paperworld.java.multiplayer.messages.processors;
 
 import com.paperworld.java.api.IPaperworldService;
-import com.paperworld.java.impl.message.BatchedInputMessage;
-import com.paperworld.java.impl.message.PlayerSyncMessage;
+import com.paperworld.java.multiplayer.messages.BatchedInputMessage;
+import com.paperworld.java.multiplayer.messages.PlayerSyncMessage;
 import com.paperworld.java.util.AbstractProcessor;
 
 public class BatchedInputMessageProcessor extends BaseMessageProcessor {

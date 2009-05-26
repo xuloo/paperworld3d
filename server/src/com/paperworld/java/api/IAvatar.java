@@ -1,5 +1,7 @@
 package com.paperworld.java.api;
 
+import java.util.List;
+
 import org.red5.server.api.IConnection;
 
 import com.paperworld.java.impl.BasicState;
@@ -9,7 +11,7 @@ public interface IAvatar {
 	public void setBehaviour(IBehaviour behaviour);
 	
 	public void updateUserInput(int time, IInput input);
-	
+		
 	public void setConnection(IConnection connection);
 	
 	public IConnection getConnection();

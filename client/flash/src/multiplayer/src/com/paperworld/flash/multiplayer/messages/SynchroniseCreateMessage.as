@@ -15,15 +15,7 @@ package com.paperworld.flash.multiplayer.messages
 	 * object that will be synchronised with its server-side counterpart.
 	 */
 	public class SynchroniseCreateMessage extends BaseMessage implements ISynchroniseCreateMessage
-	{
-		/**
-		 * @inheritDoc
-		 */
-		override public function get aliasName():String
-		{
-			return "com.paperworld.java.impl.message.SynchroniseCreateMessage";
-		}
-		
+	{		
 		/**
 		 * @private
 		 */

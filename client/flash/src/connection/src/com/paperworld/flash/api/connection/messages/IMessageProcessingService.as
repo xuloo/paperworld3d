@@ -1,6 +1,6 @@
 package com.paperworld.flash.api.connection.messages
 {
-	import com.paperworld.flash.util.AbstractProcessor;
+	import com.paperworld.flash.util.IProcessor;
 	
 	import flash.events.IEventDispatcher;
 	
@@ -8,6 +8,6 @@ package com.paperworld.flash.api.connection.messages
 	{
 		function receiveMessage(message:IMessage):void;
 		
-		function addMessageProcessor(processor:AbstractProcessor):void;
+		function addMessageProcessor(processor:IProcessor):void;
 	}
 }

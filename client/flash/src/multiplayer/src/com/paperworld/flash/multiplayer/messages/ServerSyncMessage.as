@@ -8,11 +8,6 @@ package com.paperworld.flash.multiplayer.messages
 	
 	public class ServerSyncMessage extends PlayerSyncMessage implements IServerSyncMessage
 	{
-		override public function get aliasName():String
-		{
-			return "com.paperworld.java.impl.message.ServerSyncMessage";
-		}
-		
 		private var _state:State = new State();
 		
 		public function get state():State

@@ -1,4 +1,4 @@
-package com.paperworld.java.impl.message.processors;
+package com.paperworld.java.multiplayer.messages.processors;
 
 import org.red5.server.api.service.ServiceUtils;
 

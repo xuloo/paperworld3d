@@ -1,4 +1,4 @@
-package com.paperworld.flash.multiplayer.objects 
+package com.paperworld.flash.multiplayer.avatar 
 {
 	import com.paperworld.flash.api.IInput;
 	import com.paperworld.flash.api.IState;

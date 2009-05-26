@@ -9,12 +9,7 @@ package com.paperworld.flash.multiplayer.messages
 	import flash.utils.IDataOutput;
 	
 	public class PlayerSyncMessage extends BaseMessage implements IPlayerSyncMessage
-	{
-		override public function get aliasName():String
-		{
-			return "com.paperworld.java.impl.message.PlayerSyncMessage";
-		}
-		
+	{		
 		private var _objectId:String = "";
 		
 		public function get objectId():String

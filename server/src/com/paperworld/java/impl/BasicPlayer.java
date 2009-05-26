@@ -1,5 +1,9 @@
 package com.paperworld.java.impl;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import org.red5.server.api.IConnection;
 import org.red5.server.api.service.ServiceUtils;
 
@@ -11,7 +15,9 @@ import com.paperworld.java.api.message.IMessage;
 
 public class BasicPlayer implements IPlayer {
 
-	protected IAvatar avatar;
+	protected List<IAvatar> avatars = Collections.synchronizedList(new ArrayList<IAvatar>());
+	
+	protected IAvatar scopeObject;
 	
 	protected IInput input;
 	
@@ -35,6 +41,8 @@ public class BasicPlayer implements IPlayer {
 		setName(name);
 		
 		input = new BasicInput();
+		
+		scopeObject = service.getFactory().getAvatar(this);
 	}
 	
 	public boolean sendMessage(IMessage message) {
@@ -43,23 +51,41 @@ public class BasicPlayer implements IPlayer {
 	}
 	
 	@Override
-	public IAvatar getAvatar() {		
-		if (avatar == null) {
-			avatar = service.getAvatarForPlayer(this);
-		}
-		
-		return avatar;
+	public IAvatar getScopeObject() {	
+		return scopeObject;
 	}
+	
+	@Override
+	public void setScopeObject(IAvatar scopeObject) {
+		this.scopeObject = scopeObject;
+		
+		if (!avatars.contains(scopeObject)) {
+			avatars.add(scopeObject);
+		}
+	}
+	
+	@Override
+	public void addAvatar(IAvatar avatar) {
+		avatars.add(avatar);		
+	}
+	
+	@Override
+	public void removeAvatar(IAvatar avatar) {
+		avatars.remove(avatar);	
+		if (avatar.equals(scopeObject)) {
+			scopeObject = null;
+		}
+	}
+
+	@Override
+	public void performScopeQuery(List<IAvatar> avatars) {
+		
+	}	
 
 	@Override
 	public String getName() {		
 		return name;
-	}
-
-	@Override
-	public void setAvatar(IAvatar avatar) {
-		this.avatar = avatar;
-	}
+	}	
 
 	@Override
 	public void setName(String name) {

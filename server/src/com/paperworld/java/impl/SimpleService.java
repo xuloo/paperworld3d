@@ -6,16 +6,19 @@ import org.red5.server.api.scheduling.ISchedulingService;
 import org.red5.server.api.so.ISharedObject;
 
 import com.paperworld.java.api.IAvatar;
+import com.paperworld.java.api.IAvatarFactory;
 import com.paperworld.java.api.IPlayer;
 import com.paperworld.java.api.message.IServerSyncMessage;
 import com.paperworld.java.api.message.ISynchroniseCreateMessage;
-import com.paperworld.java.impl.message.ServerSyncMessage;
-import com.paperworld.java.impl.message.processors.BatchedInputMessageProcessor;
-import com.paperworld.java.impl.message.processors.RequestIdMessageProcessor;
-import com.paperworld.java.impl.message.processors.SynchroniseCreateMessageProcessor;
+import com.paperworld.java.multiplayer.messages.ServerSyncMessage;
+import com.paperworld.java.multiplayer.messages.processors.BatchedInputMessageProcessor;
+import com.paperworld.java.multiplayer.messages.processors.RequestIdMessageProcessor;
+import com.paperworld.java.multiplayer.messages.processors.SynchroniseCreateMessageProcessor;
 
 public class SimpleService extends AbstractPaperworldService {
 
+	protected IAvatarFactory factory = new BasicAvatarFactory();
+	
 	public SimpleService() {
 
 	}
@@ -45,21 +48,12 @@ public class SimpleService extends AbstractPaperworldService {
 		return new BasicPlayer(this, username, connection);
 	}
 
-	public void processSynchroniseCreateMessage(
-			ISynchroniseCreateMessage message) {
-		IPlayer player = players.get(message.getPlayerId());
-
-		IAvatar avatar = player.getAvatar();
-		avatar.setId(message.getObjectId());
-		avatar.setOwner(player);
-		avatars.put(avatar.getId(), avatar);
-
-		message.setInput(avatar.getInput());
-		message.setState(avatar.getState());
+	public IPlayer getPlayer(String id) {
+		return players.get(id);
 	}
-
-	public IAvatar getAvatarForPlayer(IPlayer player) {
-		return new BasicAvatar();
+	
+	public void registerAvatar(IAvatar avatar) {
+		avatars.put(avatar.getId(), avatar);
 	}
 
 	@Override
@@ -108,5 +102,15 @@ public class SimpleService extends AbstractPaperworldService {
 				avatars.get(key).update();
 			}
 		}		
+	}
+
+	@Override
+	public IAvatarFactory getFactory() {
+		return factory;
+	}
+
+	@Override
+	public void setAvatarFactory(IAvatarFactory factory) {
+		this.factory = factory;
 	}
 }

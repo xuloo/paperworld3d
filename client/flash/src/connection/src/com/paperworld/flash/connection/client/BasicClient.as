@@ -9,7 +9,7 @@ package com.paperworld.flash.connection.client
 	import com.paperworld.flash.api.connection.messages.IPlayerMessage;
 	import com.paperworld.flash.connection.handshake.BasicHandshake;
 	import com.paperworld.flash.connection.messages.SendMessageOperation;
-	import com.paperworld.flash.util.AbstractProcessor;
+	import com.paperworld.flash.util.IProcessor;
 	
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
@@ -160,7 +160,7 @@ package com.paperworld.flash.connection.client
 		 */
 		public function receiveMessage(message:IMessage):void 
 		{
-			for each (var processor:AbstractProcessor in messageProcessors)
+			for each (var processor:IProcessor in messageProcessors)
 			{
 				if (processor.canProcess(message))
 				{
@@ -169,18 +169,26 @@ package com.paperworld.flash.connection.client
 			}
 		}
 		
+		/**
+		 * Handles SyncEvent.SYNC events from the remote shared object.
+		 * If a new message has been added to the shared object then
+		 * we need to handle it.
+		 */
 		private function onSync(event:SyncEvent):void 
 		{
 			var changeList:Array = event.changeList;
 			var so:SharedObject = sharedObject.sharedObject;
 			
+			// Iterate over each client whose properties have changed.
 			for (var i:int; i < changeList.length; i++)
 			{
 				var id:String = changeList[i].name;
 				
+				// Grab the object related to the client.
 				var object:Object = so.data[id];
 				var message:IMessage = IMessage(so.data[id]);
 
+				// If the object is of type IMessage then process it.
 				if (message)
 				{
 					receiveMessage(message);
@@ -188,7 +196,7 @@ package com.paperworld.flash.connection.client
 			}
 		}
 		
-		public function addMessageProcessor(processor:AbstractProcessor):void 
+		public function addMessageProcessor(processor:IProcessor):void 
 		{
 			messageProcessors.push(processor);
 		}

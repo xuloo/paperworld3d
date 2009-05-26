@@ -19,7 +19,7 @@ import com.paperworld.java.api.IAvatar;
 import com.paperworld.java.api.IPaperworldService;
 import com.paperworld.java.api.IPlayer;
 import com.paperworld.java.api.message.IMessage;
-import com.paperworld.java.impl.message.processors.BroadcastMessageProcessor;
+import com.paperworld.java.multiplayer.messages.processors.BroadcastMessageProcessor;
 import com.paperworld.java.util.AbstractProcessor;
 
 public abstract class AbstractPaperworldService extends BaseService implements IPaperworldService {

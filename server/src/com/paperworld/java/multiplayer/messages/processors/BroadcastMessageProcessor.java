@@ -1,4 +1,4 @@
-package com.paperworld.java.impl.message.processors;
+package com.paperworld.java.multiplayer.messages.processors;
 
 import java.util.Map;
 

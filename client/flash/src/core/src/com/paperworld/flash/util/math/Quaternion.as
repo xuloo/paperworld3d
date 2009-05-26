@@ -1,5 +1,7 @@
 package com.paperworld.flash.util.math
 {
+	import com.paperworld.flash.util.IRegisteredClass;
+	
 	import flash.utils.IDataInput;
 	import flash.utils.IDataOutput;
 	import flash.utils.IExternalizable;
@@ -19,7 +21,7 @@ package com.paperworld.flash.util.math
 	 * @author Mark Powell
 	 * @author Joshua Slack
 	 */
-	public class Quaternion implements IExternalizable
+	public class Quaternion implements IExternalizable, IRegisteredClass
 	{
 	    private static var log:ILogger = LoggerFactory.getLogger("Quaternion");
 		
@@ -1126,6 +1128,11 @@ package com.paperworld.flash.util.math
 			y = input.readFloat();
 			z = input.readFloat();
 			w = input.readFloat();
+		}
+		
+		public function get aliasName():String 
+		{
+			return 
 		}
 	}
 }

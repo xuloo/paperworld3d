@@ -1,7 +1,7 @@
-package com.paperworld.java.impl.message.processors;
+package com.paperworld.java.multiplayer.messages.processors;
 
 import com.paperworld.java.api.IPaperworldService;
-import com.paperworld.java.impl.message.RequestIdMessage;
+import com.paperworld.java.multiplayer.messages.RequestIdMessage;
 
 public class RequestIdMessageProcessor extends BaseMessageProcessor {
 

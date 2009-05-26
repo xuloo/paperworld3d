@@ -1,4 +1,4 @@
-package com.paperworld.java.impl.message;
+package com.paperworld.java.multiplayer.messages;
 
 import com.paperworld.java.api.message.IGroupMessage;
 

@@ -1,17 +1,7 @@
 package com.paperworld.flash.connection.messages
 {
 	public class RequestIdMessage extends BaseMessage
-	{		
-		override public function get aliasName():String
-		{
-			return "com.paperworld.java.impl.message.RequestIdMessage";
-		}
-		
-		override public function get command():String 
-		{
-			return "multiplayer.receiveMessage";
-		}
-		
+	{			
 		private var _uniqueId:String;
 		
 		public function RequestIdMessage()

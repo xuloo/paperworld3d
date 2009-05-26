@@ -19,10 +19,15 @@
  * Suite 330, Boston, MA 02111-1307 USA 
  * 
  * -------------------------------------------------------------------------------------- */
-package com.paperworld.flash.multiplayer.objects
+package com.paperworld.flash.multiplayer.avatar 
 {
 	import com.paperworld.flash.api.IInput;
 	import com.paperworld.flash.api.IState;
+	import com.paperworld.flash.util.History;
+	import com.paperworld.flash.util.Move;
+	import com.paperworld.flash.util.input.IUserInput;
+	import com.paperworld.flash.util.input.IUserInputListener;
+	import com.paperworld.flash.util.input.events.UserInputEvent;
 	
 	import flash.events.Event;
 	
@@ -32,53 +37,64 @@ package com.paperworld.flash.multiplayer.objects
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
 	 */
-	public class RemoteAvatar extends AbstractSynchronisedAvatar 
+	public class LocalAvatar extends AbstractSynchronisedAvatar implements IUserInputListener
 	{
-		protected var _lastSyncTime : int;
+		protected var _history : History = new History( );
 
-		public var updating : Boolean;
+		private static var log:ILogger = LoggerFactory.getLogger("PW-Multiplayer");
 
-		private static var logger:ILogger = LoggerFactory.getLogger("Paperworld");
-
-		public function RemoteAvatar()
+		override public function set userInput(value : IUserInput) : void
 		{
-			super( );
+			value.input = input;
+			value.addEventListener(UserInputEvent.INPUT_CHANGED, onInputUpdate);
 		}
 
-		override public function initialise() : void
+		public function LocalAvatar()
 		{
-			super.initialise( );
+			super( );
 			
-			_lastSyncTime = 0;
-			updating = false;	
+			initialise();
+		}
+
+		override public function update(e:Event = null) : void
+		{	
+			//trace("STATE: " + state);
+			//
+								
+			_behaviour.apply( this );
+			
+			//trace("updating LocalAvatar " + state.position.x + " " + state.position.y + " " + state.position.z);
+						
+			// add to history
+			var move : Move = new Move( );
+			move.time = _time;
+			move.input = _input.clone( );
+			move.state = _current.clone( );
+
+			_history.add( move );
+			
+			// update scene
+			super.update( );		
 		}
 
 		override public function synchronise(time : int, input : IInput, state : IState) : void
 		{			
-			// Just ignore any out of order packets...
-			if (time < _lastSyncTime)
-            	return;		
-
-			_lastSyncTime = time;
-			updating = true;
-	
-			// set proxy input	
-			_input = input.clone( );
-	
-			// correct if significantly different	
-			if (state.compare( _current ))
+			/*var original : State = state.clone( );
+			
+			if (original.compare( state ))
 			{
-				snap( state );
-				smooth( );				
-			}
+            	smooth( );
+   			}*/
+			trace("synchronising local avatar " + state.position.x);// + " " + state.py + " " + state.pz);
+			snap(state);
+			//_history.correction( this, time, state, input );	
+            	
+			//super.synchronise( time, input, state );
 		}
 
-		override public function update(e:Event = null) : void
-		{			
-			if (updating)
-			{				
-				super.update( );
-			}
+		public function onInputUpdate(event : UserInputEvent) : void
+		{
+			syncManager.handleAvatarMove(id, _time, _input.clone());
 		}
 	}
 }

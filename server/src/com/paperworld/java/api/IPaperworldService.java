@@ -20,9 +20,12 @@ public interface IPaperworldService extends IService {
 	
 	public void addMessageProcessor(AbstractProcessor processor);
 	
-	public void processSynchroniseCreateMessage(ISynchroniseCreateMessage message);
+	public IPlayer getPlayer(String id);
 	
-	public IAvatar getAvatarForPlayer(IPlayer player);
+	public IAvatarFactory getFactory();
+	public void setAvatarFactory(IAvatarFactory factory);
 	
 	public IAvatar getAvatar(String objectId);
+	
+	public void registerAvatar(IAvatar avatar);
 }

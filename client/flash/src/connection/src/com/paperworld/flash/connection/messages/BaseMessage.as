@@ -2,37 +2,34 @@ package com.paperworld.flash.connection.messages
 {
 	import com.paperworld.flash.api.connection.INetConnection;
 	import com.paperworld.flash.api.connection.messages.IMessage;
-	import com.paperworld.flash.util.IRegisteredClass;
-	import com.paperworld.flash.util.Registration;
+	import com.paperworld.flash.connection.NetObject;
 	
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
+	import flash.events.IEventDispatcher;
 	import flash.net.Responder;
 	import flash.utils.IDataInput;
 	import flash.utils.IDataOutput;
-	import flash.utils.IExternalizable;
 	
 	import mx.rpc.events.FaultEvent;
 
 	/**
 	 * Base class for messages sent to a Red5 server using a NetConnection.
 	 */
-	public class BaseMessage extends EventDispatcher implements IMessage, IExternalizable, IRegisteredClass
+	public class BaseMessage extends NetObject implements IMessage
 	{
+		/**
+		 * IEventDispatcher implementation used by this object.
+		 * Not all NetObjects need to be event dispatchers, so any that
+		 * are need to use this composition method.
+		 */
+		private var _eventDispatcher:IEventDispatcher = new EventDispatcher();
+		
 		/**
 		 * Holds the object returned as a response from the server 
 		 * the last time this message was successfully sent.
 		 */
 		private var _result:*;
-		
-		/**
-		 * IRegisteredClass implementation. Ensures this object
-		 * is registered with its correct server-side counterpart.
-		 */
-		public function get aliasName():String 
-		{
-			return "com.paperworld.java.impl.message.BaseMessage";
-		}
 		
 		/**
 		 * @private
@@ -107,7 +104,7 @@ package com.paperworld.flash.connection.messages
 		 */
 		public function BaseMessage()
 		{
-			Registration.registerClass(this);
+			super();
 		}
 
 		/**
@@ -144,10 +141,14 @@ package com.paperworld.flash.connection.messages
 			dispatchEvent(new FaultEvent(FaultEvent.FAULT));
 		}
 		
+		/////////////////////////////////////
+		// IExternalizable implementation. //
+		/////////////////////////////////////
+		
 		/**
 		 * Handles serialising this object for sending across to the server.
 		 */
-		public function writeExternal(output:IDataOutput):void 
+		override public function writeExternal(output:IDataOutput):void 
 		{
 			output.writeUTF(senderId);
 		}
@@ -155,10 +156,53 @@ package com.paperworld.flash.connection.messages
 		/**
 		 * Handles deserialising this object when received from the server.
 		 */
-		public function readExternal(input:IDataInput):void 
+		override public function readExternal(input:IDataInput):void 
 		{
 			senderId = input.readUTF();
 		}
 		
+		//////////////////////////////////////
+		// IEventDispatcher implementation. //
+		//////////////////////////////////////
+		
+		/**
+		 * @inheritDoc
+		 */
+		public function addEventListener(type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = false):void
+		{
+			_eventDispatcher.addEventListener(type, listener, useCapture, priority, useWeakReference);
+		}
+		
+		/**
+		 * @inheritDoc
+		 */
+		public function dispatchEvent(event:Event):Boolean
+		{
+			return _eventDispatcher.dispatchEvent(event);
+		}
+		
+		/**
+		 * @inheritDoc
+		 */
+		public function hasEventListener(type:String):Boolean
+		{
+			return _eventDispatcher.hasEventListener(type);
+		}
+		
+		/**
+		 * @inheritDoc
+		 */
+		public function removeEventListener(type:String, listener:Function, useCapture:Boolean = false):void
+		{
+			_eventDispatcher.removeEventListener(type, listener, useCapture);
+		}
+		
+		/**
+		 * @inheritDoc
+		 */
+		public function willTrigger(type:String):Boolean
+		{
+			return _eventDispatcher.willTrigger(type);
+		}
 	}
 }

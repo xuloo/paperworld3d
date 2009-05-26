@@ -19,7 +19,7 @@
  * Suite 330, Boston, MA 02111-1307 USA 
  * 
  * -------------------------------------------------------------------------------------- */
-package com.paperworld.flash.multiplayer.objects 
+package com.paperworld.flash.multiplayer.avatar
 {
 	import com.paperworld.flash.ai.steering.SteeringOutput;
 	import com.paperworld.flash.api.IBehaviour;

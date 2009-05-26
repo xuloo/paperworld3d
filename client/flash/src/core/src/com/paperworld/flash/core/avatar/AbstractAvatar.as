@@ -1,4 +1,4 @@
-package com.paperworld.flash.core.objects
+package com.paperworld.flash.core.avatar
 {
 	import com.paperworld.flash.api.IAvatar;
 	import com.paperworld.flash.api.IBehaviour;
@@ -6,6 +6,7 @@ package com.paperworld.flash.core.objects
 	import com.paperworld.flash.api.IPaperworldObject;
 	import com.paperworld.flash.api.IState;
 	import com.paperworld.flash.api.IUpdatable;
+	import com.paperworld.flash.core.objects.State;
 	import com.paperworld.flash.util.input.Input;
 	
 	import flash.events.Event;

@@ -1,5 +1,7 @@
 package com.paperworld.java.api;
 
+import java.util.List;
+
 import org.red5.server.api.IConnection;
 
 import com.paperworld.java.api.message.IMessage;
@@ -12,9 +14,14 @@ public interface IPlayer {
 	
 	public void setName(String name);
 	
-	public IAvatar getAvatar();
+	public void addAvatar(IAvatar avatar);
 	
-	public void setAvatar(IAvatar avatar);
+	public void removeAvatar(IAvatar avatar);
+	
+	public IAvatar getScopeObject();	
+	public void setScopeObject(IAvatar avatar);
+	
+	public void performScopeQuery(List<IAvatar> avatars);
 	
 	public IConnection getConnection();
 	

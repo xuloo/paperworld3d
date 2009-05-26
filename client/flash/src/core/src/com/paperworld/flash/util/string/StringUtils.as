@@ -42,5 +42,10 @@ package com.paperworld.flash.util.string
 			
 			return splitPath[ splitPath.length - 1 ] as String;	
 		}
+		
+		public static function getRemoteNameForInstance(object:*):String 
+		{
+			
+		}
 	}
 }

@@ -1,9 +1,9 @@
-package com.paperworld.java.impl.message.processors;
+package com.paperworld.java.multiplayer.messages.processors;
 
 import com.paperworld.java.api.IAvatar;
 import com.paperworld.java.api.IPaperworldService;
 import com.paperworld.java.api.message.IPlayerSyncMessage;
-import com.paperworld.java.impl.message.PlayerSyncMessage;
+import com.paperworld.java.multiplayer.messages.PlayerSyncMessage;
 
 public class PlayerSyncMessageProcessor extends BaseMessageProcessor {
 
