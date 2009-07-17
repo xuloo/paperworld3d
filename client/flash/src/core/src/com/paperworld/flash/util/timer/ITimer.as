@@ -1,0 +1,22 @@
+package com.paperworld.flash.util.timer
+{
+	import flash.events.IEventDispatcher;
+
+	public interface ITimer extends IEventDispatcher
+	{		
+		/**
+		 * Start the timer.
+		 */
+		function start():void;
+		
+		/**
+		 * Stop the timer.
+		 */
+		function stop():void;
+		
+		/**
+		 * Destroy 
+		 */
+		function destroy():void;
+	}
+}

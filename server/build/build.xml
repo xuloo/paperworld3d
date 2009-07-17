@@ -6,8 +6,6 @@
     </description>
 	
      <!-- set global properties for this build -->
-	<property file="../../build/user.properties"/>
-	<property file="../../build/build.properties"/>
 	<property file="build.properties"/>
 	
 	<taskdef classpath="${basedir}/../../${build.lib}/ant-contrib-1.0b3.jar" resource="net/sf/antcontrib/antlib.xml"/>
@@ -40,13 +38,15 @@
      <path id="classpath">
        <pathelement location="${red5.dir}/red5.jar"/>
        <pathelement location="${basedir}/../lib/jedai.jar"/>
-     	<pathelement location="${basedir}/../lib/actionengine-java.jar"/>
-       	<pathelement location="${basedir}/../lib/brainfarm-java.jar"/>
-     	<pathelement location="${basedir}/../lib/ape-java.jar"/>
+     	<pathelement location="${basedir}/../lib/jme.jar"/>
      	<pathelement location="D:/projects/actionengine/trunk/java/jar/actionengine-java.jar"/>
      </path>
+	
+	<target name="paths">
+		<echo>${red5.dir}</echo>
+	</target>
 	 
-	 <target name="all" depends="retrieve,build,javadoc,clean" />
+	 <target name="all" depends="build,javadoc,clean" />
 
 	<target name="compile" depends="clean, prepare" 
 	 	description="compile the source">

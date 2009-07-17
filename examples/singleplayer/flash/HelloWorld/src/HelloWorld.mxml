@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute"
+	creationComplete="onCreationComplete()"
+	xmlns:game="com.paperworld.flash.core.game.*">
+	<mx:Script>
+		<![CDATA[
+			import com.joeberkovitz.moccasin.service.BasicConfigurationService;
+			import org.springextensions.actionscript.context.support.ResourceAwareApplicationContext;
+						
+			private function onCreationComplete():void
+            {
+            	trace("Creation complete ")
+                var context:ResourceAwareApplicationContext = new ResourceAwareApplicationContext("space.xml");
+                context.addEventListener(ResourceAwareApplicationContext.CONTEXT_READY, onConfigLoaded);
+                context.load();
+            }
+            
+            private function onConfigLoaded(e:Event):void 
+            {
+            	// Create a configuration service to provide startup defaults to the game
+                //game.configurationService = new BasicConfigurationService(this, "space.xml");
+
+                // initialize the game
+                //game.initialise()
+            }
+		]]>
+	</mx:Script>
+	
+	<!--<game:Game id="game" height="100%" width="100%" minHeight="50" minWidth="50"/>-->
+
+</mx:Application>

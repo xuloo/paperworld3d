@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<space>
+	<files>
+		<file name="papervision" type="library" location="lib/Papervision3D.swf"/>
+		<file type="library" location="lib/paperworld-pv3d-core.swf" depends="papervision"/>
+		<file type="skin" location="skins/skin.swf"/>
+	</files>
+	<objects>
+		<object id="main.view" class="com.paperworld.flash.pv3d.views.BasicPaperworldView">
+			<method-invocation name="createLayer">
+				<arg>
+					<value>floor</value>
+				</arg>
+			</method-invocation>
+			<method-invocation name="addToLayer">
+				<arg>
+					<ref>floor.tile</ref>
+				</arg>
+				<arg>
+					<value>floor</value>
+				</arg>
+			</method-invocation>
+		</object>
+		<object id="floor.tile" class="org.papervision3d.objects.primitives.Plane">
+			<constructor-arg ref="floor.tile.material"/>
+		</object>
+		<object id="floor.tile.material" class="org.papervision3d.materials.ColorMaterial">
+			<constructor-arg value="0xff0000"/>
+			<property name="doubleSided" value="true"/>
+		</object>
+		<object id="plane.actor" class="com.paperworld.flash.pv3d.objects.PaperworldObject">
+			<property name="displayObject">
+				<ref>floor.tile</ref>
+			</property>
+			<property name="behaviour">
+				<object class="com.paperworld.flash.pv3d.behaviours.RotateAroundY"/>
+			</property>
+		</object>
+	</objects>
+</space>

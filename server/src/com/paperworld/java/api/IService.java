@@ -1,8 +1,10 @@
 package com.paperworld.java.api;
 
-import org.red5.server.adapter.ApplicationAdapter;
+import org.red5.server.adapter.IApplication;
+import org.red5.server.adapter.MultiThreadedApplicationAdapter;
 
-public interface IService {
+public interface IService extends IApplication {
 
-	public void setApplication(ApplicationAdapter application);
+	public MultiThreadedApplicationAdapter getApplication();
+	public void setApplication(MultiThreadedApplicationAdapter application);
 }

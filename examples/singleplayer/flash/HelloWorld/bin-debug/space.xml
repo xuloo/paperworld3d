@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects>
+
+		<resource id="papervision.library" class="com.paperworld.flash.core.service.LibraryFileLoadOperation">
+			<property name="url" value="lib/Papervision3D.swf"/>
+		</resource>
+		
+		<resource id="paperworld.util.library" class="com.paperworld.flash.core.service.LibraryFileLoadOperation">
+			<property name="url" value="lib/paperworld-util.swf"/>
+		</resource>
+		
+		
+		
+		<resource id="paperworld.core.library" class="com.paperworld.flash.core.service.LibraryFileLoadOperation">
+			<property name="url" value="lib/paperworld-core.swf"/>
+			<property name="depends">
+				<array>
+					<ref>paperworld.util.library</ref>
+				</array>
+			</property>
+		</resource>
+		<!-- 
+		<resource id="paperworld.pv3d.library" class="com.paperworld.flash.core.service.LibraryFileLoadOperation">
+			<property name="url" value="lib/paperworld-pv3d-core.swf"/>
+			<property name="depends">
+				<array>
+					<ref>paperworld.core.library</ref>
+					<ref>papervision.library</ref>
+				</array>
+			</property>
+		</resource>  -->
+		
+		<!-- <resource type="skin" location="skins/skin.swf">
+		</resource> -->
+
+
+		<object id="main.view" class="com.paperworld.flash.pv3d.views.BasicPaperworldView">
+			<method-invocation name="createLayer">
+				<arg>
+					<value>floor</value>
+				</arg>
+			</method-invocation>
+			<method-invocation name="addToLayer">
+				<arg>
+					<ref>floor.tile</ref>
+				</arg>
+				<arg>
+					<value>floor</value>
+				</arg>
+			</method-invocation>
+		</object>
+		<object id="floor.tile" class="org.papervision3d.objects.primitives.Plane">
+			<constructor-arg ref="floor.tile.material"/>
+		</object>
+		<object id="floor.tile.material" class="org.papervision3d.materials.ColorMaterial">
+			<constructor-arg value="0xff0000"/>
+			<property name="doubleSided" value="true"/>
+		</object>
+		<object id="plane.actor" class="com.paperworld.flash.pv3d.objects.PaperworldObject">
+			<property name="displayObject">
+				<ref>floor.tile</ref>
+			</property>
+			<property name="behaviour">
+				<object class="com.paperworld.flash.pv3d.behaviours.RotateAroundY"/>
+			</property>
+		</object>
+</objects>
