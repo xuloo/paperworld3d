@@ -18,7 +18,7 @@ package com.paperworld.flash.util.library
 		public static const EMBEDDED_LIBRARY:String = "EmbeddedLibrary";
 		public static const EXTERNAL_LIBRARY:String = "ExternalLibrary";
 		
-		public static const LIBRARY_TYPE:String = EMBEDDED_LIBRARY;
+		public static var LIBRARY_TYPE:String = EMBEDDED_LIBRARY;
 		
 		public static const SKIN_KEY:String = "Skin";
 		public static const SOUND_KEY:String = "Sound";

@@ -1132,7 +1132,7 @@ package com.paperworld.flash.util.math
 		
 		public function get aliasName():String 
 		{
-			return 
+			return "";
 		}
 	}
 }

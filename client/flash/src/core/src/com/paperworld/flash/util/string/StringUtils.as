@@ -45,7 +45,7 @@ package com.paperworld.flash.util.string
 		
 		public static function getRemoteNameForInstance(object:*):String 
 		{
-			
+			return "";
 		}
 	}
 }
