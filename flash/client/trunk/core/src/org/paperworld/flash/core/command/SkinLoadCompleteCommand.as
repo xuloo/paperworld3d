@@ -1,7 +1,7 @@
 package org.paperworld.flash.core.command
 {
-	import org.paperworld.flash.util.library.ExternalLibraryManager;
-	import org.paperworld.flash.util.library.LibraryManager;
+	import org.paperworld.flash.utils.library.ExternalLibraryManager;
+	import org.paperworld.flash.utils.library.LibraryManager;
 	
 	import flash.display.Loader;
 	

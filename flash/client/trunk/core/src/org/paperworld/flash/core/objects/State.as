@@ -1,10 +1,10 @@
 package org.paperworld.flash.core.objects
 {
 	import org.paperworld.flash.api.IState;
-	import org.paperworld.flash.util.IRegisteredClass;
-	import org.paperworld.flash.util.Registration;
-	import org.paperworld.flash.util.math.Quaternion;
-	import org.paperworld.flash.util.math.Vector3f;
+	import org.paperworld.flash.utils.IRegisteredClass;
+	import org.paperworld.flash.utils.Registration;
+	import org.paperworld.flash.utils.math.Quaternion;
+	import org.paperworld.flash.utils.math.Vector3f;
 	
 	import flash.utils.IDataInput;
 	import flash.utils.IDataOutput;

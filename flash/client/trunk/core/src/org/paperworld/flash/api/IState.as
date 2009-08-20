@@ -1,7 +1,7 @@
 package org.paperworld.flash.api
 {
-	import org.paperworld.flash.util.math.Quaternion;
-	import org.paperworld.flash.util.math.Vector3f;
+	import org.paperworld.flash.utils.math.Quaternion;
+	import org.paperworld.flash.utils.math.Vector3f;
 	
 	public interface IState
 	{

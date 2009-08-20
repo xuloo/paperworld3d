@@ -7,7 +7,7 @@ package org.paperworld.flash.core.avatar
 	import org.paperworld.flash.api.IState;
 	import org.paperworld.flash.api.IUpdatable;
 	import org.paperworld.flash.core.objects.State;
-	import org.paperworld.flash.util.input.Input;
+	import org.paperworld.flash.utils.input.Input;
 	
 	import flash.events.Event;
 
