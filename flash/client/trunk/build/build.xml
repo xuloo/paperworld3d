@@ -1,0 +1,272 @@
+<project name="paperworld-client-flash" default="all" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
+
+	<property file="build.properties"/>
+	
+	<taskdef resource="flexTasks.tasks" classpath="${lib.dir}/flexTasks.jar" />
+	<taskdef classpath="${lib.dir}/ant-contrib-1.0b3.jar" resource="net/sf/antcontrib/antlib.xml"/>
+
+	<taskdef resource="org/apache/ivy/ant/antlib.xml"
+	         uri="antlib:org.apache.ivy.ant" 
+			 classpath="${lib.dir}/${ivy.lib}.jar"/>	
+	
+	<target name="all" depends="clean, prepare, retrieve, build, generate-docs" 
+		description="builds all the paperworld libraries and generates documentation" />
+	
+	<target name="retrieve" unless="library.installed" description="Retrieves the libraries if needed">
+		<ivy:retrieve pattern="${basedir}/../lib/[artifact].swc"/>
+	</target>
+		
+	<target name="build" depends="prepare,build-core,build-connection,build-bootstrapper,build-ai,build-multiplayer,build-pv3d-core,build-pv3d-multiplayer" description="builds the multiplayer paperworld client library swc.">
+	</target>
+	
+	<target name="build-connection">
+		<compc output="${output.dir}/${connection.lib.name}.swc"
+				   optimize="true"
+				   debug="true"
+				>
+			<include-sources dir="${connection.src.dir}">
+                 <include name="**/*.as"/>
+            </include-sources>
+			<compiler.library-path dir="${lib.dir}" append="true">
+				<include name="**/*.swc" />
+			</compiler.library-path>
+			<compiler.external-library-path dir="${output.dir}" append="true">
+				<include name="${core.lib.name}.swc" />
+			</compiler.external-library-path>
+		</compc>
+	</target>
+	
+	<target name="build-core">
+		<compc output="${output.dir}/${core.lib.name}.swc"
+				   optimize="true"
+				   debug="true"
+				>
+			<include-sources dir="${core.src.dir}">
+                 <include name="**/*.as"/>
+            </include-sources>
+			<compiler.library-path dir="${lib.dir}" append="true">
+				<include name="**/*.swc" />
+			</compiler.library-path>
+			<compiler.external-library-path dir="${output.dir}" append="true">
+				<include name="**/*.swc" />
+			</compiler.external-library-path>
+			
+		</compc>
+	</target>
+	
+	<target name="build-bootstrapper">
+		<compc output="${output.dir}/${bootstrapper.lib.name}.swc"
+				   optimize="true"
+				   debug="true"
+				>
+			<include-sources dir="${bootstrapper.src.dir}">
+                 <include name="**/*.as"/>
+            </include-sources>
+			<compiler.external-library-path dir="${lib.dir}" append="true">
+				<include name="**/*.swc" />
+			</compiler.external-library-path>
+			<compiler.external-library-path dir="${output.dir}" append="true">
+				<include name="${core.lib.name}.swc" />
+				<include name="${util.lib.name}.swc" />
+			</compiler.external-library-path>
+		</compc>
+	</target>
+	
+	<target name="build-ai">
+		<compc output="${output.dir}/${ai.lib.name}.swc"
+				   optimize="true"
+				   debug="true"
+				>
+			<include-sources dir="${ai.src.dir}">
+                 <include name="**/*.as"/>
+            </include-sources>
+			<compiler.external-library-path dir="${lib.dir}" append="true">
+				<include name="**/*.swc" />
+			</compiler.external-library-path>
+			<compiler.external-library-path dir="${output.dir}" append="true">
+				<include name="${core.lib.name}.swc" />
+				<include name="${util.lib.name}.swc" />
+			</compiler.external-library-path>
+		</compc>
+	</target>
+	
+	<target name="build-multiplayer">
+		<compc output="${output.dir}/${multiplayer.lib.name}.swc"
+				   optimize="true"
+				   debug="true"
+				>
+			<include-sources dir="${multiplayer.src.dir}">
+                 <include name="**/*.as"/>
+            </include-sources>
+			<compiler.external-library-path dir="${lib.dir}" append="true">
+				<include name="**/*.swc" />
+			</compiler.external-library-path>
+			<compiler.external-library-path dir="${output.dir}" append="true">
+				<include name="${core.lib.name}.swc" />
+				<include name="${connection.lib.name}.swc" />
+				<include name="${ai.lib.name}.swc" />
+			</compiler.external-library-path>
+		</compc>
+	</target>
+	
+	<target name="build-pv3d-core">
+		<compc output="${output.dir}/${pv3d-core.lib.name}.swc"
+				   optimize="true"
+				   debug="true"
+				>
+			<include-sources dir="${pv3d-core.src.dir}">
+                 <include name="**/*.as"/>
+            </include-sources>
+			<compiler.external-library-path dir="${lib.dir}" append="true">
+				<include name="**/*.swc" />
+			</compiler.external-library-path>
+			<compiler.external-library-path dir="${output.dir}" append="true">
+				<include name="${core.lib.name}.swc" />
+				<include name="${util.lib.name}.swc" />
+				<include name="${ai.lib.name}.swc" />
+				<include name="${multiplayer.lib.name}.swc" />
+			</compiler.external-library-path>
+		</compc>
+	</target>
+	
+	<target name="build-pv3d-multiplayer">
+		<compc output="${output.dir}/${pv3d-multiplayer.lib.name}.swc"
+				   optimize="true"
+				   debug="true"
+				>
+			<include-sources dir="${pv3d-multiplayer.src.dir}">
+                 <include name="**/*.as"/>
+            </include-sources>
+			<compiler.external-library-path dir="${lib.dir}" append="true">
+				<include name="**/*.swc" />
+			</compiler.external-library-path>
+			<compiler.external-library-path dir="${output.dir}" append="true">
+				<include name="${core.lib.name}.swc" />
+				<include name="${util.lib.name}.swc" />
+				<include name="${ai.lib.name}.swc" />
+				<include name="${multiplayer.lib.name}.swc" />
+				<include name="${pv3d-core.lib.name}.swc" />
+			</compiler.external-library-path>
+		</compc>
+	</target>
+	
+	<target name="build-away3d">
+		<compc output="${output.dir}/${away3d.lib.name}.swc"
+				   optimize="true"
+				   debug="true"
+				>
+			<include-sources dir="${away3d.src.dir}">
+                 <include name="**/*.as"/>
+            </include-sources>
+			<compiler.external-library-path dir="${lib.dir}" append="true">
+				<include name="**/*.swc" />
+			</compiler.external-library-path>
+			<compiler.external-library-path dir="${output.dir}" append="true">
+				<include name="${core.lib.name}.swc" />
+				<include name="${util.lib.name}.swc" />
+				<include name="${ai.lib.name}.swc" />
+				<include name="${multiplayer.lib.name}.swc" />
+			</compiler.external-library-path>
+		</compc>
+	</target>
+	
+	<target name="build-tests" description="builds the multiplayer paperworld client unit tests.">
+				
+		<mxmlc  
+           output="${test.output.dir}/${output.name}_tests.swf"
+		   file="${basedir}/${src.dir}/test/Test.mxml"
+		   debug="true"
+		>
+			<compiler.source-path path-element="${basedir}/${src.dir}/test"/>
+			<compiler.source-path path-element="${basedir}/${src.dir}/src"/>
+			<compiler.library-path dir="../lib" append="true">
+				<include name="*.swc" />
+			</compiler.library-path>
+			<compiler.library-path dir="${FLEX_HOME}/frameworks/libs" append="true">
+				<include name="framework.swc" />
+			</compiler.library-path>
+			<compiler.external-library-path dir="${FLEX_HOME}/frameworks/libs/player">
+				<include name="playerglobal.swc"/>
+			</compiler.external-library-path>
+		</mxmlc>
+		
+		<copy todir="${test.output.dir}/assets" overwrite="true">
+			<fileset dir="${src.dir}/test/assets">
+		      <include name="*"/>
+		    </fileset>
+		</copy>
+		
+	</target>
+	
+	<target name="generate-docs" depends="clean-docs, prepare-docs" description="creates the asdoc documentation for the project">
+		
+		<exec executable="${asdoc}" failonerror="true" >
+		  <arg line="-doc-sources ../src/core/src ../src/ai/src ../src/away3d/src ../src/multiplayer/src ../src/pv3d-core/src ../src/pv3d-multiplayer/src ../src/util/src" />
+		  <arg line="-external-library-path ../lib/jedai.swc ../lib/spring-actionscript.swc ../lib/Papervision3D.swc ../lib/Away3D.swc" />
+		  <arg line="-output ../docs" />
+		  <arg line="-main-title 'PaperWorld3D API Documentation'"/>
+		  <arg line="-window-title 'PaperWorld3D API Documentation'"/>
+		</exec>
+		
+	</target>
+	
+	<target name="prepare" description="prepares the directory system before a build">
+		
+		<ant target="prepare-output"/>
+		<ant target="prepare-docs"/>
+		<ant target="prepare-tests"/>
+		
+	</target>
+	
+	<target name="prepare-output" description="prepares the output directory">
+		
+		<mkdir dir="${output.dir}"/>
+		
+	</target>
+	
+	<target name="prepare-docs" description="prepares the documentation directory">
+		
+		<mkdir dir="${docs.dir}"/>
+		
+	</target>
+	
+	<target name="prepare-tests" description="prepares the tests directory">
+			
+		<mkdir dir="${test.output.dir}"/>
+		<mkdir dir="${test.output.dir}/assets"/>
+		
+	</target>
+	
+	<target name="clean" description="cleans the directory system of all directories/files created by a build">
+		
+		<ant target="clean-docs"/>
+		<ant target="clean-output"/>
+		<ant target="clean-tests"/>
+		
+	</target>
+	
+	<target name="clean-docs" description="cleans the documentation directory">
+		
+		<delete failonerror="no" includeemptydirs="true">
+			<fileset dir="${docs.dir}" includes="**/*" />
+		</delete>
+		
+	</target>
+	
+	<target name="clean-output" description="cleans the output directory">
+		
+		<delete failonerror="no" includeemptydirs="true">
+			<fileset dir="${output.dir}" includes="**/*" />
+		</delete>
+		
+	</target>
+	
+	<target name="clean-tests" description="cleans the tests directory">
+			
+		<delete failonerror="no" includeemptydirs="true">
+			<fileset dir="${test.output.dir}" includes="**/*" />
+		</delete>
+		
+	</target>
+	
+</project>
