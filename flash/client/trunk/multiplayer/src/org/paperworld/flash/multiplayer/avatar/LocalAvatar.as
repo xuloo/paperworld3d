@@ -27,8 +27,8 @@ package org.paperworld.flash.multiplayer.avatar
 	import org.as3commons.logging.LoggerFactory;
 	import org.paperworld.flash.api.IInput;
 	import org.paperworld.flash.api.IState;
-	import org.paperworld.flash.util.History;
-	import org.paperworld.flash.util.Move;
+	import org.paperworld.flash.utils.History;
+	import org.paperworld.flash.utils.Move;
 	import org.paperworld.flash.utils.input.IUserInput;
 	import org.paperworld.flash.utils.input.IUserInputListener;
 	import org.paperworld.flash.utils.input.events.UserInputEvent;	

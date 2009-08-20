@@ -29,10 +29,10 @@
     <classEntry path="org.paperworld.flash.multiplayer.messages.SynchroniseCreateMessage"/>
     <classEntry path="org.paperworld.flash.multiplayer.objects.SimpleSynchronisableObject"/>
     <classEntry path="org.paperworld.flash.multiplayer.sync.SynchronisationManager"/>
-    <classEntry path="org.paperworld.flash.util.CircularBuffer"/>
-    <classEntry path="org.paperworld.flash.util.History"/>
-    <classEntry path="org.paperworld.flash.util.Move"/>
-    <classEntry path="org.paperworld.flash.util.SyncObject"/>
+    <classEntry path="org.paperworld.flash.utils.CircularBuffer"/>
+    <classEntry path="org.paperworld.flash.utils.History"/>
+    <classEntry path="org.paperworld.flash.utils.Move"/>
+    <classEntry path="org.paperworld.flash.utils.SyncObject"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>
