@@ -1,8 +1,5 @@
-package com.paperworld.flash.pv3d.views 
+package org.paperworld.flash.pv3d.views 
 {
-	import com.paperworld.flash.api.multiplayer.ISynchronisedScene;
-	import com.paperworld.flash.pv3d.scenes.SynchronisedScene;
-	
 	import flash.display.Bitmap;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
@@ -13,7 +10,9 @@ package com.paperworld.flash.pv3d.views
 	import org.papervision3d.objects.primitives.Plane;
 	import org.papervision3d.scenes.Scene3D;
 	import org.papervision3d.view.BasicView;
-	import org.papervision3d.view.Viewport3D;		
+	import org.papervision3d.view.Viewport3D;
+	import org.paperworld.flash.api.multiplayer.ISynchronisedScene;
+	import org.paperworld.flash.pv3d.scenes.SynchronisedScene;		
 
 	/**
 	 * @author Trevor
