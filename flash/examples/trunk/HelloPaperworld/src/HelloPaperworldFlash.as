@@ -1,26 +1,27 @@
 package {
 	import com.joeberkovitz.moccasin.service.IOperation;
-	import com.paperworld.flash.api.connection.IClient;
-	import com.paperworld.flash.connection.Red5Connection;
-	import com.paperworld.flash.connection.RemoteSharedObject;
-	import com.paperworld.flash.connection.client.BasicClient;
-	import com.paperworld.flash.connection.messages.ServerSyncMessage;
-	import com.paperworld.flash.multiplayer.data.State;
-	import com.paperworld.flash.multiplayer.sync.SynchronisationManager;
-	import com.paperworld.flash.util.input.Input;
 	
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.NetStatusEvent;
 	import flash.net.Responder;
+	
+	import org.paperworld.flash.api.connection.IClient;
+	import org.paperworld.flash.connection.Red5Connection;
+	import org.paperworld.flash.connection.RemoteSharedObject;
+	import org.paperworld.flash.connection.client.BasicClient;
+	import org.paperworld.flash.core.objects.State;
+	import org.paperworld.flash.multiplayer.messages.ServerSyncMessage;
+	import org.paperworld.flash.multiplayer.sync.SynchronisationManager;
+	import org.paperworld.flash.utils.input.Input;
 
-	public class HelloPaperworldFlashClient extends Sprite
+	public class HelloPaperworldFlash extends Sprite
 	{
 		private var client:IClient;
 		
 		private var syncManager:SynchronisationManager;
 		
-		public function HelloPaperworldFlashClient()
+		public function HelloPaperworldFlash()
 		{
 			trace("Creation Complete");
 				

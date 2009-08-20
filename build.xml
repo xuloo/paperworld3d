@@ -23,5 +23,6 @@
 		<file name="flash/client/trunk/multiplayer"/>
 		<file name="flash/client/trunk/pv3d-core"/>
 		<file name="flash/client/trunk/pv3d-multiplayer"/>
+		<file name="flash/examples/trunk/HelloPaperworld"/>
     </filelist>
 </project>
