@@ -7,10 +7,4 @@
     <!-- Define SWC exported by this library. -->
     <property name="paperworld.paperworld-core.swc" location="${paperworld-core.assets.dir}/${build.compc.dir}/paperworld-core.swc"/>
 
-	<!-- Define library SWC files this library depends upon. -->		
-	<property name="paperworld.datastructures.swc" location="${paperworld-core.assets.dir}/lib/datastructures.swc"/>
-	<property name="paperworld.spring-as.swc" location="${paperworld-core.assets.dir}/lib/spring-actionscript.swc"/>
-	<property name="paperworld.spring-as-resources.swc" location="${paperworld-core.assets.dir}/lib/springactionscript_resourceloading.swc"/>
-	<property name="paperworld.moccasin.swc" location="${paperworld-core.assets.dir}/lib/moccasin-core.swc"/>
-
 </project>

@@ -18,8 +18,6 @@
     -->
     <filelist id="children.filelist" dir=".">
         <file name="flash/client/trunk/core"/>
-        <!--file name="library2"/>
-        <file name="app"/>
-        <file name="test"/-->
+        <file name="flash/client/trunk/connection"/>
     </filelist>
 </project>
