@@ -1,6 +1,6 @@
-package com.paperworld.flash.multiplayer.api 
+package org.paperworld.flash.multiplayer.api 
 {
-	import com.paperworld.flash.api.multiplayer.ISynchronisedAvatar;
+	import org.paperworld.flash.api.multiplayer.ISynchronisedAvatar;
 	
 
 	/**

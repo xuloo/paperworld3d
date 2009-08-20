@@ -9,7 +9,7 @@
  * 
  * Actionscript port - Trevor Burton [worldofpaper@googlemail.com]
  */
-package com.paperworld.flash.ai.dectree 
+package org.paperworld.flash.ai.dectree 
 {
 
 	/**

@@ -9,9 +9,9 @@
  * 
  * Actionscript port - Trevor Burton [worldofpaper@googlemail.com]
  */
-package com.paperworld.flash.ai.sm 
+package org.paperworld.flash.ai.sm 
 {
-	import com.paperworld.flash.api.ai.sm.ICondition;	
+	import org.paperworld.flash.api.ai.sm.ICondition;	
 
 	/**
 	 * The condition interface offsets the problem of whether

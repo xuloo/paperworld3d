@@ -9,7 +9,7 @@
  * 
  * Actionscript port - Trevor Burton [worldofpaper@googlemail.com]
  */
-package com.paperworld.flash.ai.learning 
+package org.paperworld.flash.ai.learning 
 {	
 	/**
 	 * This is a class that you need to implement in order to

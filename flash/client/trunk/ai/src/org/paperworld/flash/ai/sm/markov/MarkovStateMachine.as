@@ -9,10 +9,10 @@
  * 
  * Actionscript port - Trevor Burton [worldofpaper@googlemail.com]
  */
-package com.paperworld.flash.ai.sm.markov 
+package org.paperworld.flash.ai.sm.markov 
 {
-	import com.paperworld.flash.api.ai.sm.ITransition;
-	import com.paperworld.flash.core.action.Action;		
+	import org.paperworld.flash.api.ai.sm.ITransition;
+	import org.paperworld.flash.core.action.Action;		
 
 	/**
 	 * The markov state machine is responsible for keeping track of

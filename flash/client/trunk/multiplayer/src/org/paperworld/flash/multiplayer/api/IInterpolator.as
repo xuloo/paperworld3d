@@ -1,6 +1,6 @@
-package com.paperworld.flash.multiplayer.api
+package org.paperworld.flash.multiplayer.api
 {
-	import com.paperworld.flash.core.objects.State;					
+	import org.paperworld.flash.core.objects.State;					
 	
 	/**
 	 * @author Trevor

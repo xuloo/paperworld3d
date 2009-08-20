@@ -9,9 +9,9 @@
  * 
  * Actionscript port - Trevor Burton [worldofpaper@googlemail.com]
  */
-package com.paperworld.flash.ai.steering
+package org.paperworld.flash.ai.steering
 {
-	import com.paperworld.flash.util.math.Vector3f;
+	import org.paperworld.flash.utils.math.Vector3f;
 	
 	import org.papervision3d.core.math.Quaternion;
 		

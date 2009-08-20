@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<flexLibProperties version="1">
+  <includeClasses>
+    <classEntry path="org.paperworld.flash.api.multiplayer.ISyncManager"/>
+    <classEntry path="org.paperworld.flash.api.multiplayer.ISynchronisedAvatar"/>
+    <classEntry path="org.paperworld.flash.api.multiplayer.ISynchronisedScene"/>
+    <classEntry path="org.paperworld.flash.api.multiplayer.messages.IPlayerSyncMessage"/>
+    <classEntry path="org.paperworld.flash.api.multiplayer.messages.IServerSyncMessage"/>
+    <classEntry path="org.paperworld.flash.api.multiplayer.messages.ISynchroniseCreateMessage"/>
+    <classEntry path="org.paperworld.flash.multiplayer.api.IAvatarFactory"/>
+    <classEntry path="org.paperworld.flash.multiplayer.api.IInterpolator"/>
+    <classEntry path="org.paperworld.flash.multiplayer.avatar.AbstractSynchronisedAvatar"/>
+    <classEntry path="org.paperworld.flash.multiplayer.avatar.LocalAvatar"/>
+    <classEntry path="org.paperworld.flash.multiplayer.avatar.PhysicsEnabledLocalAvatar"/>
+    <classEntry path="org.paperworld.flash.multiplayer.avatar.RemoteAvatar"/>
+    <classEntry path="org.paperworld.flash.multiplayer.data.AvatarData"/>
+    <classEntry path="org.paperworld.flash.multiplayer.data.SyncData"/>
+    <classEntry path="org.paperworld.flash.multiplayer.factory.PranaContextAvatarFactory"/>
+    <classEntry path="org.paperworld.flash.multiplayer.factory.RemoteAndLocalAvatarFactory"/>
+    <classEntry path="org.paperworld.flash.multiplayer.handshake.Handshake"/>
+    <classEntry path="org.paperworld.flash.multiplayer.inputhandlers.AbstractInputHandler"/>
+    <classEntry path="org.paperworld.flash.multiplayer.inputhandlers.PhysicsInputHandler2D"/>
+    <classEntry path="org.paperworld.flash.multiplayer.inputhandlers.SimpleAvatarInputHandler25D"/>
+    <classEntry path="org.paperworld.flash.multiplayer.interpolators.Basic2DInterpolator"/>
+    <classEntry path="org.paperworld.flash.multiplayer.lod.LodConstraint"/>
+    <classEntry path="org.paperworld.flash.multiplayer.messages.BatchedInputMessage"/>
+    <classEntry path="org.paperworld.flash.multiplayer.messages.PlayerSyncMessage"/>
+    <classEntry path="org.paperworld.flash.multiplayer.messages.ServerSyncMessage"/>
+    <classEntry path="org.paperworld.flash.multiplayer.messages.SynchroniseCreateMessage"/>
+    <classEntry path="org.paperworld.flash.multiplayer.objects.SimpleSynchronisableObject"/>
+    <classEntry path="org.paperworld.flash.multiplayer.sync.SynchronisationManager"/>
+    <classEntry path="org.paperworld.flash.util.CircularBuffer"/>
+    <classEntry path="org.paperworld.flash.util.History"/>
+    <classEntry path="org.paperworld.flash.util.Move"/>
+    <classEntry path="org.paperworld.flash.util.SyncObject"/>
+  </includeClasses>
+  <includeResources/>
+  <namespaceManifests/>
+</flexLibProperties>

@@ -19,5 +19,7 @@
     <filelist id="children.filelist" dir=".">
         <file name="flash/client/trunk/core"/>
         <file name="flash/client/trunk/connection"/>
+		<file name="flash/client/trunk/ai"/>
+		<file name="flash/client/trunk/multiplayer"/>
     </filelist>
 </project>

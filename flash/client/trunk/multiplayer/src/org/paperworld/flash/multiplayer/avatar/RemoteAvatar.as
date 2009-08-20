@@ -19,10 +19,10 @@
  * Suite 330, Boston, MA 02111-1307 USA 
  * 
  * -------------------------------------------------------------------------------------- */
-package com.paperworld.flash.multiplayer.avatar
+package org.paperworld.flash.multiplayer.avatar
 {
-	import com.paperworld.flash.api.IInput;
-	import com.paperworld.flash.api.IState;
+	import org.paperworld.flash.api.IInput;
+	import org.paperworld.flash.api.IState;
 	
 	import flash.events.Event;
 	

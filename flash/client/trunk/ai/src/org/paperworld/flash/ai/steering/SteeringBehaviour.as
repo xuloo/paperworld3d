@@ -9,9 +9,9 @@
  * 
  * Actionscript port - Trevor Burton [worldofpaper@googlemail.com]
  */
-package com.paperworld.flash.ai.steering
+package org.paperworld.flash.ai.steering
 {
-	import com.paperworld.flash.util.input.Input;		
+	import org.paperworld.flash.utils.input.Input;		
 
 	/**
 	 * The steering behaviour is the base class for all dynamic

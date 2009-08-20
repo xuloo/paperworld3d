@@ -9,10 +9,10 @@
  * 
  * Actionscript port - Trevor Burton [worldofpaper@googlemail.com]
  */
-package com.paperworld.flash.ai.steering.behaviours.kinematic
+package org.paperworld.flash.ai.steering.behaviours.kinematic
 {
-	import com.paperworld.flash.ai.steering.Location;
-	import com.paperworld.flash.ai.steering.SteeringOutput;	
+	import org.paperworld.flash.ai.steering.Location;
+	import org.paperworld.flash.ai.steering.SteeringOutput;	
 
 	/**
 	 * The base class for all kinematic movement behaviours.

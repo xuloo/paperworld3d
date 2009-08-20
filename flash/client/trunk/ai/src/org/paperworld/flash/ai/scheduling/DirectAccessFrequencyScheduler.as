@@ -1,4 +1,4 @@
-package com.paperworld.flash.ai.scheduling 
+package org.paperworld.flash.ai.scheduling 
 {
 	import org.springextensions.actionscript.collections.IMap;
 	import org.springextensions.actionscript.collections.Map;

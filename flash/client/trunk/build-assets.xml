@@ -6,11 +6,14 @@
 	
     <import file="core/build-assets.xml"/>
     <import file="connection/build-assets.xml"/>
+	<import file="ai/build-assets.xml"/>
+	<import file="multiplayer/build-assets.xml"/>
 	
 	<!-- Define library SWC files shared by the flash projects. -->		
 	<property name="paperworld.datastructures.swc" location="${paperworld.flash.assets.dir}/lib/datastructures.swc"/>
 	<property name="paperworld.spring-as.swc" location="${paperworld.flash.assets.dir}/lib/spring-actionscript.swc"/>
 	<property name="paperworld.spring-as-resources.swc" location="${paperworld.flash.assets.dir}/lib/springactionscript_resourceloading.swc"/>
 	<property name="paperworld.moccasin.swc" location="${paperworld.flash.assets.dir}/lib/moccasin-core.swc"/>
-	<echo>datastructures: ${paperworld.spring-as.swc}</echo>
+	<property name="paperworld.papervision.swc" location="${paperworld.flash.assets.dir}/lib/Papervision3D.swc"/>
+
 </project>

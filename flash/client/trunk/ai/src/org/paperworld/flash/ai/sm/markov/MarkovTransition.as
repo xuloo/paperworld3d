@@ -9,9 +9,9 @@
  * 
  * Actionscript port - Trevor Burton [worldofpaper@googlemail.com]
  */
-package com.paperworld.flash.ai.sm.markov 
+package org.paperworld.flash.ai.sm.markov 
 {
-	import com.paperworld.flash.ai.sm.Transition;
+	import org.paperworld.flash.ai.sm.Transition;
 
 	/**
 	 * Markov transitions consist of a matrix that is multiplied by

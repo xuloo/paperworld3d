@@ -9,9 +9,9 @@
  * 
  * Actionscript port - Trevor Burton [worldofpaper@googlemail.com]
  */
-package com.paperworld.flash.ai.collision 
+package org.paperworld.flash.ai.collision 
 {
-	import com.paperworld.flash.ai.steering.Kinematic;
+	import org.paperworld.flash.ai.steering.Kinematic;
 	
 	import org.papervision3d.core.math.Number3D;	
 

@@ -9,11 +9,11 @@
  * 
  * Actionscript port - Trevor Burton [worldofpaper@googlemail.com]
  */
-package com.paperworld.flash.ai.steering.pipeline 
+package org.paperworld.flash.ai.steering.pipeline 
 {
-	import com.paperworld.flash.ai.steering.Kinematic;
-	import com.paperworld.flash.ai.steering.SteeringOutput;
-	import com.paperworld.flash.util.math.Vector3f;	
+	import org.paperworld.flash.ai.steering.Kinematic;
+	import org.paperworld.flash.ai.steering.SteeringOutput;
+	import org.paperworld.flash.utils.math.Vector3f;	
 
 	/**
 	 * Actuators generate forcess and torques that are required to

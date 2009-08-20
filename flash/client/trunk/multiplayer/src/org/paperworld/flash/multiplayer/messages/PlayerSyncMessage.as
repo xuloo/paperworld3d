@@ -1,9 +1,9 @@
-package com.paperworld.flash.multiplayer.messages
+package org.paperworld.flash.multiplayer.messages
 {
-	import com.paperworld.flash.api.IInput;
-	import com.paperworld.flash.api.multiplayer.messages.IPlayerSyncMessage;
-	import com.paperworld.flash.connection.messages.BaseMessage;
-	import com.paperworld.flash.util.input.Input;
+	import org.paperworld.flash.api.IInput;
+	import org.paperworld.flash.api.multiplayer.messages.IPlayerSyncMessage;
+	import org.paperworld.flash.connection.messages.BaseMessage;
+	import org.paperworld.flash.utils.input.Input;
 	
 	import flash.utils.IDataInput;
 	import flash.utils.IDataOutput;

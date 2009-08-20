@@ -9,7 +9,7 @@
  * 
  * Actionscript port - Trevor Burton [worldofpaper@googlemail.com]
  */
-package com.paperworld.flash.ai.learning 
+package org.paperworld.flash.ai.learning 
 {
 	/**
 	 * A state in a reinforcement problem will be indexed by number,

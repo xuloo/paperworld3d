@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<flexLibProperties version="1">
+  <includeClasses>
+    <classEntry path="org.paperworld.flash.ai.collision.ICollisionDetector"/>
+    <classEntry path="org.paperworld.flash.ai.dectree.Decision"/>
+    <classEntry path="org.paperworld.flash.ai.dectree.DecisionTreeAction"/>
+    <classEntry path="org.paperworld.flash.ai.dectree.DecisionTreeNode"/>
+    <classEntry path="org.paperworld.flash.ai.dectree.RandomDecision"/>
+    <classEntry path="org.paperworld.flash.ai.dectree.RandomDecisionWithTimeout"/>
+    <classEntry path="org.paperworld.flash.ai.learning.ArrayBasedLearningProblem"/>
+    <classEntry path="org.paperworld.flash.ai.learning.LearningProblem"/>
+    <classEntry path="org.paperworld.flash.ai.learning.LearningProblemAction"/>
+    <classEntry path="org.paperworld.flash.ai.learning.LearningProblemActionResult"/>
+    <classEntry path="org.paperworld.flash.ai.learning.LearningProblemState"/>
+    <classEntry path="org.paperworld.flash.ai.scheduling.BehaviourSet"/>
+    <classEntry path="org.paperworld.flash.ai.scheduling.DirectAccessFrequencyScheduler"/>
+    <classEntry path="org.paperworld.flash.ai.scheduling.FrequencyScheduler"/>
+    <classEntry path="org.paperworld.flash.ai.scheduling.LoadBalancingScheduler"/>
+    <classEntry path="org.paperworld.flash.ai.scheduling.PriorityScheduler"/>
+    <classEntry path="org.paperworld.flash.ai.scheduling.Scheduleable"/>
+    <classEntry path="org.paperworld.flash.ai.scheduling.ScheduledObject"/>
+    <classEntry path="org.paperworld.flash.ai.sm.BaseTransition"/>
+    <classEntry path="org.paperworld.flash.ai.sm.Condition"/>
+    <classEntry path="org.paperworld.flash.ai.sm.ConditionAwareTransition"/>
+    <classEntry path="org.paperworld.flash.ai.sm.StateMachine"/>
+    <classEntry path="org.paperworld.flash.ai.sm.StateMachineState"/>
+    <classEntry path="org.paperworld.flash.ai.sm.Transition"/>
+    <classEntry path="org.paperworld.flash.ai.sm.markov.FixedMarkovTransition"/>
+    <classEntry path="org.paperworld.flash.ai.sm.markov.MarkovStateMachine"/>
+    <classEntry path="org.paperworld.flash.ai.sm.markov.MarkovTransition"/>
+    <classEntry path="org.paperworld.flash.ai.steering.Kinematic"/>
+    <classEntry path="org.paperworld.flash.ai.steering.Location"/>
+    <classEntry path="org.paperworld.flash.ai.steering.SteeringBehaviour"/>
+    <classEntry path="org.paperworld.flash.ai.steering.SteeringOutput"/>
+    <classEntry path="org.paperworld.flash.ai.steering.behaviours.Flee"/>
+    <classEntry path="org.paperworld.flash.ai.steering.behaviours.Seek"/>
+    <classEntry path="org.paperworld.flash.ai.steering.behaviours.kinematic.KinematicArrive"/>
+    <classEntry path="org.paperworld.flash.ai.steering.behaviours.kinematic.KinematicFlee"/>
+    <classEntry path="org.paperworld.flash.ai.steering.behaviours.kinematic.KinematicMovement"/>
+    <classEntry path="org.paperworld.flash.ai.steering.behaviours.kinematic.KinematicSeek"/>
+    <classEntry path="org.paperworld.flash.ai.steering.behaviours.kinematic.KinematicWander"/>
+    <classEntry path="org.paperworld.flash.ai.steering.behaviours.kinematic.TargetedKinematicMovement"/>
+    <classEntry path="org.paperworld.flash.ai.steering.pipeline.Actuator"/>
+    <classEntry path="org.paperworld.flash.ai.steering.pipeline.Decomposer"/>
+    <classEntry path="org.paperworld.flash.ai.steering.pipeline.SteeringConstraint"/>
+    <classEntry path="org.paperworld.flash.ai.steering.pipeline.SteeringPipeline"/>
+    <classEntry path="org.paperworld.flash.ai.steering.pipeline.SteeringUtils"/>
+    <classEntry path="org.paperworld.flash.ai.steering.pipeline.Targeter"/>
+    <classEntry path="org.paperworld.flash.ai.steering.pipeline.constraints.AvoidAgentConstraint"/>
+    <classEntry path="org.paperworld.flash.ai.steering.pipeline.constraints.AvoidLocationConstraint"/>
+    <classEntry path="org.paperworld.flash.ai.steering.pipeline.constraints.AvoidPredatorConstraint"/>
+    <classEntry path="org.paperworld.flash.ai.steering.pipeline.constraints.AvoidWallsConstraint"/>
+  </includeClasses>
+  <includeResources/>
+  <namespaceManifests/>
+</flexLibProperties>

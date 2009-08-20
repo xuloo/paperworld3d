@@ -1,8 +1,8 @@
-package com.paperworld.flash.multiplayer.inputhandlers 
+package org.paperworld.flash.multiplayer.inputhandlers 
 {
-	import com.paperworld.flash.api.IAvatar;
-	import com.paperworld.flash.api.IInput;
-	import com.paperworld.flash.api.IState;
+	import org.paperworld.flash.api.IAvatar;
+	import org.paperworld.flash.api.IInput;
+	import org.paperworld.flash.api.IState;
 	
 	import org.as3commons.logging.ILogger;
 	import org.as3commons.logging.LoggerFactory;

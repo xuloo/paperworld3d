@@ -9,9 +9,9 @@
  * 
  * Actionscript port - Trevor Burton [worldofpaper@googlemail.com]
  */
-package com.paperworld.flash.ai.steering.behaviours.kinematic
+package org.paperworld.flash.ai.steering.behaviours.kinematic
 {
-	import com.paperworld.flash.util.math.Vector3f;
+	import org.paperworld.flash.utils.math.Vector3f;
 	
 	/**
 	 * This is a base class that adds a target vector to its parent

@@ -1,22 +1,22 @@
-package com.paperworld.flash.multiplayer.sync
+package org.paperworld.flash.multiplayer.sync
 {
 	import com.joeberkovitz.moccasin.service.IOperation;
-	import com.paperworld.flash.api.IInput;
-	import com.paperworld.flash.api.connection.IClient;
-	import com.paperworld.flash.api.connection.messages.IMessage;
-	import com.paperworld.flash.api.multiplayer.ISyncManager;
-	import com.paperworld.flash.api.multiplayer.ISynchronisedAvatar;
-	import com.paperworld.flash.api.multiplayer.ISynchronisedScene;
-	import com.paperworld.flash.api.multiplayer.messages.IServerSyncMessage;
-	import com.paperworld.flash.connection.messages.RequestIdMessage;
-	import com.paperworld.flash.multiplayer.messages.BatchedInputMessage;
-	import com.paperworld.flash.multiplayer.messages.PlayerSyncMessage;
-	import com.paperworld.flash.multiplayer.messages.ServerSyncMessage;
-	import com.paperworld.flash.multiplayer.messages.SynchroniseCreateMessage;
-	import com.paperworld.flash.util.AbstractProcessor;
-	import com.paperworld.flash.util.timer.ITimer;
-	import com.paperworld.flash.util.timer.TimerManager;
-	import com.paperworld.flash.util.timer.events.ITimerEvent;
+	import org.paperworld.flash.api.IInput;
+	import org.paperworld.flash.api.connection.IClient;
+	import org.paperworld.flash.api.connection.messages.IMessage;
+	import org.paperworld.flash.api.multiplayer.ISyncManager;
+	import org.paperworld.flash.api.multiplayer.ISynchronisedAvatar;
+	import org.paperworld.flash.api.multiplayer.ISynchronisedScene;
+	import org.paperworld.flash.api.multiplayer.messages.IServerSyncMessage;
+	import org.paperworld.flash.connection.messages.RequestIdMessage;
+	import org.paperworld.flash.multiplayer.messages.BatchedInputMessage;
+	import org.paperworld.flash.multiplayer.messages.PlayerSyncMessage;
+	import org.paperworld.flash.multiplayer.messages.ServerSyncMessage;
+	import org.paperworld.flash.multiplayer.messages.SynchroniseCreateMessage;
+	import org.paperworld.flash.utils.AbstractProcessor;
+	import org.paperworld.flash.utils.timer.ITimer;
+	import org.paperworld.flash.utils.timer.TimerManager;
+	import org.paperworld.flash.utils.timer.events.ITimerEvent;
 	
 	import flash.events.Event;
 	import flash.utils.Dictionary;

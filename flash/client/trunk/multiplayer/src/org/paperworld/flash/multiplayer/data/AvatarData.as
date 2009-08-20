@@ -19,11 +19,11 @@
  * Suite 330, Boston, MA 02111-1307 USA 
  * 
  * -------------------------------------------------------------------------------------- */
-package com.paperworld.flash.multiplayer.data 
+package org.paperworld.flash.multiplayer.data 
 {
-	import com.paperworld.flash.api.multiplayer.ISynchronisedAvatar;
-	import com.paperworld.flash.core.objects.State;
-	import com.paperworld.flash.util.input.Input;	
+	import org.paperworld.flash.api.multiplayer.ISynchronisedAvatar;
+	import org.paperworld.flash.core.objects.State;
+	import org.paperworld.flash.utils.input.Input;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]

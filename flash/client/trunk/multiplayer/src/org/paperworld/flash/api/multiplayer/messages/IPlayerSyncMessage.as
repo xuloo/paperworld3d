@@ -1,6 +1,6 @@
-package com.paperworld.flash.api.multiplayer.messages
+package org.paperworld.flash.api.multiplayer.messages
 {
-	import com.paperworld.flash.api.IInput;
+	import org.paperworld.flash.api.IInput;
 	
 	public interface IPlayerSyncMessage
 	{

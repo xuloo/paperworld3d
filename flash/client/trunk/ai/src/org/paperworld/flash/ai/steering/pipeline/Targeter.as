@@ -9,9 +9,9 @@
  * 
  * Actionscript port - Trevor Burton [worldofpaper@googlemail.com]
  */
-package com.paperworld.flash.ai.steering.pipeline 
+package org.paperworld.flash.ai.steering.pipeline 
 {
-	import com.paperworld.flash.ai.steering.Kinematic;	
+	import org.paperworld.flash.ai.steering.Kinematic;	
 
 	/**
 	 * Generates goals in the form of a kinematic (position,

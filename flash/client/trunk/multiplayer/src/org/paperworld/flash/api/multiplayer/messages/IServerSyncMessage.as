@@ -1,6 +1,6 @@
-package com.paperworld.flash.api.multiplayer.messages
+package org.paperworld.flash.api.multiplayer.messages
 {
-	import com.paperworld.flash.core.objects.State;
+	import org.paperworld.flash.core.objects.State;
 		
 	public interface IServerSyncMessage extends IPlayerSyncMessage
 	{

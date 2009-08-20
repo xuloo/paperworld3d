@@ -7,9 +7,9 @@
  * implies agreement with all terms and conditions of the accompanying
  * software licence.
  */
-package com.paperworld.flash.ai.steering.behaviours 
+package org.paperworld.flash.ai.steering.behaviours 
 {
-	import com.paperworld.flash.ai.steering.SteeringOutput;		
+	import org.paperworld.flash.ai.steering.SteeringOutput;		
 
 	/**
 	 * @author Trevor

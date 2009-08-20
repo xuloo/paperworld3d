@@ -1,7 +1,7 @@
-package com.paperworld.flash.multiplayer.messages
+package org.paperworld.flash.multiplayer.messages
 {
-	import com.paperworld.flash.api.multiplayer.messages.IServerSyncMessage;
-	import com.paperworld.flash.core.objects.State;
+	import org.paperworld.flash.api.multiplayer.messages.IServerSyncMessage;
+	import org.paperworld.flash.core.objects.State;
 	
 	import flash.utils.IDataInput;
 	import flash.utils.IDataOutput;

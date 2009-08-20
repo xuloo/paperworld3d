@@ -1,6 +1,6 @@
-package com.paperworld.flash.multiplayer.messages
+package org.paperworld.flash.multiplayer.messages
 {
-	import com.paperworld.flash.connection.messages.BaseMessage;
+	import org.paperworld.flash.connection.messages.BaseMessage;
 	
 	import flash.utils.IDataInput;
 	import flash.utils.IDataOutput;

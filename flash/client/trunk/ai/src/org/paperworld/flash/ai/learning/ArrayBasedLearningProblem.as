@@ -9,9 +9,9 @@
  * 
  * Actionscript port - Trevor Burton [worldofpaper@googlemail.com]
  */
-package com.paperworld.flash.ai.learning 
+package org.paperworld.flash.ai.learning 
 {
-	import com.paperworld.flash.util.number.RandomUtils;		
+	import org.paperworld.flash.utils.number.RandomUtils;		
 
 	/**
 	 * This is a concrete class that implements the LearningProblem
