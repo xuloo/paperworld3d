@@ -1,10 +1,10 @@
-package com.paperworld.flash.pv3d.objects
+package org.paperworld.flash.pv3d.objects
 {
-	import com.paperworld.flash.api.IInput;
-	import com.paperworld.flash.api.IPaperworldObject;
-	import com.paperworld.flash.api.IState;
-	import com.paperworld.flash.core.action.Action;
-	import com.paperworld.flash.pv3d.behaviours.BasePV3DBehaviour;
+	import org.paperworld.flash.api.IInput;
+	import org.paperworld.flash.api.IPaperworldObject;
+	import org.paperworld.flash.api.IState;
+	import org.paperworld.flash.core.action.Action;
+	import org.paperworld.flash.pv3d.behaviours.BasePV3DBehaviour;
 	
 	import org.papervision3d.objects.DisplayObject3D;
 

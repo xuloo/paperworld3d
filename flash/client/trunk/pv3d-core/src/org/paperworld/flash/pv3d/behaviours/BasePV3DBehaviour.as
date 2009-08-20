@@ -1,7 +1,7 @@
-package com.paperworld.flash.pv3d.behaviours
+package org.paperworld.flash.pv3d.behaviours
 {
-	import com.paperworld.flash.core.action.Action;
-	import com.paperworld.flash.pv3d.objects.PaperworldObject;
+	import org.paperworld.flash.core.action.Action;
+	import org.paperworld.flash.pv3d.objects.PaperworldObject;
 	
 	import org.papervision3d.objects.DisplayObject3D;
 

@@ -21,5 +21,6 @@
         <file name="flash/client/trunk/connection"/>
 		<file name="flash/client/trunk/ai"/>
 		<file name="flash/client/trunk/multiplayer"/>
+		<file name="flash/client/trunk/pv3d-core"/>
     </filelist>
 </project>
