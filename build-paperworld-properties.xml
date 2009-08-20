@@ -22,8 +22,6 @@
     WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -->
 <project name="tools.properties">
-    <dirname property="tools.properties.dir" file="${ant.file.tools.properties}" />
-
     <!--
         Instead of modifying properties in this file it is recommended that:
 

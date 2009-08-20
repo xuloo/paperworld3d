@@ -7,5 +7,6 @@
     without knowing the exact location of the exported asset.
 -->
 <project name="paperworld.assets">
-    <import file="flash/client/trunk/build-assets.xml"/>
+    <import file="flash/client/trunk/build-assets.xml" />
+	<import file="java/server/trunk/build-assets.xml" />
 </project>
