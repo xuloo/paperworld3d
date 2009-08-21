@@ -9,4 +9,5 @@
 <project name="paperworld.assets">
     <import file="flash/client/trunk/build-assets.xml" />
 	<import file="java/server/trunk/build-assets.xml" />
+	<import file="java/examples/trunk/build-assets.xml" />
 </project>

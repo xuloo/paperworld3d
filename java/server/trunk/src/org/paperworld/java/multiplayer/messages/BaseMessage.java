@@ -3,7 +3,7 @@ package org.paperworld.java.multiplayer.messages;
 import org.red5.io.amf3.IDataInput;
 import org.red5.io.amf3.IDataOutput;
 
-import com.paperworld.java.api.message.IMessage;
+import org.paperworld.java.api.message.IMessage;
 
 public class BaseMessage implements IMessage {
 

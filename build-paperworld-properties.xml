@@ -37,5 +37,7 @@
 
     <!-- derived project properties -->
     <property name="project.flex.application" value="${project.name}.as" />
+	
+	<property name="webapp.lib.dir" value="WEB-INF/lib" />
 
 </project>

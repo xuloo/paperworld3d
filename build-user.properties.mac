@@ -10,6 +10,9 @@
 #
 flex.dir=/Applications/Flex/3.0
 
+red5.dir=D:/projects/red5/tag-0.8/dist
+red5.webapps.dir=${red5.dir}/webapps
+
 #
 # location of Tomcat webapps directory
 #
