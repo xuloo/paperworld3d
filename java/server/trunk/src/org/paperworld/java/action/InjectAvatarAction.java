@@ -1,6 +1,6 @@
-package com.paperworld.java.action;
+package org.paperworld.java.action;
 
-import com.paperworld.java.api.IPaperworldService;
+import org.paperworld.java.api.IPaperworldService;
 
 public class InjectAvatarAction extends Action {
 

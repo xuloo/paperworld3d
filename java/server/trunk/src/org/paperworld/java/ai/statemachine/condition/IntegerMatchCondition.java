@@ -9,9 +9,9 @@
  * 
  * Java port - Trevor Burton [worldofpaper@googlemail.com]
  */
-package com.paperworld.java.ai.statemachine.condition;
+package org.paperworld.java.ai.statemachine.condition;
 
-import com.paperworld.java.ai.statemachine.Condition;
+import org.paperworld.java.ai.statemachine.Condition;
 
 public class IntegerMatchCondition implements Condition
 {

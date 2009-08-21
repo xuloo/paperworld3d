@@ -1,4 +1,4 @@
-package com.paperworld.java.api.message;
+package org.paperworld.java.api.message;
 
 public interface IPlayerMessage extends IMessage {
 

@@ -1,18 +1,17 @@
-package com.paperworld.java.player;
+package org.paperworld.java.player;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.paperworld.java.api.IAvatar;
+import org.paperworld.java.api.IInput;
+import org.paperworld.java.api.IPaperworldService;
+import org.paperworld.java.api.IPlayer;
+import org.paperworld.java.api.message.IMessage;
+import org.paperworld.java.input.BasicInput;
 import org.red5.server.api.IConnection;
 import org.red5.server.api.service.ServiceUtils;
-
-import com.paperworld.java.api.IAvatar;
-import com.paperworld.java.api.IInput;
-import com.paperworld.java.api.IPaperworldService;
-import com.paperworld.java.api.IPlayer;
-import com.paperworld.java.api.message.IMessage;
-import com.paperworld.java.input.BasicInput;
 
 public class BasicPlayer implements IPlayer {
 

@@ -1,10 +1,10 @@
-package com.paperworld.java.multiplayer.messages.processors;
+package org.paperworld.java.multiplayer.messages.processors;
 
 import java.util.Map;
 
-import com.paperworld.java.api.IPaperworldService;
-import com.paperworld.java.api.IPlayer;
-import com.paperworld.java.api.message.IMessage;
+import org.paperworld.java.api.IPaperworldService;
+import org.paperworld.java.api.IPlayer;
+import org.paperworld.java.api.message.IMessage;
 
 public class BroadcastMessageProcessor extends BaseMessageProcessor {
 

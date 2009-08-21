@@ -1,4 +1,4 @@
-package com.paperworld.java.multiplayer.messages;
+package org.paperworld.java.multiplayer.messages;
 
 public class RequestIdMessage extends BaseMessage {
 

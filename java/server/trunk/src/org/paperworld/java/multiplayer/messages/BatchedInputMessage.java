@@ -1,4 +1,4 @@
-package com.paperworld.java.multiplayer.messages;
+package org.paperworld.java.multiplayer.messages;
 
 import org.red5.io.amf3.IDataInput;
 import org.red5.io.amf3.IDataOutput;

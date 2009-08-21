@@ -1,22 +1,20 @@
-package com.paperworld.java.service;
+package org.paperworld.java.service;
 
+import org.paperworld.java.api.IAvatar;
+import org.paperworld.java.api.IAvatarFactory;
+import org.paperworld.java.api.IPlayer;
+import org.paperworld.java.api.message.IServerSyncMessage;
+import org.paperworld.java.avatar.factory.BasicAvatarFactory;
+import org.paperworld.java.multiplayer.messages.ServerSyncMessage;
+import org.paperworld.java.multiplayer.messages.processors.BatchedInputMessageProcessor;
+import org.paperworld.java.multiplayer.messages.processors.RequestIdMessageProcessor;
+import org.paperworld.java.multiplayer.messages.processors.SynchroniseCreateMessageProcessor;
+import org.paperworld.java.player.BasicPlayer;
+import org.paperworld.java.state.BasicState;
 import org.red5.server.api.IConnection;
 import org.red5.server.api.scheduling.IScheduledJob;
 import org.red5.server.api.scheduling.ISchedulingService;
 import org.red5.server.api.so.ISharedObject;
-
-import com.paperworld.java.api.IAvatar;
-import com.paperworld.java.api.IAvatarFactory;
-import com.paperworld.java.api.IPlayer;
-import com.paperworld.java.api.message.IServerSyncMessage;
-import com.paperworld.java.api.message.ISynchroniseCreateMessage;
-import com.paperworld.java.avatar.factory.BasicAvatarFactory;
-import com.paperworld.java.multiplayer.messages.ServerSyncMessage;
-import com.paperworld.java.multiplayer.messages.processors.BatchedInputMessageProcessor;
-import com.paperworld.java.multiplayer.messages.processors.RequestIdMessageProcessor;
-import com.paperworld.java.multiplayer.messages.processors.SynchroniseCreateMessageProcessor;
-import com.paperworld.java.player.BasicPlayer;
-import com.paperworld.java.state.BasicState;
 
 public class SimpleService extends AbstractPaperworldService {
 

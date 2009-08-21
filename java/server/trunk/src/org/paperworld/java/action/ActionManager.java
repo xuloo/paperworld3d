@@ -9,7 +9,7 @@
  * 
  * Java port - Trevor Burton [worldofpaper@googlemail.com]
  */
-package com.paperworld.java.action;
+package org.paperworld.java.action;
 
 /**
  * The action manager is a central marshalling system that can be notified of

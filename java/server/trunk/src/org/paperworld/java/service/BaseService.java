@@ -1,11 +1,10 @@
-package com.paperworld.java.service;
+package org.paperworld.java.service;
 
+import org.paperworld.java.api.IService;
 import org.red5.server.adapter.MultiThreadedApplicationAdapter;
 import org.red5.server.api.IClient;
 import org.red5.server.api.IConnection;
 import org.red5.server.api.IScope;
-
-import com.paperworld.java.api.IService;
 
 public class BaseService implements IService {
 

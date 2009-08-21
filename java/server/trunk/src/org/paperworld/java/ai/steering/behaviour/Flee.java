@@ -9,12 +9,13 @@
  * 
  * Java port - Trevor Burton [worldofpaper@googlemail.com]
  */
-package com.paperworld.java.ai.steering.behaviour;
+package org.paperworld.java.ai.steering.behaviour;
+
+import org.paperworld.java.ai.steering.AbstractSteeringBehaviour;
+import org.paperworld.java.ai.steering.SteeringOutput;
+import org.paperworld.java.api.IInput;
 
 import com.jme.math.Vector3f;
-import com.paperworld.java.ai.steering.AbstractSteeringBehaviour;
-import com.paperworld.java.ai.steering.SteeringOutput;
-import com.paperworld.java.api.IInput;
 
 /**
  * The seek steering behaviour takes a target and aims in the opposite direction

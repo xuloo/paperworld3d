@@ -1,12 +1,10 @@
-package com.paperworld.java.api;
+package org.paperworld.java.api;
 
 import java.util.Map;
 
+import org.paperworld.java.api.message.IMessage;
+import org.paperworld.java.util.AbstractProcessor;
 import org.red5.server.api.so.ISharedObject;
-
-import com.paperworld.java.api.message.IMessage;
-import com.paperworld.java.api.message.ISynchroniseCreateMessage;
-import com.paperworld.java.util.AbstractProcessor;
 
 public interface IPaperworldService extends IService {
 	

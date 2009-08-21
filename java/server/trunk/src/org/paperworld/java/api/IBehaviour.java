@@ -1,6 +1,6 @@
-package com.paperworld.java.api;
+package org.paperworld.java.api;
 
-import com.paperworld.java.state.BasicState;
+import org.paperworld.java.state.BasicState;
 
 public interface IBehaviour {
 

@@ -1,15 +1,15 @@
-package com.paperworld.java.adaptor.jmonkey;
+package org.paperworld.java.adaptor.jmonkey;
+
+import org.paperworld.java.adaptor.jmonkey.behaviour.AvatarForwardBehaviour;
+import org.paperworld.java.api.IInput;
+import org.paperworld.java.avatar.BasicAvatar;
+import org.paperworld.java.behaviour.CompositeBehaviour;
+import org.paperworld.java.state.BasicState;
 
 import com.jme.bounding.BoundingBox;
 import com.jme.math.Quaternion;
 import com.jme.scene.Spatial;
 import com.jme.scene.shape.Box;
-import com.paperworld.java.adaptor.jmonkey.behaviour.AvatarForwardBehaviour;
-import com.paperworld.java.api.IInput;
-import com.paperworld.java.api.IState;
-import com.paperworld.java.avatar.BasicAvatar;
-import com.paperworld.java.behaviour.CompositeBehaviour;
-import com.paperworld.java.state.BasicState;
 
 public class JMAvatar extends BasicAvatar {
 	

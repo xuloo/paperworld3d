@@ -1,10 +1,10 @@
-package com.paperworld.java.adaptor.jmonkey.behaviour;
+package org.paperworld.java.adaptor.jmonkey.behaviour;
+
+import org.paperworld.java.api.IInput;
+import org.paperworld.java.state.BasicState;
 
 import com.jme.math.Quaternion;
 import com.jme.math.Vector3f;
-import com.paperworld.java.api.IInput;
-import com.paperworld.java.api.IState;
-import com.paperworld.java.state.BasicState;
 
 public class AvatarForwardBehaviour extends AbstractAvatarBehaviour {
 

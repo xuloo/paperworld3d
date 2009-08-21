@@ -1,9 +1,8 @@
-package com.paperworld.java.behaviour;
+package org.paperworld.java.behaviour;
 
-import com.paperworld.java.api.IBehaviour;
-import com.paperworld.java.api.IInput;
-import com.paperworld.java.api.IState;
-import com.paperworld.java.state.BasicState;
+import org.paperworld.java.api.IBehaviour;
+import org.paperworld.java.api.IInput;
+import org.paperworld.java.state.BasicState;
 
 public class BasicBehaviour implements IBehaviour {
 

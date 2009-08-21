@@ -1,4 +1,4 @@
-package com.paperworld.java.api.message;
+package org.paperworld.java.api.message;
 
 import org.red5.io.amf3.IExternalizable;
 

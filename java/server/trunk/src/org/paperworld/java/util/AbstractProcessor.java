@@ -1,4 +1,4 @@
-package com.paperworld.java.util;
+package org.paperworld.java.util;
 
 import java.util.ArrayList;
 import java.util.Collections;

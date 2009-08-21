@@ -1,4 +1,4 @@
-package com.paperworld.java.service;
+package org.paperworld.java.service;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -7,6 +7,12 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+import org.paperworld.java.api.IAvatar;
+import org.paperworld.java.api.IPaperworldService;
+import org.paperworld.java.api.IPlayer;
+import org.paperworld.java.api.message.IMessage;
+import org.paperworld.java.multiplayer.messages.processors.BroadcastMessageProcessor;
+import org.paperworld.java.util.AbstractProcessor;
 import org.red5.server.adapter.MultiThreadedApplicationAdapter;
 import org.red5.server.api.IClient;
 import org.red5.server.api.IConnection;
@@ -14,13 +20,6 @@ import org.red5.server.api.IScope;
 import org.red5.server.api.ScopeUtils;
 import org.red5.server.api.so.ISharedObject;
 import org.red5.server.api.so.ISharedObjectService;
-
-import com.paperworld.java.api.IAvatar;
-import com.paperworld.java.api.IPaperworldService;
-import com.paperworld.java.api.IPlayer;
-import com.paperworld.java.api.message.IMessage;
-import com.paperworld.java.multiplayer.messages.processors.BroadcastMessageProcessor;
-import com.paperworld.java.util.AbstractProcessor;
 
 public abstract class AbstractPaperworldService extends BaseService implements IPaperworldService {
 

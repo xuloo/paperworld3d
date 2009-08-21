@@ -9,9 +9,9 @@
  * 
  * Java port - Trevor Burton [worldofpaper@googlemail.com]
  */
-package com.paperworld.java.ai.statemachine;
+package org.paperworld.java.ai.statemachine;
 
-import com.paperworld.java.action.Action;
+import org.paperworld.java.action.Action;
 
 
 public class StateMachine

@@ -1,12 +1,10 @@
-package com.paperworld.java.multiplayer.messages;
+package org.paperworld.java.multiplayer.messages;
 
+import org.paperworld.java.api.IInput;
+import org.paperworld.java.api.message.ISynchroniseCreateMessage;
+import org.paperworld.java.state.BasicState;
 import org.red5.io.amf3.IDataInput;
 import org.red5.io.amf3.IDataOutput;
-
-import com.paperworld.java.api.IInput;
-import com.paperworld.java.api.IState;
-import com.paperworld.java.api.message.ISynchroniseCreateMessage;
-import com.paperworld.java.state.BasicState;
 
 public class SynchroniseCreateMessage extends BaseMessage implements
 		ISynchroniseCreateMessage {

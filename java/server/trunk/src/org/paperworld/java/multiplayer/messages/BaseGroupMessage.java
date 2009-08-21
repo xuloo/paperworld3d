@@ -1,6 +1,6 @@
-package com.paperworld.java.multiplayer.messages;
+package org.paperworld.java.multiplayer.messages;
 
-import com.paperworld.java.api.message.IGroupMessage;
+import org.paperworld.java.api.message.IGroupMessage;
 
 public abstract class BaseGroupMessage extends BaseMessage implements
 		IGroupMessage {

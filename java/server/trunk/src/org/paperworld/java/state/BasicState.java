@@ -1,4 +1,4 @@
-package com.paperworld.java.state;
+package org.paperworld.java.state;
 
 import org.red5.io.amf3.IDataInput;
 import org.red5.io.amf3.IDataOutput;

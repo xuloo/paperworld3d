@@ -9,10 +9,11 @@
  * 
  * Java port - Trevor Burton [worldofpaper@googlemail.com]
  */
-package com.paperworld.java.ai.collision;
+package org.paperworld.java.ai.collision;
+
+import org.paperworld.java.ai.steering.Kinematic;
 
 import com.jme.math.Vector3f;
-import com.paperworld.java.ai.steering.Kinematic;
 
 /**
  * This class is an interface to a collision detector. It should be overridden

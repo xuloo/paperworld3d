@@ -1,10 +1,10 @@
-package com.paperworld.java.multiplayer.messages.processors;
+package org.paperworld.java.multiplayer.messages.processors;
 
-import com.paperworld.java.api.IAvatar;
-import com.paperworld.java.api.IPaperworldService;
-import com.paperworld.java.api.IPlayer;
-import com.paperworld.java.api.message.ISynchroniseCreateMessage;
-import com.paperworld.java.multiplayer.messages.SynchroniseCreateMessage;
+import org.paperworld.java.api.IAvatar;
+import org.paperworld.java.api.IPaperworldService;
+import org.paperworld.java.api.IPlayer;
+import org.paperworld.java.api.message.ISynchroniseCreateMessage;
+import org.paperworld.java.multiplayer.messages.SynchroniseCreateMessage;
 
 public class SynchroniseCreateMessageProcessor extends BroadcastMessageProcessor {
 

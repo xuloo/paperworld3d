@@ -1,4 +1,4 @@
-package com.paperworld.java.api;
+package org.paperworld.java.api;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
-package com.paperworld.java.api.message;
+package org.paperworld.java.api.message;
 
-import com.paperworld.java.api.IInput;
+import org.paperworld.java.api.IInput;
 
 /**
  * A Synchronisation message sent FROM the player TO the server.

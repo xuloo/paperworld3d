@@ -1,10 +1,9 @@
-package com.paperworld.java.multiplayer.messages;
+package org.paperworld.java.multiplayer.messages;
 
+import org.paperworld.java.api.IInput;
+import org.paperworld.java.api.message.IPlayerSyncMessage;
 import org.red5.io.amf3.IDataInput;
 import org.red5.io.amf3.IDataOutput;
-
-import com.paperworld.java.api.IInput;
-import com.paperworld.java.api.message.IPlayerSyncMessage;
 
 public class PlayerSyncMessage extends BaseMessage implements IPlayerSyncMessage {
 

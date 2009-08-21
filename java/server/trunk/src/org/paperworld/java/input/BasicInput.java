@@ -1,9 +1,8 @@
-package com.paperworld.java.input;
+package org.paperworld.java.input;
 
+import org.paperworld.java.api.IInput;
 import org.red5.io.amf3.IDataInput;
 import org.red5.io.amf3.IDataOutput;
-
-import com.paperworld.java.api.IInput;
 
 public class BasicInput implements IInput {
 

@@ -9,7 +9,7 @@
  * 
  * Java port - Trevor Burton [worldofpaper@googlemail.com]
  */
-package com.paperworld.java.action;
+package org.paperworld.java.action;
 
 /**
  * An action combination is a set of actions that can be performed

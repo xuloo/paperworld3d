@@ -1,10 +1,11 @@
-package com.paperworld.java.adaptor.jmonkey.behaviour;
+package org.paperworld.java.adaptor.jmonkey.behaviour;
+
+import org.paperworld.java.api.IInput;
+import org.paperworld.java.api.IState;
 
 import com.jme.input.action.InputActionEvent;
 import com.jme.math.Matrix3f;
 import com.jme.math.Vector3f;
-import com.paperworld.java.api.IInput;
-import com.paperworld.java.api.IState;
 
 public class AvatarRotateLeftBehaviour extends AbstractAvatarBehaviour {
 

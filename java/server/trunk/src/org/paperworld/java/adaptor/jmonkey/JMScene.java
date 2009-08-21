@@ -1,11 +1,12 @@
-package com.paperworld.java.adaptor.jmonkey;
+package org.paperworld.java.adaptor.jmonkey;
 
 import java.util.List;
 
+import org.paperworld.java.api.IAvatar;
+import org.paperworld.java.api.IScene;
+
 import com.jme.app.SimpleHeadlessApp;
 import com.jme.scene.Spatial;
-import com.paperworld.java.api.IAvatar;
-import com.paperworld.java.api.IScene;
 
 public class JMScene extends SimpleHeadlessApp implements IScene {
 

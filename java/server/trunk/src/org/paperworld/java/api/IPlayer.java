@@ -1,10 +1,9 @@
-package com.paperworld.java.api;
+package org.paperworld.java.api;
 
 import java.util.List;
 
+import org.paperworld.java.api.message.IMessage;
 import org.red5.server.api.IConnection;
-
-import com.paperworld.java.api.message.IMessage;
 
 public interface IPlayer {
 

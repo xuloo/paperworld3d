@@ -1,4 +1,4 @@
-package com.paperworld.java.net;
+package org.paperworld.java.net;
 
 import org.red5.io.amf3.IDataInput;
 import org.red5.io.amf3.IDataOutput;
