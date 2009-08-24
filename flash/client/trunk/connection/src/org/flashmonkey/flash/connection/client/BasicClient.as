@@ -144,7 +144,7 @@ package org.flashmonkey.flash.connection.client
 		
 		private function _sendMessage(message:IMessage):IOperation 
 		{
-			message.senderId = _id || "*";
+			message.senderId = _id;
 
 			return new SendMessageOperation(message, connection);
 		}

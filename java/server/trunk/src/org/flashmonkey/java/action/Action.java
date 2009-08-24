@@ -9,7 +9,7 @@
  * 
  * Java port - Trevor Burton [worldofpaper@googlemail.com]
  */
-package org.paperworld.java.action;
+package org.flashmonkey.java.action;
 
 /**
  * The action class is the base class for any request the AI makes

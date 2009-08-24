@@ -1,16 +1,16 @@
-package org.paperworld.java.service;
+package org.flashmonkey.java.service;
 
-import org.paperworld.java.api.IAvatar;
-import org.paperworld.java.api.IAvatarFactory;
-import org.paperworld.java.api.IPlayer;
-import org.paperworld.java.api.message.IServerSyncMessage;
-import org.paperworld.java.avatar.factory.BasicAvatarFactory;
-import org.paperworld.java.multiplayer.messages.ServerSyncMessage;
-import org.paperworld.java.multiplayer.messages.processors.BatchedInputMessageProcessor;
-import org.paperworld.java.multiplayer.messages.processors.RequestIdMessageProcessor;
-import org.paperworld.java.multiplayer.messages.processors.SynchroniseCreateMessageProcessor;
-import org.paperworld.java.player.BasicPlayer;
-import org.paperworld.java.state.BasicState;
+import org.flashmonkey.java.api.IAvatar;
+import org.flashmonkey.java.api.IAvatarFactory;
+import org.flashmonkey.java.api.IPlayer;
+import org.flashmonkey.java.api.message.IServerSyncMessage;
+import org.flashmonkey.java.avatar.factory.BasicAvatarFactory;
+import org.flashmonkey.java.connection.messages.processors.RequestIdMessageProcessor;
+import org.flashmonkey.java.core.objects.BasicState;
+import org.flashmonkey.java.multiplayer.messages.ServerSyncMessage;
+import org.flashmonkey.java.multiplayer.messages.processors.BatchedInputMessageProcessor;
+import org.flashmonkey.java.multiplayer.messages.processors.SynchroniseCreateMessageProcessor;
+import org.flashmonkey.java.player.BasicPlayer;
 import org.red5.server.api.IConnection;
 import org.red5.server.api.scheduling.IScheduledJob;
 import org.red5.server.api.scheduling.ISchedulingService;
@@ -39,7 +39,10 @@ public class SimpleService extends AbstractPaperworldService {
 	public boolean appConnect(IConnection connection, Object[] args) {
 		String uid = connection.getClient().getId();
 		String username = args[0].toString();
+		System.out.println("before creating player");
 		IPlayer player = createPlayer(username, connection);
+		player.setConnection(connection);
+		System.out.println("after creating player");
 		players.put(uid, player);
 		idMap.put(uid, 0);
 		return true;

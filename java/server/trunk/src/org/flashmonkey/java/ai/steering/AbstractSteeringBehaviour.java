@@ -9,9 +9,9 @@
  * 
  * Java port - Trevor Burton [worldofpaper@googlemail.com]
  */
-package org.paperworld.java.ai.steering;
+package org.flashmonkey.java.ai.steering;
 
-import org.paperworld.java.api.IInput;
+import org.flashmonkey.java.api.IInput;
 
 
 /**

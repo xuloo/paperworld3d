@@ -1,4 +1,4 @@
-package org.paperworld.java.api;
+package org.flashmonkey.java.api;
 
 import org.red5.server.adapter.IApplication;
 import org.red5.server.adapter.MultiThreadedApplicationAdapter;

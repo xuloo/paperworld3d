@@ -1,8 +1,8 @@
-package org.paperworld.java.adaptor.jmonkey.behaviour;
+package org.flashmonkey.java.adaptor.jmonkey.behaviour;
 
-import org.paperworld.java.api.IBehaviour;
-import org.paperworld.java.api.IInput;
-import org.paperworld.java.state.BasicState;
+import org.flashmonkey.java.api.IBehaviour;
+import org.flashmonkey.java.api.IInput;
+import org.flashmonkey.java.core.objects.BasicState;
 
 public class AbstractAvatarBehaviour implements IBehaviour {
 

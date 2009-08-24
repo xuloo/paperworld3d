@@ -1,4 +1,4 @@
-package org.paperworld.java.util;
+package org.flashmonkey.java.util;
 
 import java.util.ArrayList;
 import java.util.Collections;

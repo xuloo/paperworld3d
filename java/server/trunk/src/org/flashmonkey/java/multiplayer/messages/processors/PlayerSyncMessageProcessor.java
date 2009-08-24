@@ -1,9 +1,10 @@
-package org.paperworld.java.multiplayer.messages.processors;
+package org.flashmonkey.java.multiplayer.messages.processors;
 
-import org.paperworld.java.api.IAvatar;
-import org.paperworld.java.api.IPaperworldService;
-import org.paperworld.java.api.message.IPlayerSyncMessage;
-import org.paperworld.java.multiplayer.messages.PlayerSyncMessage;
+import org.flashmonkey.java.api.IAvatar;
+import org.flashmonkey.java.api.IPaperworldService;
+import org.flashmonkey.java.api.message.IPlayerSyncMessage;
+import org.flashmonkey.java.connection.messages.processors.BaseMessageProcessor;
+import org.flashmonkey.java.multiplayer.messages.PlayerSyncMessage;
 
 public class PlayerSyncMessageProcessor extends BaseMessageProcessor {
 

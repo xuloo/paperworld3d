@@ -1,9 +1,10 @@
-package org.paperworld.java.multiplayer.messages.processors;
+package org.flashmonkey.java.multiplayer.messages.processors;
 
-import org.paperworld.java.api.IPaperworldService;
-import org.paperworld.java.multiplayer.messages.BatchedInputMessage;
-import org.paperworld.java.multiplayer.messages.PlayerSyncMessage;
-import org.paperworld.java.util.AbstractProcessor;
+import org.flashmonkey.java.api.IPaperworldService;
+import org.flashmonkey.java.connection.messages.processors.BaseMessageProcessor;
+import org.flashmonkey.java.multiplayer.messages.BatchedInputMessage;
+import org.flashmonkey.java.multiplayer.messages.PlayerSyncMessage;
+import org.flashmonkey.java.util.AbstractProcessor;
 
 public class BatchedInputMessageProcessor extends BaseMessageProcessor {
 

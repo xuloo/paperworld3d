@@ -29,7 +29,7 @@ package {
 		
 		public function HelloPaperworldFlash()
 		{
-			trace("Creation Complete");
+			trace("Creation Completed");
 				
 			var connection:Red5Connection = new Red5Connection();
 			connection.connectionArgs = ["this","that"];

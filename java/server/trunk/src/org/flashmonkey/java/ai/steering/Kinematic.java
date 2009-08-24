@@ -1,4 +1,4 @@
-package org.paperworld.java.ai.steering;
+package org.flashmonkey.java.ai.steering;
 
 import com.jme.math.Quaternion;
 import com.jme.math.Vector3f;

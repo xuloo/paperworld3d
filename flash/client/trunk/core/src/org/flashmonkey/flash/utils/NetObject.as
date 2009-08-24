@@ -1,17 +1,40 @@
 package org.flashmonkey.flash.utils
 {
+	import flash.net.registerClassAlias;
 	import flash.utils.IDataInput;
 	import flash.utils.IDataOutput;
 	import flash.utils.IExternalizable;
 	
 	import org.as3commons.reflect.ClassUtils;
-	import org.flashmonkey.flash.utils.Constants;
-	import org.flashmonkey.flash.utils.IRegisteredClass;
-	import org.flashmonkey.flash.utils.Registration;
 	import org.springextensions.actionscript.utils.StringUtils;
 
 	public class NetObject implements IExternalizable, IRegisteredClass
 	{
+		private static var _registeredClasses:Array = [];
+		
+		public static function registerClass(instance:IRegisteredClass):void 
+		{
+			var clazz:Class = ClassUtils.forInstance(instance);
+			
+			if (!isRegistered(clazz))
+			{
+				registerClassAlias(instance.aliasName, clazz);
+			}
+		}
+		
+		private static function isRegistered(clazz:Class):Boolean 
+		{
+			for each (var registeredClass:Class in _registeredClasses)
+			{
+				if (registeredClass == clazz)
+				{
+					return true;
+				}
+			}	
+			
+			return false;
+		}
+		
 		private var _aliasName:String = "";
 		
 		/**
@@ -37,14 +60,14 @@ package org.flashmonkey.flash.utils
 		protected function createAliasName():String
 		{
 			var className:String = ClassUtils.getFullyQualifiedName(ClassUtils.forInstance(this), true);
-			var beginIndex:int = className.indexOf(Constants.FLASH_STRING);
+			var beginIndex:int = className.indexOf(Constants.FLASH_STRING + ".");
 
 			return StringUtils.replaceAt(className, Constants.JAVA_STRING, beginIndex, beginIndex + Constants.FLASH_STRING.length);
 		}
 		
 		public function NetObject()
 		{
-			Registration.registerClass(this)
+			registerClass(this);
 		}
 
 		public function writeExternal(output:IDataOutput):void

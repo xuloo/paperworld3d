@@ -1,8 +1,8 @@
-package org.paperworld.java.api;
+package org.flashmonkey.java.api;
 
 import java.util.List;
 
-import org.paperworld.java.api.message.IMessage;
+import org.flashmonkey.java.api.message.IMessage;
 import org.red5.server.api.IConnection;
 
 public interface IPlayer {

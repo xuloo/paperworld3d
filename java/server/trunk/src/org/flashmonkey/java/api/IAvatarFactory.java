@@ -1,4 +1,4 @@
-package org.paperworld.java.api;
+package org.flashmonkey.java.api;
 
 public interface IAvatarFactory {
 

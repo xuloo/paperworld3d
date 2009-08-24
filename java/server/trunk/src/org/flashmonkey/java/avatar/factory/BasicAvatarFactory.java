@@ -1,9 +1,9 @@
-package org.paperworld.java.avatar.factory;
+package org.flashmonkey.java.avatar.factory;
 
-import org.paperworld.java.api.IAvatar;
-import org.paperworld.java.api.IAvatarFactory;
-import org.paperworld.java.api.IPlayer;
-import org.paperworld.java.avatar.BasicAvatar;
+import org.flashmonkey.java.api.IAvatar;
+import org.flashmonkey.java.api.IAvatarFactory;
+import org.flashmonkey.java.api.IPlayer;
+import org.flashmonkey.java.avatar.BasicAvatar;
 
 public class BasicAvatarFactory implements IAvatarFactory {
 

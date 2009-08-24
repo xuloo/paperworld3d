@@ -1,8 +1,9 @@
-package org.paperworld.java.multiplayer.messages.processors;
+package org.flashmonkey.java.multiplayer.messages.processors;
 
-import org.paperworld.java.api.IPaperworldService;
-import org.paperworld.java.api.IPlayer;
-import org.paperworld.java.api.message.IPlayerMessage;
+import org.flashmonkey.java.api.IPaperworldService;
+import org.flashmonkey.java.api.IPlayer;
+import org.flashmonkey.java.api.message.IPlayerMessage;
+import org.flashmonkey.java.connection.messages.processors.BaseMessageProcessor;
 import org.red5.server.api.service.ServiceUtils;
 
 public class PlayerMessageProcessor extends BaseMessageProcessor {

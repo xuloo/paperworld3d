@@ -74,7 +74,7 @@ public class Application extends MultiThreadedApplicationAdapter {
 		System.out.println("here");
 		// Notify client about unique id.
 		ServiceUtils.invokeOnConnection(conn, "setClientID", new Object[] { uid });
-		System.out.println("here");
+		System.out.println("uid " + uid);
 		return true;
 	}
 

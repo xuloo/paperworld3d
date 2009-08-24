@@ -1,7 +1,7 @@
-package org.paperworld.java.adaptor.jmonkey.behaviour;
+package org.flashmonkey.java.adaptor.jmonkey.behaviour;
 
-import org.paperworld.java.api.IInput;
-import org.paperworld.java.api.IState;
+import org.flashmonkey.java.api.IInput;
+import org.flashmonkey.java.api.IState;
 
 import com.jme.input.action.InputActionEvent;
 import com.jme.math.Matrix3f;

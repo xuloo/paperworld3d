@@ -1,6 +1,6 @@
-package org.paperworld.java.api;
+package org.flashmonkey.java.api;
 
-import org.paperworld.java.state.BasicState;
+import org.flashmonkey.java.core.objects.BasicState;
 
 public interface IBehaviour {
 

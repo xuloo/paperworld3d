@@ -9,11 +9,11 @@
  * 
  * Java port - Trevor Burton [worldofpaper@googlemail.com]
  */
-package org.paperworld.java.ai.steering.behaviour;
+package org.flashmonkey.java.ai.steering.behaviour;
 
-import org.paperworld.java.ai.steering.AbstractSteeringBehaviour;
-import org.paperworld.java.ai.steering.SteeringOutput;
-import org.paperworld.java.api.IInput;
+import org.flashmonkey.java.ai.steering.AbstractSteeringBehaviour;
+import org.flashmonkey.java.ai.steering.SteeringOutput;
+import org.flashmonkey.java.api.IInput;
 
 import com.jme.math.Vector3f;
 

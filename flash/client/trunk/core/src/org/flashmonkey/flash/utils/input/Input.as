@@ -21,13 +21,13 @@
  * -------------------------------------------------------------------------------------- */
 package org.flashmonkey.flash.utils.input 
 {
-	import org.flashmonkey.flash.api.IInput;
-	import org.flashmonkey.flash.utils.IRegisteredClass;
-	import org.flashmonkey.flash.utils.Registration;
-	
 	import flash.utils.IDataInput;
 	import flash.utils.IDataOutput;
 	import flash.utils.IExternalizable;
+	
+	import org.flashmonkey.flash.api.IInput;
+	import org.flashmonkey.flash.utils.IRegisteredClass;
+	import org.flashmonkey.flash.utils.NetObject;
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
@@ -256,7 +256,7 @@ package org.flashmonkey.flash.utils.input
 		
 		public function get aliasName():String 
 		{
-			return "org.paperworld.java.input.BasicInput";
+			return "org.flashmonkey.java.input.BasicInput";
 		}
 
 		public function Input(moveForward : Boolean = false, moveBackward : Boolean = false, 
@@ -287,7 +287,7 @@ package org.flashmonkey.flash.utils.input
 			_mouseX				= mouseX;
 			_mouseY				= mouseY;
 			
-			Registration.registerClass(this);
+			NetObject.registerClass(this);
 		}
 
 		public function clone() : IInput

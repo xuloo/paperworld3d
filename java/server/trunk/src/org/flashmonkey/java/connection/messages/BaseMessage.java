@@ -1,11 +1,11 @@
-package org.paperworld.java.multiplayer.messages;
+package org.flashmonkey.java.connection.messages;
 
+import org.flashmonkey.java.api.message.IMessage;
+import org.flashmonkey.java.net.NetObject;
 import org.red5.io.amf3.IDataInput;
 import org.red5.io.amf3.IDataOutput;
 
-import org.paperworld.java.api.message.IMessage;
-
-public class BaseMessage implements IMessage {
+public class BaseMessage extends NetObject implements IMessage {
 
 	private String senderId;
 	

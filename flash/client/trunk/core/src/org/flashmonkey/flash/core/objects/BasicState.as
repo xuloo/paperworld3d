@@ -6,7 +6,6 @@ package org.flashmonkey.flash.core.objects
 	import org.flashmonkey.flash.api.IState;
 	import org.flashmonkey.flash.utils.IRegisteredClass;
 	import org.flashmonkey.flash.utils.NetObject;
-	import org.flashmonkey.flash.utils.Registration;
 	import org.flashmonkey.flash.utils.math.Quaternion;
 	import org.flashmonkey.flash.utils.math.Vector3f;
 	
@@ -73,7 +72,7 @@ package org.flashmonkey.flash.core.objects
 		
 		public function BasicState()
 		{			
-			Registration.registerClass(this);
+			NetObject.registerClass(this);
 		}
 		
 		public function clone():IState

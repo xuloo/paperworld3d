@@ -1,9 +1,9 @@
-package org.paperworld.java.api;
+package org.flashmonkey.java.api;
 
 import java.util.Map;
 
-import org.paperworld.java.api.message.IMessage;
-import org.paperworld.java.util.AbstractProcessor;
+import org.flashmonkey.java.api.message.IMessage;
+import org.flashmonkey.java.util.AbstractProcessor;
 import org.red5.server.api.so.ISharedObject;
 
 public interface IPaperworldService extends IService {

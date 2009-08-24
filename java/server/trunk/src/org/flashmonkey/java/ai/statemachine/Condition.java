@@ -9,7 +9,7 @@
  * 
  * Java port - Trevor Burton [worldofpaper@googlemail.com]
  */
-package org.paperworld.java.ai.statemachine;
+package org.flashmonkey.java.ai.statemachine;
 
 /**
  * The condition interface offsets the problem of whether transitions should

@@ -39,7 +39,7 @@
 	The multiplayer service.
 	 -->
 	<bean id="multiplayer.service"
-		class="org.paperworld.java.service.SimpleService"
+		class="org.flashmonkey.java.service.SimpleService"
 		init-method="init">
 		<property name="application" ref="web.handler"/>
 	</bean>

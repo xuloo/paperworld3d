@@ -1,11 +1,11 @@
-package org.paperworld.java.multiplayer.messages.processors;
+package org.flashmonkey.java.connection.messages.processors;
 
-import org.paperworld.java.api.IPaperworldService;
-import org.paperworld.java.util.AbstractProcessor;
+import org.flashmonkey.java.api.IPaperworldService;
+import org.flashmonkey.java.util.AbstractProcessor;
 
 public class BaseMessageProcessor extends AbstractProcessor {
 
-	private IPaperworldService service;
+	protected IPaperworldService service;
 	
 	public BaseMessageProcessor(IPaperworldService service, Class<?> type) {
 		this(service);

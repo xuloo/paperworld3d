@@ -1,6 +1,6 @@
-package org.paperworld.java.service;
+package org.flashmonkey.java.service;
 
-import org.paperworld.java.api.IService;
+import org.flashmonkey.java.api.IService;
 import org.red5.server.adapter.MultiThreadedApplicationAdapter;
 import org.red5.server.api.IClient;
 import org.red5.server.api.IConnection;

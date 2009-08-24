@@ -1,6 +1,6 @@
-package org.paperworld.java.input;
+package org.flashmonkey.java.input;
 
-import org.paperworld.java.api.IInput;
+import org.flashmonkey.java.api.IInput;
 import org.red5.io.amf3.IDataInput;
 import org.red5.io.amf3.IDataOutput;
 

@@ -1,15 +1,15 @@
-package org.paperworld.java.player;
+package org.flashmonkey.java.player;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.paperworld.java.api.IAvatar;
-import org.paperworld.java.api.IInput;
-import org.paperworld.java.api.IPaperworldService;
-import org.paperworld.java.api.IPlayer;
-import org.paperworld.java.api.message.IMessage;
-import org.paperworld.java.input.BasicInput;
+import org.flashmonkey.java.api.IAvatar;
+import org.flashmonkey.java.api.IInput;
+import org.flashmonkey.java.api.IPaperworldService;
+import org.flashmonkey.java.api.IPlayer;
+import org.flashmonkey.java.api.message.IMessage;
+import org.flashmonkey.java.input.BasicInput;
 import org.red5.server.api.IConnection;
 import org.red5.server.api.service.ServiceUtils;
 
@@ -28,21 +28,12 @@ public class BasicPlayer implements IPlayer {
 	protected IPaperworldService service;
 	
 	public BasicPlayer(IPaperworldService service, String name, IConnection connection) {
-		this(name, connection);
 		this.service = service;
-	}
-	
-	public BasicPlayer(String name, IConnection connection) {
-		this(name);
-		setConnection(connection);
-	}
-	
-	public BasicPlayer(String name) {
-		setName(name);
+		this.name = name;
 		
 		input = new BasicInput();
 		
-		scopeObject = service.getFactory().getAvatar(this);
+		scopeObject = service.getFactory().getAvatar(this);		
 	}
 	
 	public boolean sendMessage(IMessage message) {

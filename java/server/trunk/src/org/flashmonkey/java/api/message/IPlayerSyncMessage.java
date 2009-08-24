@@ -1,6 +1,6 @@
-package org.paperworld.java.api.message;
+package org.flashmonkey.java.api.message;
 
-import org.paperworld.java.api.IInput;
+import org.flashmonkey.java.api.IInput;
 
 /**
  * A Synchronisation message sent FROM the player TO the server.

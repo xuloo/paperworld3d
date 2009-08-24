@@ -1,9 +1,9 @@
-package org.paperworld.java.api.message;
+package org.flashmonkey.java.api.message;
 
-import org.paperworld.java.api.IInput;
-import org.paperworld.java.state.BasicState;
+import org.flashmonkey.java.api.IInput;
+import org.flashmonkey.java.core.objects.BasicState;
 
-public interface ISynchroniseCreateMessage {
+public interface ISynchroniseCreateMessage extends IMessage {
 
 	public String getPlayerId();	
 	public void setPlayerId(String playerId);

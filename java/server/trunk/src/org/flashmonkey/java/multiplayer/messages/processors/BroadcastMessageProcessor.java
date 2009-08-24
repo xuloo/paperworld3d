@@ -1,10 +1,11 @@
-package org.paperworld.java.multiplayer.messages.processors;
+package org.flashmonkey.java.multiplayer.messages.processors;
 
 import java.util.Map;
 
-import org.paperworld.java.api.IPaperworldService;
-import org.paperworld.java.api.IPlayer;
-import org.paperworld.java.api.message.IMessage;
+import org.flashmonkey.java.api.IPaperworldService;
+import org.flashmonkey.java.api.IPlayer;
+import org.flashmonkey.java.api.message.IMessage;
+import org.flashmonkey.java.connection.messages.processors.BaseMessageProcessor;
 
 public class BroadcastMessageProcessor extends BaseMessageProcessor {
 
@@ -24,7 +25,8 @@ public class BroadcastMessageProcessor extends BaseMessageProcessor {
 
 		for (String key : players.keySet()) {
 			IPlayer player = players.get(key);
-			System.out.println(player.getId() + " : " + message.getSenderId() + " : " + player.getName().equals(message.getSenderId()));
+			System.out.println(player + " : " + message);
+			//System.out.println(player.getId() + " : " + message.getSenderId() + " : " + player.getName().equals(message.getSenderId()));
 			if (!player.getId().equals(message.getSenderId())) {
 				player.sendMessage(message);
 			}

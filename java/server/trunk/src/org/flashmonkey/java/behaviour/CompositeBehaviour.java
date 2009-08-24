@@ -1,10 +1,10 @@
-package org.paperworld.java.behaviour;
+package org.flashmonkey.java.behaviour;
 
 import java.util.ArrayList;
 
-import org.paperworld.java.api.IBehaviour;
-import org.paperworld.java.api.IInput;
-import org.paperworld.java.state.BasicState;
+import org.flashmonkey.java.api.IBehaviour;
+import org.flashmonkey.java.api.IInput;
+import org.flashmonkey.java.core.objects.BasicState;
 
 public class CompositeBehaviour implements IBehaviour {
 

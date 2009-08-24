@@ -1,8 +1,8 @@
-package org.paperworld.java.multiplayer.messages;
+package org.flashmonkey.java.multiplayer.messages;
 
-import org.paperworld.java.api.IInput;
-import org.paperworld.java.api.message.IServerSyncMessage;
-import org.paperworld.java.state.BasicState;
+import org.flashmonkey.java.api.IInput;
+import org.flashmonkey.java.api.message.IServerSyncMessage;
+import org.flashmonkey.java.core.objects.BasicState;
 import org.red5.io.amf3.IDataInput;
 import org.red5.io.amf3.IDataOutput;
 

@@ -9,9 +9,9 @@
  * 
  * Java port - Trevor Burton [worldofpaper@googlemail.com]
  */
-package org.paperworld.java.ai.collision;
+package org.flashmonkey.java.ai.collision;
 
-import org.paperworld.java.ai.steering.Kinematic;
+import org.flashmonkey.java.ai.steering.Kinematic;
 
 import com.jme.math.Vector3f;
 

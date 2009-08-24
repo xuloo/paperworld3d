@@ -1,4 +1,5 @@
-package org.paperworld.java.multiplayer.messages;
+package org.flashmonkey.java.connection.messages;
+
 
 public class RequestIdMessage extends BaseMessage {
 

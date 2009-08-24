@@ -1,10 +1,10 @@
-package org.paperworld.java.multiplayer.messages.processors;
+package org.flashmonkey.java.multiplayer.messages.processors;
 
-import org.paperworld.java.api.IAvatar;
-import org.paperworld.java.api.IPaperworldService;
-import org.paperworld.java.api.IPlayer;
-import org.paperworld.java.api.message.ISynchroniseCreateMessage;
-import org.paperworld.java.multiplayer.messages.SynchroniseCreateMessage;
+import org.flashmonkey.java.api.IAvatar;
+import org.flashmonkey.java.api.IPaperworldService;
+import org.flashmonkey.java.api.IPlayer;
+import org.flashmonkey.java.api.message.ISynchroniseCreateMessage;
+import org.flashmonkey.java.multiplayer.messages.SynchroniseCreateMessage;
 
 public class SynchroniseCreateMessageProcessor extends BroadcastMessageProcessor {
 
@@ -14,10 +14,10 @@ public class SynchroniseCreateMessageProcessor extends BroadcastMessageProcessor
 	
 	@Override
 	public Object process(Object object) {
-		System.out.println("processing ISynchroniseCreateMessage " + ((ISynchroniseCreateMessage) object).getObjectId());
+		System.out.println("processing ISynchroniseCreateMessage " + ((ISynchroniseCreateMessage) object).getObjectId() + " " + ((ISynchroniseCreateMessage) object).getSenderId());
 		
 		ISynchroniseCreateMessage message = (ISynchroniseCreateMessage) object;
-		IPaperworldService service = getService();
+		//IPaperworldService service = getService();
 		
 		IPlayer player = service.getPlayer(message.getPlayerId());
 

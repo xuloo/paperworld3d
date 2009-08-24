@@ -1,4 +1,4 @@
-package org.paperworld.java.api.message;
+package org.flashmonkey.java.api.message;
 
 import org.red5.io.amf3.IExternalizable;
 

@@ -1,9 +1,9 @@
-package org.paperworld.java.adaptor.jmonkey;
+package org.flashmonkey.java.adaptor.jmonkey;
 
 import java.util.List;
 
-import org.paperworld.java.api.IAvatar;
-import org.paperworld.java.api.IScene;
+import org.flashmonkey.java.api.IAvatar;
+import org.flashmonkey.java.api.IScene;
 
 import com.jme.app.SimpleHeadlessApp;
 import com.jme.scene.Spatial;

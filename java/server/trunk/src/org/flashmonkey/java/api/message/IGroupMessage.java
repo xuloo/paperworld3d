@@ -1,4 +1,4 @@
-package org.paperworld.java.api.message;
+package org.flashmonkey.java.api.message;
 
 public interface IGroupMessage {
 	

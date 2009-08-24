@@ -1,11 +1,11 @@
-package org.paperworld.java.avatar;
+package org.flashmonkey.java.avatar;
 
-import org.paperworld.java.api.IAvatar;
-import org.paperworld.java.api.IBehaviour;
-import org.paperworld.java.api.IInput;
-import org.paperworld.java.api.IPlayer;
-import org.paperworld.java.input.BasicInput;
-import org.paperworld.java.state.BasicState;
+import org.flashmonkey.java.api.IAvatar;
+import org.flashmonkey.java.api.IBehaviour;
+import org.flashmonkey.java.api.IInput;
+import org.flashmonkey.java.api.IPlayer;
+import org.flashmonkey.java.core.objects.BasicState;
+import org.flashmonkey.java.input.BasicInput;
 import org.red5.server.api.IConnection;
 
 public class BasicAvatar implements IAvatar {

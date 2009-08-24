@@ -1,10 +1,10 @@
-package org.paperworld.java.adaptor.jmonkey;
+package org.flashmonkey.java.adaptor.jmonkey;
 
-import org.paperworld.java.adaptor.jmonkey.behaviour.AvatarForwardBehaviour;
-import org.paperworld.java.api.IInput;
-import org.paperworld.java.avatar.BasicAvatar;
-import org.paperworld.java.behaviour.CompositeBehaviour;
-import org.paperworld.java.state.BasicState;
+import org.flashmonkey.java.adaptor.jmonkey.behaviour.AvatarForwardBehaviour;
+import org.flashmonkey.java.api.IInput;
+import org.flashmonkey.java.avatar.BasicAvatar;
+import org.flashmonkey.java.behaviour.CompositeBehaviour;
+import org.flashmonkey.java.core.objects.BasicState;
 
 import com.jme.bounding.BoundingBox;
 import com.jme.math.Quaternion;

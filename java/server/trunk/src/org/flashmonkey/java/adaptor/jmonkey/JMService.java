@@ -1,7 +1,7 @@
-package org.paperworld.java.adaptor.jmonkey;
+package org.flashmonkey.java.adaptor.jmonkey;
 
-import org.paperworld.java.api.IScene;
-import org.paperworld.java.service.SimpleService;
+import org.flashmonkey.java.api.IScene;
+import org.flashmonkey.java.service.SimpleService;
 
 /**
  * Extends the SimpleService class to provide an adaptor for a JMonkey scene.

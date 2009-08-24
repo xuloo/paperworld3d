@@ -1,6 +1,6 @@
-package org.paperworld.java.api.message;
+package org.flashmonkey.java.api.message;
 
-import org.paperworld.java.state.BasicState;
+import org.flashmonkey.java.core.objects.BasicState;
 
 /**
  * This is a synchronisation message sent FROM the server TO the player.

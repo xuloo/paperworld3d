@@ -9,7 +9,7 @@
  * 
  * Java port - Trevor Burton [worldofpaper@googlemail.com]
  */
-package org.paperworld.java.action;
+package org.flashmonkey.java.action;
 
 /**
  * Compund actions are made up of sub-actions. This is a base

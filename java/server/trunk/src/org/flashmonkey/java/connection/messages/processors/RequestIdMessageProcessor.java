@@ -1,7 +1,7 @@
-package org.paperworld.java.multiplayer.messages.processors;
+package org.flashmonkey.java.connection.messages.processors;
 
-import org.paperworld.java.api.IPaperworldService;
-import org.paperworld.java.multiplayer.messages.RequestIdMessage;
+import org.flashmonkey.java.api.IPaperworldService;
+import org.flashmonkey.java.connection.messages.RequestIdMessage;
 
 public class RequestIdMessageProcessor extends BaseMessageProcessor {
 
@@ -11,11 +11,11 @@ public class RequestIdMessageProcessor extends BaseMessageProcessor {
 	
 	@Override
 	public Object process(Object object) {
-		System.out.println("Processing RequestIdMessage");
+
 		RequestIdMessage message = (RequestIdMessage) object;
-		
+
 		String uniqueId = getService().getNextId(message.getSenderId());
-		
+
 		return uniqueId;
 	}
 }

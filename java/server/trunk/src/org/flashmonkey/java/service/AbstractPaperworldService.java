@@ -1,4 +1,4 @@
-package org.paperworld.java.service;
+package org.flashmonkey.java.service;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -7,12 +7,12 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
-import org.paperworld.java.api.IAvatar;
-import org.paperworld.java.api.IPaperworldService;
-import org.paperworld.java.api.IPlayer;
-import org.paperworld.java.api.message.IMessage;
-import org.paperworld.java.multiplayer.messages.processors.BroadcastMessageProcessor;
-import org.paperworld.java.util.AbstractProcessor;
+import org.flashmonkey.java.api.IAvatar;
+import org.flashmonkey.java.api.IPaperworldService;
+import org.flashmonkey.java.api.IPlayer;
+import org.flashmonkey.java.api.message.IMessage;
+import org.flashmonkey.java.multiplayer.messages.processors.BroadcastMessageProcessor;
+import org.flashmonkey.java.util.AbstractProcessor;
 import org.red5.server.adapter.MultiThreadedApplicationAdapter;
 import org.red5.server.api.IClient;
 import org.red5.server.api.IConnection;

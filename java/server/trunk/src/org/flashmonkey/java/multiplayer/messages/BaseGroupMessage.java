@@ -1,6 +1,7 @@
-package org.paperworld.java.multiplayer.messages;
+package org.flashmonkey.java.multiplayer.messages;
 
-import org.paperworld.java.api.message.IGroupMessage;
+import org.flashmonkey.java.api.message.IGroupMessage;
+import org.flashmonkey.java.connection.messages.BaseMessage;
 
 public abstract class BaseGroupMessage extends BaseMessage implements
 		IGroupMessage {

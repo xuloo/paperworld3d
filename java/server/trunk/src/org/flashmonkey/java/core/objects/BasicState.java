@@ -1,4 +1,4 @@
-package org.paperworld.java.state;
+package org.flashmonkey.java.core.objects;
 
 import org.red5.io.amf3.IDataInput;
 import org.red5.io.amf3.IDataOutput;

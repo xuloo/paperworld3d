@@ -103,6 +103,7 @@ package org.flashmonkey.flash.multiplayer.sync
 		 */
 		protected function onIdRequestComplete(event:Event):void 
 		{
+			trace("request id complete");
 			// Get the message from the completed operation.
 			var operation:IOperation = IOperation(event.target);
 			var id:String = operation.result as String;

@@ -28,8 +28,4 @@
 		<file name="java/examples/trunk/HelloWorldMultiplayer"/>
     </filelist>
 	
-	<target name="replace">
-		<replace dir="." token="org.flashmonkey.flash" value="org.flashmonkey.flash"/>
-	</target>
-	
 </project>
