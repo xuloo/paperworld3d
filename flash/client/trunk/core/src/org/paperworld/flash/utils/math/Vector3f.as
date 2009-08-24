@@ -801,6 +801,8 @@ package org.paperworld.flash.utils.math
 	   	
 	   	public function writeExternal(output:IDataOutput):void
 		{
+			trace(x + " " + y + " " + z);
+			
 			output.writeFloat(x);
 			output.writeFloat(y);
 			output.writeFloat(z);

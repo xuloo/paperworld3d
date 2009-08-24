@@ -1,26 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <flexLibProperties version="1">
   <includeClasses>
-    <classEntry path="org.paperworld.flash.api.connection.IClient"/>
-    <classEntry path="org.paperworld.flash.api.connection.INetConnection"/>
-    <classEntry path="org.paperworld.flash.api.connection.ISharedObject"/>
-    <classEntry path="org.paperworld.flash.api.connection.messages.IGroupMessage"/>
-    <classEntry path="org.paperworld.flash.api.connection.messages.IMessage"/>
-    <classEntry path="org.paperworld.flash.api.connection.messages.IMessageProcessingService"/>
-    <classEntry path="org.paperworld.flash.api.connection.messages.IPlayerMessage"/>
-    <classEntry path="org.paperworld.flash.connection.NetObject"/>
-    <classEntry path="org.paperworld.flash.connection.Red5Connection"/>
     <classEntry path="org.paperworld.flash.connection.RemoteSharedObject"/>
-    <classEntry path="org.paperworld.flash.connection.client.BasicClient"/>
-    <classEntry path="org.paperworld.flash.connection.client.enum.ClientState"/>
-    <classEntry path="org.paperworld.flash.connection.events.Red5Event"/>
-    <classEntry path="org.paperworld.flash.connection.handshake.BasicHandshake"/>
+    <classEntry path="org.paperworld.flash.api.connection.messages.IMessageProcessingService"/>
+    <classEntry path="org.paperworld.flash.api.connection.INetConnection"/>
+    <classEntry path="org.paperworld.flash.api.connection.messages.IPlayerMessage"/>
     <classEntry path="org.paperworld.flash.connection.handshake.ConnectToServerOperation"/>
     <classEntry path="org.paperworld.flash.connection.handshake.EchoNetObjectOperation"/>
-    <classEntry path="org.paperworld.flash.connection.messages.BaseMessage"/>
+    <classEntry path="org.paperworld.flash.connection.events.Red5Event"/>
+    <classEntry path="org.paperworld.flash.api.connection.messages.IMessage"/>
+    <classEntry path="org.paperworld.flash.api.connection.ISharedObject"/>
+    <classEntry path="org.paperworld.flash.connection.client.BasicClient"/>
     <classEntry path="org.paperworld.flash.connection.messages.BasePlayerMessage"/>
-    <classEntry path="org.paperworld.flash.connection.messages.RequestIdMessage"/>
+    <classEntry path="org.paperworld.flash.api.connection.messages.IGroupMessage"/>
     <classEntry path="org.paperworld.flash.connection.messages.SendMessageOperation"/>
+    <classEntry path="org.paperworld.flash.connection.handshake.BasicHandshake"/>
+    <classEntry path="org.paperworld.flash.connection.client.enum.ClientState"/>
+    <classEntry path="org.paperworld.flash.connection.messages.BaseMessage"/>
+    <classEntry path="org.paperworld.flash.connection.messages.RequestIdMessage"/>
+    <classEntry path="org.paperworld.flash.connection.Red5Connection"/>
+    <classEntry path="org.paperworld.flash.api.connection.IClient"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

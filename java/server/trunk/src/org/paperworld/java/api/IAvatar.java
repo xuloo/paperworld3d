@@ -1,6 +1,6 @@
 package org.paperworld.java.api;
 
-import org.paperworld.java.state.BasicState;
+import org.paperworld.java.core.objects.BasicState;
 import org.red5.server.api.IConnection;
 
 public interface IAvatar {

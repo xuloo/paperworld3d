@@ -10,6 +10,7 @@
 	<import file="multiplayer/build-assets.xml"/-->
 	
 	<!-- Define library SWC files shared by the flash projects. -->	
+	<property name="jedai.jar" location="${paperworld-server.assets.dir}/lib/jedai.jar" />
 	<!--property name="paperworld.datastructures.swc" location="${paperworld.flash.assets.dir}/lib/datastructures.swc"/>
 	<property name="paperworld.spring-as.swc" location="${paperworld.flash.assets.dir}/lib/spring-actionscript.swc"/>
 	<property name="paperworld.spring-as-resources.swc" location="${paperworld.flash.assets.dir}/lib/springactionscript_resourceloading.swc"/>

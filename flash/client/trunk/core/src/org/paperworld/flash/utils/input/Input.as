@@ -256,7 +256,7 @@ package org.paperworld.flash.utils.input
 		
 		public function get aliasName():String 
 		{
-			return "com.paperworld.java.impl.BasicInput";
+			return "org.paperworld.java.input.BasicInput";
 		}
 
 		public function Input(moveForward : Boolean = false, moveBackward : Boolean = false, 

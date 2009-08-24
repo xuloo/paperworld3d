@@ -5,7 +5,7 @@ import org.paperworld.java.util.AbstractProcessor;
 
 public class BaseMessageProcessor extends AbstractProcessor {
 
-	private IPaperworldService service;
+	protected IPaperworldService service;
 	
 	public BaseMessageProcessor(IPaperworldService service, Class<?> type) {
 		this(service);

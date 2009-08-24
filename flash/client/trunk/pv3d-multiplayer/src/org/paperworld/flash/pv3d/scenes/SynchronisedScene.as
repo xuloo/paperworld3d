@@ -58,6 +58,8 @@ package org.paperworld.flash.pv3d.scenes
 
 		public function addAvatar(avatar:ISynchronisedAvatar) : ISynchronisedAvatar
 		{			
+			trace(avatar);
+			trace(avatar.object);
 			logger.info( "adding " + IPaperworldObject( avatar.object ).displayObject );
 			
 			var object:IPaperworldObject = IPaperworldObject( avatar.object );

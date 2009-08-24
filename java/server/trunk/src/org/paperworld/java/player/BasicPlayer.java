@@ -28,17 +28,9 @@ public class BasicPlayer implements IPlayer {
 	protected IPaperworldService service;
 	
 	public BasicPlayer(IPaperworldService service, String name, IConnection connection) {
-		this(name, connection);
 		this.service = service;
-	}
-	
-	public BasicPlayer(String name, IConnection connection) {
-		this(name);
-		setConnection(connection);
-	}
-	
-	public BasicPlayer(String name) {
 		setName(name);
+		setConnection(connection);
 		
 		input = new BasicInput();
 		

@@ -4,8 +4,8 @@ import org.paperworld.java.api.IAvatar;
 import org.paperworld.java.api.IBehaviour;
 import org.paperworld.java.api.IInput;
 import org.paperworld.java.api.IPlayer;
+import org.paperworld.java.core.objects.BasicState;
 import org.paperworld.java.input.BasicInput;
-import org.paperworld.java.state.BasicState;
 import org.red5.server.api.IConnection;
 
 public class BasicAvatar implements IAvatar {

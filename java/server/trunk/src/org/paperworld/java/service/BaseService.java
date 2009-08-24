@@ -18,10 +18,13 @@ public class BaseService implements IService {
 	@Override
 	public void setApplication(MultiThreadedApplicationAdapter application) {
 		this.application = application;
+		System.out.println("setting application " + application);
+		this.application.addListener(this);
 	}
 
 	@Override
 	public boolean appConnect(IConnection arg0, Object[] arg1) {
+		System.out.println("base appConnect");
 		return false;
 	}
 

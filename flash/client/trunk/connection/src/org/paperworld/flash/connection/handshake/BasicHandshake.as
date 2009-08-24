@@ -47,6 +47,7 @@ package org.paperworld.flash.connection.handshake
 		
 		public function setClientID(id:String):void 
 		{
+			trace("Setting client id: " + _client + " " + id);
 			_client.id = id;
 		}
 	}

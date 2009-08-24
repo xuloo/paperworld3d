@@ -19,28 +19,95 @@ package org.red5.core;
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA 
  */
 
-import org.red5.server.adapter.ApplicationAdapter;
+import org.red5.server.adapter.MultiThreadedApplicationAdapter;
 import org.red5.server.api.IConnection;
 import org.red5.server.api.IScope;
+import org.red5.server.api.Red5;
 import org.red5.server.api.service.ServiceUtils;
+import org.red5.server.api.stream.IBroadcastStream;
+import org.red5.server.framework.Client;
+import org.red5.server.framework.ClientManager;
+import org.red5.server.framework.LayoutManager;
+import org.red5.server.framework.StreamManager;
 
 /**
  * Sample application that uses the client manager.
  * 
  * @author The Red5 Project (red5@osflash.org)
  */
-public class Application extends ApplicationAdapter {
+public class Application extends MultiThreadedApplicationAdapter {
 
+	/** Manager for the clients. */
+	private ClientManager clientMgr = new ClientManager("clientlist", false);
+	private StreamManager streamMgr = new StreamManager("streamlist", false);
+	private LayoutManager layoutMgr = new LayoutManager("layoutlist", false);
+	
+	public Application() {
+		System.out.println("HelloWorldMultiplayer started");
+	}
+	
 	/** {@inheritDoc} */
     @Override
 	public boolean connect(IConnection conn, IScope scope, Object[] params) {
+    	System.out.println("client connecting " + params.length);
+    	// Check if the user passed valid parameters.
+		if (params == null || params.length == 0) {
+			// NOTE: "rejectClient" terminates the execution of the current method!
+			rejectClient("No username passed.");
+		}
+		System.out.println("here");
+		// Call original method of parent class.
+		if (!super.connect(conn, scope, params)) {
+			return false;
+		}
+		System.out.println("here");
+		String username = params[0].toString();
+		String uid = conn.getClient().getId();
+		System.out.println("here");
+		Client client = new Client();
+		client.setUsername(username);
+		client.setAge(100);
+		client.setUid(uid);
+		System.out.println("here");
+		// Register the user in the shared object.
+		clientMgr.addClient(scope, client);
+		System.out.println("here");
+		// Notify client about unique id.
+		ServiceUtils.invokeOnConnection(conn, "setClientID", new Object[] { uid });
+		System.out.println("here");
 		return true;
 	}
 
 	/** {@inheritDoc} */
     @Override
 	public void disconnect(IConnection conn, IScope scope) {
+    	// Get the previously stored username.
+		String uid = conn.getClient().getId();
+		// Unregister user.
+		String username = clientMgr.removeClient(scope, uid);
+		
+		// Call original method of parent class.
 		super.disconnect(conn, scope);
+	}
+    
+    @Override
+	public void streamBroadcastStart(IBroadcastStream stream) {
+		// TODO Auto-generated method stub
+		super.streamBroadcastStart(stream);
+		
+		// Get connection and Scope
+		IConnection conn = Red5.getConnectionLocal();
+	    IScope scope = conn.getScope();
+	    
+	    streamMgr.addStream(scope, stream.getPublishedName(), stream.getName());
+	    
+	}
+
+	@Override
+	public void streamPublishStart(IBroadcastStream stream) {
+		// TODO Auto-generated method stub
+		super.streamPublishStart(stream);
+		
 	}
 
 }

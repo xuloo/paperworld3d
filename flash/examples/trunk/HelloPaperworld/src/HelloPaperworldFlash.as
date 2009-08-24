@@ -1,21 +1,27 @@
 package {
 	import com.joeberkovitz.moccasin.service.IOperation;
 	
-	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.NetStatusEvent;
-	import flash.net.Responder;
 	
+	import org.papervision3d.objects.DisplayObject3D;
+	import org.papervision3d.objects.primitives.Sphere;
+	import org.paperworld.flash.api.IPaperworldObject;
 	import org.paperworld.flash.api.connection.IClient;
+	import org.paperworld.flash.api.multiplayer.ISynchronisedAvatar;
+	import org.paperworld.flash.api.multiplayer.ISynchronisedScene;
 	import org.paperworld.flash.connection.Red5Connection;
 	import org.paperworld.flash.connection.RemoteSharedObject;
 	import org.paperworld.flash.connection.client.BasicClient;
-	import org.paperworld.flash.core.objects.State;
+	import org.paperworld.flash.multiplayer.avatar.LocalAvatar;
 	import org.paperworld.flash.multiplayer.messages.ServerSyncMessage;
 	import org.paperworld.flash.multiplayer.sync.SynchronisationManager;
+	import org.paperworld.flash.pv3d.objects.PaperworldObject;
+	import org.paperworld.flash.pv3d.scenes.SynchronisedScene;
+	import org.paperworld.flash.pv3d.views.ChequerBoardView;
 	import org.paperworld.flash.utils.input.Input;
 
-	public class HelloPaperworldFlash extends Sprite
+	public class HelloPaperworldFlash extends ChequerBoardView
 	{
 		private var client:IClient;
 		
@@ -35,6 +41,9 @@ package {
 			syncManager = new SynchronisationManager();
 			syncManager.client = client;
 			
+			var syncScene:ISynchronisedScene = new SynchronisedScene(scene);
+			syncManager.scene = syncScene;
+			
 			client.addMessageProcessor(syncManager);
 						
 			var connect:IOperation = client.connect();
@@ -52,15 +61,20 @@ package {
 			trace("connection established");
 			
 			var message:ServerSyncMessage = new ServerSyncMessage();
-			message.senderId = "ME!";
+			message.senderId = "ME!"
 			//var op:IOperation = client.sendToServer(message);
 			//op.execute();
+			trace(new Input().aliasName);
+			//client.connection.call("multiplayer.receiveMessage", new Responder(onResponse, onFault), new Input());
+			//client.connection.call("multiplayer.receiveMessage", new Responder(onResponse, onFault), new State());
+			//client.connection.call("multiplayer.receiveMessage", new Responder(onResponse, onFault), message);
+			var localAvatar:ISynchronisedAvatar = new LocalAvatar();
+			var syncObject:IPaperworldObject = new PaperworldObject();
+			syncObject.displayObject = new Sphere();
 			
-			client.connection.call("multiplayer.receiveMessage", new Responder(onResponse, onFault), new Input());
-			client.connection.call("multiplayer.receiveMessage", new Responder(onResponse, onFault), new State());
-			client.connection.call("multiplayer.receiveMessage", new Responder(onResponse, onFault), message);
-			//var localAvatar:ISynchronisedAvatar = new LocalAvatar();
-			//syncManager.register(localAvatar);
+			localAvatar.object = syncObject;
+			
+			syncManager.register(localAvatar);
 		}
 		
 		private function onResponse(response:Object):void 

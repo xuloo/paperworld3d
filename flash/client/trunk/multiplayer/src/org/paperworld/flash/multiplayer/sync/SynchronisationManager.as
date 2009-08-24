@@ -110,14 +110,14 @@ package org.paperworld.flash.multiplayer.sync
 			// Set the id on the avatar that it was requested for.
 			var avatar:ISynchronisedAvatar = ISynchronisedAvatar(_waitingForId[operation]);
 			avatar.id = id;
-			
+
 			// Remove the avatar from the waiting list now that it has a unique id.
 			delete _waitingForId[operation];
-			
+
 			_avatars[avatar.id] = avatar;
 			avatar.syncManager = this;
 			_scene.addAvatar(avatar);
-				
+
 			// Now that we have a custom id for this avatar we 
 			// need to inform all the other clients connected to the 
 			// same scene that this avatar has joined. This is done

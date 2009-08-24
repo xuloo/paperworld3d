@@ -1,9 +1,11 @@
 package org.paperworld.flash.api
 {
+	import flash.utils.IExternalizable;
+	
 	import org.paperworld.flash.utils.math.Quaternion;
 	import org.paperworld.flash.utils.math.Vector3f;
 	
-	public interface IState
+	public interface IState extends IExternalizable
 	{
 		function get position():Vector3f;		
 		function set position(value:Vector3f):void;

@@ -34,5 +34,14 @@
 	<bean id="web.handler" 
 	    class="org.red5.core.Application" 
 		singleton="true" />
+		
+	<!-- 
+	The multiplayer service.
+	 -->
+	<bean id="multiplayer.service"
+		class="org.paperworld.java.service.SimpleService"
+		init-method="init">
+		<property name="application" ref="web.handler"/>
+	</bean>
  
 </beans>

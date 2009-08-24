@@ -2,7 +2,7 @@ package org.paperworld.flash.connection.messages
 {
 	import org.paperworld.flash.api.connection.INetConnection;
 	import org.paperworld.flash.api.connection.messages.IMessage;
-	import org.paperworld.flash.connection.NetObject;
+	import org.paperworld.flash.utils.NetObject;
 	
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
@@ -34,7 +34,7 @@ package org.paperworld.flash.connection.messages
 		/**
 		 * @private
 		 */
-		private var _senderId:String = "";
+		private var _senderId:String = "*";
 		
 		/**
 		 * The String id value of the client that originated this message.
@@ -150,6 +150,7 @@ package org.paperworld.flash.connection.messages
 		 */
 		override public function writeExternal(output:IDataOutput):void 
 		{
+			trace(senderId);
 			output.writeUTF(senderId);
 		}
 		

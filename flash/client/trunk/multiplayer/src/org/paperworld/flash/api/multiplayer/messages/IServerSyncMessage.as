@@ -1,10 +1,10 @@
 package org.paperworld.flash.api.multiplayer.messages
 {
-	import org.paperworld.flash.core.objects.State;
+	import org.paperworld.flash.api.IState;
 		
 	public interface IServerSyncMessage extends IPlayerSyncMessage
 	{
-		function get state():State;	
-		function set state(state:State):void;
+		function get state():IState;	
+		function set state(state:IState):void;
 	}
 }

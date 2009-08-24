@@ -20,7 +20,7 @@ package org.paperworld.flash.pv3d.objects
 
 		public function set displayObject(value : *) : void
 		{
-			_displayObject = value;
+			_displayObject = value
 		}
 
 		public function SynchronisablePhysicsObject(displayObject : DisplayObject3D = null, physicsObject : * = null) 

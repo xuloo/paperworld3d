@@ -1,7 +1,7 @@
 package org.paperworld.java.adaptor.jmonkey.behaviour;
 
 import org.paperworld.java.api.IInput;
-import org.paperworld.java.state.BasicState;
+import org.paperworld.java.core.objects.BasicState;
 
 import com.jme.math.Quaternion;
 import com.jme.math.Vector3f;

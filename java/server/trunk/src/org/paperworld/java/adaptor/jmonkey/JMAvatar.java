@@ -4,7 +4,7 @@ import org.paperworld.java.adaptor.jmonkey.behaviour.AvatarForwardBehaviour;
 import org.paperworld.java.api.IInput;
 import org.paperworld.java.avatar.BasicAvatar;
 import org.paperworld.java.behaviour.CompositeBehaviour;
-import org.paperworld.java.state.BasicState;
+import org.paperworld.java.core.objects.BasicState;
 
 import com.jme.bounding.BoundingBox;
 import com.jme.math.Quaternion;

@@ -1,6 +1,6 @@
 package org.paperworld.java.api.message;
 
-import org.paperworld.java.state.BasicState;
+import org.paperworld.java.core.objects.BasicState;
 
 /**
  * This is a synchronisation message sent FROM the server TO the player.

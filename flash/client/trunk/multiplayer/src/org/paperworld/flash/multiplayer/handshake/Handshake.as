@@ -6,7 +6,7 @@ package org.paperworld.flash.multiplayer.handshake
 	import org.paperworld.flash.connection.handshake.ConnectToServerOperation;
 	import org.paperworld.flash.connection.handshake.EchoNetObjectOperation;
 	import org.paperworld.flash.connection.messages.BaseMessage;
-	import org.paperworld.flash.core.objects.State;
+	import org.paperworld.flash.core.objects.BasicState;
 	import org.paperworld.flash.multiplayer.messages.PlayerSyncMessage;
 	import org.paperworld.flash.multiplayer.messages.ServerSyncMessage;
 	import org.paperworld.flash.utils.input.Input;
@@ -27,7 +27,7 @@ package org.paperworld.flash.multiplayer.handshake
 	 */
 	public class Handshake extends AbstractOperation
 	{
-		private var classesToRegister:Array = [Input, State, BaseMessage, PlayerSyncMessage, ServerSyncMessage];
+		private var classesToRegister:Array = [Input, BasicState, BaseMessage, PlayerSyncMessage, ServerSyncMessage];
 		
 		private var _client:IClient;
 		

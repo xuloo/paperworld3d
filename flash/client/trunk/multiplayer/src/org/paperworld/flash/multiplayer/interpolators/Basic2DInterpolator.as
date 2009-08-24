@@ -1,6 +1,6 @@
 package org.paperworld.flash.multiplayer.interpolators
 {
-	import org.paperworld.flash.core.objects.State;
+	import org.paperworld.flash.api.IState;
 	import org.paperworld.flash.multiplayer.api.IInterpolator;
 
 	/**
@@ -8,7 +8,7 @@ package org.paperworld.flash.multiplayer.interpolators
 	 */
 	public class Basic2DInterpolator implements IInterpolator 
 	{
-		public function interpolate(from : State, to : State, tightness : Number) : void
+		public function interpolate(from : IState, to : IState, tightness : Number) : void
 		{
 		}
 	}

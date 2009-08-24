@@ -1,7 +1,7 @@
 package org.paperworld.java.multiplayer.messages.processors;
 
 import org.paperworld.java.api.IPaperworldService;
-import org.paperworld.java.multiplayer.messages.RequestIdMessage;
+import org.paperworld.java.connection.messages.RequestIdMessage;
 
 public class RequestIdMessageProcessor extends BaseMessageProcessor {
 
@@ -14,7 +14,7 @@ public class RequestIdMessageProcessor extends BaseMessageProcessor {
 		System.out.println("Processing RequestIdMessage");
 		RequestIdMessage message = (RequestIdMessage) object;
 		
-		String uniqueId = getService().getNextId(message.getSenderId());
+		String uniqueId = service.getNextId(message.getSenderId());
 		
 		return uniqueId;
 	}

@@ -4,7 +4,7 @@ package org.paperworld.flash.multiplayer.messages
 	import org.paperworld.flash.api.IState;
 	import org.paperworld.flash.api.multiplayer.messages.ISynchroniseCreateMessage;
 	import org.paperworld.flash.connection.messages.BaseMessage;
-	import org.paperworld.flash.core.objects.State;
+	import org.paperworld.flash.core.objects.BasicState;
 	import org.paperworld.flash.utils.input.Input;
 	
 	import flash.utils.IDataInput;
@@ -82,7 +82,7 @@ package org.paperworld.flash.multiplayer.messages
 		/**
 		 * @private
 		 */
-		private var _state:IState = new State();
+		private var _state:IState = new BasicState();
 		
 		/**
 		 * The initial state for this object.

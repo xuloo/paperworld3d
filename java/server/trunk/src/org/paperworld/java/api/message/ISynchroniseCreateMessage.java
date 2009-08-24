@@ -1,7 +1,7 @@
 package org.paperworld.java.api.message;
 
 import org.paperworld.java.api.IInput;
-import org.paperworld.java.state.BasicState;
+import org.paperworld.java.core.objects.BasicState;
 
 public interface ISynchroniseCreateMessage {
 

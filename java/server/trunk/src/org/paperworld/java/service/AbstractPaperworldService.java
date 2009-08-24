@@ -53,6 +53,7 @@ public abstract class AbstractPaperworldService extends BaseService implements I
 	@Override
 	public void setApplication(MultiThreadedApplicationAdapter application) {
 		this.application = application;
+		System.out.println("setting application " + application);
 		this.application.addListener(this);
 	}
 
@@ -124,8 +125,9 @@ public abstract class AbstractPaperworldService extends BaseService implements I
 
 	@Override
 	public Object receiveMessage(IMessage message) {
-		System.out.println("receiving message: " + message);
+		System.out.println("receiving message: " + message + " " + messageProcessors.size());
 		for (AbstractProcessor processor : messageProcessors) {
+			System.out.println("PROC: " + processor);
 			if (processor.canProcess(message.getClass())) {
 				return processor.process(message);
 			}
@@ -148,7 +150,9 @@ public abstract class AbstractPaperworldService extends BaseService implements I
     }
 	
 	public String getNextId(String id) {
+		System.out.print("Next id for id: " + id.length() + " " + idMap.size()); 
 		int currentId = idMap.get(id);
+		System.out.println("current id: " + currentId);
 		idMap.put(id, currentId + 1);
 		
 		return id + "_" + currentId;

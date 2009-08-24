@@ -21,8 +21,8 @@
  * -------------------------------------------------------------------------------------- */
 package org.paperworld.flash.multiplayer.data 
 {
+	import org.paperworld.flash.api.IState;
 	import org.paperworld.flash.api.multiplayer.ISynchronisedAvatar;
-	import org.paperworld.flash.core.objects.State;
 	import org.paperworld.flash.utils.input.Input;	
 
 	/**
@@ -38,7 +38,7 @@ package org.paperworld.flash.multiplayer.data
 
 		public var input : Input;
 
-		public var state : State;
+		public var state : IState;
 		
 		public function AvatarData(avatar : ISynchronisedAvatar = null)
 		{
@@ -85,12 +85,12 @@ package org.paperworld.flash.multiplayer.data
 			this.input = input;
 		}
 
-		public function getState() : State 
+		public function getState() : IState 
 		{
 			return state;
 		}
 
-		public function setState(state : State) : void 
+		public function setState(state : IState) : void 
 		{
 			this.state = state;
 		}

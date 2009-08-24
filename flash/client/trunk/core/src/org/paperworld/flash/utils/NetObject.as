@@ -1,22 +1,18 @@
-package org.paperworld.flash.connection
+package org.paperworld.flash.utils
 {
-	import org.paperworld.flash.utils.Constants;
-	import org.paperworld.flash.utils.IRegisteredClass;
-	import org.paperworld.flash.utils.Registration;
-	
 	import flash.utils.IDataInput;
 	import flash.utils.IDataOutput;
 	import flash.utils.IExternalizable;
 	
 	import org.as3commons.reflect.ClassUtils;
+	import org.paperworld.flash.utils.Constants;
+	import org.paperworld.flash.utils.IRegisteredClass;
+	import org.paperworld.flash.utils.Registration;
 	import org.springextensions.actionscript.utils.StringUtils;
 
 	public class NetObject implements IExternalizable, IRegisteredClass
 	{
-		/**
-		 * @private
-		 */
-		private var _aliasName:String;
+		private var _aliasName:String = "";
 		
 		/**
 		 * Default behaviour for returning the remote alias for this class.
@@ -29,28 +25,26 @@ package org.paperworld.flash.connection
 		public function get aliasName():String
 		{
 			// If we don't already have the alias name cached.
-			if (!aliasName)
+			if (!_aliasName)
 			{
 				// Create and cache it.
 				_aliasName = createAliasName();
 			}
-			
+
 			return _aliasName;
 		}
 		
 		protected function createAliasName():String
 		{
 			var className:String = ClassUtils.getFullyQualifiedName(ClassUtils.forInstance(this), true);
-			var java:String = Constants.JAVA_STRING;
-			var beginIndex:int = _aliasName.indexOf(java);
-			var endIndex:int = beginIndex + java.length;
-			
-			return StringUtils.replaceAt(_aliasName, Constants.FLASH_STRING, beginIndex, endIndex);
+			var beginIndex:int = className.indexOf(Constants.FLASH_STRING);
+
+			return StringUtils.replaceAt(className, Constants.JAVA_STRING, beginIndex, beginIndex + Constants.FLASH_STRING.length);
 		}
 		
 		public function NetObject()
 		{
-			Registration.registerClass(this);
+			Registration.registerClass(this)
 		}
 
 		public function writeExternal(output:IDataOutput):void

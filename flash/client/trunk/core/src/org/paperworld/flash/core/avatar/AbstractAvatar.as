@@ -6,7 +6,7 @@ package org.paperworld.flash.core.avatar
 	import org.paperworld.flash.api.IPaperworldObject;
 	import org.paperworld.flash.api.IState;
 	import org.paperworld.flash.api.IUpdatable;
-	import org.paperworld.flash.core.objects.State;
+	import org.paperworld.flash.core.objects.BasicState;
 	import org.paperworld.flash.utils.input.Input;
 	
 	import flash.events.Event;
@@ -61,7 +61,7 @@ package org.paperworld.flash.core.avatar
 			_input = value;
 		}
 		
-		private var _state:IState = new State();
+		private var _state:IState = new BasicState();
 		
 		public function get state():IState
 		{

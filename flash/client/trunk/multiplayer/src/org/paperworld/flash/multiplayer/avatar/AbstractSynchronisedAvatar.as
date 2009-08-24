@@ -32,7 +32,7 @@ package org.paperworld.flash.multiplayer.avatar
 	import org.paperworld.flash.api.IState;
 	import org.paperworld.flash.api.multiplayer.ISyncManager;
 	import org.paperworld.flash.api.multiplayer.ISynchronisedAvatar;
-	import org.paperworld.flash.core.objects.State;
+	import org.paperworld.flash.core.objects.BasicState;
 	import org.paperworld.flash.multiplayer.inputhandlers.SimpleAvatarInputHandler25D;
 	import org.paperworld.flash.utils.input.IUserInput;
 	import org.paperworld.flash.utils.input.Input;
@@ -146,12 +146,12 @@ package org.paperworld.flash.multiplayer.avatar
 		/**
 		 * The State of this object in the previous frame.
 		 */
-		protected var _previous : IState = new State();
+		protected var _previous : IState = new BasicState();
 
 		/**
 		 * The State of this object in the current frame.
 		 */
-		protected var _current : IState = new State();
+		protected var _current : IState = new BasicState();
 
 		/**
 		 * Returns the current State of this object.
@@ -254,6 +254,11 @@ package org.paperworld.flash.multiplayer.avatar
 			
 			trace("TimerManager registering update");
 			var timer:ITimer = TimerManager.instance.getTimerByName(AVATAR_UPDATE_TIMER);
+			
+			if (!timer)
+			{
+				timer = TimerManager.instance.startSimpleIntervalTimer(100, 10000, AVATAR_UPDATE_TIMER);
+			}
 			trace("TIMER: " + timer);
 			timer.addEventListener(ITimerEvent.TICK, update);
 		}

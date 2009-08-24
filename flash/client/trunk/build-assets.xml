@@ -8,6 +8,8 @@
     <import file="connection/build-assets.xml"/>
 	<import file="ai/build-assets.xml"/>
 	<import file="multiplayer/build-assets.xml"/>
+	<import file="pv3d-core/build-assets.xml"/>
+	<import file="pv3d-multiplayer/build-assets.xml"/>
 	
 	<!-- Define library SWC files shared by the flash projects. -->		
 	<property name="paperworld.datastructures.swc" location="${paperworld.flash.assets.dir}/lib/datastructures.swc"/>

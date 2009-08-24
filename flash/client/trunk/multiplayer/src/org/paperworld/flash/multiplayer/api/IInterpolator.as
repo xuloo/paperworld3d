@@ -1,12 +1,12 @@
 package org.paperworld.flash.multiplayer.api
 {
-	import org.paperworld.flash.core.objects.State;					
+	import org.paperworld.flash.api.IState;					
 	
 	/**
 	 * @author Trevor
 	 */
 	public interface IInterpolator 
 	{
-		function interpolate(from : State, to : State, tightness : Number) : void
+		function interpolate(from : IState, to : IState, tightness : Number) : void
 	}
 }

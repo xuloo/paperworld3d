@@ -144,7 +144,7 @@ package org.paperworld.flash.connection.client
 		
 		private function _sendMessage(message:IMessage):IOperation 
 		{
-			message.senderId = _id;
+			message.senderId = _id || "*";
 
 			return new SendMessageOperation(message, connection);
 		}
@@ -183,7 +183,7 @@ package org.paperworld.flash.connection.client
 			for (var i:int; i < changeList.length; i++)
 			{
 				var id:String = changeList[i].name;
-				
+
 				// Grab the object related to the client.
 				var object:Object = so.data[id];
 				var message:IMessage = IMessage(so.data[id]);

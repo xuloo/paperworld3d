@@ -1,21 +1,21 @@
 package org.paperworld.flash.multiplayer.messages
 {
 	import org.paperworld.flash.api.multiplayer.messages.IServerSyncMessage;
-	import org.paperworld.flash.core.objects.State;
-	
+	import org.paperworld.flash.api.IState;
+	import org.paperworld.flash.core.objects.BasicState;
 	import flash.utils.IDataInput;
 	import flash.utils.IDataOutput;
 	
 	public class ServerSyncMessage extends PlayerSyncMessage implements IServerSyncMessage
 	{
-		private var _state:State = new State();
+		private var _state:IState = new BasicState();
 		
-		public function get state():State
+		public function get state():IState
 		{
 			return _state;
 		}
 		
-		public function set state(value:State):void
+		public function set state(value:IState):void
 		{
 			_state = value;
 		}
@@ -40,6 +40,7 @@ package org.paperworld.flash.multiplayer.messages
 		 */
 		override public function readExternal(input:IDataInput):void 
 		{
+			trace("REading external");
 			super.readExternal(input);
 			
 			state = input.readObject();

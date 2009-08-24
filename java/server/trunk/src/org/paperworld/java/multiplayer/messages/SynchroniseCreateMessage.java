@@ -2,7 +2,7 @@ package org.paperworld.java.multiplayer.messages;
 
 import org.paperworld.java.api.IInput;
 import org.paperworld.java.api.message.ISynchroniseCreateMessage;
-import org.paperworld.java.state.BasicState;
+import org.paperworld.java.core.objects.BasicState;
 import org.red5.io.amf3.IDataInput;
 import org.red5.io.amf3.IDataOutput;
 
