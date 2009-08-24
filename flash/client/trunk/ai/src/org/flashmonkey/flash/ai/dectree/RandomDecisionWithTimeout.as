@@ -9,9 +9,9 @@
  * 
  * Actionscript port - Trevor Burton [worldofpaper@googlemail.com]
  */
-package org.paperworld.flash.ai.dectree 
+package org.flashmonkey.flash.ai.dectree 
 {
-	import org.paperworld.flash.utils.number.RandomUtils;
+	import org.flashmonkey.flash.utils.number.RandomUtils;
 	
 	
 	/**

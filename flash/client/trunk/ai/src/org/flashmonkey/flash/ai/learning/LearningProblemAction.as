@@ -9,9 +9,9 @@
  * 
  * Actionscript port - Trevor Burton [worldofpaper@googlemail.com]
  */
-package org.paperworld.flash.ai.learning 
+package org.flashmonkey.flash.ai.learning 
 {
-	import org.paperworld.flash.core.action.Action;	
+	import org.flashmonkey.flash.core.action.Action;	
 	
 	/**
 	 * An action moves between states of the problem. In our case we

@@ -19,26 +19,26 @@
  * Suite 330, Boston, MA 02111-1307 USA 
  * 
  * -------------------------------------------------------------------------------------- */
-package org.paperworld.flash.multiplayer.avatar
+package org.flashmonkey.flash.multiplayer.avatar
 {
 	import flash.events.Event;
 	
 	import org.as3commons.logging.ILogger;
 	import org.as3commons.logging.LoggerFactory;
-	import org.paperworld.flash.ai.steering.SteeringOutput;
-	import org.paperworld.flash.api.IBehaviour;
-	import org.paperworld.flash.api.IInput;
-	import org.paperworld.flash.api.IPaperworldObject;
-	import org.paperworld.flash.api.IState;
-	import org.paperworld.flash.api.multiplayer.ISyncManager;
-	import org.paperworld.flash.api.multiplayer.ISynchronisedAvatar;
-	import org.paperworld.flash.core.objects.BasicState;
-	import org.paperworld.flash.multiplayer.inputhandlers.SimpleAvatarInputHandler25D;
-	import org.paperworld.flash.utils.input.IUserInput;
-	import org.paperworld.flash.utils.input.Input;
-	import org.paperworld.flash.utils.timer.ITimer;
-	import org.paperworld.flash.utils.timer.TimerManager;
-	import org.paperworld.flash.utils.timer.events.ITimerEvent;	
+	import org.flashmonkey.flash.ai.steering.SteeringOutput;
+	import org.flashmonkey.flash.api.IBehaviour;
+	import org.flashmonkey.flash.api.IInput;
+	import org.flashmonkey.flash.api.IPaperworldObject;
+	import org.flashmonkey.flash.api.IState;
+	import org.flashmonkey.flash.api.multiplayer.ISyncManager;
+	import org.flashmonkey.flash.api.multiplayer.ISynchronisedAvatar;
+	import org.flashmonkey.flash.core.objects.BasicState;
+	import org.flashmonkey.flash.multiplayer.inputhandlers.SimpleAvatarInputHandler25D;
+	import org.flashmonkey.flash.utils.input.IUserInput;
+	import org.flashmonkey.flash.utils.input.Input;
+	import org.flashmonkey.flash.utils.timer.ITimer;
+	import org.flashmonkey.flash.utils.timer.TimerManager;
+	import org.flashmonkey.flash.utils.timer.events.ITimerEvent;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]

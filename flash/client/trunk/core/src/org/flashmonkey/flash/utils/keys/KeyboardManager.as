@@ -19,9 +19,9 @@
  * Suite 330, Boston, MA 02111-1307 USA 
  * 
  * -------------------------------------------------------------------------------------- */
-package org.paperworld.flash.utils.keys 
+package org.flashmonkey.flash.utils.keys 
 {
-	import org.paperworld.flash.utils.patterns.command.ICommand;
+	import org.flashmonkey.flash.utils.patterns.command.ICommand;
 	
 	import flash.display.InteractiveObject;
 	import flash.events.KeyboardEvent;

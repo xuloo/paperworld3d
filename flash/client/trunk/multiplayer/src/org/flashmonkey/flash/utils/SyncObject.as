@@ -1,6 +1,6 @@
-package org.paperworld.flash.utils
+package org.flashmonkey.flash.utils
 {
-	import org.paperworld.flash.api.IInput;
+	import org.flashmonkey.flash.api.IInput;
 	
 	public class SyncObject
 	{

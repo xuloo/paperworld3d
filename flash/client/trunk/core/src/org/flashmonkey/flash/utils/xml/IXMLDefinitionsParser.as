@@ -1,4 +1,4 @@
-package org.paperworld.flash.utils.xml
+package org.flashmonkey.flash.utils.xml
 {
 	public interface IXMLDefinitionsParser
 	{

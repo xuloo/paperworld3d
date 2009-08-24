@@ -1,4 +1,4 @@
-package org.paperworld.flash.api.ai.sm
+package org.flashmonkey.flash.api.ai.sm
 {
 	public interface ICondition
 	{

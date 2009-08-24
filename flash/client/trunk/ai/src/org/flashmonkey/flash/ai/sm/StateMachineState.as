@@ -9,10 +9,10 @@
  * 
  * Actionscript port - Trevor Burton [worldofpaper@googlemail.com]
  */
-package org.paperworld.flash.ai.sm 
+package org.flashmonkey.flash.ai.sm 
 {
-	import org.paperworld.flash.api.ai.sm.IStateMachineState;
-	import org.paperworld.flash.api.ai.sm.ITransition;
+	import org.flashmonkey.flash.api.ai.sm.IStateMachineState;
+	import org.flashmonkey.flash.api.ai.sm.ITransition;
 	
 	import flash.utils.Dictionary;
 	

@@ -19,9 +19,9 @@
  * Suite 330, Boston, MA 02111-1307 USA 
  * 
  * -------------------------------------------------------------------------------------- */
-package org.paperworld.flash.utils.input 
+package org.flashmonkey.flash.utils.input 
 {
-	import org.paperworld.flash.api.IInput;
+	import org.flashmonkey.flash.api.IInput;
 	
 	import flash.display.Stage;
 	import flash.events.IEventDispatcher;	

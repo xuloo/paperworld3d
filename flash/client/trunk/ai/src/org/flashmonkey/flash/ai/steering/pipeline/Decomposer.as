@@ -9,7 +9,7 @@
  * 
  * Actionscript port - Trevor Burton [worldofpaper@googlemail.com]
  */
-package org.paperworld.flash.ai.steering.pipeline 
+package org.flashmonkey.flash.ai.steering.pipeline 
 {			
 
 	/**

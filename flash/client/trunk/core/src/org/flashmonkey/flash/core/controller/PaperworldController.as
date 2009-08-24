@@ -1,4 +1,4 @@
-package org.paperworld.flash.core.controller
+package org.flashmonkey.flash.core.controller
 {
 	public class PaperworldController implements IPaperworldController
 	{

@@ -1,4 +1,4 @@
-package org.paperworld.flash.pv3d.views
+package org.flashmonkey.flash.pv3d.views
 {	
 	import flash.display.Sprite;
 	import flash.utils.Dictionary;

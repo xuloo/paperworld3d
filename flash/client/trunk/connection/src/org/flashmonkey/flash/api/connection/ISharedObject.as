@@ -1,4 +1,4 @@
-package org.paperworld.flash.api.connection
+package org.flashmonkey.flash.api.connection
 {	
 	import flash.events.IEventDispatcher;
 	import flash.net.SharedObject;

@@ -1,6 +1,6 @@
-package org.paperworld.flash.utils.timer
+package org.flashmonkey.flash.utils.timer
 {
-	import org.paperworld.flash.utils.timer.events.ITimerEvent;
+	import org.flashmonkey.flash.utils.timer.events.ITimerEvent;
 	
 	import flash.events.TimerEvent;
 	import flash.utils.getTimer;		

@@ -1,4 +1,4 @@
-package org.paperworld.flash.utils.library
+package org.flashmonkey.flash.utils.library
 {
 	import flash.display.Sprite;
 	

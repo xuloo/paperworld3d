@@ -1,4 +1,4 @@
-package org.paperworld.flash.utils.timer 
+package org.flashmonkey.flash.utils.timer 
 {
     public class TimedEvent extends AccurateIntervalTimer
     {

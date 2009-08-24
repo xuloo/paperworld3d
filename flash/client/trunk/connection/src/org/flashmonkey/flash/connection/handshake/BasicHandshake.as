@@ -1,8 +1,8 @@
-package org.paperworld.flash.connection.handshake
+package org.flashmonkey.flash.connection.handshake
 {
 	import com.joeberkovitz.moccasin.service.AbstractOperation;
-	import org.paperworld.flash.api.connection.IClient;
-	import org.paperworld.flash.api.connection.INetConnection;
+	import org.flashmonkey.flash.api.connection.IClient;
+	import org.flashmonkey.flash.api.connection.INetConnection;
 	
 	import org.springextensions.actionscript.mvcs.service.operation.IOperation;
 	

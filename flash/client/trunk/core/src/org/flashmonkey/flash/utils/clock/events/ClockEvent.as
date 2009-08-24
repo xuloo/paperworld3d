@@ -19,7 +19,7 @@
  * Suite 330, Boston, MA 02111-1307 USA 
  * 
  * -------------------------------------------------------------------------------------- */
-package org.paperworld.flash.utils.clock.events 
+package org.flashmonkey.flash.utils.clock.events 
 {
 	import flash.events.Event;	
 

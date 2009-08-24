@@ -1,4 +1,4 @@
-package org.paperworld.flash.pv3d.views 
+package org.flashmonkey.flash.pv3d.views 
 {
 	import flash.display.Bitmap;
 	import flash.events.Event;
@@ -11,8 +11,8 @@ package org.paperworld.flash.pv3d.views
 	import org.papervision3d.scenes.Scene3D;
 	import org.papervision3d.view.BasicView;
 	import org.papervision3d.view.Viewport3D;
-	import org.paperworld.flash.api.multiplayer.ISynchronisedScene;
-	import org.paperworld.flash.pv3d.scenes.SynchronisedScene;		
+	import org.flashmonkey.flash.api.multiplayer.ISynchronisedScene;
+	import org.flashmonkey.flash.pv3d.scenes.SynchronisedScene;		
 
 	/**
 	 * @author Trevor

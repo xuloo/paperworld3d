@@ -19,19 +19,19 @@
  * Suite 330, Boston, MA 02111-1307 USA 
  * 
  * -------------------------------------------------------------------------------------- */
-package org.paperworld.flash.multiplayer.avatar 
+package org.flashmonkey.flash.multiplayer.avatar 
 {
 	import flash.events.Event;
 	
 	import org.as3commons.logging.ILogger;
 	import org.as3commons.logging.LoggerFactory;
-	import org.paperworld.flash.api.IInput;
-	import org.paperworld.flash.api.IState;
-	import org.paperworld.flash.utils.History;
-	import org.paperworld.flash.utils.Move;
-	import org.paperworld.flash.utils.input.IUserInput;
-	import org.paperworld.flash.utils.input.IUserInputListener;
-	import org.paperworld.flash.utils.input.events.UserInputEvent;	
+	import org.flashmonkey.flash.api.IInput;
+	import org.flashmonkey.flash.api.IState;
+	import org.flashmonkey.flash.utils.History;
+	import org.flashmonkey.flash.utils.Move;
+	import org.flashmonkey.flash.utils.input.IUserInput;
+	import org.flashmonkey.flash.utils.input.IUserInputListener;
+	import org.flashmonkey.flash.utils.input.events.UserInputEvent;	
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]

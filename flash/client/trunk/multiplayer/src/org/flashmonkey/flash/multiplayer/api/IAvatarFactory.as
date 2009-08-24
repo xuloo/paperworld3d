@@ -1,6 +1,6 @@
-package org.paperworld.flash.multiplayer.api 
+package org.flashmonkey.flash.multiplayer.api 
 {
-	import org.paperworld.flash.api.multiplayer.ISynchronisedAvatar;
+	import org.flashmonkey.flash.api.multiplayer.ISynchronisedAvatar;
 	
 
 	/**

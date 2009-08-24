@@ -1,4 +1,4 @@
-package org.paperworld.flash.utils.math
+package org.flashmonkey.flash.utils.math
 {
 	import org.as3commons.logging.ILogger;
 	import org.as3commons.logging.LoggerFactory;

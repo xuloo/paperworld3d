@@ -1,6 +1,6 @@
-package org.paperworld.flash.multiplayer.inputhandlers 
+package org.flashmonkey.flash.multiplayer.inputhandlers 
 {
-	import org.paperworld.flash.ai.steering.SteeringBehaviour;
+	import org.flashmonkey.flash.ai.steering.SteeringBehaviour;
 	
 	
 	/**

@@ -1,4 +1,4 @@
-package org.paperworld.flash.utils
+package org.flashmonkey.flash.utils
 {
 	import flash.events.IEventDispatcher;
 	import org.springextensions.actionscript.mvcs.service.operation.AbstractOperation;

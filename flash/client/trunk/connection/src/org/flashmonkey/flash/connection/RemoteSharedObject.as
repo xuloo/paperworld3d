@@ -1,8 +1,8 @@
-package org.paperworld.flash.connection
+package org.flashmonkey.flash.connection
 {
-	import org.paperworld.flash.api.connection.INetConnection;
-	import org.paperworld.flash.api.connection.ISharedObject;
-	import org.paperworld.flash.connection.events.Red5Event;
+	import org.flashmonkey.flash.api.connection.INetConnection;
+	import org.flashmonkey.flash.api.connection.ISharedObject;
+	import org.flashmonkey.flash.connection.events.Red5Event;
 	
 	import flash.events.AsyncErrorEvent;
 	import flash.events.EventDispatcher;

@@ -1,13 +1,13 @@
-package org.paperworld.flash.core.avatar
+package org.flashmonkey.flash.core.avatar
 {
-	import org.paperworld.flash.api.IAvatar;
-	import org.paperworld.flash.api.IBehaviour;
-	import org.paperworld.flash.api.IInput;
-	import org.paperworld.flash.api.IPaperworldObject;
-	import org.paperworld.flash.api.IState;
-	import org.paperworld.flash.api.IUpdatable;
-	import org.paperworld.flash.core.objects.BasicState;
-	import org.paperworld.flash.utils.input.Input;
+	import org.flashmonkey.flash.api.IAvatar;
+	import org.flashmonkey.flash.api.IBehaviour;
+	import org.flashmonkey.flash.api.IInput;
+	import org.flashmonkey.flash.api.IPaperworldObject;
+	import org.flashmonkey.flash.api.IState;
+	import org.flashmonkey.flash.api.IUpdatable;
+	import org.flashmonkey.flash.core.objects.BasicState;
+	import org.flashmonkey.flash.utils.input.Input;
 	
 	import flash.events.Event;
 

@@ -1,4 +1,4 @@
-package org.paperworld.flash.utils.timer 
+package org.flashmonkey.flash.utils.timer 
 {
 	import flash.events.EventDispatcher;
 	import flash.events.TimerEvent;

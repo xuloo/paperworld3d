@@ -1,7 +1,7 @@
-package org.paperworld.flash.ai.sm
+package org.flashmonkey.flash.ai.sm
 {
-	import org.paperworld.flash.api.ai.sm.ICondition;
-	import org.paperworld.flash.api.ai.sm.IStateMachineState;
+	import org.flashmonkey.flash.api.ai.sm.ICondition;
+	import org.flashmonkey.flash.api.ai.sm.IStateMachineState;
 
 	public class ConditionAwareTransition extends Transition
 	{

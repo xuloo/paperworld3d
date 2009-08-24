@@ -9,12 +9,12 @@
  * 
  * Actionscript port - Trevor Burton [worldofpaper@googlemail.com]
  */
-package org.paperworld.flash.ai.steering.pipeline.constraints 
+package org.flashmonkey.flash.ai.steering.pipeline.constraints 
 {
-	import org.paperworld.flash.ai.collision.ICollisionDetector;
-	import org.paperworld.flash.ai.steering.Kinematic;
-	import org.paperworld.flash.ai.steering.pipeline.SteeringConstraint;
-	import org.paperworld.flash.utils.math.Vector3f;	
+	import org.flashmonkey.flash.ai.collision.ICollisionDetector;
+	import org.flashmonkey.flash.ai.steering.Kinematic;
+	import org.flashmonkey.flash.ai.steering.pipeline.SteeringConstraint;
+	import org.flashmonkey.flash.utils.math.Vector3f;	
 
 	/**
 	 * @author Trevor

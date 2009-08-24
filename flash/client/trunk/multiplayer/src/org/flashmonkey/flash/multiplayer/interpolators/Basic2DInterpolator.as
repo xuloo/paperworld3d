@@ -1,7 +1,7 @@
-package org.paperworld.flash.multiplayer.interpolators
+package org.flashmonkey.flash.multiplayer.interpolators
 {
-	import org.paperworld.flash.api.IState;
-	import org.paperworld.flash.multiplayer.api.IInterpolator;
+	import org.flashmonkey.flash.api.IState;
+	import org.flashmonkey.flash.multiplayer.api.IInterpolator;
 
 	/**
 	 * @author Trevor

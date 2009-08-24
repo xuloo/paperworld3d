@@ -1,4 +1,4 @@
-package org.paperworld.flash.api.connection.messages
+package org.flashmonkey.flash.api.connection.messages
 {	
 	public interface IGroupMessage extends IMessage
 	{

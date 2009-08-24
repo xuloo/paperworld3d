@@ -1,9 +1,9 @@
-package org.paperworld.flash.api
+package org.flashmonkey.flash.api
 {
 	import flash.utils.IExternalizable;
 	
-	import org.paperworld.flash.utils.math.Quaternion;
-	import org.paperworld.flash.utils.math.Vector3f;
+	import org.flashmonkey.flash.utils.math.Quaternion;
+	import org.flashmonkey.flash.utils.math.Vector3f;
 	
 	public interface IState extends IExternalizable
 	{

@@ -1,4 +1,4 @@
-package org.paperworld.flash.ai.scheduling 
+package org.flashmonkey.flash.ai.scheduling 
 {
 	/**
 	 * @author Trevor

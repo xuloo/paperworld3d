@@ -1,4 +1,4 @@
-package org.paperworld.flash.pv3d.behaviours
+package org.flashmonkey.flash.pv3d.behaviours
 {
 	public class RotateAroundY extends BasePV3DBehaviour
 	{

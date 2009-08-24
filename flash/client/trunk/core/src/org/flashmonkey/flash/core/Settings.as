@@ -1,4 +1,4 @@
-package org.paperworld.flash.core
+package org.flashmonkey.flash.core
 {
 	public class Settings
 	{

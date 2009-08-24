@@ -1,15 +1,15 @@
-package org.paperworld.flash.connection.client
+package org.flashmonkey.flash.connection.client
 {
 	import com.joeberkovitz.moccasin.service.IOperation;
-	import org.paperworld.flash.api.connection.IClient;
-	import org.paperworld.flash.api.connection.INetConnection;
-	import org.paperworld.flash.api.connection.ISharedObject;
-	import org.paperworld.flash.api.connection.messages.IGroupMessage;
-	import org.paperworld.flash.api.connection.messages.IMessage;
-	import org.paperworld.flash.api.connection.messages.IPlayerMessage;
-	import org.paperworld.flash.connection.handshake.BasicHandshake;
-	import org.paperworld.flash.connection.messages.SendMessageOperation;
-	import org.paperworld.flash.utils.IProcessor;
+	import org.flashmonkey.flash.api.connection.IClient;
+	import org.flashmonkey.flash.api.connection.INetConnection;
+	import org.flashmonkey.flash.api.connection.ISharedObject;
+	import org.flashmonkey.flash.api.connection.messages.IGroupMessage;
+	import org.flashmonkey.flash.api.connection.messages.IMessage;
+	import org.flashmonkey.flash.api.connection.messages.IPlayerMessage;
+	import org.flashmonkey.flash.connection.handshake.BasicHandshake;
+	import org.flashmonkey.flash.connection.messages.SendMessageOperation;
+	import org.flashmonkey.flash.utils.IProcessor;
 	
 	import flash.events.Event;
 	import flash.events.EventDispatcher;

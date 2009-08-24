@@ -1,4 +1,4 @@
-package org.paperworld.flash.api.multiplayer
+package org.flashmonkey.flash.api.multiplayer
 {
 	public interface ISynchronisedScene
 	{

@@ -1,8 +1,8 @@
-package org.paperworld.flash.connection.messages
+package org.flashmonkey.flash.connection.messages
 {
-	import org.paperworld.flash.api.connection.INetConnection;
-	import org.paperworld.flash.api.connection.messages.IMessage;
-	import org.paperworld.flash.utils.NetObject;
+	import org.flashmonkey.flash.api.connection.INetConnection;
+	import org.flashmonkey.flash.api.connection.messages.IMessage;
+	import org.flashmonkey.flash.utils.NetObject;
 	
 	import flash.events.Event;
 	import flash.events.EventDispatcher;

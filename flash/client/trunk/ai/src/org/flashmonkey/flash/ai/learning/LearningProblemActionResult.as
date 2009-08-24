@@ -9,7 +9,7 @@
  * 
  * Actionscript port - Trevor Burton [worldofpaper@googlemail.com]
  */
-package org.paperworld.flash.ai.learning 
+package org.flashmonkey.flash.ai.learning 
 {
 
 	/**

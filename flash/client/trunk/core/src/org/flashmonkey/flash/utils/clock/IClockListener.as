@@ -1,6 +1,6 @@
-package org.paperworld.flash.utils.clock 
+package org.flashmonkey.flash.utils.clock 
 {
-	import org.paperworld.flash.utils.clock.events.ClockEvent;	
+	import org.flashmonkey.flash.utils.clock.events.ClockEvent;	
 
 	/**
 	 * @author Trevor

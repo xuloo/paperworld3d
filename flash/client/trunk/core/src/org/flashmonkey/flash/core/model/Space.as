@@ -1,4 +1,4 @@
-package org.paperworld.flash.core.model
+package org.flashmonkey.flash.core.model
 {
 	import mx.collections.ArrayCollection;
 	import mx.collections.IList;

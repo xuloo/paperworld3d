@@ -1,4 +1,4 @@
-package org.paperworld.flash.connection.messages
+package org.flashmonkey.flash.connection.messages
 {
 	public class RequestIdMessage extends BaseMessage
 	{			

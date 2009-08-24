@@ -1,4 +1,4 @@
-package org.paperworld.flash.connection.events
+package org.flashmonkey.flash.connection.events
 {
 	import flash.events.Event;
 

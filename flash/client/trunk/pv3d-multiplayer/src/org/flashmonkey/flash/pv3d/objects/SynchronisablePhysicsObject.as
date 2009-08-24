@@ -1,8 +1,8 @@
-package org.paperworld.flash.pv3d.objects 
+package org.flashmonkey.flash.pv3d.objects 
 {
-	import org.paperworld.flash.api.IInput;
-	import org.paperworld.flash.api.IPaperworldObject;
-	import org.paperworld.flash.api.IState;
+	import org.flashmonkey.flash.api.IInput;
+	import org.flashmonkey.flash.api.IPaperworldObject;
+	import org.flashmonkey.flash.api.IState;
 	
 	import org.papervision3d.objects.DisplayObject3D;	
 

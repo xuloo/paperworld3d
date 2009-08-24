@@ -1,7 +1,7 @@
-package org.paperworld.flash.multiplayer.avatar 
+package org.flashmonkey.flash.multiplayer.avatar 
 {
-	import org.paperworld.flash.api.IInput;
-	import org.paperworld.flash.api.IState;
+	import org.flashmonkey.flash.api.IInput;
+	import org.flashmonkey.flash.api.IState;
 	
 	import flash.events.Event;	
 

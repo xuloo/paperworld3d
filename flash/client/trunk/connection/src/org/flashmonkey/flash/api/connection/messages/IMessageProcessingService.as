@@ -1,6 +1,6 @@
-package org.paperworld.flash.api.connection.messages
+package org.flashmonkey.flash.api.connection.messages
 {
-	import org.paperworld.flash.utils.IProcessor;
+	import org.flashmonkey.flash.utils.IProcessor;
 	
 	import flash.events.IEventDispatcher;
 	

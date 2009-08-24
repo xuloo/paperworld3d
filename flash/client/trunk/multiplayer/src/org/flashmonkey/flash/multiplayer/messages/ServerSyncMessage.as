@@ -1,8 +1,8 @@
-package org.paperworld.flash.multiplayer.messages
+package org.flashmonkey.flash.multiplayer.messages
 {
-	import org.paperworld.flash.api.multiplayer.messages.IServerSyncMessage;
-	import org.paperworld.flash.api.IState;
-	import org.paperworld.flash.core.objects.BasicState;
+	import org.flashmonkey.flash.api.multiplayer.messages.IServerSyncMessage;
+	import org.flashmonkey.flash.api.IState;
+	import org.flashmonkey.flash.core.objects.BasicState;
 	import flash.utils.IDataInput;
 	import flash.utils.IDataOutput;
 	

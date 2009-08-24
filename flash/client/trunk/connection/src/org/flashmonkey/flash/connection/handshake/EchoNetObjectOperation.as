@@ -1,6 +1,6 @@
-package org.paperworld.flash.connection.handshake
+package org.flashmonkey.flash.connection.handshake
 {
-	import org.paperworld.flash.api.connection.INetConnection;
+	import org.flashmonkey.flash.api.connection.INetConnection;
 	
 	import flash.net.Responder;
 	

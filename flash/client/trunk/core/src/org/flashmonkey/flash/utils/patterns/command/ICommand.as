@@ -1,4 +1,4 @@
-package org.paperworld.flash.utils.patterns.command
+package org.flashmonkey.flash.utils.patterns.command
 {
 	public interface ICommand
 	{

@@ -1,7 +1,7 @@
-package org.paperworld.flash.utils.library
+package org.flashmonkey.flash.utils.library
 {
-	import org.paperworld.flash.utils.library.LibraryManager;
-	import org.paperworld.flash.utils.patterns.iterator.IIterator;
+	import org.flashmonkey.flash.utils.library.LibraryManager;
+	import org.flashmonkey.flash.utils.patterns.iterator.IIterator;
 	
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
@@ -175,7 +175,7 @@ package org.paperworld.flash.utils.library
 	}
 }
 
-import org.paperworld.flash.utils.patterns.iterator.IIterator;
+import org.flashmonkey.flash.utils.patterns.iterator.IIterator;
 import flash.utils.Dictionary;
 
 internal class Singleton

@@ -6,20 +6,20 @@ package {
 	
 	import org.papervision3d.objects.DisplayObject3D;
 	import org.papervision3d.objects.primitives.Sphere;
-	import org.paperworld.flash.api.IPaperworldObject;
-	import org.paperworld.flash.api.connection.IClient;
-	import org.paperworld.flash.api.multiplayer.ISynchronisedAvatar;
-	import org.paperworld.flash.api.multiplayer.ISynchronisedScene;
-	import org.paperworld.flash.connection.Red5Connection;
-	import org.paperworld.flash.connection.RemoteSharedObject;
-	import org.paperworld.flash.connection.client.BasicClient;
-	import org.paperworld.flash.multiplayer.avatar.LocalAvatar;
-	import org.paperworld.flash.multiplayer.messages.ServerSyncMessage;
-	import org.paperworld.flash.multiplayer.sync.SynchronisationManager;
-	import org.paperworld.flash.pv3d.objects.PaperworldObject;
-	import org.paperworld.flash.pv3d.scenes.SynchronisedScene;
-	import org.paperworld.flash.pv3d.views.ChequerBoardView;
-	import org.paperworld.flash.utils.input.Input;
+	import org.flashmonkey.flash.api.IPaperworldObject;
+	import org.flashmonkey.flash.api.connection.IClient;
+	import org.flashmonkey.flash.api.multiplayer.ISynchronisedAvatar;
+	import org.flashmonkey.flash.api.multiplayer.ISynchronisedScene;
+	import org.flashmonkey.flash.connection.Red5Connection;
+	import org.flashmonkey.flash.connection.RemoteSharedObject;
+	import org.flashmonkey.flash.connection.client.BasicClient;
+	import org.flashmonkey.flash.multiplayer.avatar.LocalAvatar;
+	import org.flashmonkey.flash.multiplayer.messages.ServerSyncMessage;
+	import org.flashmonkey.flash.multiplayer.sync.SynchronisationManager;
+	import org.flashmonkey.flash.pv3d.objects.PaperworldObject;
+	import org.flashmonkey.flash.pv3d.scenes.SynchronisedScene;
+	import org.flashmonkey.flash.pv3d.views.ChequerBoardView;
+	import org.flashmonkey.flash.utils.input.Input;
 
 	public class HelloPaperworldFlash extends ChequerBoardView
 	{

@@ -19,7 +19,7 @@
  * Suite 330, Boston, MA 02111-1307 USA 
  * 
  * -------------------------------------------------------------------------------------- */
-package org.paperworld.flash.utils
+package org.flashmonkey.flash.utils
 {
 	/**
 	 * Various utility methods kept here for convenience. 

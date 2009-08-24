@@ -1,4 +1,4 @@
-package org.paperworld.flash.utils
+package org.flashmonkey.flash.utils
 {
 	public class Constants
 	{

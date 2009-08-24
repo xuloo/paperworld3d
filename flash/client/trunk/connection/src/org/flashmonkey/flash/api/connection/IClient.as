@@ -1,10 +1,10 @@
-package org.paperworld.flash.api.connection
+package org.flashmonkey.flash.api.connection
 {
 	import com.joeberkovitz.moccasin.service.IOperation;
-	import org.paperworld.flash.api.connection.messages.IGroupMessage;
-	import org.paperworld.flash.api.connection.messages.IMessage;
-	import org.paperworld.flash.api.connection.messages.IMessageProcessingService;
-	import org.paperworld.flash.api.connection.messages.IPlayerMessage;
+	import org.flashmonkey.flash.api.connection.messages.IGroupMessage;
+	import org.flashmonkey.flash.api.connection.messages.IMessage;
+	import org.flashmonkey.flash.api.connection.messages.IMessageProcessingService;
+	import org.flashmonkey.flash.api.connection.messages.IPlayerMessage;
 	
 	public interface IClient extends IMessageProcessingService
 	{

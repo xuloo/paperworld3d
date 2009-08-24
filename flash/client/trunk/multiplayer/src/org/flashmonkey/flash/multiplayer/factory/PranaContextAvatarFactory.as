@@ -1,7 +1,7 @@
-package org.paperworld.flash.multiplayer.factory
+package org.flashmonkey.flash.multiplayer.factory
 {
-	import org.paperworld.flash.api.multiplayer.ISynchronisedAvatar;
-	import org.paperworld.flash.multiplayer.api.IAvatarFactory;	
+	import org.flashmonkey.flash.api.multiplayer.ISynchronisedAvatar;
+	import org.flashmonkey.flash.multiplayer.api.IAvatarFactory;	
 
 	/**
 	 * @author Trevor

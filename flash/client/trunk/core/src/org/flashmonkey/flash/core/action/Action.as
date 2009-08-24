@@ -9,7 +9,7 @@
  * 
  * Actionscript port - Trevor Burton [worldofpaper@googlemail.com]
  */
-package org.paperworld.flash.core.action 
+package org.flashmonkey.flash.core.action 
 {	
 	import flash.events.EventDispatcher;	
 	/**

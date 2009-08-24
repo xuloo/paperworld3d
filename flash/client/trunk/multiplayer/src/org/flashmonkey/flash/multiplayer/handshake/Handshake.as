@@ -1,15 +1,15 @@
-package org.paperworld.flash.multiplayer.handshake
+package org.flashmonkey.flash.multiplayer.handshake
 {
 	import com.joeberkovitz.moccasin.service.AbstractOperation;
-	import org.paperworld.flash.api.connection.IClient;
-	import org.paperworld.flash.api.connection.INetConnection;
-	import org.paperworld.flash.connection.handshake.ConnectToServerOperation;
-	import org.paperworld.flash.connection.handshake.EchoNetObjectOperation;
-	import org.paperworld.flash.connection.messages.BaseMessage;
-	import org.paperworld.flash.core.objects.BasicState;
-	import org.paperworld.flash.multiplayer.messages.PlayerSyncMessage;
-	import org.paperworld.flash.multiplayer.messages.ServerSyncMessage;
-	import org.paperworld.flash.utils.input.Input;
+	import org.flashmonkey.flash.api.connection.IClient;
+	import org.flashmonkey.flash.api.connection.INetConnection;
+	import org.flashmonkey.flash.connection.handshake.ConnectToServerOperation;
+	import org.flashmonkey.flash.connection.handshake.EchoNetObjectOperation;
+	import org.flashmonkey.flash.connection.messages.BaseMessage;
+	import org.flashmonkey.flash.core.objects.BasicState;
+	import org.flashmonkey.flash.multiplayer.messages.PlayerSyncMessage;
+	import org.flashmonkey.flash.multiplayer.messages.ServerSyncMessage;
+	import org.flashmonkey.flash.utils.input.Input;
 	
 	import org.as3commons.reflect.ClassUtils;
 	import org.springextensions.actionscript.mvcs.service.operation.AsyncOperationSequence;

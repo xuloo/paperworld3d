@@ -19,11 +19,11 @@
  * Suite 330, Boston, MA 02111-1307 USA 
  * 
  * -------------------------------------------------------------------------------------- */
-package org.paperworld.flash.pv3d.objects 
+package org.flashmonkey.flash.pv3d.objects 
 {
-	import org.paperworld.flash.api.IInput;
-	import org.paperworld.flash.api.IPaperworldObject;
-	import org.paperworld.flash.api.IState;
+	import org.flashmonkey.flash.api.IInput;
+	import org.flashmonkey.flash.api.IPaperworldObject;
+	import org.flashmonkey.flash.api.IState;
 	
 	import org.as3commons.logging.ILogger;
 	import org.as3commons.logging.LoggerFactory;

@@ -19,7 +19,7 @@
  * Suite 330, Boston, MA 02111-1307 USA 
  * 
  * -------------------------------------------------------------------------------------- */
-package org.paperworld.flash.utils.keys
+package org.flashmonkey.flash.utils.keys
 {
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]

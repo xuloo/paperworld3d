@@ -1,6 +1,6 @@
-package org.paperworld.flash.core.game
+package org.flashmonkey.flash.core.game
 {
-	import org.paperworld.flash.api.IAvatar;
+	import org.flashmonkey.flash.api.IAvatar;
 	
 	public interface IGame
 	{

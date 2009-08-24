@@ -1,4 +1,4 @@
-package org.paperworld.flash.connection.client.enum
+package org.flashmonkey.flash.connection.client.enum
 {
 	public class ClientState
 	{

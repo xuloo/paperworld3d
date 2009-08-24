@@ -1,4 +1,4 @@
-package org.paperworld.flash.api.ai.sm
+package org.flashmonkey.flash.api.ai.sm
 {
 	import org.springextensions.actionscript.mvcs.service.operation.IOperation;
 	

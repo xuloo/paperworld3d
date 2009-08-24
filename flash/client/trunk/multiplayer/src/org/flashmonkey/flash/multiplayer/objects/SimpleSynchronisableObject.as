@@ -1,8 +1,8 @@
-package org.paperworld.flash.multiplayer.objects 
+package org.flashmonkey.flash.multiplayer.objects 
 {
-	import org.paperworld.flash.api.IInput;
-	import org.paperworld.flash.api.IPaperworldObject;
-	import org.paperworld.flash.api.IState;
+	import org.flashmonkey.flash.api.IInput;
+	import org.flashmonkey.flash.api.IPaperworldObject;
+	import org.flashmonkey.flash.api.IState;
 	
 	import flash.display.Sprite;
 	

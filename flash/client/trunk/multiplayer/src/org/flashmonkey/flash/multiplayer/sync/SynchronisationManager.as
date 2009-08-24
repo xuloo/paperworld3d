@@ -1,22 +1,22 @@
-package org.paperworld.flash.multiplayer.sync
+package org.flashmonkey.flash.multiplayer.sync
 {
 	import com.joeberkovitz.moccasin.service.IOperation;
-	import org.paperworld.flash.api.IInput;
-	import org.paperworld.flash.api.connection.IClient;
-	import org.paperworld.flash.api.connection.messages.IMessage;
-	import org.paperworld.flash.api.multiplayer.ISyncManager;
-	import org.paperworld.flash.api.multiplayer.ISynchronisedAvatar;
-	import org.paperworld.flash.api.multiplayer.ISynchronisedScene;
-	import org.paperworld.flash.api.multiplayer.messages.IServerSyncMessage;
-	import org.paperworld.flash.connection.messages.RequestIdMessage;
-	import org.paperworld.flash.multiplayer.messages.BatchedInputMessage;
-	import org.paperworld.flash.multiplayer.messages.PlayerSyncMessage;
-	import org.paperworld.flash.multiplayer.messages.ServerSyncMessage;
-	import org.paperworld.flash.multiplayer.messages.SynchroniseCreateMessage;
-	import org.paperworld.flash.utils.AbstractProcessor;
-	import org.paperworld.flash.utils.timer.ITimer;
-	import org.paperworld.flash.utils.timer.TimerManager;
-	import org.paperworld.flash.utils.timer.events.ITimerEvent;
+	import org.flashmonkey.flash.api.IInput;
+	import org.flashmonkey.flash.api.connection.IClient;
+	import org.flashmonkey.flash.api.connection.messages.IMessage;
+	import org.flashmonkey.flash.api.multiplayer.ISyncManager;
+	import org.flashmonkey.flash.api.multiplayer.ISynchronisedAvatar;
+	import org.flashmonkey.flash.api.multiplayer.ISynchronisedScene;
+	import org.flashmonkey.flash.api.multiplayer.messages.IServerSyncMessage;
+	import org.flashmonkey.flash.connection.messages.RequestIdMessage;
+	import org.flashmonkey.flash.multiplayer.messages.BatchedInputMessage;
+	import org.flashmonkey.flash.multiplayer.messages.PlayerSyncMessage;
+	import org.flashmonkey.flash.multiplayer.messages.ServerSyncMessage;
+	import org.flashmonkey.flash.multiplayer.messages.SynchroniseCreateMessage;
+	import org.flashmonkey.flash.utils.AbstractProcessor;
+	import org.flashmonkey.flash.utils.timer.ITimer;
+	import org.flashmonkey.flash.utils.timer.TimerManager;
+	import org.flashmonkey.flash.utils.timer.events.ITimerEvent;
 	
 	import flash.events.Event;
 	import flash.utils.Dictionary;

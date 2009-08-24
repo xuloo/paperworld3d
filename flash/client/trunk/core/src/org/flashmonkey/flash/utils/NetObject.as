@@ -1,13 +1,13 @@
-package org.paperworld.flash.utils
+package org.flashmonkey.flash.utils
 {
 	import flash.utils.IDataInput;
 	import flash.utils.IDataOutput;
 	import flash.utils.IExternalizable;
 	
 	import org.as3commons.reflect.ClassUtils;
-	import org.paperworld.flash.utils.Constants;
-	import org.paperworld.flash.utils.IRegisteredClass;
-	import org.paperworld.flash.utils.Registration;
+	import org.flashmonkey.flash.utils.Constants;
+	import org.flashmonkey.flash.utils.IRegisteredClass;
+	import org.flashmonkey.flash.utils.Registration;
 	import org.springextensions.actionscript.utils.StringUtils;
 
 	public class NetObject implements IExternalizable, IRegisteredClass

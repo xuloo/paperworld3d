@@ -19,14 +19,14 @@
  * Suite 330, Boston, MA 02111-1307 USA 
  * 
  * -------------------------------------------------------------------------------------- */
-package org.paperworld.flash.utils.clock
+package org.flashmonkey.flash.utils.clock
 {
 	import flash.events.EventDispatcher;
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
 	import flash.utils.getTimer;
 
-	import org.paperworld.flash.utils.clock.events.ClockEvent;		
+	import org.flashmonkey.flash.utils.clock.events.ClockEvent;		
 
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]

@@ -1,7 +1,7 @@
-package org.paperworld.flash.api.multiplayer.messages
+package org.flashmonkey.flash.api.multiplayer.messages
 {
-	import org.paperworld.flash.api.IInput;
-	import org.paperworld.flash.api.IState;
+	import org.flashmonkey.flash.api.IInput;
+	import org.flashmonkey.flash.api.IState;
 	
 	public interface ISynchroniseCreateMessage
 	{

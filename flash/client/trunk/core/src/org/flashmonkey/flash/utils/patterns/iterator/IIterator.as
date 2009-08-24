@@ -1,4 +1,4 @@
-package org.paperworld.flash.utils.patterns.iterator
+package org.flashmonkey.flash.utils.patterns.iterator
 {
 	public interface IIterator
 	{

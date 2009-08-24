@@ -1,9 +1,9 @@
-package org.paperworld.flash.api.multiplayer 
+package org.flashmonkey.flash.api.multiplayer 
 {
-	import org.paperworld.flash.api.IAvatar;
-	import org.paperworld.flash.api.IInput;
-	import org.paperworld.flash.api.IState;
-	import org.paperworld.flash.utils.input.IUserInput;
+	import org.flashmonkey.flash.api.IAvatar;
+	import org.flashmonkey.flash.api.IInput;
+	import org.flashmonkey.flash.api.IState;
+	import org.flashmonkey.flash.utils.input.IUserInput;
 	
 	import flash.events.Event;	
 

@@ -1,14 +1,14 @@
-package org.paperworld.flash.core.objects
+package org.flashmonkey.flash.core.objects
 {
 	import flash.utils.IDataInput;
 	import flash.utils.IDataOutput;
 	
-	import org.paperworld.flash.api.IState;
-	import org.paperworld.flash.utils.IRegisteredClass;
-	import org.paperworld.flash.utils.NetObject;
-	import org.paperworld.flash.utils.Registration;
-	import org.paperworld.flash.utils.math.Quaternion;
-	import org.paperworld.flash.utils.math.Vector3f;
+	import org.flashmonkey.flash.api.IState;
+	import org.flashmonkey.flash.utils.IRegisteredClass;
+	import org.flashmonkey.flash.utils.NetObject;
+	import org.flashmonkey.flash.utils.Registration;
+	import org.flashmonkey.flash.utils.math.Quaternion;
+	import org.flashmonkey.flash.utils.math.Vector3f;
 	
 	public class BasicState extends NetObject implements IState, IRegisteredClass
 	{	

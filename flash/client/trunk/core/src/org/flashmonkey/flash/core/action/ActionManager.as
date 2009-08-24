@@ -9,7 +9,7 @@
  * 
  * Actionscript port - Trevor Burton [worldofpaper@googlemail.com]
  */
-package org.paperworld.flash.core.action 
+package org.flashmonkey.flash.core.action 
 {
 	/**
 	 * The action manager is a central marshalling system that can be

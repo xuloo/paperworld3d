@@ -1,6 +1,6 @@
-package org.paperworld.flash.multiplayer.api
+package org.flashmonkey.flash.multiplayer.api
 {
-	import org.paperworld.flash.api.IState;					
+	import org.flashmonkey.flash.api.IState;					
 	
 	/**
 	 * @author Trevor

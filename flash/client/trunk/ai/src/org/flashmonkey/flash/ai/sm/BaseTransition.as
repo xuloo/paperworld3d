@@ -9,9 +9,9 @@
  * 
  * Actionscript port - Trevor Burton [worldofpaper@googlemail.com]
  */
-package org.paperworld.flash.ai.sm 
+package org.flashmonkey.flash.ai.sm 
 {
-	import org.paperworld.flash.core.action.Action;	
+	import org.flashmonkey.flash.core.action.Action;	
 	
 	/**
 	 * The base transition is used for any kind of state machine. It

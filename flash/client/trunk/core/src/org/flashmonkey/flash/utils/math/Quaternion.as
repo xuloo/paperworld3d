@@ -1,6 +1,6 @@
-package org.paperworld.flash.utils.math
+package org.flashmonkey.flash.utils.math
 {
-	import org.paperworld.flash.utils.IRegisteredClass;
+	import org.flashmonkey.flash.utils.IRegisteredClass;
 	
 	import flash.utils.IDataInput;
 	import flash.utils.IDataOutput;

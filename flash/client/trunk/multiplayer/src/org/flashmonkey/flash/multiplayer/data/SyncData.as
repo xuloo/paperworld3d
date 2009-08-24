@@ -19,7 +19,7 @@
  * Suite 330, Boston, MA 02111-1307 USA 
  * 
  * -------------------------------------------------------------------------------------- */
-package org.paperworld.flash.multiplayer.data
+package org.flashmonkey.flash.multiplayer.data
 {
 
 	/**

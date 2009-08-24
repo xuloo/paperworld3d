@@ -9,10 +9,10 @@
  * 
  * Actionscript port - Trevor Burton [worldofpaper@googlemail.com]
  */
-package org.paperworld.flash.ai.steering.behaviours.kinematic
+package org.flashmonkey.flash.ai.steering.behaviours.kinematic
 {
-	import org.paperworld.flash.utils.number.RandomUtils;
-	import org.paperworld.flash.ai.steering.SteeringOutput;	
+	import org.flashmonkey.flash.utils.number.RandomUtils;
+	import org.flashmonkey.flash.ai.steering.SteeringOutput;	
 
 	/**
 	 * @author Trevor

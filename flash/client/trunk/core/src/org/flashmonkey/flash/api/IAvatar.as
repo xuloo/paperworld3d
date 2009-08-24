@@ -1,4 +1,4 @@
-package org.paperworld.flash.api
+package org.flashmonkey.flash.api
 {	
 	public interface IAvatar
 	{

@@ -1,6 +1,6 @@
-package org.paperworld.flash.ai.scheduling 
+package org.flashmonkey.flash.ai.scheduling 
 {
-	import org.paperworld.flash.core.action.Action;
+	import org.flashmonkey.flash.core.action.Action;
 
 	/**
 	 * @author Trevor

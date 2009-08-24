@@ -1,6 +1,6 @@
-package org.paperworld.flash.utils.input
+package org.flashmonkey.flash.utils.input
 {
-	import org.paperworld.flash.utils.input.events.UserInputEvent;		
+	import org.flashmonkey.flash.utils.input.events.UserInputEvent;		
 
 	/**
 	 * @author Trevor

@@ -19,11 +19,11 @@
  * Suite 330, Boston, MA 02111-1307 USA 
  * 
  * -------------------------------------------------------------------------------------- */
-package org.paperworld.flash.utils.input 
+package org.flashmonkey.flash.utils.input 
 {
-	import org.paperworld.flash.utils.keys.KeyDefinitions;
-	import org.paperworld.flash.utils.keys.KeyDownCommand;
-	import org.paperworld.flash.utils.keys.KeyUpCommand;
+	import org.flashmonkey.flash.utils.keys.KeyDefinitions;
+	import org.flashmonkey.flash.utils.keys.KeyDownCommand;
+	import org.flashmonkey.flash.utils.keys.KeyUpCommand;
 	
 	import flash.display.Stage;	
 

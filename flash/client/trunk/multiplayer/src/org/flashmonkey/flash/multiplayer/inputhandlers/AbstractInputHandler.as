@@ -1,7 +1,7 @@
-package org.paperworld.flash.multiplayer.inputhandlers 
+package org.flashmonkey.flash.multiplayer.inputhandlers 
 {
-	import org.paperworld.flash.api.IAvatar;
-	import org.paperworld.flash.api.IBehaviour;	
+	import org.flashmonkey.flash.api.IAvatar;
+	import org.flashmonkey.flash.api.IBehaviour;	
 
 	/**
 	 * @author Trevor

@@ -1,4 +1,4 @@
-package org.paperworld.flash.utils.math
+package org.flashmonkey.flash.utils.math
 {
 	public class FastMath
 	{
