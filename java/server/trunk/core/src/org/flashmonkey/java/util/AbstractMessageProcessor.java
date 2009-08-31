@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class AbstractProcessor {
+public abstract class AbstractMessageProcessor {
 
 	private List<Class<?>> types = Collections.synchronizedList(new ArrayList<Class<?>>());
 

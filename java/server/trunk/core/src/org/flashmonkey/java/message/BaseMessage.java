@@ -1,4 +1,4 @@
-package org.flashmonkey.java.connection.messages;
+package org.flashmonkey.java.message;
 
 import org.flashmonkey.java.core.net.NetObject;
 import org.flashmonkey.java.message.api.IMessage;

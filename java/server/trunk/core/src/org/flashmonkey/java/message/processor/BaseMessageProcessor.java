@@ -1,9 +1,9 @@
 package org.flashmonkey.java.message.processor;
 
 import org.flashmonkey.java.connection.red5.service.api.IPaperworldService;
-import org.flashmonkey.java.util.AbstractProcessor;
+import org.flashmonkey.java.util.AbstractMessageProcessor;
 
-public class BaseMessageProcessor extends AbstractProcessor {
+public class BaseMessageProcessor extends AbstractMessageProcessor {
 
 	protected IPaperworldService service;
 	

@@ -12,7 +12,7 @@ import org.flashmonkey.java.connection.red5.service.api.IPaperworldService;
 import org.flashmonkey.java.message.api.IMessage;
 import org.flashmonkey.java.message.processor.BroadcastMessageProcessor;
 import org.flashmonkey.java.player.api.IPlayer;
-import org.flashmonkey.java.util.AbstractProcessor;
+import org.flashmonkey.java.util.AbstractMessageProcessor;
 import org.red5.server.adapter.MultiThreadedApplicationAdapter;
 import org.red5.server.api.IClient;
 import org.red5.server.api.IConnection;
@@ -33,7 +33,7 @@ public abstract class BasePaperworldService extends AbstractService implements I
 	
 	protected final ConcurrentMap<String, IAvatar> avatars = new ConcurrentHashMap<String, IAvatar>();
 	
-	protected final List<AbstractProcessor> messageProcessors = Collections.synchronizedList(new ArrayList<AbstractProcessor>());
+	protected final List<AbstractMessageProcessor> messageProcessors = Collections.synchronizedList(new ArrayList<AbstractMessageProcessor>());
 
 	protected Map<String, Integer> idMap = new ConcurrentHashMap<String, Integer>();
 	
@@ -46,7 +46,7 @@ public abstract class BasePaperworldService extends AbstractService implements I
 	}
 	
 	@Override
-	public void addMessageProcessor(AbstractProcessor processor) {
+	public void addMessageProcessor(AbstractMessageProcessor processor) {
 		messageProcessors.add(processor);
 	}
 
@@ -125,7 +125,7 @@ public abstract class BasePaperworldService extends AbstractService implements I
 	@Override
 	public Object receiveMessage(IMessage message) {
 		System.out.println("receiving message: " + message);
-		for (AbstractProcessor processor : messageProcessors) {
+		for (AbstractMessageProcessor processor : messageProcessors) {
 			if (processor.canProcess(message.getClass())) {
 				return processor.process(message);
 			}

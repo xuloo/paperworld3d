@@ -4,7 +4,7 @@ import org.red5.io.amf3.IDataInput;
 import org.red5.io.amf3.IDataOutput;
 
 import org.flashmonkey.java.api.message.IPlayerMessage;
-import org.flashmonkey.java.connection.messages.BaseMessage;
+import org.flashmonkey.java.message.BaseMessage;
 
 public abstract class BasePlayerMessage extends BaseMessage implements IPlayerMessage {
 

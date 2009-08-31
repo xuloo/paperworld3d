@@ -4,7 +4,6 @@
     <filelist id="java.server.projects.filelist" dir=".">
 		<file name="core" />
 		<file name="ai" />
-		<file name="connection/red5" />
 		<file name="multiplayer" />
 		<file name="adaptor/jmonkey" />
 	</filelist>

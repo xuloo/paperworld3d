@@ -1,7 +1,8 @@
-package org.flashmonkey.java.connection.messages.processors;
+package org.flashmonkey.java.multiplayer.messages.processors;
 
-import org.flashmonkey.java.connection.messages.RequestIdMessage;
 import org.flashmonkey.java.connection.red5.service.api.IPaperworldService;
+import org.flashmonkey.java.message.processor.BaseMessageProcessor;
+import org.flashmonkey.java.multiplayer.messages.RequestIdMessage;
 
 public class RequestIdMessageProcessor extends BaseMessageProcessor {
 

@@ -1,8 +1,8 @@
 package org.flashmonkey.java.multiplayer.messages;
 
 import org.flashmonkey.java.api.message.IPlayerSyncMessage;
-import org.flashmonkey.java.connection.messages.BaseMessage;
 import org.flashmonkey.java.input.api.IInput;
+import org.flashmonkey.java.message.BaseMessage;
 import org.red5.io.amf3.IDataInput;
 import org.red5.io.amf3.IDataOutput;
 

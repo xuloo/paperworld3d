@@ -6,7 +6,7 @@ import org.flashmonkey.java.avatar.api.IAvatar;
 import org.flashmonkey.java.avatar.factory.api.IAvatarFactory;
 import org.flashmonkey.java.message.api.IMessage;
 import org.flashmonkey.java.player.api.IPlayer;
-import org.flashmonkey.java.util.AbstractProcessor;
+import org.flashmonkey.java.util.AbstractMessageProcessor;
 import org.red5.server.api.so.ISharedObject;
 
 public interface IPaperworldService extends IService {
@@ -19,7 +19,7 @@ public interface IPaperworldService extends IService {
 	
 	public Map<String, IPlayer> getPlayers();
 	
-	public void addMessageProcessor(AbstractProcessor processor);
+	public void addMessageProcessor(AbstractMessageProcessor processor);
 	
 	public IPlayer getPlayer(String id);
 	

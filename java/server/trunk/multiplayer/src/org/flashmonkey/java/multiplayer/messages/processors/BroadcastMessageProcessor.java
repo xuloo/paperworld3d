@@ -2,9 +2,9 @@ package org.flashmonkey.java.multiplayer.messages.processors;
 
 import java.util.Map;
 
-import org.flashmonkey.java.connection.messages.processors.BaseMessageProcessor;
 import org.flashmonkey.java.connection.red5.service.api.IPaperworldService;
 import org.flashmonkey.java.message.api.IMessage;
+import org.flashmonkey.java.message.processor.BaseMessageProcessor;
 import org.flashmonkey.java.player.api.IPlayer;
 
 public class BroadcastMessageProcessor extends BaseMessageProcessor {
