@@ -1,10 +1,10 @@
 <!-- build-assets.xml: This file pulls in definitions of all build assets for
      project directories below it. -->
-<project name="paperworld.java.assets">
+<project name="paperworld.java.examples.assets">
 	
-	<dirname property="paperworld.java.assets.dir" file="${ant.file.paperworld.java.assets}"/>
+	<dirname property="paperworld.java.examples.assets.dir" file="${ant.file.paperworld.java.examples.assets}"/>
 	
-    <import file="${paperworld.java.assets.dir}/HelloWorldMultiplayer/build-assets.xml"/>
+    <import file="${paperworld.java.examples.assets.dir}/HelloWorldMultiplayer/build-assets.xml"/>
     <!--import file="connection/build-assets.xml"/>
 	<import file="ai/build-assets.xml"/>
 	<import file="multiplayer/build-assets.xml"/-->

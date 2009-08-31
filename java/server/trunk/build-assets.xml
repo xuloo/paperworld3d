@@ -1,15 +1,20 @@
-<!-- Build assets for library1.  Note that all paths are defined
-     relative to ${multi.dir} since we don't know what the current
-     directory is in which Ant is running. -->
-<project name="paperworld-server.assets">
-    <dirname property="paperworld-server.assets.dir" file="${ant.file.paperworld-server.assets}"/>
+<!-- build-assets.xml: This file pulls in definitions of all build assets for
+     project directories below it. -->
+<project name="paperworld.java.server.assets">
 	
-	<property name="red5.jar" location="${red5.dir}/red5.jar" />
-	<property name="jme.jar" location="${paperworld-server.assets.dir}/lib/jme.jar" />
-	<property name="slf4j.jar" location="${paperworld-server.assets.dir}/lib/slf4j-api-1.5.6.jar" />
-	<property name="spring.core.jar" location="${paperworld-server.assets.dir}/lib/spring-core-2.5.6.jar" />
-
-    <!-- Define JAR exported by this library. -->
-    <property name="paperworld-server.jar" location="${paperworld-server.assets.dir}/${build.dist.dir}/paperworld-server.jar"/>
+	<dirname property="paperworld.java.server.assets.dir" file="${ant.file.paperworld.java.server.assets}"/>
+	
+    <import file="core/build-assets.xml"/>
+    <import file="connection/red5/build-assets.xml"/>
+	<import file="ai/build-assets.xml"/>
+	<import file="multiplayer/build-assets.xml"/>
+	<import file="adaptor/jmonkey/build-assets.xml"/>
+	<!--import file="multiplayer/build-assets.xml"/-->
+	<!--import file="pv3d-core/build-assets.xml"/-->
+	<!--import file="pv3d-multiplayer/build-assets.xml"/-->
+	
+	<!-- Define library SWC files shared by the flash projects. -->		
+	<property name="paperworld.jme.jar" location="${paperworld.java.server.assets.dir}/lib/jme.jar"/>
+	<property name="paperworld.red5.jar" location="${red5.dir}/red5.jar"/>
 
 </project>
