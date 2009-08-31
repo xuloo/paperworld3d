@@ -17,15 +17,8 @@
         encode the project build order that should be used
     -->
     <filelist id="children.filelist" dir=".">
-        <file name="flash/client/trunk/core"/>
-        <file name="flash/client/trunk/connection"/>
-		<file name="flash/client/trunk/ai"/>
-		<file name="flash/client/trunk/multiplayer"/>
-		<file name="flash/client/trunk/pv3d-core"/>
-		<file name="flash/client/trunk/pv3d-multiplayer"/>
-		<file name="flash/examples/trunk/HelloPaperworld"/>
-		<file name="java/server/trunk"/>
-		<file name="java/examples/trunk/HelloWorldMultiplayer"/>
+        <file name="flash"/>
+		<file name="java"/>
     </filelist>
 	
 </project>
