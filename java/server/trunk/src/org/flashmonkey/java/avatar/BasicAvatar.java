@@ -4,6 +4,7 @@ import org.flashmonkey.java.api.IAvatar;
 import org.flashmonkey.java.api.IBehaviour;
 import org.flashmonkey.java.api.IInput;
 import org.flashmonkey.java.api.IPlayer;
+import org.flashmonkey.java.behaviour.NullBehaviour;
 import org.flashmonkey.java.core.objects.BasicState;
 import org.flashmonkey.java.input.BasicInput;
 import org.red5.server.api.IConnection;
@@ -18,7 +19,7 @@ public class BasicAvatar implements IAvatar {
 	
 	protected BasicState state;
 	
-	protected IBehaviour behaviour;
+	protected IBehaviour behaviour = new NullBehaviour();
 	
 	protected IConnection connection;
 	

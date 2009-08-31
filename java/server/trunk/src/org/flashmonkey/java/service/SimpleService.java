@@ -80,8 +80,7 @@ public class SimpleService extends AbstractPaperworldService {
 				try {
 					IPlayer player = avatar.getOwner();
 					String id = player.getId();
-					BasicState state = avatar.getState();
-					System.out.println(avatar + " position" + state.px + " " + state.py + " " + state.pz);
+
 					IServerSyncMessage syncMessage = new ServerSyncMessage(id,
 							avatar.getId(), avatar.getTime(), avatar.getInput(), avatar
 									.getState());

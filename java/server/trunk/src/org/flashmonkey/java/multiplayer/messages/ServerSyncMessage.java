@@ -8,7 +8,7 @@ import org.red5.io.amf3.IDataOutput;
 
 public class ServerSyncMessage extends PlayerSyncMessage implements IServerSyncMessage {
 
-	private BasicState state;
+	protected BasicState state;
 	
 	public ServerSyncMessage() {
 		
@@ -40,5 +40,9 @@ public class ServerSyncMessage extends PlayerSyncMessage implements IServerSyncM
 		super.writeExternal(output);
 		
 		output.writeObject(state);
+	}
+	
+	public String toString() {
+		return "ServerSyncMessage[From: " + senderId + " RE: " + objectId + "]";
 	}
 }

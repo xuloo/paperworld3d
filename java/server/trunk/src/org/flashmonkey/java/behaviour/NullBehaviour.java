@@ -4,7 +4,7 @@ import org.flashmonkey.java.api.IBehaviour;
 import org.flashmonkey.java.api.IInput;
 import org.flashmonkey.java.core.objects.BasicState;
 
-public class BasicBehaviour implements IBehaviour {
+public class NullBehaviour implements IBehaviour {
 
 	@Override
 	public void update(int time, IInput input, BasicState state) {

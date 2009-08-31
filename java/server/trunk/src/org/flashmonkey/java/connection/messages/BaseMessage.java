@@ -7,7 +7,7 @@ import org.red5.io.amf3.IDataOutput;
 
 public class BaseMessage extends NetObject implements IMessage {
 
-	private String senderId;
+	protected String senderId;
 	
 	public BaseMessage() {
 		

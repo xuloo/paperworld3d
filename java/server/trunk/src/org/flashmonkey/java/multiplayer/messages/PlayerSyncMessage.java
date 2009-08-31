@@ -8,11 +8,11 @@ import org.red5.io.amf3.IDataOutput;
 
 public class PlayerSyncMessage extends BaseMessage implements IPlayerSyncMessage {
 
-	private String objectId = "";
+	protected String objectId = "";
 	
-	private IInput input;
+	protected IInput input;
 	
-	private int time;
+	protected int time;
 	
 	public PlayerSyncMessage() {
 		super();
