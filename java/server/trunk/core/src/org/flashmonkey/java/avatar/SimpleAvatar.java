@@ -1,13 +1,9 @@
 package org.flashmonkey.java.avatar;
 
-import org.flashmonkey.java.avatar.api.IAvatar;
 import org.flashmonkey.java.behaviour.NullBehaviour;
-import org.flashmonkey.java.behaviour.api.IBehaviour;
 import org.flashmonkey.java.core.objects.BasicState;
 import org.flashmonkey.java.input.SimpleInput;
 import org.flashmonkey.java.input.api.IInput;
-import org.flashmonkey.java.player.api.IPlayer;
-import org.red5.server.api.IConnection;
 
 public class SimpleAvatar extends AbstractAvatar {
 	

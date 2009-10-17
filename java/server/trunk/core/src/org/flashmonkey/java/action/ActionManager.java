@@ -110,7 +110,7 @@ public class ActionManager
 				previous = next.next;
 				
 				// Keep a temp of what we're about to delete
-				Action temp = next;
+				//Action temp = next;
 				
 				// Move the next pointer only along (previous stays)
 				next = next.next;

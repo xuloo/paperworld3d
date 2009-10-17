@@ -7,7 +7,6 @@ import java.util.List;
 import org.flashmonkey.java.avatar.api.IAvatar;
 import org.flashmonkey.java.message.api.IMessage;
 import org.flashmonkey.java.player.api.IPlayer;
-import org.red5.server.api.IConnection;
 
 public abstract class AbstractPlayer implements IPlayer {
 

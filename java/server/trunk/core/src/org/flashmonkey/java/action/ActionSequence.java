@@ -50,7 +50,7 @@ public class ActionSequence extends ActionCompound {
         // Then consume it if its done
         if (subActions.isComplete()) {
 
-            Action temp = subActions;
+           // Action temp = subActions;
             subActions = subActions.next;
             //delete temp;
         }

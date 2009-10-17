@@ -10,7 +10,7 @@
 	is intended to be displayed by tools. The display 
 	name need not be unique.
 	-->
-	<display-name>HelloWorldMultiplayerJava5</display-name>
+	<display-name>HelloWorldMultiplayer</display-name>
 	
 	<!--
 	The context-param element contains the declaration of a web
@@ -18,7 +18,7 @@
 	-->	
 	<context-param>
 		<param-name>webAppRootKey</param-name>
-		<param-value>/HelloWorldMultiplayerJava5</param-value>
+		<param-value>/HelloWorldMultiplayer</param-value>
 	</context-param>
 	
     <!-- 
