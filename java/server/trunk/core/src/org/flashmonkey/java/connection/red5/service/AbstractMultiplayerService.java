@@ -105,12 +105,10 @@ public abstract class AbstractMultiplayerService extends AbstractService impleme
 
 	}
 
-	@Override
 	public void receiveMessage(IMessage message) {
 		message.read(this);
 	}
-	
-	@Override 
+	 
 	public void sendMessage(IMessage message) {
 		
 	}

@@ -18,12 +18,10 @@ public abstract class BaseGroupMessage extends BaseMessage implements
 		this.groupId = groupId;
 	}
 	
-	@Override
 	public String getGroupId() {
 		return groupId;
 	}
 
-	@Override
 	public void setGroupId(String groupId) {
 		this.groupId = groupId;
 	}

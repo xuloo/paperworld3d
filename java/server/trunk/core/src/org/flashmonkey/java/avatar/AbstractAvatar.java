@@ -27,17 +27,14 @@ public abstract class AbstractAvatar implements IAvatar {
 		
 	}
 	
-	@Override
 	public void setBehaviour(IBehaviour behaviour) {
 		this.behaviour = behaviour;
 	}
 
-	@Override
 	public IConnection getConnection() {
 		return connection;
 	}
 
-	@Override
 	public void setConnection(IConnection connection) {
 		this.connection = connection;
 	}
@@ -46,45 +43,36 @@ public abstract class AbstractAvatar implements IAvatar {
 		return state;
 	}
 
-	@Override
 	public IPlayer getOwner() {
 		return owner;
 	}
 
-	@Override
 	public void setOwner(IPlayer owner) {
 		this.owner = owner;		
 	}
 
-	@Override
 	public String getId() {
 		return id;
 	}
 
-	@Override
 	public void setId(String id) {
 		this.id = id;
 	}
 
-	@Override
 	public IInput getInput() {
 		return input;
 	}
 
-	@Override
 	public void setInput(IInput input) {
 		this.input = input;
 	}
 	
-	@Override
 	public int getTime() {
 		return time;
 	}
 
-	@Override
 	public abstract void update();
 
-	@Override
 	public abstract void updateUserInput(int time, IInput input);
 
 }

@@ -53,14 +53,12 @@ public class SimpleService extends BasePaperworldService {
 		avatars.put(avatar.getId(), avatar);
 	}
 
-	@Override
 	public IAvatar getAvatar(String objectId) {
 		return avatars.get(objectId);
 	}
 
 	private class UpdateConnectionsJob implements IScheduledJob {
 
-		@Override
 		public void execute(ISchedulingService service)
 				throws CloneNotSupportedException {
 
@@ -91,7 +89,6 @@ public class SimpleService extends BasePaperworldService {
 	
 	private class UpdateAvatarsJob implements IScheduledJob {
 
-		@Override
 		public void execute(ISchedulingService service) throws CloneNotSupportedException {
 			for (String key : avatars.keySet()) {
 				avatars.get(key).update();
@@ -104,7 +101,6 @@ public class SimpleService extends BasePaperworldService {
 		return factory;
 	}*/
 
-	@Override
 	public void setAvatarFactory(IAvatarFactory factory) {
 		this.factory = factory;
 	}

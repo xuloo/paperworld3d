@@ -9,12 +9,10 @@ public class NetObject implements IExternalizable {
 	public NetObject() {
 	}
 	
-	@Override
 	public void readExternal(IDataInput input) {
 		
 	}
 
-	@Override
 	public void writeExternal(IDataOutput output) {
 		
 	}

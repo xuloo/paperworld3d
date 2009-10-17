@@ -28,32 +28,26 @@ public class PlayerSyncMessage extends AbstractMessage implements IPlayerSyncMes
 		this.input = input;
 	}
 	
-	@Override
 	public String getObjectId() {
 		return objectId;
 	}
 	
-	@Override 
 	public void setObjectId(String objectId) {
 		this.objectId = objectId;
 	}
 	
-	@Override
 	public IInput getInput() {
 		return input;
 	}
 	
-	@Override
 	public void setInput(IInput input) {
 		this.input = input;
 	}	
 
-	@Override
 	public int getTime() {
 		return time;
 	}	
 
-	@Override
 	public void setTime(int time) {
 		this.time = time;
 	}

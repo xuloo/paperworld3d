@@ -16,7 +16,6 @@ public abstract class AbstractMessage extends NetObject implements IMessage {
 	
 	public abstract void read(IMultiplayerService service);
 	
-	@Override
 	public void write(IMultiplayerService service) {
 		
 	}
@@ -25,12 +24,10 @@ public abstract class AbstractMessage extends NetObject implements IMessage {
 		this.senderId = senderId;
 	}
 	
-	@Override
 	public String getSenderId() {
 		return senderId;
 	}
 	
-	@Override
 	public void setSenderId(String senderId) {
 		this.senderId = senderId;
 	}

@@ -37,7 +37,6 @@ public class AbstractAvatarBehaviour implements IBehaviour {
         return speed;
     }
     
-	@Override
 	public void update(int time, IInput input, BasicState state) {
 		
 	}

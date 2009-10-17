@@ -39,42 +39,34 @@ public class SynchroniseCreateMessage extends BroadcastMessage implements
 		super.read(service);
 	}
 	
-	@Override
 	public String getPlayerId() {
 		return playerId;
 	}
 
-	@Override
 	public void setPlayerId(String playerId) {
 		this.playerId = playerId;
 	}
 	
-	@Override
 	public String getObjectId() {
 		return objectId;
 	}
 	
-	@Override
 	public void setObjectId(String objectId) {
 		this.objectId = objectId;
 	}
 	
-	@Override
 	public IInput getInput() {
 		return input;
 	}
 	
-	@Override
 	public void setInput(IInput input) {
 		this.input = input;		
 	}
 
-	@Override
 	public BasicState getState() {
 		return state;
 	}	
 
-	@Override
 	public void setState(BasicState state) {
 		this.state = state;
 	}

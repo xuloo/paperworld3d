@@ -6,10 +6,8 @@ import net.schst.EventDispatcher.EventDispatcher;
 public abstract class AbstractAsyncOperation extends EventDispatcher implements
 		IAsyncOperation {
 
-	@Override 
 	public abstract void execute();
 	
-	@Override
 	public void result() {
 		try {
 			triggerEvent(new Event(Event.COMPLETE, this));
@@ -18,7 +16,6 @@ public abstract class AbstractAsyncOperation extends EventDispatcher implements
 		}
 	}
 
-	@Override
 	public void error() {
 		try {
 			triggerEvent(new Event(Event.ERROR, this));

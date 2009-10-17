@@ -18,6 +18,5 @@ public class NullBehaviour implements IBehaviour {
 	 * 
 	 * Does nothing!
 	 */
-	@Override
 	public void update(int time, IInput input, BasicState state) {}
 }

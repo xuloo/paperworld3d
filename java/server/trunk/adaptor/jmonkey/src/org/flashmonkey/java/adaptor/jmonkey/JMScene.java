@@ -14,18 +14,15 @@ public class JMScene extends SimpleHeadlessApp implements IScene {
 		
 	}
 	
-	@Override
 	public IAvatar addChild(IAvatar child) {
 		rootNode.attachChild((Spatial) child);
 		return null;
 	}
 
-	@Override
 	public List<IAvatar> getChildren() {
 		return null;
 	}
 
-	@Override
 	public IAvatar removeChild(IAvatar child) {
 		// TODO Auto-generated method stub
 		return null;

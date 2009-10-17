@@ -42,7 +42,6 @@ public class CompositeBehaviour implements IBehaviour {
 	 * 
 	 * Iterate over all the behaviours in our list and call update() on each.
 	 */
-	@Override
 	public void update(int time, IInput input, BasicState state) {
 		for (IBehaviour behaviour : behaviours) {
 			behaviour.update(time, input, state);

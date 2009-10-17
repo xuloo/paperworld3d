@@ -11,7 +11,6 @@ public class SimpleAvatarFactory implements IAvatarFactory {
 		
 	}
 	
-	@Override
 	public IAvatar getAvatar(IPlayer player) {
 		IAvatar avatar = new SimpleAvatar();
 		avatar.setOwner(player);

@@ -23,19 +23,14 @@ public abstract class AbstractState implements IState {
 
 	public float oz = 0.0f;
 	
-	@Override
 	public abstract Quaternion getOrientation();
 
-	@Override
 	public abstract Vector3f getPosition();
 
-	@Override
 	public abstract void setOrientation(Quaternion orientation);
 
-	@Override
 	public abstract void setPosition(Vector3f position);
 
-	@Override
 	public void readExternal(IDataInput input) {
 		px = input.readFloat();
 		py = input.readFloat();
@@ -46,7 +41,6 @@ public abstract class AbstractState implements IState {
 		ow = input.readFloat();
 	}
 
-	@Override
 	public void writeExternal(IDataOutput output) {
 		output.writeFloat(px);
 		output.writeFloat(py);

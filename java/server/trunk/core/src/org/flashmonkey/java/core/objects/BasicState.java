@@ -23,7 +23,6 @@ public class BasicState implements IExternalizable {
 	public BasicState() {
 	}
 
-	@Override
 	public void readExternal(IDataInput input) {
 		px = input.readFloat();
 		py = input.readFloat();
@@ -34,7 +33,6 @@ public class BasicState implements IExternalizable {
 		ow = input.readFloat();
 	}
 
-	@Override
 	public void writeExternal(IDataOutput output) {
 		output.writeFloat(px);
 		output.writeFloat(py);
