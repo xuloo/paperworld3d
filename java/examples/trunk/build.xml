@@ -2,7 +2,7 @@
     <import file="build-imports.xml"/>
 	
 	<filelist id="java.examples.filelist" dir=".">
-		<file name="HelloWorldMultiplayer"/>
+		<file name="HelloWorldMultiplayerJava5"/>
 	</filelist>
 
     <!-- targets -->	
