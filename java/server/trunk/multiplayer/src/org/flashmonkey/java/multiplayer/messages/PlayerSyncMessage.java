@@ -1,12 +1,14 @@
 package org.flashmonkey.java.multiplayer.messages;
 
 import org.flashmonkey.java.api.message.IPlayerSyncMessage;
+import org.flashmonkey.java.avatar.api.IAvatar;
+import org.flashmonkey.java.connection.red5.service.api.IMultiplayerService;
 import org.flashmonkey.java.input.api.IInput;
-import org.flashmonkey.java.message.BaseMessage;
+import org.flashmonkey.java.message.AbstractMessage;
 import org.red5.io.amf3.IDataInput;
 import org.red5.io.amf3.IDataOutput;
 
-public class PlayerSyncMessage extends BaseMessage implements IPlayerSyncMessage {
+public class PlayerSyncMessage extends AbstractMessage implements IPlayerSyncMessage {
 
 	protected String objectId = "";
 	
@@ -72,5 +74,11 @@ public class PlayerSyncMessage extends BaseMessage implements IPlayerSyncMessage
 		output.writeUTF(objectId);
 		output.writeInt(time);
 		output.writeObject(input);
+	}
+
+	@Override
+	public void read(IMultiplayerService service) {
+		IAvatar avatar = service.getAvatar(getObjectId());
+		avatar.updateUserInput(getTime(), getInput());
 	}
 }

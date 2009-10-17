@@ -5,6 +5,7 @@
     <path id="javac.lib.path">
 		<pathelement location="${paperworld.red5.jar}" />
 		<pathelement location="${paperworld.jme.jar}" />
+		<pathelement location="${eventdispatcher.jar}" />
 	</path>
 
     <!-- targets -->

@@ -6,9 +6,7 @@ import org.flashmonkey.java.avatar.factory.SimpleAvatarFactory;
 import org.flashmonkey.java.avatar.factory.api.IAvatarFactory;
 import org.flashmonkey.java.connection.red5.service.BasePaperworldService;
 import org.flashmonkey.java.multiplayer.messages.ServerSyncMessage;
-import org.flashmonkey.java.multiplayer.messages.processors.BatchedInputMessageProcessor;
-import org.flashmonkey.java.multiplayer.messages.processors.RequestIdMessageProcessor;
-import org.flashmonkey.java.multiplayer.messages.processors.SynchroniseCreateMessageProcessor;
+import org.flashmonkey.java.player.SimplePlayer;
 import org.flashmonkey.java.player.api.IPlayer;
 import org.red5.server.api.IConnection;
 import org.red5.server.api.scheduling.IScheduledJob;
@@ -28,27 +26,23 @@ public class SimpleService extends BasePaperworldService {
 
 		application.addScheduledJob(200, new UpdateConnectionsJob());
 		application.addScheduledJob(100, new UpdateAvatarsJob());
-
-		addMessageProcessor(new RequestIdMessageProcessor(this));
-		addMessageProcessor(new SynchroniseCreateMessageProcessor(this));
-		addMessageProcessor(new BatchedInputMessageProcessor(this));
 	}
 
 	@Override
 	public boolean appConnect(IConnection connection, Object[] args) {
 		String uid = connection.getClient().getId();
 		String username = args[0].toString();
-		System.out.println("before creating player");
-		IPlayer player = createPlayer(username);
 
-		System.out.println("after creating player");
+		IPlayer player = createPlayer(connection, username);
+
 		players.put(uid, player);
 		idMap.put(uid, 0);
+		
 		return true;
 	}
 
-	protected IPlayer createPlayer(String username) {
-		return new BasicPlayer(username);
+	protected IPlayer createPlayer(IConnection connection, String username) {
+		return new SimplePlayer(connection, username);
 	}
 
 	public IPlayer getPlayer(String id) {
@@ -98,8 +92,7 @@ public class SimpleService extends BasePaperworldService {
 	private class UpdateAvatarsJob implements IScheduledJob {
 
 		@Override
-		public void execute(ISchedulingService service)
-				throws CloneNotSupportedException {
+		public void execute(ISchedulingService service) throws CloneNotSupportedException {
 			for (String key : avatars.keySet()) {
 				avatars.get(key).update();
 			}

@@ -1,13 +1,16 @@
 package org.flashmonkey.java.multiplayer.messages;
 
 import org.flashmonkey.java.api.message.ISynchroniseCreateMessage;
+import org.flashmonkey.java.avatar.api.IAvatar;
+import org.flashmonkey.java.connection.red5.service.api.IMultiplayerService;
 import org.flashmonkey.java.core.objects.BasicState;
 import org.flashmonkey.java.input.api.IInput;
-import org.flashmonkey.java.message.BaseMessage;
+import org.flashmonkey.java.message.BroadcastMessage;
+import org.flashmonkey.java.player.api.IPlayer;
 import org.red5.io.amf3.IDataInput;
 import org.red5.io.amf3.IDataOutput;
 
-public class SynchroniseCreateMessage extends BaseMessage implements
+public class SynchroniseCreateMessage extends BroadcastMessage implements
 		ISynchroniseCreateMessage {
 
 	private String playerId;
@@ -20,6 +23,20 @@ public class SynchroniseCreateMessage extends BaseMessage implements
 	
 	public SynchroniseCreateMessage() {
 		
+	}
+	
+	public void read(IMultiplayerService service) {		
+		IPlayer player = service.getPlayer(getPlayerId());
+
+		IAvatar avatar = player.getScopeObject();
+		avatar.setId(getObjectId());
+
+		service.registerAvatar(avatar);
+
+		setInput(avatar.getInput());
+		setState(avatar.getState());
+		
+		super.read(service);
 	}
 	
 	@Override
