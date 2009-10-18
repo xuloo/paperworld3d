@@ -4,8 +4,6 @@ package {
 	import flash.events.Event;
 	import flash.events.NetStatusEvent;
 	
-	import org.papervision3d.objects.DisplayObject3D;
-	import org.papervision3d.objects.primitives.Sphere;
 	import org.flashmonkey.flash.api.IPaperworldObject;
 	import org.flashmonkey.flash.api.connection.IClient;
 	import org.flashmonkey.flash.api.multiplayer.ISynchronisedAvatar;
@@ -14,12 +12,14 @@ package {
 	import org.flashmonkey.flash.connection.RemoteSharedObject;
 	import org.flashmonkey.flash.connection.client.BasicClient;
 	import org.flashmonkey.flash.multiplayer.avatar.LocalAvatar;
+	import org.flashmonkey.flash.multiplayer.handshake.Handshake;
 	import org.flashmonkey.flash.multiplayer.messages.ServerSyncMessage;
 	import org.flashmonkey.flash.multiplayer.sync.SynchronisationManager;
 	import org.flashmonkey.flash.pv3d.objects.PaperworldObject;
 	import org.flashmonkey.flash.pv3d.scenes.SynchronisedScene;
 	import org.flashmonkey.flash.pv3d.views.ChequerBoardView;
 	import org.flashmonkey.flash.utils.input.Input;
+	import org.papervision3d.objects.primitives.Sphere;
 
 	public class HelloPaperworldFlash extends ChequerBoardView
 	{
@@ -36,6 +36,7 @@ package {
 			connection.rtmpURI = "rtmp://localhost/HelloWorldMultiplayer";
 			
 			client = new BasicClient(connection);
+			client.handshake = new Handshake(client);
 			client.sharedObject = new RemoteSharedObject("avatars", connection);
 			
 			syncManager = new SynchronisationManager();

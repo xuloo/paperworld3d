@@ -4,6 +4,11 @@ package org.flashmonkey.flash.connection.messages
 	{			
 		private var _uniqueId:String;
 		
+		override public function get aliasName():String
+		{
+			return "org.flashmonkey.java.multiplayer.messages.RequestIdMessage";
+		}
+		
 		public function RequestIdMessage()
 		{
 			super();

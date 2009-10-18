@@ -3,11 +3,11 @@
 
     <!-- This library doesn't depend on anything else. -->
     <path id="javac.lib.path">
-        <pathelement location="paperworld-java-core.jar" />
-		<!--pathelement location="${red5.jar}" /-->
+        <pathelement location="${paperworld-java-core.jar}" />
+		<pathelement location="${paperworld.red5.jar}" />
 		<!--pathelement location="${jme.jar}" /-->
-		<!--pathelement location="${slf4j.jar}" /-->
-		<!--pathelement location="${spring.core.jar}" /-->
+		<pathelement location="${paperworld.slf4j.jar}" />
+		<pathelement location="${paperworld.spring.core.jar}" />
 	</path>
 
     <!-- targets -->

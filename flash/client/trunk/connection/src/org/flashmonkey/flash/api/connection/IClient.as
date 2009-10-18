@@ -1,6 +1,7 @@
 package org.flashmonkey.flash.api.connection
 {
 	import com.joeberkovitz.moccasin.service.IOperation;
+	
 	import org.flashmonkey.flash.api.connection.messages.IGroupMessage;
 	import org.flashmonkey.flash.api.connection.messages.IMessage;
 	import org.flashmonkey.flash.api.connection.messages.IMessageProcessingService;
@@ -15,6 +16,8 @@ package org.flashmonkey.flash.api.connection
 		function get sharedObject():ISharedObject;
 		
 		function set sharedObject(value:ISharedObject):void;
+		
+		function set handshake(value:IOperation):void;
 		
 		function get id():String;
 		

@@ -35,4 +35,6 @@
 	    class="org.red5.core.Application" 
 		singleton="true" />
  
+	<bean id="multiplayer.service" class="org.flashmonkey.java.adaptor.jmonkey.JMService" />
+ 
 </beans>

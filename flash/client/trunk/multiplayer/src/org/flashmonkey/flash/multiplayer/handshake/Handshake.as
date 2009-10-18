@@ -27,7 +27,7 @@ package org.flashmonkey.flash.multiplayer.handshake
 	 */
 	public class Handshake extends AbstractOperation
 	{
-		private var classesToRegister:Array = [Input, BasicState, BaseMessage, PlayerSyncMessage, ServerSyncMessage];
+		private var classesToRegister:Array = [/*Input, */BasicState, BaseMessage, PlayerSyncMessage, ServerSyncMessage];
 		
 		private var _client:IClient;
 		

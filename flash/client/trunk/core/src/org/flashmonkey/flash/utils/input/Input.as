@@ -32,8 +32,8 @@ package org.flashmonkey.flash.utils.input
 	/**
 	 * @author Trevor Burton [worldofpaper@googlemail.com]
 	 */
-	public class Input implements IInput, IExternalizable, IRegisteredClass
-	{				
+	public class Input extends NetObject implements IInput
+	{		
 		public static const MOVE_FORWARD:String = "moveForward";
 		
 		private var _moveForward:Boolean;
@@ -253,11 +253,6 @@ package org.flashmonkey.flash.utils.input
 		{
 			_mouseY = value;
 		}
-		
-		public function get aliasName():String 
-		{
-			return "org.flashmonkey.java.input.BasicInput";
-		}
 
 		public function Input(moveForward : Boolean = false, moveBackward : Boolean = false, 
 							  moveRight : Boolean = false, moveLeft : Boolean = false, 
@@ -351,7 +346,7 @@ package org.flashmonkey.flash.utils.input
 			_mouseY			= other.mouseY;
 		}
 		
-		public function writeExternal(output:IDataOutput):void
+		override public function writeExternal(output:IDataOutput):void
 		{
 			output.writeBoolean(_moveForward);
 			output.writeBoolean(_moveBackward);
@@ -374,7 +369,7 @@ package org.flashmonkey.flash.utils.input
 		/**
 		 * @inheritDoc
 		 */
-		public function readExternal(input:IDataInput):void
+		override public function readExternal(input:IDataInput):void
 		{
 			_moveForward = input.readBoolean();
 			_moveBackward = input.readBoolean();

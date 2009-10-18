@@ -1,6 +1,12 @@
 package org.flashmonkey.flash.connection.client
 {
 	import com.joeberkovitz.moccasin.service.IOperation;
+	
+	import flash.events.Event;
+	import flash.events.EventDispatcher;
+	import flash.events.SyncEvent;
+	import flash.net.SharedObject;
+	
 	import org.flashmonkey.flash.api.connection.IClient;
 	import org.flashmonkey.flash.api.connection.INetConnection;
 	import org.flashmonkey.flash.api.connection.ISharedObject;
@@ -10,11 +16,6 @@ package org.flashmonkey.flash.connection.client
 	import org.flashmonkey.flash.connection.handshake.BasicHandshake;
 	import org.flashmonkey.flash.connection.messages.SendMessageOperation;
 	import org.flashmonkey.flash.utils.IProcessor;
-	
-	import flash.events.Event;
-	import flash.events.EventDispatcher;
-	import flash.events.SyncEvent;
-	import flash.net.SharedObject;
 
 	/**
 	 * A simple implementation of the IClient interface. This client wraps a single Red5Connection/RemoteSharedObject
@@ -93,6 +94,13 @@ package org.flashmonkey.flash.connection.client
 			}
 		}
 		
+		private var _handshake:IOperation;
+		
+		public function set handshake(value:IOperation):void 
+		{
+			_handshake = value;
+		}
+		
 		private var messageProcessors:Array = [];
 				
 		public function BasicClient(connection:INetConnection = null, sharedObject:ISharedObject = null)
@@ -111,10 +119,14 @@ package org.flashmonkey.flash.connection.client
 		{
 			trace("BasicClient connecting " + connection.rtmpURI);
 			
-			var handshake:IOperation = new BasicHandshake(this);
-			handshake.addEventListener(Event.COMPLETE, onConnectionEstablished);
+			if (!_handshake)
+			{
+				_handshake = new BasicHandshake(this);
+			}
 			
-			return handshake;
+			_handshake.addEventListener(Event.COMPLETE, onConnectionEstablished);
+			
+			return _handshake;
 		}
 		
 		/**
